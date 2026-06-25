@@ -1,0 +1,6 @@
+{
+  "name": "@konnit/config",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./eslint.js"
+}

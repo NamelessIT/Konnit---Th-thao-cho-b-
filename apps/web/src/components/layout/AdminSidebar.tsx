@@ -1,0 +1,114 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  LayoutDashboard,
+  FolderTree,
+  FileText,
+  Image as ImageIcon,
+  LogOut,
+} from "lucide-react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarHeader,
+  SidebarFooter,
+} from "@/components/ui/sidebar";
+import { useAuth } from "@/hooks/useAuth";
+
+const CMS_MENU = [
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/cms/categories", label: "Danh mục", icon: FolderTree },
+  { href: "/admin/cms/pages", label: "Trang", icon: FileText },
+  { href: "/admin/cms/uploads", label: "Media", icon: ImageIcon },
+];
+
+export function AdminSidebar() {
+  const pathname = usePathname();
+  const { user, logout } = useAuth();
+
+  const initials = (user?.fullName || user?.email || "?")
+    .split(" ")
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+  return (
+    <Sidebar className="border-[var(--konnit-pink-03)]">
+      <SidebarHeader className="border-b border-[var(--konnit-pink-03)] px-4 py-4">
+        <Link href="/admin" className="group flex items-center gap-2.5">
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-[var(--konnit-berry)] font-bold text-white shadow-sm transition-transform duration-500 group-hover:rotate-12">
+            K
+          </span>
+          <span className="flex flex-col leading-tight">
+            <span className="font-bold text-[var(--konnit-berry)]">Konnit</span>
+            <span className="text-xs text-[var(--konnit-muted)]">Admin CMS</span>
+          </span>
+        </Link>
+      </SidebarHeader>
+
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Quản lý</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {CMS_MENU.map((item) => {
+                const active =
+                  item.href === "/admin"
+                    ? pathname === "/admin"
+                    : pathname.startsWith(item.href);
+                const Icon = item.icon;
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      render={<Link href={item.href} />}
+                      isActive={active}
+                      className="gap-3 data-[active=true]:bg-[var(--konnit-pink-02)] data-[active=true]:font-semibold data-[active=true]:text-[var(--konnit-berry)]"
+                    >
+                      <Icon className="size-4.5" />
+                      <span>{item.label}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SidebarFooter className="border-t border-[var(--konnit-pink-03)] p-3">
+        {user && (
+          <div className="flex items-center gap-3 rounded-xl px-2 py-1.5">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[var(--konnit-berry)] text-xs font-bold text-white">
+              {initials}
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium text-[var(--konnit-ink)]">
+                {user.fullName || user.email}
+              </p>
+              <p className="truncate text-xs text-[var(--konnit-muted)]">
+                {user.role}
+              </p>
+            </div>
+            <button
+              onClick={logout}
+              title="Đăng xuất"
+              className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-destructive transition-colors hover:bg-destructive/10"
+            >
+              <LogOut className="size-3.5" />
+              Thoát
+            </button>
+          </div>
+        )}
+      </SidebarFooter>
+    </Sidebar>
+  );
+}
