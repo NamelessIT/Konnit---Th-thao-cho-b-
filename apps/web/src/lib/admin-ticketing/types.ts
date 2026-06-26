@@ -65,5 +65,6 @@ export interface AdminOrder {
     ticket_name: string;
     attendee_name: string;
     unit_price: number;
+    qr_token?: string;
   }>;
 }

@@ -8,7 +8,7 @@ import { useCartStore, type CartItem } from "@/store/cart";
 import { useBuyerStore } from "@/store/buyer";
 import { useHasMounted } from "@/hooks/useHasMounted";
 import { formatVND } from "@/lib/shop/format";
-import { shopApi } from "@/lib/shop/api";
+import { shopApi, VoucherValidationError } from "@/lib/shop/api";
 import { useHoldableStepper } from "@/hooks/useHoldableStepper";
 import { useDebounce } from "@/hooks/useDebounce";
 
@@ -177,8 +177,11 @@ export function CartDetail() {
             setVoucherError("Mã giảm giá không còn hiệu lực cho giỏ hàng mới.");
           }
         })
-        .catch(() => {
+        .catch((error) => {
           setVoucher(null);
+          if (error instanceof VoucherValidationError) {
+            setVoucherError(error.message);
+          }
         });
     } else {
       lastValidated.current = { code: "", subtotal: 0 };
@@ -202,6 +205,12 @@ export function CartDetail() {
       } else {
         setVoucherError("Mã giảm giá không hợp lệ hoặc đã hết hạn.");
       }
+    } catch (error) {
+      setVoucherError(
+        error instanceof VoucherValidationError
+          ? error.message
+          : "Mã giảm giá không hợp lệ hoặc đã hết hạn.",
+      );
     } finally {
       setIsValidating(false);
     }

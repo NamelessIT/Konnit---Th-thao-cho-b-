@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import {
   CheckCircle2,
@@ -28,7 +28,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { formatVND } from "@/lib/shop/format";
-import { MOCK_ORDERS } from "@/lib/admin-ticketing/mock-orders";
+import { useFetch } from "@/hooks/useCmsData";
 import type { AdminOrder } from "@/lib/admin-ticketing/types";
 
 type StatusFilter = "all" | "pending" | "paid" | "failed" | "expired";
@@ -52,12 +52,25 @@ const VALID_TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
 };
 
 export default function AdminOrdersPage() {
-  const [orders, setOrders] = useState<AdminOrder[]>(MOCK_ORDERS);
+  const { data: fetchedOrders, loading, error, refetch } =
+    useFetch<AdminOrder[]>("/admin/orders");
+  const [orders, setOrders] = useState<AdminOrder[]>([]);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOrder, setSelectedOrder] = useState<AdminOrder | null>(null);
   const [newStatus, setNewStatus] = useState<OrderStatus | "">("");
   const [updatingCode, setUpdatingCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    setOrders(fetchedOrders ?? []);
+  }, [fetchedOrders]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      refetch();
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [refetch]);
 
   const filteredOrders = useMemo(() => {
     let list = orders;
@@ -95,22 +108,7 @@ export default function AdminOrdersPage() {
     if (!selectedOrder || !newStatus) return;
 
     setUpdatingCode(selectedOrder.order_code);
-    // Simulate API delay
-    await new Promise((r) => setTimeout(r, 600));
-
-    setOrders((prev) =>
-      prev.map((o) =>
-        o.order_code === selectedOrder.order_code
-          ? { ...o, status: newStatus as OrderStatus }
-          : o,
-      ),
-    );
-
-    setSelectedOrder((prev) =>
-      prev?.order_code === selectedOrder.order_code
-        ? { ...prev, status: newStatus as OrderStatus }
-        : prev,
-    );
+    await refetch();
 
     toast.success(
       `Đã cập nhật đơn ${selectedOrder.order_code} → ${STATUS_LABELS[newStatus as OrderStatus]}`,
@@ -175,7 +173,11 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Table */}
-      {filteredOrders.length === 0 ? (
+      {loading ? (
+        <p className="text-muted-foreground">Đang tải đơn hàng...</p>
+      ) : error ? (
+        <p className="text-sm text-destructive">{error}</p>
+      ) : filteredOrders.length === 0 ? (
         <EmptyState
           title={
             statusFilter !== "all" || searchQuery
@@ -340,6 +342,11 @@ export default function AdminOrdersPage() {
                     >
                       <span className="flex-1 font-medium">
                         {item.attendee_name}
+                        {item.qr_token && (
+                          <span className="mt-1 block break-all font-mono text-xs text-green-700">
+                            {item.qr_token}
+                          </span>
+                        )}
                       </span>
                       <span className="w-28 text-right text-muted-foreground">
                         {item.ticket_name}
@@ -367,6 +374,7 @@ export default function AdminOrdersPage() {
                   <select
                     value={newStatus}
                     onChange={(e) => setNewStatus(e.target.value as OrderStatus)}
+                    disabled
                     className="rounded-xl border border-input bg-background px-3 py-2 text-sm outline-none transition focus:border-[var(--konnit-berry)] focus:ring-2 focus:ring-[var(--konnit-berry)]/20"
                   >
                     <option value="">-- Chọn trạng thái mới --</option>
@@ -379,7 +387,7 @@ export default function AdminOrdersPage() {
 
                   <Button
                     onClick={handleUpdateStatus}
-                    disabled={!newStatus || updatingCode === selectedOrder.order_code}
+                    disabled
                   >
                     {updatingCode === selectedOrder.order_code ? (
                       <>Đang cập nhật...</>

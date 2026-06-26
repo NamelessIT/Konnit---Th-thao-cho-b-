@@ -103,6 +103,25 @@ export function OrderStatusPanel({ code }: { code: string }) {
           </div>
         </div>
 
+        {order.status === "paid" && order.items.some((item) => item.qr_token) && (
+          <div className="mx-auto mb-6 max-w-md rounded-xl border border-green-100 bg-green-50 p-4 text-left">
+            <p className="mb-3 text-sm font-bold text-green-700">Vé điện tử</p>
+            <div className="space-y-2">
+              {order.items.map((item) => (
+                <div key={item.id} className="rounded-lg bg-white px-3 py-2 text-sm">
+                  <p className="font-bold text-[var(--konnit-ink)]">{item.attendee_name}</p>
+                  <p className="text-xs text-[var(--konnit-muted)]">{item.ticket_name}</p>
+                  {item.qr_token && (
+                    <p className="mt-1 break-all font-mono text-xs text-green-700">
+                      {item.qr_token}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="flex flex-wrap justify-center gap-3">
           {order.status === "pending" && (
             <Link

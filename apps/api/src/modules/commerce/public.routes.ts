@@ -5,6 +5,7 @@ import { publicReadLimiter } from '../../middleware/rateLimit';
 import * as eventsCtrl from '../events/events.controller';
 import * as ticketsCtrl from '../tickets/tickets.controller';
 import * as vouchersCtrl from '../vouchers/vouchers.controller';
+import * as ordersCtrl from '../orders/orders.controller';
 import { validateVoucherSchema } from '../vouchers/vouchers.validation';
 
 /** Public storefront read endpoints (events, ticket types, voucher validate). */
@@ -16,3 +17,6 @@ publicShopRoutes.get('/events/:slug', asyncHandler(eventsCtrl.getPublicBySlug));
 publicShopRoutes.get('/ticket-types', asyncHandler(ticketsCtrl.listPublic));
 publicShopRoutes.get('/ticket-types/:id', asyncHandler(ticketsCtrl.getPublic));
 publicShopRoutes.post('/vouchers/validate', validate(validateVoucherSchema), asyncHandler(vouchersCtrl.validatePublic));
+publicShopRoutes.post('/orders', asyncHandler(ordersCtrl.createPublic));
+publicShopRoutes.get('/orders/:code', asyncHandler(ordersCtrl.getPublic));
+publicShopRoutes.post('/orders/:code/pay', asyncHandler(ordersCtrl.payPublic));

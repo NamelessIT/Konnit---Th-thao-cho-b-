@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Pencil, Plus, Ticket, Trash2 } from "lucide-react";
 import { PageHeader } from "@/components/common/PageHeader";
@@ -73,6 +73,13 @@ export default function AdminTicketTypesPage() {
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      refetch();
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [refetch]);
 
   const eventMap = useMemo(() => {
     const map = new Map<number, string>();

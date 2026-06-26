@@ -9,7 +9,7 @@ import { useCartStore } from "@/store/cart";
 import { useBuyerStore } from "@/store/buyer";
 import { useHasMounted } from "@/hooks/useHasMounted";
 import { formatVND } from "@/lib/shop/format";
-import { shopApi } from "@/lib/shop/api";
+import { shopApi, VoucherValidationError } from "@/lib/shop/api";
 import { Button } from "@/components/ui/button";
 import { PaymentMethodPicker, type PaymentMethod } from "@/components/shop/PaymentMethodPicker";
 import Link from "next/link";
@@ -125,10 +125,14 @@ export function CheckoutForm() {
           setVoucherError("Mã không còn hợp lệ cho đơn hàng hiện tại.");
         }
       })
-      .catch(() => {
+      .catch((error) => {
         if (isActive) {
           setVoucher(null);
-          setVoucherError("Không thể kiểm tra mã giảm giá. Vui lòng thử lại.");
+          setVoucherError(
+            error instanceof VoucherValidationError
+              ? error.message
+              : "Không thể kiểm tra mã giảm giá. Vui lòng thử lại.",
+          );
         }
       });
 
@@ -151,6 +155,12 @@ export function CheckoutForm() {
       } else {
         setVoucherError("Mã không hợp lệ hoặc đã hết hạn.");
       }
+    } catch (error) {
+      setVoucherError(
+        error instanceof VoucherValidationError
+          ? error.message
+          : "Mã không hợp lệ hoặc đã hết hạn.",
+      );
     } finally {
       setIsValidatingVoucher(false);
     }

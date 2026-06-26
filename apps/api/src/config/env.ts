@@ -21,6 +21,11 @@ export const env = {
 
   // Order hold (slot reservation) window in minutes
   ORDER_HOLD_MINUTES: parseInt(process.env.ORDER_HOLD_MINUTES || '15', 10),
+  REDIS_URL: process.env.REDIS_URL || '',
+  PUBLIC_TICKETS_CACHE_TTL_SECONDS: parseInt(
+    process.env.PUBLIC_TICKETS_CACHE_TTL_SECONDS || '30',
+    10,
+  ),
 
   // VNPay sandbox (https://sandbox.vnpayment.vn/apis/)
   VNPAY_TMN_CODE: process.env.VNPAY_TMN_CODE || '',

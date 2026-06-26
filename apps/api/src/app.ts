@@ -17,6 +17,7 @@ import { uploadRoutes } from './modules/uploads/uploads.routes';
 import { eventsRoutes } from './modules/events/events.routes';
 import { ticketTypesRoutes } from './modules/tickets/tickets.routes';
 import { vouchersRoutes } from './modules/vouchers/vouchers.routes';
+import { ordersRoutes } from './modules/orders/orders.routes';
 import { publicShopRoutes } from './modules/commerce/public.routes';
 
 export const app = express();
@@ -55,6 +56,7 @@ app.use('/api/admin/uploads', uploadRoutes);
 app.use('/api/admin/events', eventsRoutes);
 app.use('/api/admin/ticket-types', ticketTypesRoutes);
 app.use('/api/admin/vouchers', vouchersRoutes);
+app.use('/api/admin/orders', ordersRoutes);
 app.use('/api/public', publicShopRoutes);
 
 // Error handler (must be last)
