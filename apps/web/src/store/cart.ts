@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { VoucherPreview } from "@/lib/shop/types";
 
 export interface CartItem {
   ticketTypeId: number;
@@ -14,6 +15,7 @@ export interface CartItem {
 
 interface CartState {
   items: CartItem[];
+  voucher: VoucherPreview | null;
   add: (item: Omit<CartItem, "quantity" | "selected">, qty?: number) => void;
   remove: (id: number) => void;
   setQty: (id: number, qty: number) => void;
@@ -22,6 +24,8 @@ interface CartState {
   selectOnly: (id: number) => void; // <-- thêm ở đây
 
   setAllSelected: (v: boolean) => void;
+  setVoucher: (voucher: VoucherPreview | null) => void;
+  clearVoucher: () => void;
   clearSelected: () => void;
   clear: () => void;
 }
@@ -30,6 +34,7 @@ export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
       items: [],
+      voucher: null,
       add: (item, qty = 1) =>
         set((s) => {
           const existing = s.items.find((i) => i.ticketTypeId === item.ticketTypeId);
@@ -66,8 +71,10 @@ export const useCartStore = create<CartState>()(
         })),
       setAllSelected: (v) =>
         set((s) => ({ items: s.items.map((i) => ({ ...i, selected: v })) })),
-      clearSelected: () => set((s) => ({ items: s.items.filter((i) => !i.selected) })),
-      clear: () => set({ items: [] }),
+      setVoucher: (voucher) => set({ voucher }),
+      clearVoucher: () => set({ voucher: null }),
+      clearSelected: () => set((s) => ({ items: s.items.filter((i) => !i.selected), voucher: null })),
+      clear: () => set({ items: [], voucher: null }),
     }),
     { name: "konnit-cart" },
   ),

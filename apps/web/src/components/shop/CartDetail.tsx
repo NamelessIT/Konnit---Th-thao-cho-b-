@@ -9,7 +9,6 @@ import { useBuyerStore } from "@/store/buyer";
 import { useHasMounted } from "@/hooks/useHasMounted";
 import { formatVND } from "@/lib/shop/format";
 import { shopApi } from "@/lib/shop/api";
-import type { VoucherPreview } from "@/lib/shop/types";
 import { useHoldableStepper } from "@/hooks/useHoldableStepper";
 import { useDebounce } from "@/hooks/useDebounce";
 
@@ -28,9 +27,22 @@ function CartItemRow({
   onSetQty,
   onToggleSelect,
 }: CartItemRowProps) {
+  const [localQty, setLocalQty] = useState(item.quantity);
+  const debouncedQty = useDebounce(localQty, 350);
+
+  useEffect(() => {
+    setLocalQty(item.quantity);
+  }, [item.quantity]);
+
+  useEffect(() => {
+    if (debouncedQty !== item.quantity) {
+      onSetQty(item.ticketTypeId, debouncedQty);
+    }
+  }, [debouncedQty, item.quantity, item.ticketTypeId, onSetQty]);
+
   const { startHold, stopHold } = useHoldableStepper(
-    item.quantity,
-    (newQty) => onSetQty(item.ticketTypeId, newQty),
+    localQty,
+    setLocalQty,
     { min: 1, max },
   );
 
@@ -66,12 +78,12 @@ function CartItemRow({
             startHold(-1);
           }}
           onTouchEnd={stopHold}
-          disabled={item.quantity <= 1}
+          disabled={localQty <= 1}
           className="flex h-7 w-7 items-center justify-center rounded-full border border-slate-200 hover:bg-slate-50 select-none disabled:opacity-40"
         >
           <Minus className="h-3 w-3" />
         </button>
-        <span className="w-6 text-center text-sm font-bold">{item.quantity}</span>
+        <span className="w-6 text-center text-sm font-bold">{localQty}</span>
         <button
           onMouseDown={(e) => {
             e.preventDefault();
@@ -84,7 +96,7 @@ function CartItemRow({
             startHold(1);
           }}
           onTouchEnd={stopHold}
-          disabled={item.quantity >= max}
+          disabled={localQty >= max}
           className="flex h-7 w-7 items-center justify-center rounded-full border border-slate-200 hover:bg-slate-50 select-none disabled:opacity-40"
         >
           <Plus className="h-3 w-3" />
@@ -93,7 +105,7 @@ function CartItemRow({
 
       <div className="text-right shrink-0">
         <p className="text-sm font-bold text-[var(--konnit-ink)]">
-          {formatVND(item.unitPrice * item.quantity)}
+          {formatVND(item.unitPrice * debouncedQty)}
         </p>
         <button
           onClick={() => onRemove(item.ticketTypeId)}
@@ -108,11 +120,10 @@ function CartItemRow({
 
 export function CartDetail() {
   const hasMounted = useHasMounted();
-  const { items, remove, setQty, toggleSelect, setAllSelected } = useCartStore();
+  const { items, voucher, remove, setQty, toggleSelect, setAllSelected, setVoucher } = useCartStore();
   const { buyer } = useBuyerStore();
 
   const [voucherInput, setVoucherInput] = useState("");
-  const [voucher, setVoucher] = useState<VoucherPreview | null>(null);
   const [voucherError, setVoucherError] = useState("");
   const [isValidating, setIsValidating] = useState(false);
 
@@ -147,19 +158,20 @@ export function CartDetail() {
   const lastValidated = useRef({ code: "", subtotal: 0 });
 
   useEffect(() => {
-    if (voucher) {
+    const code = voucher?.code;
+    if (code) {
       if (
-        lastValidated.current.code === voucher.code &&
+        lastValidated.current.code === code &&
         lastValidated.current.subtotal === subtotal
       ) {
         return;
       }
       shopApi
-        .validateVoucher(voucher.code, subtotal)
+        .validateVoucher(code, subtotal)
         .then((result) => {
           if (result) {
             setVoucher(result);
-            lastValidated.current = { code: voucher.code, subtotal };
+            lastValidated.current = { code, subtotal };
           } else {
             setVoucher(null);
             setVoucherError("Mã giảm giá không còn hiệu lực cho giỏ hàng mới.");
@@ -171,7 +183,7 @@ export function CartDetail() {
     } else {
       lastValidated.current = { code: "", subtotal: 0 };
     }
-  }, [subtotal, voucher]);
+  }, [subtotal, voucher?.code, setVoucher]);
 
   if (!hasMounted) return null;
 
@@ -337,7 +349,7 @@ export function CartDetail() {
             </div>
 
             <Link
-              href="/thanh-toan"
+              href={voucher ? `/thanh-toan?voucher=${encodeURIComponent(voucher.code)}` : "/thanh-toan"}
               className={`block w-full rounded-xl py-2.5 text-center text-sm font-bold text-white transition ${
                 selectedItems.length === 0
                   ? "pointer-events-none bg-slate-200"
@@ -357,4 +369,4 @@ export function CartDetail() {
       </div>
     </main>
   );
-}
+}

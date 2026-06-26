@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useForm, useFieldArray } from "react-hook-form";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Plus, Minus, Loader2, Tag } from "lucide-react";
 import { toast } from "sonner";
 import { useCartStore } from "@/store/cart";
@@ -13,7 +13,7 @@ import { shopApi } from "@/lib/shop/api";
 import { Button } from "@/components/ui/button";
 import { PaymentMethodPicker, type PaymentMethod } from "@/components/shop/PaymentMethodPicker";
 import Link from "next/link";
-import type { VoucherPreview } from "@/lib/shop/types";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface ChildFormData {
   ticketTypeId: number;
@@ -43,12 +43,11 @@ function emptyChild(ticketTypeId: number): ChildFormData {
 export function CheckoutForm() {
   const hasMounted = useHasMounted();
   const router = useRouter();
-  const { items } = useCartStore();
+  const { items, voucher, setVoucher } = useCartStore();
   const { buyer, setBuyer } = useBuyerStore();
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("qr");
   const [voucherInput, setVoucherInput] = useState("");
-  const [voucher, setVoucher] = useState<VoucherPreview | null>(null);
   const [voucherError, setVoucherError] = useState("");
   const [isValidatingVoucher, setIsValidatingVoucher] = useState(false);
 
@@ -66,7 +65,7 @@ export function CheckoutForm() {
     Array.from({ length: item.quantity }, () => emptyChild(item.ticketTypeId)),
   );
 
-  const { register, handleSubmit,control ,formState: { errors, isSubmitting }, getValues } =
+  const { register, handleSubmit, control, formState: { errors, isSubmitting } } =
     useForm<CheckoutFormData>({
       defaultValues: {
         contactName: buyer.contactName,
@@ -99,8 +98,44 @@ export function CheckoutForm() {
     () => fields.reduce((sum: number, f: { ticketTypeId: number }) => sum + (priceMap.get(f.ticketTypeId)?.unitPrice ?? 0), 0),
     [fields, priceMap],
   );
+  const debouncedSubtotal = useDebounce(subtotal, 350);
   const discountAmount = voucher?.discount_amount ?? 0;
-  const total = subtotal - discountAmount;
+  const total = Math.max(0, subtotal - discountAmount);
+
+  useEffect(() => {
+    if (voucher?.code) {
+      setVoucherInput(voucher.code);
+    }
+  }, [voucher?.code]);
+
+  useEffect(() => {
+    const code = voucher?.code;
+    if (!code) return;
+
+    let isActive = true;
+    shopApi
+      .validateVoucher(code, debouncedSubtotal)
+      .then((result) => {
+        if (!isActive) return;
+        if (result) {
+          setVoucher(result);
+          setVoucherError("");
+        } else {
+          setVoucher(null);
+          setVoucherError("Mã không còn hợp lệ cho đơn hàng hiện tại.");
+        }
+      })
+      .catch(() => {
+        if (isActive) {
+          setVoucher(null);
+          setVoucherError("Không thể kiểm tra mã giảm giá. Vui lòng thử lại.");
+        }
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [debouncedSubtotal, voucher?.code, setVoucher]);
 
   async function handleApplyVoucher() {
     const code = voucherInput.trim().toUpperCase();
@@ -119,6 +154,12 @@ export function CheckoutForm() {
     } finally {
       setIsValidatingVoucher(false);
     }
+  }
+
+  function handleRemoveVoucher() {
+    setVoucher(null);
+    setVoucherInput("");
+    setVoucherError("");
   }
 
   async function onSubmit(data: CheckoutFormData) {
@@ -325,7 +366,7 @@ export function CheckoutForm() {
                   <p className="text-sm font-bold text-green-700">{voucher.code}</p>
                   <p className="text-xs text-green-600">Giảm {formatVND(voucher.discount_amount)}</p>
                 </div>
-                <button onClick={() => { setVoucher(null); setVoucherInput(""); }}
+                <button type="button" onClick={handleRemoveVoucher}
                   className="text-xs text-slate-400 hover:text-red-500 underline">Xoá</button>
               </div>
             ) : (
