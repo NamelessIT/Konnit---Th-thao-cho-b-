@@ -8,6 +8,10 @@ import {
   FileText,
   Image as ImageIcon,
   LogOut,
+  CalendarDays,
+  Ticket,
+  BadgePercent,
+  ReceiptText,
 } from "lucide-react";
 import {
   Sidebar,
@@ -26,8 +30,15 @@ import { useAuth } from "@/hooks/useAuth";
 const CMS_MENU = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/cms/categories", label: "Danh mục", icon: FolderTree },
-  { href: "/admin/cms/pages", label: "Trang", icon: FileText },
+  { href: "/admin/cms/pages", label: "Page Builder", icon: FileText },
   { href: "/admin/cms/uploads", label: "Media", icon: ImageIcon },
+];
+
+const SALES_MENU = [
+  { href: "/admin/su-kien", label: "Sự kiện", icon: CalendarDays },
+  { href: "/admin/loai-ve", label: "Loại vé", icon: Ticket },
+  { href: "/admin/vouchers", label: "Voucher/Coupon", icon: BadgePercent },
+  { href: "/admin/orders", label: "Đơn hàng", icon: ReceiptText },
 ];
 
 export function AdminSidebar() {
@@ -57,7 +68,7 @@ export function AdminSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Quản lý</SidebarGroupLabel>
+          <SidebarGroupLabel>CMS / Page Builder</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {CMS_MENU.map((item) => {
@@ -66,6 +77,31 @@ export function AdminSidebar() {
                     ? pathname === "/admin"
                     : pathname.startsWith(item.href);
                 const Icon = item.icon;
+
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      render={<Link href={item.href} />}
+                      isActive={active}
+                      className="gap-3 data-[active=true]:bg-[var(--konnit-pink-02)] data-[active=true]:font-semibold data-[active=true]:text-[var(--konnit-berry)]"
+                    >
+                      <Icon className="size-4.5" />
+                      <span>{item.label}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Bán vé</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {SALES_MENU.map((item) => {
+                const active = pathname.startsWith(item.href);
+                const Icon = item.icon;
+
                 return (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton

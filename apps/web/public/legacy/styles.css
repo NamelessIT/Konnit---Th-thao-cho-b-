@@ -135,6 +135,50 @@ dd {
   background: var(--pink-02);
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-cart {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: var(--radius);
+  font-size: 20px;
+  line-height: 1;
+  transition: background 160ms ease;
+}
+
+.nav-cart:hover {
+  background: var(--pink-02);
+}
+
+.cart-count {
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--berry);
+  color: var(--surface);
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 18px;
+  text-align: center;
+  display: none;
+}
+
+.cart-count.show {
+  display: block;
+}
+
 .nav-cta {
   padding: 0 16px;
   color: var(--surface);
@@ -1802,5 +1846,106 @@ h2 {
     width: 42px;
     height: 42px;
     font-size: 12px;
+  }
+}
+
+/* ── Featured Tickets Section ── */
+.featured-tickets {
+  padding-top: 44px;
+}
+
+.ticket-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.ticket-mini {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--surface), #fffafd);
+  box-shadow: 0 14px 40px rgba(143, 47, 103, 0.09);
+  overflow: hidden;
+}
+
+.ticket-mini-badge {
+  position: absolute;
+  top: 12px;
+  right: -28px;
+  width: 120px;
+  padding: 4px 0;
+  transform: rotate(45deg);
+  color: var(--surface);
+  background: var(--sun-strong);
+  font-size: 11px;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ticket-mini-name {
+  font-size: 24px;
+  line-height: 1.14;
+  font-weight: 900;
+  margin-top: 4px;
+}
+
+.ticket-mini-age {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ticket-mini-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.ticket-mini-price {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--berry);
+}
+
+.ticket-mini-original {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.ticket-mini-cta {
+  margin-top: 6px;
+  width: 100%;
+  min-width: 0;
+  font-size: 14px;
+}
+
+.featured-tickets-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .ticket-mini-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ticket-mini {
+    padding: 20px;
+  }
+
+  .ticket-mini-price {
+    font-size: 22px;
   }
 }

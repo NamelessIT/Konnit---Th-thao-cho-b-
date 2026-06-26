@@ -40,3 +40,7 @@ _archive/
 
 # Skills lock
 skills-lock.json
+plan.md
+/.claude
+AGENTS.md
+CLAUDE.md

@@ -20,7 +20,12 @@
       <a href="/legacy/community.html">Our Community</a>
       <a href="/legacy/store.html">Konnit Store</a>
       <a href="/tin-tuc">Tin tuc</a>
+      <a href="/cua-hang">Ve su kien</a>
     </nav>
+    <div class="nav-actions">
+      <a href="/gio-hang" class="nav-cart" aria-label="Giỏ hàng">🛒<span class="cart-count" id="cart-count-badge"></span></a>
+      <a class="nav-cta" href="#join-next-event">Join an Event</a>
+    </div>
     <a class="nav-cta" href="/legacy/services.html#contact">Join a Session</a>
   </header>
 
@@ -76,6 +81,49 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Featured Tickets Section — lối vào chính tới trang bán vé -->
+    <section class="section featured-tickets" id="featured-tickets" aria-labelledby="featured-tickets-title">
+      <div class="section-heading">
+        <p class="eyebrow">Vé sự kiện</p>
+        <h2 id="featured-tickets-title">Vé sự kiện nổi bật</h2>
+        <p class="section-lead" lang="vi">Đặt vé tham gia các sự kiện thể thao và vui chơi dành cho bé. Vé đã bao gồm áo thi đấu, huy chương và quà tặng.</p>
+      </div>
+      <div class="ticket-mini-grid" id="ticket-mini-grid">
+        <!-- 3 card fallback (hard-code) — sẽ được thay bằng dữ liệu từ API nếu fetch thành công -->
+        <article class="ticket-mini" data-ticket-id="1">
+          <div class="ticket-mini-badge early-bird">Early Bird</div>
+          <h3 class="ticket-mini-name">Vé Chồi</h3>
+          <p class="ticket-mini-age">4-6 tuổi</p>
+          <div class="ticket-mini-pricing">
+            <span class="ticket-mini-price">300,000₫</span>
+            <span class="ticket-mini-original">350,000₫</span>
+          </div>
+          <a href="/cua-hang#ticket-1" class="button button-primary ticket-mini-cta">Mua vé</a>
+        </article>
+        <article class="ticket-mini" data-ticket-id="2">
+          <div class="ticket-mini-badge early-bird">Early Bird</div>
+          <h3 class="ticket-mini-name">Vé Mầm</h3>
+          <p class="ticket-mini-age">2.5-4 tuổi</p>
+          <div class="ticket-mini-pricing">
+            <span class="ticket-mini-price">250,000₫</span>
+            <span class="ticket-mini-original">280,000₫</span>
+          </div>
+          <a href="/cua-hang#ticket-2" class="button button-primary ticket-mini-cta">Mua vé</a>
+        </article>
+        <article class="ticket-mini" data-ticket-id="3">
+          <h3 class="ticket-mini-name">Vé Fun</h3>
+          <p class="ticket-mini-age">2.5-6 tuổi</p>
+          <div class="ticket-mini-pricing">
+            <span class="ticket-mini-price">150,000₫</span>
+          </div>
+          <a href="/cua-hang#ticket-3" class="button button-primary ticket-mini-cta">Mua vé</a>
+        </article>
+      </div>
+      <div class="featured-tickets-footer">
+        <a href="/cua-hang" class="button button-primary">Xem thêm vé →</a>
       </div>
     </section>
 
@@ -245,5 +293,87 @@
     </a>
     <p>Safety first. Polite always. Friendly and fun for every small step.</p>
   </footer>
+
+  <script>
+    // Featured Tickets — fetch từ API, fallback về hard-code HTML
+    (function () {
+      var grid = document.getElementById("ticket-mini-grid");
+      if (!grid) return;
+
+      function renderCards(tickets) {
+        // Sort theo current_price giảm dần, lấy 3 vé đắt nhất
+        var top3 = tickets
+          .slice()
+          .sort(function (a, b) {
+            var pa = a.early_bird_price != null ? a.early_bird_price : a.price;
+            var pb = b.early_bird_price != null ? b.early_bird_price : b.price;
+            return pb - pa;
+          })
+          .slice(0, 3);
+
+        var html = "";
+        for (var i = 0; i < top3.length; i++) {
+          var t = top3[i];
+          var currentPrice = t.early_bird_price != null ? t.early_bird_price : t.price;
+          var hasEarlyBird = t.early_bird_price != null;
+          var isEarlyBirdActive = hasEarlyBird && new Date(t.early_bird_until) > new Date();
+          var badgeHtml = isEarlyBirdActive
+            ? '<div class="ticket-mini-badge early-bird">Early Bird</div>'
+            : "";
+          var originalHtml =
+            hasEarlyBird && isEarlyBirdActive
+              ? '<span class="ticket-mini-original">' +
+                new Intl.NumberFormat("vi-VN").format(t.price) +
+                "₫</span>"
+              : "";
+
+          html +=
+            '<article class="ticket-mini" data-ticket-id="' +
+            t.id +
+            '">' +
+            badgeHtml +
+            '<h3 class="ticket-mini-name">' +
+            escapeHtml(t.name) +
+            "</h3>" +
+            '<p class="ticket-mini-age">' +
+            escapeHtml(t.age_group || "") +
+            "</p>" +
+            '<div class="ticket-mini-pricing">' +
+            '<span class="ticket-mini-price">' +
+            new Intl.NumberFormat("vi-VN").format(currentPrice) +
+            "₫</span>" +
+            originalHtml +
+            "</div>" +
+            '<a href="/cua-hang#ticket-' +
+            t.id +
+            '" class="button button-primary ticket-mini-cta">Mua vé</a>' +
+            "</article>";
+        }
+        grid.innerHTML = html;
+      }
+
+      function escapeHtml(str) {
+        var div = document.createElement("div");
+        div.appendChild(document.createTextNode(str || ""));
+        return div.innerHTML;
+      }
+
+      // Fetch từ API public
+      fetch("/api/public/ticket-types")
+        .then(function (res) {
+          if (!res.ok) throw new Error("API failed");
+          return res.json();
+        })
+        .then(function (json) {
+          if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+            renderCards(json.data);
+          }
+          // Nếu data rỗng hoặc không hợp lệ → giữ fallback HTML
+        })
+        .catch(function () {
+          // Lỗi network/API → giữ fallback HTML (đã hard-code)
+        });
+    })();
+  </script>
 </body>
 </html>

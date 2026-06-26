@@ -2,19 +2,21 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { CartNavButton } from "@/components/shop/CartNavButton";
 
 const NAV_ITEMS = [
   { href: "/legacy/index.html", label: "Home" },
+  { href: "/legacy/index.html#about", label: "About Us" },
   { href: "/legacy/services.html", label: "Our Business" },
   { href: "/legacy/community.html", label: "Our Community" },
   { href: "/legacy/store.html", label: "Konnit Store" },
   { href: "/tin-tuc", label: "Tin tuc" },
+  { href: "/cua-hang", label: "Ve su kien" },
 ];
 
 export function PublicHeader() {
   const pathname = usePathname();
 
-  // The CMS-driven pages (Tin tức list, category & page routes) all map to "Tin tức".
   const isCmsActive =
     pathname === "/tin-tuc" ||
     pathname.startsWith("/tin-tuc/") ||
@@ -26,46 +28,50 @@ export function PublicHeader() {
   }
 
   return (
-    <header className="fixed top-0 inset-x-0 z-20 mt-4 mx-auto w-[min(1180px,calc(100%-32px))]">
-      <nav className="flex items-center gap-4 rounded-2xl border border-white/60 bg-[var(--konnit-pink-01)]/80 px-4 py-2.5 shadow-[0_12px_34px_rgba(143,47,103,0.12)] backdrop-blur-[18px] transition-shadow duration-300 hover:shadow-[0_16px_44px_rgba(143,47,103,0.18)]">
+    <header className="fixed inset-x-0 top-0 z-20 mx-auto mt-4 w-[min(1180px,calc(100%-32px))]">
+      <nav className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-[18px] rounded-2xl border border-white/60 bg-[rgba(255,247,251,0.86)] px-3 py-2.5 shadow-[0_12px_34px_rgba(143,47,103,0.12)] backdrop-blur-[18px]">
+        {/* Brand */}
         <Link
-          href="/"
-          className="group flex items-center gap-2 font-bold text-lg text-[var(--konnit-berry)] duration-300 "
+          href="/legacy/index.html"
+          className="inline-flex min-w-max items-center gap-2.5 text-[22px] font-black tracking-normal text-[var(--konnit-ink)]"
         >
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-[var(--konnit-berry)] text-sm text-white shadow-sm transition-transform duration-500 ">
-            K
+          <span className="inline-grid h-[34px] w-[34px] place-items-center rounded-full bg-[var(--konnit-berry)] text-[22px] leading-none text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.08)]">
+            k
           </span>
-          Konnit
+          konnit
         </Link>
 
-        <div className="flex-1" />
-
-        <ul className="hidden items-center gap-7 text-sm font-medium md:flex">
+        {/* Nav links */}
+        <div className="flex items-center justify-center gap-1.5 overflow-x-auto text-sm font-extrabold text-[var(--konnit-muted)]">
           {NAV_ITEMS.map((item) => {
             const active = isActive(item.href);
             return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={
-                    active
-                      ? "rounded-xl bg-[var(--konnit-berry)] px-3.5 py-1.5 font-semibold text-white shadow-sm transition-colors"
-                      : "link-underline rounded-full px-3.5 py-1.5 text-[var(--konnit-ink)] transition-colors duration-200 hover:text-[var(--konnit-berry)]"
-                  }
-                >
-                  {item.label}
-                </Link>
-              </li>
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-2xl px-2.5 font-black transition-colors ${
+                  active
+                    ? "bg-[var(--konnit-pink-02)] text-[var(--konnit-berry)]"
+                    : "hover:bg-[var(--konnit-pink-02)] hover:text-[var(--konnit-berry)]"
+                }`}
+              >
+                {item.label}
+              </Link>
             );
           })}
-        </ul>
+        </div>
 
-        <Link
-          href="/tin-tuc"
-          className="btn-shine ml-2 hidden rounded-full bg-[var(--konnit-berry)] px-5 py-2 text-sm font-semibold text-white shadow-md sm:inline-block"
-        >
-          Khám phá
-        </Link>
+        {/* CTA */}
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          <CartNavButton />
+          <Link
+            href="/legacy/services.html#contact"
+            className="btn-shine inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-2xl bg-[var(--konnit-berry)] px-4 font-black text-white"
+          >
+            Join a Session
+          </Link>
+        </div>
       </nav>
     </header>
   );

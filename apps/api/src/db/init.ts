@@ -18,7 +18,8 @@ async function init() {
 
   // Run seed
   logger.info('Running seed...');
-  await import('./seed');
+  const { seed } = await import('./seed');
+  await seed();
 
   await pool.end();
   logger.info('Database initialization complete.');

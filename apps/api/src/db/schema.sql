@@ -143,3 +143,175 @@ CREATE INDEX IF NOT EXISTS idx_categories_slug ON cms_categories(slug) WHERE is_
 CREATE INDEX IF NOT EXISTS idx_pages_slug ON cms_pages(category_id, slug) WHERE is_deleted = false;
 CREATE INDEX IF NOT EXISTS idx_audit_entity ON audit_logs(entity_type, entity_id);
 CREATE INDEX IF NOT EXISTS idx_audit_actor ON audit_logs(actor_id);
+
+-- =====================================================================
+-- Phase 2 — Event Ticketing & Checkout
+-- =====================================================================
+
+-- ===== Events =====
+CREATE TABLE IF NOT EXISTS events (
+  id                       SERIAL PRIMARY KEY,
+  name                     TEXT NOT NULL,
+  slug                     TEXT UNIQUE NOT NULL,
+  description              TEXT,
+  location                 TEXT,
+  map_url                  TEXT,
+  starts_at                TIMESTAMPTZ,
+  registration_opens_at    TIMESTAMPTZ,
+  registration_closes_at   TIMESTAMPTZ,
+  banner_path              TEXT,
+  cms_page_id              INT REFERENCES cms_pages(id) ON DELETE SET NULL,
+  status                   TEXT NOT NULL DEFAULT 'draft' CHECK (status IN ('draft','published','archived')),
+  created_by               INT REFERENCES admin_users(id),
+  updated_by               INT REFERENCES admin_users(id),
+  published_at             TIMESTAMPTZ,
+  created_at               TIMESTAMPTZ DEFAULT now(),
+  updated_at               TIMESTAMPTZ DEFAULT now(),
+  is_deleted               BOOLEAN DEFAULT false
+);
+
+-- ===== Ticket Types (slot math lives here) =====
+CREATE TABLE IF NOT EXISTS ticket_types (
+  id                  SERIAL PRIMARY KEY,
+  event_id            INT NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+  name                TEXT NOT NULL,
+  slug                TEXT,
+  description         TEXT,
+  age_group           TEXT,
+  age_min             INT,
+  age_max             INT,
+  gender_restriction  TEXT CHECK (gender_restriction IN ('any','male','female')) DEFAULT 'any',
+  price               NUMERIC(12,0) NOT NULL DEFAULT 0,
+  early_bird_price    NUMERIC(12,0),
+  early_bird_until    TIMESTAMPTZ,
+  quota_total         INT NOT NULL DEFAULT 0,
+  sold_count          INT NOT NULL DEFAULT 0,
+  reserved_count      INT NOT NULL DEFAULT 0,
+  includes_shirt      BOOLEAN DEFAULT false,
+  image_path          TEXT,
+  sort_order          INT DEFAULT 0,
+  status              TEXT NOT NULL DEFAULT 'draft' CHECK (status IN ('draft','published','archived')),
+  created_by          INT REFERENCES admin_users(id),
+  updated_by          INT REFERENCES admin_users(id),
+  created_at          TIMESTAMPTZ DEFAULT now(),
+  updated_at          TIMESTAMPTZ DEFAULT now(),
+  is_deleted          BOOLEAN DEFAULT false,
+  CONSTRAINT ticket_types_slots_chk CHECK (sold_count >= 0 AND reserved_count >= 0),
+  UNIQUE(event_id, slug)
+);
+
+-- ===== Vouchers =====
+CREATE TABLE IF NOT EXISTS vouchers (
+  id                  SERIAL PRIMARY KEY,
+  code                TEXT UNIQUE NOT NULL,
+  description         TEXT,
+  discount_type       TEXT NOT NULL CHECK (discount_type IN ('percent','fixed')),
+  discount_value      NUMERIC(12,2) NOT NULL,
+  min_order_amount    NUMERIC(12,0) DEFAULT 0,
+  max_uses            INT,
+  used_count          INT NOT NULL DEFAULT 0,
+  starts_at           TIMESTAMPTZ,
+  expires_at          TIMESTAMPTZ,
+  status              TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active','disabled')),
+  created_by          INT REFERENCES admin_users(id),
+  created_at          TIMESTAMPTZ DEFAULT now(),
+  updated_at          TIMESTAMPTZ DEFAULT now(),
+  is_deleted          BOOLEAN DEFAULT false
+);
+
+-- ===== Orders =====
+CREATE TABLE IF NOT EXISTS orders (
+  id                  SERIAL PRIMARY KEY,
+  order_code          TEXT UNIQUE NOT NULL,
+  status              TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending','paid','cancelled','expired','failed')),
+  contact_name        TEXT NOT NULL,
+  contact_phone       TEXT NOT NULL,
+  contact_email       TEXT NOT NULL,
+  contact_address     TEXT,
+  guardian_name       TEXT,
+  guardian_phone      TEXT,
+  subtotal            NUMERIC(12,0) NOT NULL DEFAULT 0,
+  discount_amount     NUMERIC(12,0) NOT NULL DEFAULT 0,
+  total               NUMERIC(12,0) NOT NULL DEFAULT 0,
+  voucher_id          INT REFERENCES vouchers(id),
+  voucher_code        TEXT,
+  agreed_terms        BOOLEAN NOT NULL DEFAULT false,
+  hold_expires_at     TIMESTAMPTZ,
+  note                TEXT,
+  created_at          TIMESTAMPTZ DEFAULT now(),
+  updated_at          TIMESTAMPTZ DEFAULT now(),
+  paid_at             TIMESTAMPTZ,
+  is_deleted          BOOLEAN DEFAULT false
+);
+
+-- ===== Order Items (one row per child / registration) =====
+CREATE TABLE IF NOT EXISTS order_items (
+  id                  SERIAL PRIMARY KEY,
+  order_id            INT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+  ticket_type_id      INT NOT NULL REFERENCES ticket_types(id),
+  ticket_type_name    TEXT NOT NULL,
+  unit_price          NUMERIC(12,0) NOT NULL,
+  attendee_name       TEXT NOT NULL,
+  attendee_dob        DATE,
+  attendee_gender     TEXT,
+  shirt_size          TEXT,
+  bib_number          TEXT,
+  medal_name          TEXT,
+  health_notes        TEXT,
+  created_at          TIMESTAMPTZ DEFAULT now()
+);
+
+-- ===== Order Add-ons =====
+CREATE TABLE IF NOT EXISTS order_addons (
+  id                  SERIAL PRIMARY KEY,
+  order_id            INT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+  order_item_id       INT REFERENCES order_items(id) ON DELETE CASCADE,
+  name                TEXT NOT NULL,
+  unit_price          NUMERIC(12,0) NOT NULL DEFAULT 0,
+  quantity            INT NOT NULL DEFAULT 1,
+  created_at          TIMESTAMPTZ DEFAULT now()
+);
+
+-- ===== Payments (transaction log for reconciliation) =====
+CREATE TABLE IF NOT EXISTS payments (
+  id                    SERIAL PRIMARY KEY,
+  order_id              INT NOT NULL REFERENCES orders(id),
+  gateway               TEXT NOT NULL DEFAULT 'vnpay',
+  amount                NUMERIC(12,0) NOT NULL,
+  status                TEXT NOT NULL DEFAULT 'initiated' CHECK (status IN ('initiated','success','failed')),
+  transaction_ref       TEXT,
+  bank_code             TEXT,
+  response_code         TEXT,
+  gateway_response_json JSONB,
+  created_at            TIMESTAMPTZ DEFAULT now()
+);
+
+-- ===== Voucher Redemptions (idempotency guard against double-redeem) =====
+CREATE TABLE IF NOT EXISTS voucher_redemptions (
+  id          SERIAL PRIMARY KEY,
+  voucher_id  INT NOT NULL REFERENCES vouchers(id),
+  order_id    INT NOT NULL REFERENCES orders(id),
+  created_at  TIMESTAMPTZ DEFAULT now(),
+  UNIQUE(order_id),
+  UNIQUE(voucher_id, order_id)
+);
+
+-- ===== E-Tickets (QR per child) =====
+CREATE TABLE IF NOT EXISTS tickets (
+  id              SERIAL PRIMARY KEY,
+  order_item_id   INT NOT NULL UNIQUE REFERENCES order_items(id) ON DELETE CASCADE,
+  qr_token        TEXT UNIQUE NOT NULL,
+  checked_in_at   TIMESTAMPTZ,
+  checked_in_by   INT REFERENCES admin_users(id),
+  created_at      TIMESTAMPTZ DEFAULT now()
+);
+
+-- ===== Phase 2 Indexes =====
+CREATE INDEX IF NOT EXISTS idx_ticket_types_event ON ticket_types(event_id) WHERE is_deleted = false;
+CREATE INDEX IF NOT EXISTS idx_events_slug ON events(slug) WHERE is_deleted = false;
+CREATE INDEX IF NOT EXISTS idx_orders_code ON orders(order_code);
+CREATE INDEX IF NOT EXISTS idx_orders_hold ON orders(status, hold_expires_at);
+CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id);
+CREATE INDEX IF NOT EXISTS idx_order_addons_order ON order_addons(order_id);
+CREATE INDEX IF NOT EXISTS idx_payments_order ON payments(order_id);
+CREATE INDEX IF NOT EXISTS idx_tickets_token ON tickets(qr_token);

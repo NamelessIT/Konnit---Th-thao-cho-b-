@@ -20,8 +20,12 @@
       <a href="/legacy/community.html">Our Community</a>
       <a href="/legacy/store.html">Konnit Store</a>
       <a href="/tin-tuc">Tin tuc</a>
+      <a href="/cua-hang">Ve su kien</a>
     </nav>
-    <a class="nav-cta" href="mailto:hello@konnit.example?subject=Join%20a%20Konnit%20session">Join a Session</a>
+    <div class="nav-actions">
+      <a href="/gio-hang" class="nav-cart" aria-label="Giỏ hàng">🛒<span class="cart-count" id="cart-count-badge"></span></a>
+      <a class="nav-cta" href="mailto:hello@konnit.example?subject=Join%20a%20Konnit%20session">Join a Session</a>
+    </div>
   </header>
 
   <main>
@@ -232,5 +236,26 @@
     </a>
     <p>Safety first. Polite always. Friendly and fun for every small step.</p>
   </footer>
+
+  <script>
+    (function () {
+      var badge = document.getElementById("cart-count-badge");
+      if (!badge) return;
+      try {
+        var raw = localStorage.getItem("konnit-cart");
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          var items = parsed && parsed.state && parsed.state.items;
+          if (Array.isArray(items) && items.length > 0) {
+            var total = items.reduce(function (sum, item) { return sum + (item.quantity || 1); }, 0);
+            if (total > 0) {
+              badge.textContent = total > 99 ? "99+" : total;
+              badge.classList.add("show");
+            }
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
 </body>
 </html>

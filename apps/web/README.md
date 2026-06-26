@@ -15,8 +15,9 @@ bun dev
 ```
 
 Test:
-Admin: admin@konnit.local
+Email: admin@konnit.local
 Password: Admin@123456
+Login: /admin/login
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

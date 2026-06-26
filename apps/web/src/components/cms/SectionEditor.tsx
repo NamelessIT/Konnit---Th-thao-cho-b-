@@ -182,7 +182,7 @@ function ItemsEditor({
   onChange: (items: Record<string, string>[]) => void;
 }) {
   function addItem() {
-    onChange([...items, { title: "", description: "" }]);
+    onChange([...items, { title: "", description: "", price: "", ticketTypeId: "", eventSlug: "" }]);
   }
 
   function removeItem(index: number) {
@@ -206,9 +206,24 @@ function ItemsEditor({
               onChange={(e) => updateItem(i, "title", e.target.value)}
             />
             <Input
+              placeholder="Giá (hiển thị)"
+              value={item.price ?? ""}
+              onChange={(e) => updateItem(i, "price", e.target.value)}
+            />
+            <Input
               placeholder="Mô tả"
               value={item.description ?? ""}
               onChange={(e) => updateItem(i, "description", e.target.value)}
+            />
+            <Input
+              placeholder="ID loại vé (ticketTypeId) — link tới cửa hàng"
+              value={item.ticketTypeId ?? ""}
+              onChange={(e) => updateItem(i, "ticketTypeId", e.target.value)}
+            />
+            <Input
+              placeholder="Slug sự kiện (eventSlug) — nếu không có ID vé"
+              value={item.eventSlug ?? ""}
+              onChange={(e) => updateItem(i, "eventSlug", e.target.value)}
             />
           </div>
           <Button variant="ghost" size="icon-xs" onClick={() => removeItem(i)}>
