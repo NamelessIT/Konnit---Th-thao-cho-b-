@@ -5,13 +5,13 @@ import { usePathname } from "next/navigation";
 import { CartNavButton } from "@/components/shop/CartNavButton";
 
 const NAV_ITEMS = [
-  { href: "/legacy/index.html", label: "Home" },
-  { href: "/legacy/index.html#about", label: "About Us" },
-  { href: "/legacy/services.html", label: "Our Business" },
-  { href: "/legacy/community.html", label: "Our Community" },
-  { href: "/legacy/store.html", label: "Konnit Store" },
-  { href: "/tin-tuc", label: "Tin tuc" },
-  { href: "/cua-hang", label: "Ve su kien" },
+  { href: "/", label: "Home" },
+  { href: "/#about", label: "About Us" },
+  { href: "/services", label: "Our Business" },
+  { href: "/community", label: "Our Community" },
+  { href: "/store", label: "Konnit Store" },
+  { href: "/tin-tuc", label: "Tin tức" },
+  { href: "/cua-hang", label: "Vé sự kiện" },
 ];
 
 export function PublicHeader() {

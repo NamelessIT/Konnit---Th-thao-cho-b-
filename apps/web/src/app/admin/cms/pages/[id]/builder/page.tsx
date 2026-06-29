@@ -194,7 +194,7 @@ export default function PageBuilderPage({
             <Eye className="size-4" /> Xem trang thật
           </Button>
           <Button size="sm" onClick={handlePublish} disabled={saving} className="bg-[var(--konnit-berry)] text-white">
-            <Rocket className="size-4" /> {page.status === "published" ? "Re-publish" : "Publish"}
+            <Rocket className="size-4" /> {page.status === "published" ? "Cập nhật" : "Xuất bản"}
           </Button>
         </div>
       </div>

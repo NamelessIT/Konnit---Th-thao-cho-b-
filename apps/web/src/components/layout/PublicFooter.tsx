@@ -1,49 +1,27 @@
 import Link from "next/link";
 
-const FOOTER_LINKS = [
-  { href: "/legacy/services.html", label: "Bộ môn" },
-  { href: "/legacy/community.html", label: "Cộng đồng" },
-  { href: "/legacy/store.html", label: "Cửa hàng" },
-  { href: "/tin-tuc", label: "Tin tức" },
-];
+interface PublicFooterProps {
+  /** Footer tagline; defaults to the demo's home line. */
+  tagline?: string;
+}
 
-export function PublicFooter() {
+/** Site footer (demo `.site-footer`): brand mark on the left, tagline on the right. */
+export function PublicFooter({
+  tagline = "Safety first. Polite always. Friendly and fun for every small step.",
+}: PublicFooterProps) {
   return (
-    <footer className="mt-auto border-t border-[var(--konnit-pink-03)] bg-[var(--konnit-pink-01)]">
-      <div className="mx-auto max-w-5xl px-6 py-12">
-        <div className="flex flex-col items-center gap-6 text-center md:flex-row md:items-start md:justify-between md:text-left">
-          <div className="max-w-sm">
-            <div className="flex items-center justify-center gap-2 md:justify-start">
-              <span className="grid h-8 w-8 place-items-center rounded-xl bg-[var(--konnit-berry)] text-sm font-bold text-white">
-                K
-              </span>
-              <span className="text-lg font-bold text-[var(--konnit-berry)]">
-                Konnit
-              </span>
-            </div>
-            <p className="mt-3 text-sm text-[var(--konnit-muted)]">
-              Nền tảng thể thao và hoạt động dành cho trẻ em Việt Nam — vận động
-              vui khỏe mỗi ngày.
-            </p>
-          </div>
-
-          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium">
-            {FOOTER_LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="link-underline text-[var(--konnit-ink)] transition-colors hover:text-[var(--konnit-berry)]"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        <div className="mt-10 border-t border-[var(--konnit-pink-03)] pt-6 text-center text-sm text-[var(--konnit-muted)]">
-          © {new Date().getFullYear()} Konnit — Thể thao cho bé. Made with{" "}
-          <span className="text-[var(--konnit-pink-05)]">♥</span> in Vietnam.
-        </div>
+    <footer className="mt-auto border-t border-[var(--line)] bg-[var(--konnit-pink-01)]">
+      <div className="mx-auto flex w-[min(1180px,calc(100%-32px))] flex-col items-start justify-between gap-5 py-[42px] md:flex-row md:items-center">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2.5 text-[22px] font-black text-[var(--konnit-ink)]"
+        >
+          <span className="brand-mark text-[22px]">k</span>
+          konnit
+        </Link>
+        <p className="max-w-[560px] text-left font-bold text-[var(--konnit-muted)] md:text-right">
+          {tagline}
+        </p>
       </div>
     </footer>
   );

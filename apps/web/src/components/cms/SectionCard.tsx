@@ -3,6 +3,19 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical, Copy, Eye, EyeOff, Trash2 } from "lucide-react";
+
+const COMPONENT_LABELS: Record<string, string> = {
+  hero: "Hero Banner",
+  rich_text: "Văn bản",
+  image_text: "Ảnh + Văn bản",
+  feature_grid: "Lưới tính năng",
+  schedule: "Lịch trình",
+  faq: "Câu hỏi thường gặp",
+  cta: "Kêu gọi hành động",
+  sponsor: "Nhà tài trợ",
+  note_alert: "Thông báo",
+  ticket_preview: "Bảng giá vé",
+};
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -53,8 +66,8 @@ export function SectionCard({
       style={style}
       className={`p-3 cursor-pointer transition-colors ${
         isActive
-          ? "border-[var(--konnit-berry)] ring-1 ring-[var(--konnit-berry)]"
-          : "hover:border-[var(--konnit-pink-04)]"
+          ? "border-(--konnit-berry) ring-1 ring-(--konnit-berry)"
+          : "hover:border-(--konnit-pink-04)"
       } ${!section.is_visible ? "opacity-60" : ""}`}
       onClick={onClick}
     >
@@ -68,8 +81,8 @@ export function SectionCard({
         </span>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-muted-foreground">
-              {section.component_type}
+            <span className="text-xs font-medium text-muted-foreground">
+              {COMPONENT_LABELS[section.component_type] ?? section.component_type}
             </span>
             <Badge variant="secondary" className="text-[10px]">
               {section.style_variant}

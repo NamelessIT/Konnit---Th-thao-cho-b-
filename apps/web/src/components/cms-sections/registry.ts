@@ -4,6 +4,8 @@ import { cmsSectionRegistry } from "@konnit/ui";
 import { HeroStyle1 } from "./HeroSection/HeroStyle1";
 import { HeroStyle2 } from "./HeroSection/HeroStyle2";
 import { HeroStyle3 } from "./HeroSection/HeroStyle3";
+import { HeroStyle4 } from "./HeroSection/HeroStyle4";
+import { HeroStyle5 } from "./HeroSection/HeroStyle5";
 // RichText
 import { RichTextStyle1 } from "./RichTextSection/RichTextStyle1";
 import { RichTextStyle2 } from "./RichTextSection/RichTextStyle2";
@@ -12,10 +14,20 @@ import { RichTextStyle3 } from "./RichTextSection/RichTextStyle3";
 import { ImageTextStyle1 } from "./ImageTextSection/ImageTextStyle1";
 import { ImageTextStyle2 } from "./ImageTextSection/ImageTextStyle2";
 import { ImageTextStyle3 } from "./ImageTextSection/ImageTextStyle3";
+import { ImageTextStyle4 } from "./ImageTextSection/ImageTextStyle4";
+import { ImageTextStyle5 } from "./ImageTextSection/ImageTextStyle5";
 // FeatureGrid
 import { FeatureGridStyle1 } from "./FeatureGridSection/FeatureGridStyle1";
 import { FeatureGridStyle2 } from "./FeatureGridSection/FeatureGridStyle2";
 import { FeatureGridStyle3 } from "./FeatureGridSection/FeatureGridStyle3";
+import { FeatureGridStyle4 } from "./FeatureGridSection/FeatureGridStyle4";
+import { FeatureGridStyle5 } from "./FeatureGridSection/FeatureGridStyle5";
+// Product (new type)
+import { ProductStyle1 } from "./ProductSection/ProductStyle1";
+import { ProductStyle2 } from "./ProductSection/ProductStyle2";
+// ContactPanel (new type)
+import { ContactPanelStyle1 } from "./ContactPanelSection/ContactPanelStyle1";
+import { ContactPanelStyle2 } from "./ContactPanelSection/ContactPanelStyle2";
 // Schedule
 import { ScheduleStyle1 } from "./ScheduleSection/ScheduleStyle1";
 import { ScheduleStyle2 } from "./ScheduleSection/ScheduleStyle2";
@@ -27,6 +39,10 @@ import { FAQStyle2 } from "./FAQSection/FAQStyle2";
 import { CTAStyle1 } from "./CTASection/CTAStyle1";
 import { CTAStyle2 } from "./CTASection/CTAStyle2";
 import { CTAStyle3 } from "./CTASection/CTAStyle3";
+import { CTAStyle4 } from "./CTASection/CTAStyle4";
+import { CTAStyle5 } from "./CTASection/CTAStyle5";
+// FlowSteps (new type)
+import { FlowStepsStyle1, FlowStepsStyle2, FlowStepsStyle3 } from "./FlowStepsSection/FlowSteps";
 // Sponsor
 import { SponsorStyle1 } from "./SponsorSection/SponsorStyle1";
 import { SponsorStyle2 } from "./SponsorSection/SponsorStyle2";
@@ -41,7 +57,7 @@ import { TicketPreviewStyle2 } from "./TicketPreviewSection/TicketPreviewStyle2"
 cmsSectionRegistry["hero"] = {
   label: "Hero",
   fields: ["title", "description", "content", "note", "image", "primaryCta", "secondaryCta"],
-  styles: { style_1: HeroStyle1, style_2: HeroStyle2, style_3: HeroStyle3 },
+  styles: { style_1: HeroStyle1, style_2: HeroStyle2, style_3: HeroStyle3, style_4: HeroStyle4, style_5: HeroStyle5 },
 };
 
 cmsSectionRegistry["rich_text"] = {
@@ -53,13 +69,37 @@ cmsSectionRegistry["rich_text"] = {
 cmsSectionRegistry["image_text"] = {
   label: "Ảnh + Văn bản",
   fields: ["title", "description", "content", "note", "image", "imagePosition"],
-  styles: { style_1: ImageTextStyle1, style_2: ImageTextStyle2, style_3: ImageTextStyle3 },
+  styles: {
+    style_1: ImageTextStyle1,
+    style_2: ImageTextStyle2,
+    style_3: ImageTextStyle3,
+    style_4: ImageTextStyle4,
+    style_5: ImageTextStyle5,
+  },
 };
 
 cmsSectionRegistry["feature_grid"] = {
   label: "Feature Grid",
   fields: ["title", "description", "items"],
-  styles: { style_1: FeatureGridStyle1, style_2: FeatureGridStyle2, style_3: FeatureGridStyle3 },
+  styles: {
+    style_1: FeatureGridStyle1,
+    style_2: FeatureGridStyle2,
+    style_3: FeatureGridStyle3,
+    style_4: FeatureGridStyle4,
+    style_5: FeatureGridStyle5,
+  },
+};
+
+cmsSectionRegistry["product"] = {
+  label: "Sản phẩm",
+  fields: ["title", "description", "items"],
+  styles: { style_1: ProductStyle1, style_2: ProductStyle2 },
+};
+
+cmsSectionRegistry["contact_panel"] = {
+  label: "Liên hệ",
+  fields: ["title", "description", "label", "phone", "primaryCta", "secondaryCta"],
+  styles: { style_1: ContactPanelStyle1, style_2: ContactPanelStyle2 },
 };
 
 cmsSectionRegistry["schedule"] = {
@@ -77,7 +117,19 @@ cmsSectionRegistry["faq"] = {
 cmsSectionRegistry["cta"] = {
   label: "Call to Action",
   fields: ["title", "description", "buttonLabel", "buttonUrl", "note"],
-  styles: { style_1: CTAStyle1, style_2: CTAStyle2, style_3: CTAStyle3 },
+  styles: {
+    style_1: CTAStyle1,
+    style_2: CTAStyle2,
+    style_3: CTAStyle3,
+    style_4: CTAStyle4,
+    style_5: CTAStyle5,
+  },
+};
+
+cmsSectionRegistry["flow_steps"] = {
+  label: "Các bước (numbered)",
+  fields: ["title", "description", "items"],
+  styles: { style_1: FlowStepsStyle1, style_2: FlowStepsStyle2, style_3: FlowStepsStyle3 },
 };
 
 cmsSectionRegistry["sponsor"] = {
