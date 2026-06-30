@@ -33,7 +33,7 @@ export function PublicHeader() {
       <nav className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-[18px] rounded-2xl border border-white/60 bg-[rgba(255,247,251,0.86)] px-3 py-2.5 shadow-[0_12px_34px_rgba(143,47,103,0.12)] backdrop-blur-[18px]">
         {/* Brand */}
         <Link
-          href="http://localhost:3000/"
+          href="/"
           className="inline-flex min-w-max items-center gap-2.5 text-[22px] font-black tracking-normal text-[var(--konnit-ink)]"
         >
           <span className="inline-grid h-[34px] w-[34px] place-items-center rounded-full bg-[var(--konnit-berry)] text-[22px] leading-none text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.08)]">
@@ -68,7 +68,7 @@ export function PublicHeader() {
           <CartNavButton />
           <UserMenu />
           <Link
-            href="http://localhost:3000/services"
+            href="/services"
             className="btn-shine inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-2xl bg-[var(--konnit-berry)] px-4 font-black text-white"
           >
             Join a Session
