@@ -68,7 +68,7 @@ export function PublicHeader() {
           <CartNavButton />
           <UserMenu />
           <Link
-            href="/legacy/services.html#contact"
+            href="http://localhost:3000/services"
             className="btn-shine inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-2xl bg-[var(--konnit-berry)] px-4 font-black text-white"
           >
             Join a Session
