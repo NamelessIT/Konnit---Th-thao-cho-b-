@@ -1,3 +1,12 @@
+import type {
+  ContentStatus,
+  DiscountType,
+  GenderRestriction,
+  OrderStatus,
+  PaymentMethod,
+  VoucherStatus,
+} from "@konnit/types";
+
 export interface AdminEvent {
   id: number;
   name: string;
@@ -10,7 +19,7 @@ export interface AdminEvent {
   registration_closes_at?: string | null;
   banner_path?: string | null;
   cms_page_id?: number | null;
-  status: "draft" | "published" | "archived";
+  status: ContentStatus;
   created_at?: string;
 }
 
@@ -24,7 +33,7 @@ export interface AdminTicketType {
   age_group?: string | null;
   age_min?: number | null;
   age_max?: number | null;
-  gender_restriction?: "any" | "male" | "female";
+  gender_restriction?: GenderRestriction;
   price: number;
   early_bird_price?: number | null;
   early_bird_until?: string | null;
@@ -34,31 +43,31 @@ export interface AdminTicketType {
   includes_shirt: boolean;
   image_path?: string | null;
   sort_order?: number;
-  status: "draft" | "published" | "archived";
+  status: ContentStatus;
 }
 
 export interface AdminVoucher {
   id: number;
   code: string;
   description?: string | null;
-  discount_type: "percent" | "fixed";
+  discount_type: DiscountType;
   discount_value: number;
   min_order_amount: number;
   max_uses?: number | null;
   used_count: number;
   starts_at?: string | null;
   expires_at?: string | null;
-  status: "active" | "disabled";
+  status: VoucherStatus;
 }
 
 export interface AdminOrder {
   order_code: string;
-  status: "pending" | "paid" | "failed" | "expired" | "cancelled";
+  status: OrderStatus;
   contact_name: string;
   contact_phone: string;
   contact_email: string;
   total: number;
-  payment_method?: "card" | "qr" | "bank";
+  payment_method?: PaymentMethod;
   created_at: string;
   items: Array<{
     id: number;
@@ -66,5 +75,7 @@ export interface AdminOrder {
     attendee_name: string;
     unit_price: number;
     qr_token?: string;
+    checked_in_at?: string | null;
+    revoked_at?: string | null;
   }>;
 }

@@ -14,6 +14,11 @@ import { Button } from "@/components/ui/button";
 import { PaymentMethodPicker, type PaymentMethod } from "@/components/shop/PaymentMethodPicker";
 import Link from "next/link";
 import { useDebounce } from "@/hooks/useDebounce";
+import {
+  GENDER_RESTRICTION,
+  GENDER_RESTRICTION_LABELS_VI,
+  GENDER_RESTRICTIONS,
+} from "@konnit/types";
 
 interface ChildFormData {
   ticketTypeId: number;
@@ -312,8 +317,13 @@ export function CheckoutForm() {
                         <Field label="Giới tính">
                           <select {...register(`children.${idx}.attendeeGender`)} className={inputCls(false)}>
                             <option value="">-- Chọn --</option>
-                            <option value="male">Nam</option>
-                            <option value="female">Nữ</option>
+                            {GENDER_RESTRICTIONS.filter(
+                              (value) => value !== GENDER_RESTRICTION.ANY,
+                            ).map((value) => (
+                              <option key={value} value={value}>
+                                {GENDER_RESTRICTION_LABELS_VI[value]}
+                              </option>
+                            ))}
                           </select>
                         </Field>
                         <Field label="Size áo">

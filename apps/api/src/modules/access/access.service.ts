@@ -2,10 +2,11 @@ import bcrypt from 'bcrypt';
 import { withTransaction } from '../../config/db';
 import { AppError } from '../../middleware/errorHandler';
 import { invalidateAccessCache, rankOf } from '../auth/access.middleware';
+import type { AccountStatus, AdminLegacyRole } from '@konnit/types';
 import * as repo from './access.repository';
 
 // Map RBAC roles → cột legacy admin_users.role (giữ FE gating cũ chạy được)
-function legacyRole(keys: string[]): 'admin' | 'editor' | 'viewer' | 'staff' {
+function legacyRole(keys: string[]): AdminLegacyRole {
   if (keys.includes('super_admin') || keys.includes('admin')) return 'admin';
   if (keys.includes('checkin_staff')) return 'staff';
   if (keys.includes('editor')) return 'editor';
@@ -96,7 +97,7 @@ export async function updateUser(
   return { id };
 }
 
-export async function setStatus(id: number, actorId: number, status: 'active' | 'disabled') {
+export async function setStatus(id: number, actorId: number, status: AccountStatus) {
   if (id === actorId) throw new AppError(400, 'CANNOT_SELF', 'Không thể tự thao tác trên tài khoản của mình');
   await repo.getUserOrThrow(id);
   await assertCanManage(actorId, id);

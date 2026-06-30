@@ -44,3 +44,4 @@ plan.md
 /.claude
 AGENTS.md
 CLAUDE.md
+packages/types/tsconfig.tsbuildinfo

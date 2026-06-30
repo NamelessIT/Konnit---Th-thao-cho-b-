@@ -19,7 +19,7 @@ export function AdminTopbar({ title }: { title?: string }) {
       )}
       <div className="flex-1" />
       <Link
-        href="/legacy/index.html"
+        href="http://localhost:3000/"
         target="_blank"
         className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--konnit-berry)] transition-colors hover:bg-[var(--konnit-pink-02)]"
       >

@@ -1,14 +1,11 @@
 import type { SectionProps } from "@konnit/ui";
-import { Eyebrow, Gallery } from "../_shared";
+import { normalizeCmsLinkValue } from "@konnit/types";
+import { CmsLink, Eyebrow, Gallery } from "../_shared";
 
 interface Item {
   icon?: string;
   title?: string;
   description?: string;
-}
-interface Cta {
-  label?: string;
-  url?: string;
 }
 
 /**
@@ -20,7 +17,7 @@ export function FeatureGridStyle5({ contentJson, title, description }: SectionPr
   const items = (c.items as Item[]) ?? [];
   const heading = (c.title as string) || title;
   const lead = (c.description as string) || description;
-  const cta = c.primaryCta as Cta | undefined;
+  const cta = normalizeCmsLinkValue(c.primaryCta);
 
   return (
     <section className="px-4 pt-[86px]">
@@ -39,12 +36,12 @@ export function FeatureGridStyle5({ contentJson, title, description }: SectionPr
             </p>
           )}
           {cta?.label && (
-            <a
-              href={cta.url || "#"}
+            <CmsLink
+              value={cta}
               className="btn-shine mt-2 inline-flex min-h-[44px] w-max min-w-[160px] items-center justify-center rounded-[var(--radius)] bg-[var(--konnit-berry)] px-5 font-extrabold text-white shadow-[0_12px_24px_rgba(143,47,103,0.2)]"
             >
               {cta.label}
-            </a>
+            </CmsLink>
           )}
           <Gallery
             caption="Community photos"

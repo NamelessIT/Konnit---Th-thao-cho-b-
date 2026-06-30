@@ -3,19 +3,10 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical, Copy, Eye, EyeOff, Trash2 } from "lucide-react";
-
-const COMPONENT_LABELS: Record<string, string> = {
-  hero: "Hero Banner",
-  rich_text: "Văn bản",
-  image_text: "Ảnh + Văn bản",
-  feature_grid: "Lưới tính năng",
-  schedule: "Lịch trình",
-  faq: "Câu hỏi thường gặp",
-  cta: "Kêu gọi hành động",
-  sponsor: "Nhà tài trợ",
-  note_alert: "Thông báo",
-  ticket_preview: "Bảng giá vé",
-};
+import {
+  CMS_COMPONENT_CONFIG,
+  type CmsComponentType,
+} from "@konnit/types";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -82,7 +73,9 @@ export function SectionCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <span className="text-xs font-medium text-muted-foreground">
-              {COMPONENT_LABELS[section.component_type] ?? section.component_type}
+              {CMS_COMPONENT_CONFIG[
+                section.component_type as CmsComponentType
+              ]?.label ?? section.component_type}
             </span>
             <Badge variant="secondary" className="text-[10px]">
               {section.style_variant}

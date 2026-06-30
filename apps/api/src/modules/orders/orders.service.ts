@@ -1,12 +1,11 @@
 import { randomBytes, randomUUID } from 'node:crypto';
 import type { PoolClient } from 'pg';
+import type { PaymentMethod } from '@konnit/types';
 import { AppError } from '../../middleware/errorHandler';
 import { withTransaction } from '../../config/db';
 import { env } from '../../config/env';
 import { availableSlots, currentPrice, evaluateVoucher, type TicketTypeRow } from '../commerce/pricing';
 import { invalidatePublicTicketCache } from '../tickets/tickets.service';
-
-type PaymentMethod = 'card' | 'qr' | 'bank';
 
 interface CreateOrderInput {
   contact: {
@@ -156,7 +155,9 @@ async function findOrderById(client: PoolClient, orderId: number) {
             oi.shirt_size,
             oi.medal_name,
             oi.health_notes,
-            tk.qr_token
+            tk.qr_token,
+            tk.checked_in_at,
+            tk.revoked_at
      FROM order_items oi
      LEFT JOIN tickets tk ON tk.order_item_id = oi.id
      WHERE oi.order_id = $1
@@ -451,98 +452,6 @@ export async function listAdminOrders() {
       if (order) orders.push(order);
     }
     return orders;
-  });
-}
-
-async function writeCancelAudit(
-  client: PoolClient,
-  adminId: number,
-  orderId: number,
-  prevStatus: string,
-) {
-  await client.query(
-    `INSERT INTO audit_logs (actor_id, action, entity_type, entity_id, before_json, after_json)
-     VALUES ($1, 'order.cancel', 'order', $2, $3::jsonb, $4::jsonb)`,
-    [
-      adminId,
-      orderId,
-      JSON.stringify({ status: prevStatus }),
-      JSON.stringify({ status: 'cancelled' }),
-    ],
-  );
-}
-
-/**
- * Huỷ đơn (super_admin). Nhả slot về kho theo trạng thái:
- *  - pending: trả lại reserved_count
- *  - paid: trả lại sold_count, xoá vé (vô hiệu QR), hoàn lượt voucher
- *  - expired/failed: chỉ đổi trạng thái (slot đã nhả trước đó)
- * Idempotent: huỷ lại đơn đã cancelled không làm gì thêm.
- */
-export async function cancelOrder(code: string, adminId: number) {
-  return withTransaction(async (client) => {
-    const { rows } = await client.query(
-      `SELECT * FROM orders WHERE order_code = $1 AND is_deleted = false FOR UPDATE`,
-      [code],
-    );
-    const order = rows[0];
-    if (!order) throw new AppError(404, 'ORDER_NOT_FOUND', 'Đơn hàng không tồn tại');
-
-    if (order.status === 'cancelled') {
-      return { status: 'cancelled', order: await findOrderById(client, order.id) };
-    }
-
-    const prevStatus = order.status as string;
-
-    if (prevStatus === 'pending' || prevStatus === 'paid') {
-      const { rows: counts } = await client.query(
-        `SELECT ticket_type_id, count(*)::int AS qty
-         FROM order_items WHERE order_id = $1 GROUP BY ticket_type_id`,
-        [order.id],
-      );
-
-      if (prevStatus === 'pending') {
-        for (const r of counts) {
-          await client.query(
-            `UPDATE ticket_types
-             SET reserved_count = greatest(reserved_count - $2, 0), updated_at = now()
-             WHERE id = $1`,
-            [r.ticket_type_id, r.qty],
-          );
-        }
-      } else {
-        // paid → nhả sold_count, xoá vé, hoàn voucher
-        for (const r of counts) {
-          await client.query(
-            `UPDATE ticket_types
-             SET sold_count = greatest(sold_count - $2, 0), updated_at = now()
-             WHERE id = $1`,
-            [r.ticket_type_id, r.qty],
-          );
-        }
-        await client.query(
-          `DELETE FROM tickets
-           WHERE order_item_id IN (SELECT id FROM order_items WHERE order_id = $1)`,
-          [order.id],
-        );
-        if (order.voucher_id) {
-          await client.query(
-            `UPDATE vouchers SET used_count = greatest(used_count - 1, 0), updated_at = now()
-             WHERE id = $1`,
-            [order.voucher_id],
-          );
-          await client.query(`DELETE FROM voucher_redemptions WHERE order_id = $1`, [order.id]);
-        }
-      }
-    }
-
-    await client.query(
-      `UPDATE orders SET status = 'cancelled', updated_at = now() WHERE id = $1`,
-      [order.id],
-    );
-    await writeCancelAudit(client, adminId, order.id, prevStatus);
-    await invalidatePublicTicketCache();
-    return { status: 'cancelled', order: await findOrderById(client, order.id) };
   });
 }
 

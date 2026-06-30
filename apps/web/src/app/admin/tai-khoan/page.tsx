@@ -25,15 +25,14 @@ import {
 import { useFetch } from "@/hooks/useCmsData";
 import { useAuth } from "@/hooks/useAuth";
 import { api, ApiError } from "@/lib/api-client";
+import {
+  ACCOUNT_STATUS,
+  ACCOUNT_STATUS_LABELS_VI,
+  ROLE_RANK,
+  type AccountStatus,
+} from "@konnit/types";
 
-// Thứ bậc role (khớp BE access.middleware.ts). Role tuỳ biến → 10.
-const ROLE_RANK: Record<string, number> = {
-  super_admin: 100,
-  admin: 80,
-  editor: 60,
-  checkin_staff: 40,
-  viewer: 20,
-};
+// Rank hiệu lực = rank cao nhất trong các role. Role tuỳ biến → 10.
 const rankOf = (keys?: string[]) =>
   (keys ?? []).reduce((max, k) => Math.max(max, ROLE_RANK[k] ?? 10), 0);
 
@@ -42,7 +41,7 @@ type AccessUser = {
   id: number;
   email: string;
   full_name: string | null;
-  status: "active" | "disabled";
+  status: AccountStatus;
   created_at: string;
   roles: AccessRoleRef[];
 };
@@ -233,8 +232,8 @@ function UsersTab({
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Badge variant={u.status === "active" ? "default" : "secondary"}>
-                    {u.status === "active" ? "Hoạt động" : "Đã khoá"}
+                  <Badge variant={u.status === ACCOUNT_STATUS.ACTIVE ? "default" : "secondary"}>
+                    {ACCOUNT_STATUS_LABELS_VI[u.status]}
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">
@@ -249,7 +248,7 @@ function UsersTab({
                         disabled={busyId === u.id}
                         onClick={() => toggleStatus(u)}
                       >
-                        {u.status === "active" ? (
+                        {u.status === ACCOUNT_STATUS.ACTIVE ? (
                           <Lock className="size-3.5" />
                         ) : (
                           <Unlock className="size-3.5" />

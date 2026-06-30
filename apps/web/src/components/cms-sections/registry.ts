@@ -1,4 +1,11 @@
-import { cmsSectionRegistry } from "@konnit/ui";
+import {
+  cmsSectionRegistry,
+  type SectionRegistryEntry,
+} from "@konnit/ui";
+import {
+  CMS_COMPONENT_CONFIG,
+  type CmsComponentType,
+} from "@konnit/types";
 
 // Hero
 import { HeroStyle1 } from "./HeroSection/HeroStyle1";
@@ -54,98 +61,83 @@ import { NoteAlertStyle3 } from "./NoteAlertSection/NoteAlertStyle3";
 import { TicketPreviewStyle1 } from "./TicketPreviewSection/TicketPreviewStyle1";
 import { TicketPreviewStyle2 } from "./TicketPreviewSection/TicketPreviewStyle2";
 
-cmsSectionRegistry["hero"] = {
-  label: "Hero",
-  fields: ["title", "description", "content", "note", "image", "primaryCta", "secondaryCta"],
-  styles: { style_1: HeroStyle1, style_2: HeroStyle2, style_3: HeroStyle3, style_4: HeroStyle4, style_5: HeroStyle5 },
-};
+function registerSection(
+  type: CmsComponentType,
+  styles: SectionRegistryEntry["styles"],
+) {
+  const config = CMS_COMPONENT_CONFIG[type];
+  cmsSectionRegistry[type] = {
+    label: config.label,
+    fields: [...config.fields],
+    styles,
+  };
+}
 
-cmsSectionRegistry["rich_text"] = {
-  label: "Nội dung văn bản",
-  fields: ["title", "description", "content", "note"],
-  styles: { style_1: RichTextStyle1, style_2: RichTextStyle2, style_3: RichTextStyle3 },
-};
-
-cmsSectionRegistry["image_text"] = {
-  label: "Ảnh + Văn bản",
-  fields: ["title", "description", "content", "note", "image", "imagePosition"],
-  styles: {
-    style_1: ImageTextStyle1,
-    style_2: ImageTextStyle2,
-    style_3: ImageTextStyle3,
-    style_4: ImageTextStyle4,
-    style_5: ImageTextStyle5,
-  },
-};
-
-cmsSectionRegistry["feature_grid"] = {
-  label: "Feature Grid",
-  fields: ["title", "description", "items"],
-  styles: {
-    style_1: FeatureGridStyle1,
-    style_2: FeatureGridStyle2,
-    style_3: FeatureGridStyle3,
-    style_4: FeatureGridStyle4,
-    style_5: FeatureGridStyle5,
-  },
-};
-
-cmsSectionRegistry["product"] = {
-  label: "Sản phẩm",
-  fields: ["title", "description", "items"],
-  styles: { style_1: ProductStyle1, style_2: ProductStyle2 },
-};
-
-cmsSectionRegistry["contact_panel"] = {
-  label: "Liên hệ",
-  fields: ["title", "description", "label", "phone", "primaryCta", "secondaryCta"],
-  styles: { style_1: ContactPanelStyle1, style_2: ContactPanelStyle2 },
-};
-
-cmsSectionRegistry["schedule"] = {
-  label: "Lịch trình",
-  fields: ["title", "description", "items"],
-  styles: { style_1: ScheduleStyle1, style_2: ScheduleStyle2, style_3: ScheduleStyle3 },
-};
-
-cmsSectionRegistry["faq"] = {
-  label: "FAQ",
-  fields: ["title", "description", "items"],
-  styles: { style_1: FAQStyle1, style_2: FAQStyle2 },
-};
-
-cmsSectionRegistry["cta"] = {
-  label: "Call to Action",
-  fields: ["title", "description", "buttonLabel", "buttonUrl", "note"],
-  styles: {
-    style_1: CTAStyle1,
-    style_2: CTAStyle2,
-    style_3: CTAStyle3,
-    style_4: CTAStyle4,
-    style_5: CTAStyle5,
-  },
-};
-
-cmsSectionRegistry["flow_steps"] = {
-  label: "Các bước (numbered)",
-  fields: ["title", "description", "items"],
-  styles: { style_1: FlowStepsStyle1, style_2: FlowStepsStyle2, style_3: FlowStepsStyle3 },
-};
-
-cmsSectionRegistry["sponsor"] = {
-  label: "Nhà tài trợ",
-  fields: ["title", "description", "logos"],
-  styles: { style_1: SponsorStyle1, style_2: SponsorStyle2 },
-};
-
-cmsSectionRegistry["note_alert"] = {
-  label: "Thông báo",
-  fields: ["title", "description", "content", "note", "tone"],
-  styles: { style_1: NoteAlertStyle1, style_2: NoteAlertStyle2, style_3: NoteAlertStyle3 },
-};
-
-cmsSectionRegistry["ticket_preview"] = {
-  label: "Bảng giá vé",
-  fields: ["title", "description", "items", "note"],
-  styles: { style_1: TicketPreviewStyle1, style_2: TicketPreviewStyle2 },
-};
+registerSection("hero", {
+  style_1: HeroStyle1,
+  style_2: HeroStyle2,
+  style_3: HeroStyle3,
+  style_4: HeroStyle4,
+  style_5: HeroStyle5,
+});
+registerSection("rich_text", {
+  style_1: RichTextStyle1,
+  style_2: RichTextStyle2,
+  style_3: RichTextStyle3,
+});
+registerSection("image_text", {
+  style_1: ImageTextStyle1,
+  style_2: ImageTextStyle2,
+  style_3: ImageTextStyle3,
+  style_4: ImageTextStyle4,
+  style_5: ImageTextStyle5,
+});
+registerSection("feature_grid", {
+  style_1: FeatureGridStyle1,
+  style_2: FeatureGridStyle2,
+  style_3: FeatureGridStyle3,
+  style_4: FeatureGridStyle4,
+  style_5: FeatureGridStyle5,
+});
+registerSection("product", {
+  style_1: ProductStyle1,
+  style_2: ProductStyle2,
+});
+registerSection("contact_panel", {
+  style_1: ContactPanelStyle1,
+  style_2: ContactPanelStyle2,
+});
+registerSection("schedule", {
+  style_1: ScheduleStyle1,
+  style_2: ScheduleStyle2,
+  style_3: ScheduleStyle3,
+});
+registerSection("faq", {
+  style_1: FAQStyle1,
+  style_2: FAQStyle2,
+});
+registerSection("cta", {
+  style_1: CTAStyle1,
+  style_2: CTAStyle2,
+  style_3: CTAStyle3,
+  style_4: CTAStyle4,
+  style_5: CTAStyle5,
+});
+registerSection("flow_steps", {
+  style_1: FlowStepsStyle1,
+  style_2: FlowStepsStyle2,
+  style_3: FlowStepsStyle3,
+});
+registerSection("sponsor", {
+  style_1: SponsorStyle1,
+  style_2: SponsorStyle2,
+});
+registerSection("note_alert", {
+  style_1: NoteAlertStyle1,
+  style_2: NoteAlertStyle2,
+  style_3: NoteAlertStyle3,
+});
+registerSection("ticket_preview", {
+  style_1: TicketPreviewStyle1,
+  style_2: TicketPreviewStyle2,
+});

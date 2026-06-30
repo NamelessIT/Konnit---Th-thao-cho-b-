@@ -3,6 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Pencil, Plus, Ticket, Trash2 } from "lucide-react";
+import {
+  CONTENT_STATUS,
+  CONTENT_STATUS_LABELS_VI,
+  CONTENT_STATUSES,
+  GENDER_RESTRICTION,
+  GENDER_RESTRICTION_LABELS_VI,
+  GENDER_RESTRICTIONS,
+  type ContentStatus,
+  type GenderRestriction,
+} from "@konnit/types";
 import { PageHeader } from "@/components/common/PageHeader";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
@@ -30,7 +40,7 @@ interface TicketFormState {
   ageGroup: string;
   ageMin: string;
   ageMax: string;
-  genderRestriction: "any" | "male" | "female";
+  genderRestriction: GenderRestriction;
   price: string;
   earlyBirdPrice: string;
   earlyBirdUntil: string;
@@ -38,7 +48,7 @@ interface TicketFormState {
   includesShirt: boolean;
   imagePath: string;
   sortOrder: string;
-  status: "draft" | "published" | "archived";
+  status: ContentStatus;
 }
 
 const EMPTY_FORM: TicketFormState = {
@@ -49,7 +59,7 @@ const EMPTY_FORM: TicketFormState = {
   ageGroup: "",
   ageMin: "",
   ageMax: "",
-  genderRestriction: "any",
+  genderRestriction: GENDER_RESTRICTION.ANY,
   price: "",
   earlyBirdPrice: "",
   earlyBirdUntil: "",
@@ -57,7 +67,7 @@ const EMPTY_FORM: TicketFormState = {
   includesShirt: false,
   imagePath: "",
   sortOrder: "0",
-  status: "draft",
+  status: CONTENT_STATUS.DRAFT,
 };
 
 export default function AdminTicketTypesPage() {
@@ -109,7 +119,8 @@ export default function AdminTicketTypesPage() {
       ageGroup: ticket.age_group ?? "",
       ageMin: ticket.age_min == null ? "" : String(ticket.age_min),
       ageMax: ticket.age_max == null ? "" : String(ticket.age_max),
-      genderRestriction: ticket.gender_restriction ?? "any",
+      genderRestriction:
+        ticket.gender_restriction ?? GENDER_RESTRICTION.ANY,
       price: String(ticket.price ?? 0),
       earlyBirdPrice:
         ticket.early_bird_price == null ? "" : String(ticket.early_bird_price),
@@ -311,9 +322,11 @@ export default function AdminTicketTypesPage() {
                 }
                 className={inputClass}
               >
-                <option value="any">Tất cả</option>
-                <option value="male">Nam</option>
-                <option value="female">Nữ</option>
+                {GENDER_RESTRICTIONS.map((restriction) => (
+                  <option key={restriction} value={restriction}>
+                    {GENDER_RESTRICTION_LABELS_VI[restriction]}
+                  </option>
+                ))}
               </select>
             </Field>
 
@@ -392,9 +405,11 @@ export default function AdminTicketTypesPage() {
                 }
                 className={inputClass}
               >
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-                <option value="archived">Archived</option>
+                {CONTENT_STATUSES.map((status) => (
+                  <option key={status} value={status}>
+                    {CONTENT_STATUS_LABELS_VI[status]}
+                  </option>
+                ))}
               </select>
             </Field>
 
@@ -491,8 +506,8 @@ export default function AdminTicketTypesPage() {
                     Còn {available}/{ticket.quota_total}
                   </TableCell>
                   <TableCell>
-                    <Badge variant={ticket.status === "published" ? "default" : "secondary"}>
-                      {ticket.status}
+                    <Badge variant={ticket.status === CONTENT_STATUS.PUBLISHED ? "default" : "secondary"}>
+                      {CONTENT_STATUS_LABELS_VI[ticket.status]}
                     </Badge>
                   </TableCell>
                   <TableCell className="space-x-2 text-right">

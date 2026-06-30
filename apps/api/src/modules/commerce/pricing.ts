@@ -44,7 +44,7 @@ export function enrichTicket(t: TicketTypeRow, at: Date = new Date()) {
 export interface VoucherRow {
   id: number;
   code: string;
-  discount_type: 'percent' | 'fixed';
+  discount_type: DiscountType;
   discount_value: string | number;
   min_order_amount: string | number | null;
   max_uses: number | null;
@@ -87,3 +87,4 @@ export function evaluateVoucher(
   discount = Math.max(0, Math.min(discount, subtotal));
   return { ok: true, discountAmount: discount };
 }
+import type { DiscountType } from '@konnit/types';

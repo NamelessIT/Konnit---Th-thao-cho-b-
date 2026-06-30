@@ -69,4 +69,17 @@ export const userOrdersApi = {
     if (!json.success) throw new Error(json.error?.message ?? "Không tải được đơn hàng");
     return json.data as UserOrderDetail;
   },
+
+  async requestRefund(code: string, reason?: string): Promise<unknown> {
+    const res = await fetch(`${API}/api/user/orders/${code}/refund-request`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ reason }),
+    });
+    if (res.status === 401) throw new Error("UNAUTHORIZED");
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error?.message ?? "Không gửi được yêu cầu hoàn");
+    return json.data;
+  },
 };

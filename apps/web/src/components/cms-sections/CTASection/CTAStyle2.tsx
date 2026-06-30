@@ -1,4 +1,5 @@
 import type { SectionProps } from "@konnit/ui";
+import { CmsLink } from "../_shared";
 
 export function CTAStyle2({ contentJson, title }: SectionProps) {
   const c = contentJson;
@@ -19,12 +20,12 @@ export function CTAStyle2({ contentJson, title }: SectionProps) {
             </p>
           )}
           {c.buttonLabel && (
-            <a
-              href={(c.buttonUrl as string) ?? "#"}
+            <CmsLink
+              value={{ label: c.buttonLabel, url: c.buttonUrl }}
               className="btn-shine mt-7 inline-block rounded-full bg-white px-8 py-3.5 font-semibold text-[var(--konnit-berry)] shadow-lg"
             >
               {c.buttonLabel as string}
-            </a>
+            </CmsLink>
           )}
         </div>
       </div>

@@ -185,5 +185,13 @@ function getStatusView(status: Order["status"]) {
         description:
           "Thời gian giữ vé đã hết. Vui lòng quay lại cửa hàng để tạo đơn mới.",
       };
+    default:
+      // refund_requested / refunding / refunded — UI chi tiết ở trang tài khoản
+      return {
+        Icon: Clock,
+        iconClass: "text-slate-400",
+        title: "Đang xử lý đơn",
+        description: "Trạng thái đơn hàng đang được cập nhật.",
+      };
   }
 }

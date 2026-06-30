@@ -3,6 +3,7 @@ import { AppError } from '../../middleware/errorHandler';
 import { query } from '../../config/db';
 import { asyncHandler } from '../../utils/asyncHandler';
 import { getCachedJson, setCachedJson, deleteCachedKeys } from '../../config/redisCache';
+import { ROLE_RANK } from '@konnit/types';
 
 type Realm = 'admin' | 'public';
 
@@ -11,19 +12,6 @@ interface PrincipalAccess {
   roles: string[];
   permissions: string[];
 }
-
-/**
- * Thứ bậc tài khoản (rank). Cao hơn = quyền lực hơn.
- * Quy tắc: chỉ tác động được tài khoản rank THẤP HƠN; chỉ gán được role rank THẤP HƠN mình.
- * super_admin (chủ hệ thống, duy nhất 1) là cao nhất trong hệ thống. Role tuỳ biến → rank thấp (10).
- */
-export const ROLE_RANK: Record<string, number> = {
-  super_admin: 100,
-  admin: 80,
-  editor: 60,
-  checkin_staff: 40,
-  viewer: 20,
-};
 
 /** Rank hiệu lực = rank cao nhất trong các role. Role lạ (tuỳ biến) = 10. */
 export function rankOf(roleKeys: string[]): number {

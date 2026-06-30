@@ -31,9 +31,3 @@ export async function payPublic(req: Request, res: Response) {
 export async function listAdmin(_req: Request, res: Response) {
   res.json({ success: true, data: await service.listAdminOrders() });
 }
-
-export async function cancelAdmin(req: Request, res: Response) {
-  const adminId = req.session.user!.id;
-  const data = await service.cancelOrder(String(req.params.code), adminId);
-  res.json({ success: true, data });
-}

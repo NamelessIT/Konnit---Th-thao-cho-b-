@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { PaymentMethod } from "@konnit/types";
 import { useRouter } from "next/navigation";
 import { CreditCard, Loader2, QrCode } from "lucide-react";
 import Link from "next/link";
@@ -10,8 +11,6 @@ import { shopApi } from "@/lib/shop/api";
 import { formatVND } from "@/lib/shop/format";
 import { useCartStore } from "@/store/cart";
 import type { Order } from "@/lib/shop/types";
-
-type PaymentMethod = "card" | "qr" | "bank";
 
 export function PaymentPanel({ code }: { code: string }) {
   const router = useRouter();

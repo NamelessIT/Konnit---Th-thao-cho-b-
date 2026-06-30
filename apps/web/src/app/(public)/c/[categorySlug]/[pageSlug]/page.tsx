@@ -29,12 +29,21 @@ export default async function CmsPage({
 }) {
   const { categorySlug, pageSlug } = await params;
 
-  const res = await fetch(
-    `${API}/api/public/cms/pages/${categorySlug}/${pageSlug}`,
-    { next: { revalidate: 60 } },
-  );
+  let page: PageData | null = null;
+  try {
+    const res = await fetch(
+      `${API}/api/public/cms/pages/${categorySlug}/${pageSlug}`,
+      { next: { revalidate: 60 } },
+    );
+    if (res.ok) {
+      const json = await res.json();
+      page = (json.data as PageData) ?? null;
+    }
+  } catch {
+    page = null;
+  }
 
-  if (!res.ok) {
+  if (!page) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-20 text-center">
         <h1 className="text-2xl font-bold">Không tìm thấy trang</h1>
@@ -44,9 +53,6 @@ export default async function CmsPage({
       </div>
     );
   }
-
-  const json = await res.json();
-  const page: PageData = json.data;
 
   return (
     <main>

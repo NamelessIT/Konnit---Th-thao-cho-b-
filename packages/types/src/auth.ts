@@ -1,9 +1,19 @@
+import type { AccountStatus } from './content-status';
+
+export const ADMIN_LEGACY_ROLES = [
+  'admin',
+  'editor',
+  'viewer',
+  'staff',
+] as const;
+export type AdminLegacyRole = (typeof ADMIN_LEGACY_ROLES)[number];
+
 export interface AdminUser {
   id: number;
   email: string;
   fullName: string | null;
-  role: 'admin' | 'editor' | 'viewer' | 'staff';
-  status: 'active' | 'disabled';
+  role: AdminLegacyRole;
+  status: AccountStatus;
   createdAt: string;
   updatedAt: string;
 }

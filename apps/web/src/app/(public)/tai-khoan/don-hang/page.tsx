@@ -5,14 +5,7 @@ import Link from "next/link";
 import { RequireUser } from "@/components/account/RequireUser";
 import { userOrdersApi, type UserOrderList } from "@/lib/auth/user-orders-api";
 import { formatVND } from "@/lib/shop/format";
-
-const STATUS_LABEL: Record<string, string> = {
-  pending: "Chờ thanh toán",
-  paid: "Đã thanh toán",
-  cancelled: "Đã huỷ",
-  expired: "Hết hạn giữ chỗ",
-  failed: "Thất bại",
-};
+import { ORDER_STATUS_LABELS_VI, type OrderStatus } from "@konnit/types";
 
 export default function Page() {
   return (
@@ -75,7 +68,7 @@ function OrdersList() {
                   <div className="text-right">
                     <p className="font-black text-[var(--konnit-berry)]">{formatVND(o.total)}</p>
                     <span className="text-xs font-bold text-[var(--konnit-muted)]">
-                      {STATUS_LABEL[o.status] ?? o.status}
+                      {ORDER_STATUS_LABELS_VI[o.status as OrderStatus] ?? o.status}
                     </span>
                   </div>
                 </Link>

@@ -2,13 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-import {
-  CheckCircle2,
-  Eye,
-  ReceiptText,
-  Search,
-  X,
-} from "lucide-react";
+import { Eye, ReceiptText, Search, X } from "lucide-react";
 import { PageHeader } from "@/components/common/PageHeader";
 import { EmptyState } from "@/components/common/EmptyState";
 import { Button } from "@/components/ui/button";
@@ -24,35 +18,73 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import { formatVND } from "@/lib/shop/format";
 import { useFetch } from "@/hooks/useCmsData";
 import { useAuth } from "@/hooks/useAuth";
 import { api, ApiError } from "@/lib/api-client";
+import { ORDER_STATUS_LABELS_VI, ORDER_STATUSES, type OrderStatus } from "@konnit/types";
 import type { AdminOrder } from "@/lib/admin-ticketing/types";
 
-type StatusFilter = "all" | "pending" | "paid" | "failed" | "expired" | "cancelled";
-type OrderStatus = AdminOrder["status"];
+type StatusFilter = "all" | OrderStatus;
+type RefundAction = "start" | "approve" | "reject" | "complete";
 
-const STATUS_LABELS: Record<StatusFilter, string> = {
-  all: "Tất cả",
-  pending: "Chờ thanh toán",
-  paid: "Đã thanh toán",
-  failed: "Thất bại",
-  expired: "Hết hạn",
-  cancelled: "Đã huỷ",
+const STATUS_FILTERS: StatusFilter[] = ["all", ...ORDER_STATUSES];
+
+const BADGE_VARIANT: Record<
+  OrderStatus,
+  "default" | "secondary" | "destructive" | "outline"
+> = {
+  pending: "outline",
+  paid: "default",
+  refund_requested: "secondary",
+  refunding: "secondary",
+  refunded: "outline",
+  expired: "secondary",
+  failed: "destructive",
 };
 
-const STATUS_OPTIONS: StatusFilter[] = ["all", "pending", "paid", "failed", "expired", "cancelled"];
-
-const VALID_TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
-  pending: ["paid", "failed", "expired"],
-  paid: ["failed"],
-  failed: ["pending", "paid"],
-  expired: ["pending"],
-  cancelled: [],
+const REFUND_COPY: Record<
+  RefundAction,
+  { title: string; description: string; confirmLabel: string; variant: "default" | "destructive"; reason: "none" | "optional" | "required" }
+> = {
+  start: {
+    title: "Bắt đầu hoàn tiền",
+    description:
+      "Xác nhận sẽ VÔ HIỆU mã QR, hoàn lại quota vé và trả lượt voucher (nếu có). Tiền được xử lý offline giữa bạn và khách.",
+    confirmLabel: "Bắt đầu hoàn tiền",
+    variant: "destructive",
+    reason: "optional",
+  },
+  approve: {
+    title: "Duyệt yêu cầu hoàn tiền",
+    description:
+      "Duyệt yêu cầu của khách: hệ thống sẽ vô hiệu QR, hoàn quota và trả lượt voucher. Tiền xử lý offline.",
+    confirmLabel: "Duyệt & hoàn vé",
+    variant: "destructive",
+    reason: "none",
+  },
+  reject: {
+    title: "Từ chối yêu cầu hoàn tiền",
+    description:
+      "Đơn sẽ quay lại trạng thái Đã thanh toán, mã QR dùng lại được. Vui lòng nhập lý do từ chối.",
+    confirmLabel: "Từ chối",
+    variant: "default",
+    reason: "required",
+  },
+  complete: {
+    title: "Đánh dấu đã hoàn tiền",
+    description:
+      "Xác nhận bạn đã thực sự chuyển tiền hoàn cho khách (ngoài hệ thống). Đơn sẽ chuyển sang Đã hoàn tiền.",
+    confirmLabel: "Đã hoàn tiền",
+    variant: "default",
+    reason: "none",
+  },
 };
 
 export default function AdminOrdersPage() {
@@ -62,31 +94,31 @@ export default function AdminOrdersPage() {
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOrder, setSelectedOrder] = useState<AdminOrder | null>(null);
-  const [newStatus, setNewStatus] = useState<OrderStatus | "">("");
-  const [updatingCode, setUpdatingCode] = useState<string | null>(null);
-  const [cancelling, setCancelling] = useState(false);
+
+  const [refundAction, setRefundAction] = useState<RefundAction | null>(null);
+  const [reason, setReason] = useState("");
+  const [busy, setBusy] = useState(false);
 
   const { user } = useAuth();
-  const isSuperAdmin = user?.roles?.includes("super_admin") ?? false;
+  const canManageRefunds = user?.permissions?.includes("orders.manage_refunds") ?? false;
 
   useEffect(() => {
     setOrders(fetchedOrders ?? []);
   }, [fetchedOrders]);
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
-      refetch();
-    }, 5000);
+    const timer = window.setInterval(() => refetch(), 5000);
     return () => window.clearInterval(timer);
   }, [refetch]);
 
+  const refundRequestedCount = useMemo(
+    () => orders.filter((o) => o.status === "refund_requested").length,
+    [orders],
+  );
+
   const filteredOrders = useMemo(() => {
     let list = orders;
-
-    if (statusFilter !== "all") {
-      list = list.filter((o) => o.status === statusFilter);
-    }
-
+    if (statusFilter !== "all") list = list.filter((o) => o.status === statusFilter);
     if (searchQuery.trim()) {
       const q = searchQuery.trim().toLowerCase();
       list = list.filter(
@@ -97,52 +129,41 @@ export default function AdminOrdersPage() {
           o.contact_email.toLowerCase().includes(q),
       );
     }
-
-    return list.sort(
+    return [...list].sort(
       (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
     );
   }, [orders, statusFilter, searchQuery]);
 
-  const handleExport = () => {
-    toast.success("Chức năng xuất Excel sẽ được kết nối sau");
-  };
-
-  function openDetail(order: AdminOrder) {
-    setSelectedOrder(order);
-    setNewStatus("");
+  function openRefund(action: RefundAction) {
+    setReason("");
+    setRefundAction(action);
   }
 
-  async function handleUpdateStatus() {
-    if (!selectedOrder || !newStatus) return;
-
-    setUpdatingCode(selectedOrder.order_code);
-    await refetch();
-
-    toast.success(
-      `Đã cập nhật đơn ${selectedOrder.order_code} → ${STATUS_LABELS[newStatus as OrderStatus]}`,
-    );
-    setUpdatingCode(null);
-    setNewStatus("");
-  }
-
-  async function handleCancel() {
-    if (!selectedOrder) return;
-    if (
-      !window.confirm(
-        `Huỷ đơn ${selectedOrder.order_code}? Vé sẽ được nhả về kho và QR (nếu có) bị vô hiệu.`,
-      )
-    )
+  async function submitRefund() {
+    if (!selectedOrder || !refundAction) return;
+    const copy = REFUND_COPY[refundAction];
+    if (copy.reason === "required" && !reason.trim()) {
+      toast.error("Vui lòng nhập lý do");
       return;
-    setCancelling(true);
+    }
+    setBusy(true);
     try {
-      await api.post(`/admin/orders/${selectedOrder.order_code}/cancel`);
-      toast.success(`Đã huỷ đơn ${selectedOrder.order_code}`);
+      const body =
+        refundAction === "reject"
+          ? { reason: reason.trim() }
+          : refundAction === "start"
+            ? { reason: reason.trim() || undefined }
+            : {};
+      await api.post(`/admin/orders/${selectedOrder.order_code}/refund/${refundAction}`, body);
+      toast.success("Đã cập nhật yêu cầu hoàn tiền");
+      setRefundAction(null);
+      setReason("");
       setSelectedOrder(null);
       await refetch();
     } catch (e) {
-      toast.error(e instanceof ApiError ? e.message : "Huỷ đơn thất bại");
+      toast.error(e instanceof ApiError ? e.message : "Thao tác thất bại");
     } finally {
-      setCancelling(false);
+      setBusy(false);
     }
   }
 
@@ -150,36 +171,44 @@ export default function AdminOrdersPage() {
     <div>
       <PageHeader
         title="Đơn hàng"
-        description="Quản lý và tra cứu lịch sử đặt vé"
+        description="Quản lý đơn đặt vé và xử lý hoàn tiền"
         actions={
-          <Button variant="outline" onClick={handleExport}>
+          <Button variant="outline" onClick={() => toast.success("Chức năng xuất Excel sẽ được kết nối sau")}>
             <ReceiptText className="mr-2 size-4" />
             Xuất Excel
           </Button>
         }
       />
 
+      {canManageRefunds && refundRequestedCount > 0 && (
+        <div className="mb-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-800">
+          Có {refundRequestedCount} yêu cầu hoàn tiền đang chờ xử lý.
+        </div>
+      )}
+
       {/* Filters */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <div className="flex flex-wrap gap-1.5">
-          {STATUS_OPTIONS.map((opt) => (
-            <button
-              key={opt}
-              onClick={() => setStatusFilter(opt)}
-              className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
-                statusFilter === opt
-                  ? "bg-[var(--konnit-berry)] text-white shadow-sm"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
-              }`}
-            >
-              {STATUS_LABELS[opt]}
-              {opt !== "all" && (
-                <span className="ml-1.5 text-xs opacity-70">
-                  ({orders.filter((o) => o.status === opt).length})
-                </span>
-              )}
-            </button>
-          ))}
+          {STATUS_FILTERS.map((opt) => {
+            const count = opt === "all" ? orders.length : orders.filter((o) => o.status === opt).length;
+            const highlight = opt === "refund_requested" && count > 0;
+            return (
+              <button
+                key={opt}
+                onClick={() => setStatusFilter(opt)}
+                className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
+                  statusFilter === opt
+                    ? "bg-[var(--konnit-berry)] text-white shadow-sm"
+                    : highlight
+                      ? "bg-amber-100 text-amber-800 ring-1 ring-amber-300"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                {opt === "all" ? "Tất cả" : ORDER_STATUS_LABELS_VI[opt]}
+                <span className="ml-1.5 text-xs opacity-70">({count})</span>
+              </button>
+            );
+          })}
         </div>
 
         <div className="relative ml-auto w-full max-w-xs">
@@ -208,11 +237,7 @@ export default function AdminOrdersPage() {
         <p className="text-sm text-destructive">{error}</p>
       ) : filteredOrders.length === 0 ? (
         <EmptyState
-          title={
-            statusFilter !== "all" || searchQuery
-              ? "Không tìm thấy đơn hàng"
-              : "Chưa có đơn hàng"
-          }
+          title={statusFilter !== "all" || searchQuery ? "Không tìm thấy đơn hàng" : "Chưa có đơn hàng"}
           description={
             statusFilter !== "all" || searchQuery
               ? "Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm"
@@ -234,64 +259,47 @@ export default function AdminOrdersPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredOrders.map((order) => {
-              const totalQty = order.items.length;
-              return (
-                <TableRow key={order.order_code}>
-                  <TableCell>
-                    <span className="font-mono text-sm font-medium">
-                      {order.order_code}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <div className="font-medium">{order.contact_name}</div>
-                    <div className="text-xs text-muted-foreground">
-                      {order.contact_phone}
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      {order.contact_email}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {totalQty} vé
-                  </TableCell>
-                  <TableCell className="font-medium">
-                    {formatVND(order.total)}
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant="outline" className="capitalize">
-                      {order.payment_method === "card"
-                        ? "Thẻ"
-                        : order.payment_method === "qr"
-                          ? "QR"
-                          : "Chuyển khoản"}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {new Date(order.created_at).toLocaleDateString("vi-VN", {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </TableCell>
-                  <TableCell>
-                    <OrderStatusBadge status={order.status} />
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => openDetail(order)}
-                    >
-                      <Eye className="mr-1 size-3.5" />
-                      Xem
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {filteredOrders.map((order) => (
+              <TableRow key={order.order_code}>
+                <TableCell>
+                  <span className="font-mono text-sm font-medium">{order.order_code}</span>
+                </TableCell>
+                <TableCell>
+                  <div className="font-medium">{order.contact_name}</div>
+                  <div className="text-xs text-muted-foreground">{order.contact_phone}</div>
+                  <div className="text-xs text-muted-foreground">{order.contact_email}</div>
+                </TableCell>
+                <TableCell className="text-muted-foreground">{order.items.length} vé</TableCell>
+                <TableCell className="font-medium">{formatVND(order.total)}</TableCell>
+                <TableCell>
+                  <Badge variant="outline" className="capitalize">
+                    {order.payment_method === "card"
+                      ? "Thẻ"
+                      : order.payment_method === "qr"
+                        ? "QR"
+                        : "Chuyển khoản"}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-muted-foreground">
+                  {new Date(order.created_at).toLocaleDateString("vi-VN", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </TableCell>
+                <TableCell>
+                  <OrderStatusBadge status={order.status} />
+                </TableCell>
+                <TableCell className="text-right">
+                  <Button variant="ghost" size="sm" onClick={() => setSelectedOrder(order)}>
+                    <Eye className="mr-1 size-3.5" />
+                    Xem
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       )}
@@ -300,10 +308,7 @@ export default function AdminOrdersPage() {
       <Dialog
         open={selectedOrder !== null}
         onOpenChange={(open) => {
-          if (!open) {
-            setSelectedOrder(null);
-            setNewStatus("");
-          }
+          if (!open && !busy) setSelectedOrder(null);
         }}
       >
         <DialogContent className="max-w-2xl">
@@ -318,9 +323,7 @@ export default function AdminOrdersPage() {
             <div className="space-y-5">
               {/* Customer info */}
               <div>
-                <h4 className="mb-2 text-sm font-semibold text-muted-foreground">
-                  THÔNG TIN KHÁCH HÀNG
-                </h4>
+                <h4 className="mb-2 text-sm font-semibold text-muted-foreground">THÔNG TIN KHÁCH HÀNG</h4>
                 <div className="grid grid-cols-2 gap-3 rounded-xl bg-muted/50 p-4 text-sm">
                   <div>
                     <span className="text-muted-foreground">Họ tên:</span>
@@ -335,20 +338,8 @@ export default function AdminOrdersPage() {
                     <p className="font-medium">{selectedOrder.contact_email}</p>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Phương thức:</span>
-                    <p className="font-medium capitalize">
-                      {selectedOrder.payment_method === "card"
-                        ? "Thẻ ngân hàng"
-                        : selectedOrder.payment_method === "qr"
-                          ? "Ví QR"
-                          : "Chuyển khoản QR"}
-                    </p>
-                  </div>
-                  <div>
                     <span className="text-muted-foreground">Ngày đặt:</span>
-                    <p className="font-medium">
-                      {new Date(selectedOrder.created_at).toLocaleString("vi-VN")}
-                    </p>
+                    <p className="font-medium">{new Date(selectedOrder.created_at).toLocaleString("vi-VN")}</p>
                   </div>
                 </div>
               </div>
@@ -365,10 +356,7 @@ export default function AdminOrdersPage() {
                     <span className="w-24 text-right">Đơn giá</span>
                   </div>
                   {selectedOrder.items.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm"
-                    >
+                    <div key={item.id} className="flex items-center gap-3 px-4 py-2.5 text-sm">
                       <span className="flex-1 font-medium">
                         {item.attendee_name}
                         {item.qr_token && (
@@ -377,97 +365,109 @@ export default function AdminOrdersPage() {
                           </span>
                         )}
                       </span>
-                      <span className="w-28 text-right text-muted-foreground">
-                        {item.ticket_name}
-                      </span>
-                      <span className="w-24 text-right font-medium">
-                        {formatVND(item.unit_price)}
-                      </span>
+                      <span className="w-28 text-right text-muted-foreground">{item.ticket_name}</span>
+                      <span className="w-24 text-right font-medium">{formatVND(item.unit_price)}</span>
                     </div>
                   ))}
                   <div className="flex items-center justify-end gap-2 border-t bg-muted/20 px-4 py-3 font-semibold">
                     <span>Tổng cộng:</span>
-                    <span className="text-lg text-[var(--konnit-berry)]">
-                      {formatVND(selectedOrder.total)}
-                    </span>
+                    <span className="text-lg text-[var(--konnit-berry)]">{formatVND(selectedOrder.total)}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Update Status Section */}
-              <div className="rounded-xl border border-dashed p-4">
-                <h4 className="mb-3 text-sm font-semibold text-muted-foreground">
-                  CẬP NHẬT TRẠNG THÁI
-                </h4>
-                <div className="flex flex-wrap items-center gap-3">
-                  <select
-                    value={newStatus}
-                    onChange={(e) => setNewStatus(e.target.value as OrderStatus)}
-                    disabled
-                    className="rounded-xl border border-input bg-background px-3 py-2 text-sm outline-none transition focus:border-[var(--konnit-berry)] focus:ring-2 focus:ring-[var(--konnit-berry)]/20"
-                  >
-                    <option value="">-- Chọn trạng thái mới --</option>
-                    {VALID_TRANSITIONS[selectedOrder.status].map((s) => (
-                      <option key={s} value={s}>
-                        {STATUS_LABELS[s]}
-                      </option>
-                    ))}
-                  </select>
-
-                  <Button
-                    onClick={handleUpdateStatus}
-                    disabled
-                  >
-                    {updatingCode === selectedOrder.order_code ? (
-                      <>Đang cập nhật...</>
+              {/* Refund actions */}
+              {canManageRefunds && (
+                <div className="flex flex-wrap items-center justify-end gap-2 border-t pt-4">
+                  {selectedOrder.status === "paid" &&
+                    (selectedOrder.items.some((i) => i.checked_in_at) ? (
+                      <span className="mr-auto text-xs text-muted-foreground">
+                        Đã có vé check-in — không thể hoàn tiền.
+                      </span>
                     ) : (
-                      <>
-                        <CheckCircle2 className="mr-1.5 size-4" />
-                        Cập nhật
-                      </>
-                    )}
+                      <Button variant="destructive" size="sm" onClick={() => openRefund("start")}>
+                        Bắt đầu hoàn tiền
+                      </Button>
+                    ))}
+                  {selectedOrder.status === "refund_requested" && (
+                    <>
+                      <Button size="sm" onClick={() => openRefund("approve")}>
+                        Duyệt yêu cầu
+                      </Button>
+                      <Button variant="outline" size="sm" onClick={() => openRefund("reject")}>
+                        Từ chối
+                      </Button>
+                    </>
+                  )}
+                  {selectedOrder.status === "refunding" && (
+                    <Button size="sm" onClick={() => openRefund("complete")}>
+                      Đánh dấu đã hoàn tiền
+                    </Button>
+                  )}
+                  <Button variant="ghost" size="sm" onClick={() => setSelectedOrder(null)}>
+                    Đóng
                   </Button>
                 </div>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  Trạng thái hiện tại:{" "}
-                  <strong>{STATUS_LABELS[selectedOrder.status]}</strong>.
-                  Có thể chuyển sang:{" "}
-                  {VALID_TRANSITIONS[selectedOrder.status]
-                    .map((s) => STATUS_LABELS[s])
-                    .join(", ")}.
-                </p>
-              </div>
+              )}
+              {!canManageRefunds && (
+                <div className="flex justify-end">
+                  <Button variant="ghost" size="sm" onClick={() => setSelectedOrder(null)}>
+                    Đóng
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
-              {/* Actions */}
-              <div className="flex justify-end gap-2">
-                {isSuperAdmin && selectedOrder.status !== "cancelled" && (
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={handleCancel}
-                    disabled={cancelling}
-                  >
-                    <X className="mr-1 size-3.5" />
-                    {cancelling ? "Đang huỷ..." : "Huỷ đơn"}
-                  </Button>
-                )}
-                {selectedOrder.status === "paid" && (
-                  <Button variant="outline" size="sm">
-                    Gửi lại email vé
-                  </Button>
-                )}
+      {/* Refund confirm dialog */}
+      <Dialog
+        open={refundAction !== null}
+        onOpenChange={(open) => {
+          if (!open && !busy) {
+            setRefundAction(null);
+            setReason("");
+          }
+        }}
+      >
+        <DialogContent>
+          {refundAction && (
+            <>
+              <DialogHeader>
+                <DialogTitle>{REFUND_COPY[refundAction].title}</DialogTitle>
+                <DialogDescription>{REFUND_COPY[refundAction].description}</DialogDescription>
+              </DialogHeader>
+              {REFUND_COPY[refundAction].reason !== "none" && (
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium">
+                    Lý do {REFUND_COPY[refundAction].reason === "optional" ? "(tuỳ chọn)" : ""}
+                  </label>
+                  <Textarea
+                    value={reason}
+                    maxLength={500}
+                    rows={3}
+                    onChange={(e) => setReason(e.target.value)}
+                    placeholder="Nhập lý do…"
+                  />
+                </div>
+              )}
+              <DialogFooter>
                 <Button
-                  variant="ghost"
-                  size="sm"
+                  variant="outline"
+                  disabled={busy}
                   onClick={() => {
-                    setSelectedOrder(null);
-                    setNewStatus("");
+                    setRefundAction(null);
+                    setReason("");
                   }}
                 >
                   Đóng
                 </Button>
-              </div>
-            </div>
+                <Button variant={REFUND_COPY[refundAction].variant} disabled={busy} onClick={submitRefund}>
+                  {busy ? "Đang xử lý…" : REFUND_COPY[refundAction].confirmLabel}
+                </Button>
+              </DialogFooter>
+            </>
           )}
         </DialogContent>
       </Dialog>
@@ -476,17 +476,5 @@ export default function AdminOrdersPage() {
 }
 
 function OrderStatusBadge({ status }: { status: OrderStatus }) {
-  const map: Record<
-    OrderStatus,
-    { label: string; variant: "default" | "secondary" | "destructive" | "outline" }
-  > = {
-    pending: { label: "Chờ thanh toán", variant: "outline" },
-    paid: { label: "Đã thanh toán", variant: "default" },
-    failed: { label: "Thất bại", variant: "destructive" },
-    expired: { label: "Hết hạn", variant: "secondary" },
-    cancelled: { label: "Đã huỷ", variant: "destructive" },
-  };
-
-  const config = map[status];
-  return <Badge variant={config.variant}>{config.label}</Badge>;
+  return <Badge variant={BADGE_VARIANT[status]}>{ORDER_STATUS_LABELS_VI[status]}</Badge>;
 }

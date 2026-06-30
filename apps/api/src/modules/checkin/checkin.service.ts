@@ -11,9 +11,21 @@ interface CheckinInput {
 
 export async function checkInTicket(input: CheckinInput) {
   return withTransaction(async (client) => {
-    // Khoá đúng row vé → 2 request cùng token bị tuần tự hoá.
+    // Khoá ORDER trước (cùng thứ tự lock với refund → tránh deadlock).
+    const orderLock = await client.query(
+      `SELECT o.id
+       FROM orders o
+       JOIN order_items oi ON oi.order_id = o.id
+       JOIN tickets tk ON tk.order_item_id = oi.id
+       WHERE tk.qr_token = $1
+       FOR UPDATE OF o`,
+      [input.qrToken],
+    );
+    if (!orderLock.rows[0]) throw new AppError(404, 'TICKET_NOT_FOUND', 'Vé không tồn tại');
+
+    // Khoá đúng row vé → 2 request cùng token bị tuần tự hoá. Re-check trạng thái trong tx.
     const { rows } = await client.query(
-      `SELECT tk.id, tk.checked_in_at, tk.checked_in_by,
+      `SELECT tk.id, tk.checked_in_at, tk.checked_in_by, tk.revoked_at,
               au.full_name AS checked_in_by_name,
               oi.attendee_name, oi.ticket_type_name,
               o.status AS order_status, o.order_code,
@@ -30,8 +42,11 @@ export async function checkInTicket(input: CheckinInput) {
     );
     const t = rows[0];
     if (!t) throw new AppError(404, 'TICKET_NOT_FOUND', 'Vé không tồn tại');
+    if (t.revoked_at) {
+      throw new AppError(409, 'TICKET_REVOKED', 'Vé đã bị thu hồi (đơn đang/đã hoàn tiền)');
+    }
     if (t.order_status !== 'paid') {
-      throw new AppError(409, 'ORDER_NOT_PAID', 'Đơn của vé này chưa thanh toán');
+      throw new AppError(409, 'ORDER_NOT_PAID', 'Đơn của vé này chưa thanh toán hoặc đang hoàn tiền');
     }
     if (Number(t.event_id) !== Number(input.eventId)) {
       throw new AppError(409, 'WRONG_EVENT', `Vé thuộc sự kiện khác: ${t.event_name}`);

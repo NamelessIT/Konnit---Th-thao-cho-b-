@@ -3,6 +3,16 @@
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { BadgePercent, Pencil, Plus, Trash2 } from "lucide-react";
+import {
+  DISCOUNT_TYPE,
+  DISCOUNT_TYPE_LABELS_VI,
+  DISCOUNT_TYPES,
+  VOUCHER_STATUS,
+  VOUCHER_STATUS_LABELS_VI,
+  VOUCHER_STATUSES,
+  type DiscountType,
+  type VoucherStatus,
+} from "@konnit/types";
 import { PageHeader } from "@/components/common/PageHeader";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
@@ -25,25 +35,25 @@ interface VoucherFormState {
   id?: number;
   code: string;
   description: string;
-  discountType: "percent" | "fixed";
+  discountType: DiscountType;
   discountValue: string;
   minOrderAmount: string;
   maxUses: string;
   startsAt: string;
   expiresAt: string;
-  status: "active" | "disabled";
+  status: VoucherStatus;
 }
 
 const EMPTY_FORM: VoucherFormState = {
   code: "",
   description: "",
-  discountType: "percent",
+  discountType: DISCOUNT_TYPE.PERCENT,
   discountValue: "",
   minOrderAmount: "0",
   maxUses: "",
   startsAt: "",
   expiresAt: "",
-  status: "active",
+  status: VOUCHER_STATUS.ACTIVE,
 };
 
 export default function AdminVouchersPage() {
@@ -93,7 +103,7 @@ export default function AdminVouchersPage() {
       return;
     }
 
-    if (form.discountType === "percent" && discountValue > 100) {
+    if (form.discountType === DISCOUNT_TYPE.PERCENT && discountValue > 100) {
       toast.error("Giảm theo phần trăm không thể vượt quá 100%");
       return;
     }
@@ -191,13 +201,16 @@ export default function AdminVouchersPage() {
                 onChange={(e) =>
                   setForm({
                     ...form,
-                    discountType: e.target.value as "percent" | "fixed",
+                    discountType: e.target.value as DiscountType,
                   })
                 }
                 className={inputClass}
               >
-                <option value="percent">Phần trăm (%)</option>
-                <option value="fixed">Số tiền cố định</option>
+                {DISCOUNT_TYPES.map((type) => (
+                  <option key={type} value={type}>
+                    {DISCOUNT_TYPE_LABELS_VI[type]}
+                  </option>
+                ))}
               </select>
             </Field>
 
@@ -210,7 +223,7 @@ export default function AdminVouchersPage() {
                   setForm({ ...form, discountValue: e.target.value })
                 }
                 className={inputClass}
-                placeholder={form.discountType === "percent" ? "10" : "50000"}
+                placeholder={form.discountType === DISCOUNT_TYPE.PERCENT ? "10" : "50000"}
               />
             </Field>
 
@@ -244,13 +257,16 @@ export default function AdminVouchersPage() {
                 onChange={(e) =>
                   setForm({
                     ...form,
-                    status: e.target.value as "active" | "disabled",
+                    status: e.target.value as VoucherStatus,
                   })
                 }
                 className={inputClass}
               >
-                <option value="active">Active</option>
-                <option value="disabled">Disabled</option>
+                {VOUCHER_STATUSES.map((status) => (
+                  <option key={status} value={status}>
+                    {VOUCHER_STATUS_LABELS_VI[status]}
+                  </option>
+                ))}
               </select>
             </Field>
 
@@ -341,7 +357,7 @@ export default function AdminVouchersPage() {
                     )}
                   </TableCell>
                   <TableCell>
-                    {voucher.discount_type === "percent" ? (
+                    {voucher.discount_type === DISCOUNT_TYPE.PERCENT ? (
                       <span className="font-medium">{voucher.discount_value}%</span>
                     ) : (
                       <span className="font-medium">{formatVND(voucher.discount_value)}</span>
@@ -377,14 +393,18 @@ export default function AdminVouchersPage() {
                     )}
                   </TableCell>
                   <TableCell>
-                    {voucher.status === "disabled" ? (
-                      <Badge variant="secondary">Disabled</Badge>
+                    {voucher.status === VOUCHER_STATUS.DISABLED ? (
+                      <Badge variant="secondary">
+                        {VOUCHER_STATUS_LABELS_VI[voucher.status]}
+                      </Badge>
                     ) : isExpired || maxedOut ? (
                       <Badge variant="destructive">Hết hạn</Badge>
                     ) : isNotYetActive ? (
                       <Badge variant="secondary">Sắp kích hoạt</Badge>
                     ) : (
-                      <Badge variant="default">Active</Badge>
+                      <Badge variant="default">
+                        {VOUCHER_STATUS_LABELS_VI[voucher.status]}
+                      </Badge>
                     )}
                   </TableCell>
                   <TableCell className="space-x-2 text-right">

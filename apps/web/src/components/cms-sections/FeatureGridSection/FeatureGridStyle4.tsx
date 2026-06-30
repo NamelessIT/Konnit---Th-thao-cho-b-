@@ -1,5 +1,5 @@
 import type { SectionProps } from "@konnit/ui";
-import { Eyebrow, Gallery, type GalleryTint } from "../_shared";
+import { CmsLink, Eyebrow, Gallery, type GalleryTint } from "../_shared";
 
 type Tint = "bike" | "camp" | "science" | "pink" | "mint" | "sky";
 
@@ -87,12 +87,12 @@ export function FeatureGridStyle4({ contentJson, title, description }: SectionPr
                   <div className="mt-auto flex items-center justify-between gap-3 border-t border-[var(--line)] pt-3">
                     {item.meta && <span className="pill">{item.meta}</span>}
                     {item.linkLabel && (
-                      <a
-                        href={item.linkUrl || "#"}
+                      <CmsLink
+                        value={{ label: item.linkLabel, url: item.linkUrl }}
                         className="link-underline w-max font-extrabold text-[var(--konnit-berry)]"
                       >
                         {item.linkLabel}
-                      </a>
+                      </CmsLink>
                     )}
                   </div>
                 )}

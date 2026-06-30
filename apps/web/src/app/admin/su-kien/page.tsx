@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { CalendarDays, Pencil, Plus, Trash2 } from "lucide-react";
+import type { ContentStatus } from "@konnit/types";
 import { PageHeader } from "@/components/common/PageHeader";
 import { EmptyState } from "@/components/common/EmptyState";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
@@ -31,7 +32,7 @@ interface EventFormState {
   registrationOpensAt: string;
   registrationClosesAt: string;
   bannerPath: string;
-  status: "draft" | "published" | "archived";
+  status: ContentStatus;
 }
 
 const EMPTY_FORM: EventFormState = {

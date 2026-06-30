@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { CONTENT_STATUSES } from '@konnit/types';
 
 export const createPageSchema = z.object({
   categoryId: z.number().int().positive(),
@@ -16,5 +17,5 @@ export const updatePageSchema = z.object({
   description: z.string().max(2000).nullable().optional(),
   seoTitle: z.string().max(200).nullable().optional(),
   seoDescription: z.string().max(500).nullable().optional(),
-  status: z.enum(['draft', 'published', 'archived']).optional(),
+  status: z.enum(CONTENT_STATUSES).optional(),
 });

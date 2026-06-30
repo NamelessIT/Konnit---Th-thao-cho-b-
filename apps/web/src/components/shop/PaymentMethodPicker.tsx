@@ -1,9 +1,10 @@
 "use client";
 
 import { CreditCard, QrCode, Building2 } from "lucide-react";
+import type { PaymentMethod } from "@konnit/types";
 import { cn } from "@/lib/utils";
 
-export type PaymentMethod = "card" | "qr" | "bank";
+export type { PaymentMethod } from "@konnit/types";
 
 interface PaymentMethodPickerProps {
   value: PaymentMethod;

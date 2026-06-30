@@ -24,6 +24,7 @@ import { userOrdersRoutes } from './modules/user-orders/user-orders.routes';
 import { checkinRoutes } from './modules/checkin/checkin.routes';
 import { accessRoutes } from './modules/access/access.routes';
 import { reportsRoutes } from './modules/reports/reports.routes';
+import { userRefundRoutes, adminRefundRoutes } from './modules/refunds/refunds.routes';
 export const app = express();
 
 // Middleware
@@ -56,6 +57,7 @@ app.use('/api/public/cms', publicCmsRoutes);
 app.use('/api/admin/auth', authRoutes);
 app.use('/api/admin/cms', cmsRoutes);
 app.use('/api/user/orders', userOrdersRoutes);
+app.use('/api/user/orders', userRefundRoutes);
 app.use('/api/admin/uploads', uploadRoutes);
 app.use('/api/admin/tickets', checkinRoutes);
 app.use('/api/admin/access', accessRoutes);
@@ -65,6 +67,7 @@ app.use('/api/admin/events', eventsRoutes);
 app.use('/api/admin/ticket-types', ticketTypesRoutes);
 app.use('/api/admin/vouchers', vouchersRoutes);
 app.use('/api/admin/orders', ordersRoutes);
+app.use('/api/admin/orders', adminRefundRoutes);
 app.use('/api/public/auth', publicAuthRoutes);
 app.use('/api/public', publicShopRoutes);
 app.use('/api/admin/reports', reportsRoutes);

@@ -1,6 +1,7 @@
 import type { PoolClient } from 'pg';
 import { query } from '../../config/db';
 import { AppError } from '../../middleware/errorHandler';
+import type { AccountStatus } from '@konnit/types';
 
 // ===== Users =====
 export async function listUsers() {
@@ -85,7 +86,7 @@ export async function setUserRoles(client: PoolClient, userId: number, roleKeys:
   }
 }
 
-export async function setUserStatus(id: number, status: 'active' | 'disabled') {
+export async function setUserStatus(id: number, status: AccountStatus) {
   await query(`UPDATE admin_users SET status = $2, updated_at = now() WHERE id = $1`, [id, status]);
 }
 

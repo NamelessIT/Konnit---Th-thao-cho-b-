@@ -1,10 +1,6 @@
 import type { SectionProps } from "@konnit/ui";
-import { Eyebrow } from "../_shared";
-
-interface Cta {
-  label?: string;
-  url?: string;
-}
+import { normalizeCmsLinkValue } from "@konnit/types";
+import { CmsLink, Eyebrow } from "../_shared";
 
 /**
  * Hero — image-overlay (demo `.hero`).
@@ -16,8 +12,8 @@ export function HeroStyle4({ contentJson, title, description }: SectionProps) {
   const copy = (c.description as string) || description || "";
   const eyebrow = c.eyebrow as string | undefined;
   const image = c.image as string | undefined;
-  const primary = c.primaryCta as Cta | undefined;
-  const secondary = c.secondaryCta as Cta | undefined;
+  const primary = normalizeCmsLinkValue(c.primaryCta);
+  const secondary = normalizeCmsLinkValue(c.secondaryCta);
 
   return (
     <section className="relative grid min-h-[78svh] items-center overflow-hidden border-b border-[var(--line)] px-4 pb-16 pt-[150px] md:py-[112px]">
@@ -56,20 +52,20 @@ export function HeroStyle4({ contentJson, title, description }: SectionProps) {
             style={{ animationDelay: "0.18s" }}
           >
             {primary?.label && (
-              <a
-                href={primary.url || "#"}
+              <CmsLink
+                value={primary}
                 className="btn-shine inline-flex min-h-[44px] min-w-[160px] items-center justify-center rounded-[var(--radius)] border-2 border-transparent bg-[var(--konnit-berry)] px-5 font-extrabold text-white shadow-[0_12px_24px_rgba(143,47,103,0.2)]"
               >
                 {primary.label}
-              </a>
+              </CmsLink>
             )}
             {secondary?.label && (
-              <a
-                href={secondary.url || "#"}
+              <CmsLink
+                value={secondary}
                 className="inline-flex min-h-[44px] min-w-[160px] items-center justify-center rounded-[var(--radius)] border-2 border-[var(--line)] bg-white/80 px-5 font-extrabold text-[var(--konnit-berry)] transition-transform hover:-translate-y-0.5"
               >
                 {secondary.label}
-              </a>
+              </CmsLink>
             )}
           </div>
         )}

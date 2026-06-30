@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { CONTENT_STATUSES, GENDER_RESTRICTIONS } from '@konnit/types';
 
 export const createTicketTypeSchema = z.object({
   eventId: z.number().int().positive(),
@@ -8,7 +9,7 @@ export const createTicketTypeSchema = z.object({
   ageGroup: z.string().max(100).nullable().optional(),
   ageMin: z.number().int().min(0).max(120).nullable().optional(),
   ageMax: z.number().int().min(0).max(120).nullable().optional(),
-  genderRestriction: z.enum(['any', 'male', 'female']).optional(),
+  genderRestriction: z.enum(GENDER_RESTRICTIONS).optional(),
   price: z.number().int().min(0),
   earlyBirdPrice: z.number().int().min(0).nullable().optional(),
   earlyBirdUntil: z.string().min(1).nullable().optional(),
@@ -16,7 +17,7 @@ export const createTicketTypeSchema = z.object({
   includesShirt: z.boolean().optional(),
   imagePath: z.string().max(1000).nullable().optional(),
   sortOrder: z.number().int().min(0).optional(),
-  status: z.enum(['draft', 'published', 'archived']).optional(),
+  status: z.enum(CONTENT_STATUSES).optional(),
 });
 
 export const updateTicketTypeSchema = createTicketTypeSchema.partial().omit({ eventId: true });

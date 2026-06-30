@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { ContactQr } from "./ContactQr";
+import { CmsLink } from "./CmsLink";
 
 interface ContactCardProps {
   /** Small uppercase label, e.g. "Parent Contact". */
@@ -58,13 +59,16 @@ export function ContactCard({
           </h3>
         )}
         {phone && (
-          <a
-            href={`tel:${phone.replace(/\s+/g, "")}`}
+          <CmsLink
+            value={{
+              label: phone,
+              url: `tel:${phone.replace(/\s+/g, "")}`,
+            }}
             suppressHydrationWarning
             className="pill mt-0.5 bg-[var(--konnit-pink-02)]"
           >
             {phone}
-          </a>
+          </CmsLink>
         )}
       </div>
     </div>

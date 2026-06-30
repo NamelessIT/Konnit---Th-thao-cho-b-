@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { CONTENT_STATUSES } from '@konnit/types';
 
 const isoDate = z.string().datetime({ offset: true }).or(z.string().min(1));
 
@@ -16,5 +17,5 @@ export const createEventSchema = z.object({
 });
 
 export const updateEventSchema = createEventSchema.partial().extend({
-  status: z.enum(['draft', 'published', 'archived']).optional(),
+  status: z.enum(CONTENT_STATUSES).optional(),
 });

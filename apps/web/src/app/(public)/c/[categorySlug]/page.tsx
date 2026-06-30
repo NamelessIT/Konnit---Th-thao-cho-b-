@@ -25,11 +25,20 @@ export default async function CategoryPage({
 }) {
   const { categorySlug } = await params;
 
-  const res = await fetch(`${API}/api/public/cms/categories/${categorySlug}`, {
-    next: { revalidate: 60 },
-  });
+  let category: CategoryData | null = null;
+  try {
+    const res = await fetch(`${API}/api/public/cms/categories/${categorySlug}`, {
+      next: { revalidate: 60 },
+    });
+    if (res.ok) {
+      const json = await res.json();
+      category = (json.data as CategoryData) ?? null;
+    }
+  } catch {
+    category = null;
+  }
 
-  if (!res.ok) {
+  if (!category) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-20 text-center">
         <h1 className="text-2xl font-bold">Không tìm thấy danh mục</h1>
@@ -42,9 +51,6 @@ export default async function CategoryPage({
       </div>
     );
   }
-
-  const json = await res.json();
-  const category: CategoryData = json.data;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">

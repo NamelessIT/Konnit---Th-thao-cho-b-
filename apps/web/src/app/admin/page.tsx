@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFetch } from "@/hooks/useCmsData";
 import { useAuth } from "@/hooks/useAuth";
+import { CONTENT_STATUS_LABELS_VI, type ContentStatus } from "@konnit/types";
 
 interface Stats {
   categories: { total: number; published: number };
@@ -188,7 +189,7 @@ export default function AdminDashboard() {
                     <Badge
                       variant={p.status === "published" ? "default" : "secondary"}
                     >
-                      {p.status === "published" ? "Đã xuất bản" : "Nháp"}
+                      {CONTENT_STATUS_LABELS_VI[p.status as ContentStatus] ?? "Nháp"}
                     </Badge>
                   </Link>
                 </li>

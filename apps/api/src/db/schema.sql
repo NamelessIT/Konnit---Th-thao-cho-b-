@@ -295,7 +295,7 @@ CREATE TABLE IF NOT EXISTS orders (
   id                  SERIAL PRIMARY KEY,
   user_id             INT REFERENCES users(id) ON DELETE SET NULL,
   order_code          TEXT UNIQUE NOT NULL,
-  status              TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending','paid','cancelled','expired','failed')),
+  status              TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending','paid','refund_requested','refunding','refunded','expired','failed')),
   contact_name        TEXT NOT NULL,
   contact_phone       TEXT NOT NULL,
   contact_email       TEXT NOT NULL,
@@ -360,10 +360,13 @@ CREATE TABLE IF NOT EXISTS payments (
 
 -- ===== Voucher Redemptions (idempotency guard against double-redeem) =====
 CREATE TABLE IF NOT EXISTS voucher_redemptions (
-  id          SERIAL PRIMARY KEY,
-  voucher_id  INT NOT NULL REFERENCES vouchers(id),
-  order_id    INT NOT NULL REFERENCES orders(id),
-  created_at  TIMESTAMPTZ DEFAULT now(),
+  id             SERIAL PRIMARY KEY,
+  voucher_id     INT NOT NULL REFERENCES vouchers(id),
+  order_id       INT NOT NULL REFERENCES orders(id),
+  reversed_at    TIMESTAMPTZ,
+  reversed_by    INT REFERENCES admin_users(id),
+  reverse_reason TEXT,
+  created_at     TIMESTAMPTZ DEFAULT now(),
   UNIQUE(order_id),
   UNIQUE(voucher_id, order_id)
 );
@@ -375,7 +378,29 @@ CREATE TABLE IF NOT EXISTS tickets (
   qr_token        TEXT UNIQUE NOT NULL,
   checked_in_at   TIMESTAMPTZ,
   checked_in_by   INT REFERENCES admin_users(id),
+  revoked_at      TIMESTAMPTZ,
+  revoked_by      INT REFERENCES admin_users(id),
+  revoke_reason   TEXT,
   created_at      TIMESTAMPTZ DEFAULT now()
+);
+
+-- ===== Order Refunds (mỗi quy trình hoàn tiền = 1 row) =====
+CREATE TABLE IF NOT EXISTS order_refunds (
+  id                    SERIAL PRIMARY KEY,
+  order_id              INT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+  status                TEXT NOT NULL CHECK (status IN ('requested','rejected','refunding','refunded')),
+  requested_by_type     TEXT NOT NULL CHECK (requested_by_type IN ('user','admin')),
+  requested_by_user_id  INT REFERENCES users(id) ON DELETE SET NULL,
+  requested_by_admin_id INT REFERENCES admin_users(id) ON DELETE SET NULL,
+  reason                TEXT,
+  reviewed_by           INT REFERENCES admin_users(id),
+  reviewed_at           TIMESTAMPTZ,
+  rejection_reason      TEXT,
+  inventory_released_at TIMESTAMPTZ,
+  refunded_by           INT REFERENCES admin_users(id),
+  refunded_at           TIMESTAMPTZ,
+  created_at            TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at            TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 -- ===== Phase 2 Indexes =====
@@ -388,6 +413,11 @@ CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id);
 CREATE INDEX IF NOT EXISTS idx_order_addons_order ON order_addons(order_id);
 CREATE INDEX IF NOT EXISTS idx_payments_order ON payments(order_id);
 CREATE INDEX IF NOT EXISTS idx_tickets_token ON tickets(qr_token);
+CREATE INDEX IF NOT EXISTS idx_orders_status_updated ON orders(status, updated_at DESC);
+CREATE INDEX IF NOT EXISTS idx_order_refunds_order ON order_refunds(order_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_order_refunds_status ON order_refunds(status, updated_at DESC);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_order_refund_active
+  ON order_refunds(order_id) WHERE status IN ('requested','refunding');
 CREATE INDEX IF NOT EXISTS idx_auth_identities_user ON auth_identities(user_id);
 CREATE INDEX IF NOT EXISTS idx_admin_user_roles_role ON admin_user_roles(role_id);
 CREATE INDEX IF NOT EXISTS idx_user_roles_role ON user_roles(role_id);

@@ -1,5 +1,6 @@
 import type { SectionProps } from "@konnit/ui";
-import { Eyebrow, Gallery, type GalleryTint } from "../_shared";
+import { normalizeCmsLinkValue } from "@konnit/types";
+import { CmsLink, Eyebrow, Gallery, type GalleryTint } from "../_shared";
 
 interface Item {
   tag?: string;
@@ -22,7 +23,7 @@ export function ProductStyle1({ contentJson, title, description }: SectionProps)
   const items = (c.items as Item[]) ?? [];
   const heading = (c.title as string) || title;
   const lead = (c.description as string) || description;
-  const cta = c.primaryCta as { label?: string; url?: string } | undefined;
+  const cta = normalizeCmsLinkValue(c.primaryCta);
 
   return (
     <section className="px-4 pt-[86px]">
@@ -40,12 +41,12 @@ export function ProductStyle1({ contentJson, title, description }: SectionProps)
             </p>
           )}
           {cta?.label && (
-            <a
-              href={cta.url || "#"}
+            <CmsLink
+              value={cta}
               className="btn-shine mt-1 inline-flex min-h-[44px] w-max min-w-[160px] items-center justify-center rounded-[var(--radius)] bg-[var(--konnit-berry)] px-5 font-extrabold text-white shadow-[0_12px_24px_rgba(143,47,103,0.2)]"
             >
               {cta.label}
-            </a>
+            </CmsLink>
           )}
         </div>
 
@@ -91,12 +92,12 @@ export function ProductStyle1({ contentJson, title, description }: SectionProps)
                 </div>
               )}
               {item.linkLabel && (
-                <a
-                  href={item.linkUrl || "#"}
+                <CmsLink
+                  value={{ label: item.linkLabel, url: item.linkUrl }}
                   className="link-underline w-max font-extrabold text-[var(--konnit-berry)]"
                 >
                   {item.linkLabel}
-                </a>
+                </CmsLink>
               )}
             </article>
           ))}

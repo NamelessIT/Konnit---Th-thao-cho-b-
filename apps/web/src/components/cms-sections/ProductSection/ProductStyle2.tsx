@@ -1,5 +1,5 @@
 import type { SectionProps } from "@konnit/ui";
-import { Eyebrow, Gallery, FactsList, type GalleryTint, type Fact } from "../_shared";
+import { CmsLink, Eyebrow, Gallery, FactsList, type GalleryTint, type Fact } from "../_shared";
 
 interface Item {
   tag?: string;
@@ -23,6 +23,7 @@ export function ProductStyle2({ contentJson, title, description }: SectionProps)
   const items = (c.items as Item[]) ?? [];
   const heading = (c.title as string) || title;
   const lead = (c.description as string) || description;
+  const cta = c.primaryCta as { label?: string; url?: string } | undefined;
 
   return (
     <section className="px-4 pt-[86px]">
@@ -77,17 +78,28 @@ export function ProductStyle2({ contentJson, title, description }: SectionProps)
                 )}
                 <FactsList facts={facts} />
                 {item.ctaLabel && (
-                  <a
-                    href={item.ctaUrl || "#"}
+                  <CmsLink
+                    value={{ label: item.ctaLabel, url: item.ctaUrl }}
                     className="btn-shine mt-0.5 inline-flex min-h-[44px] w-full items-center justify-center rounded-[var(--radius)] bg-[var(--konnit-berry)] px-5 font-extrabold text-white shadow-[0_12px_24px_rgba(143,47,103,0.2)]"
                   >
                     {item.ctaLabel}
-                  </a>
+                  </CmsLink>
                 )}
               </article>
             );
           })}
         </div>
+
+        {cta?.label && (
+          <div className="mt-12 pb-2 text-center">
+            <CmsLink
+              value={cta}
+              className="btn-shine inline-flex min-h-[44px] min-w-[200px] items-center justify-center rounded-[var(--radius)] bg-[var(--konnit-berry)] px-6 font-extrabold text-white shadow-[0_12px_24px_rgba(143,47,103,0.2)]"
+            >
+              {cta.label}
+            </CmsLink>
+          </div>
+        )}
       </div>
     </section>
   );

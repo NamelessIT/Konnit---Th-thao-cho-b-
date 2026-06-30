@@ -20,11 +20,21 @@ interface PageData {
 }
 
 export default async function HomePage() {
-  const res = await fetch(`${API}/api/public/cms/pages/landing/home`, {
-    next: { revalidate: 60 },
-  });
+  let sections: SectionData[] | null = null;
+  try {
+    const res = await fetch(`${API}/api/public/cms/pages/landing/home`, {
+      next: { revalidate: 60 },
+    });
+    if (res.ok) {
+      const json = await res.json();
+      sections = ((json.data as PageData | undefined)?.sections as SectionData[] | undefined) ?? [];
+    }
+  } catch {
+    // API tạm không truy cập được (vd lúc build) → fallback, ISR (60s) tải lại sau.
+    sections = null;
+  }
 
-  if (!res.ok) {
+  if (!sections) {
     return (
       <>
         <PublicHeader />
@@ -37,15 +47,12 @@ export default async function HomePage() {
     );
   }
 
-  const json = await res.json();
-  const page: PageData = json.data;
-
   // Home hero (image-overlay) sits under the fixed header, so no top padding here.
   return (
     <>
       <PublicHeader />
       <main className="flex-1">
-        <SectionRenderer sections={page.sections} />
+        <SectionRenderer sections={sections} />
       </main>
       <PublicFooter />
     </>

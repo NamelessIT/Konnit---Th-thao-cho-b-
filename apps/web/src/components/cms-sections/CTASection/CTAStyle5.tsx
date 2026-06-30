@@ -1,10 +1,6 @@
 import type { SectionProps } from "@konnit/ui";
-import { Eyebrow } from "../_shared";
-
-interface Cta {
-  label?: string;
-  url?: string;
-}
+import { normalizeCmsLinkValue } from "@konnit/types";
+import { CmsLink, Eyebrow } from "../_shared";
 
 /**
  * CTA — two-column panel (demo `.mission-card` / `.store-cta-panel`).
@@ -16,8 +12,8 @@ export function CTAStyle5({ contentJson, title, description }: SectionProps) {
   const lead = (c.description as string) || description;
   const note = c.note as string | undefined;
   const noteLabel = c.noteLabel as string | undefined;
-  const primary = c.primaryCta as Cta | undefined;
-  const secondary = c.secondaryCta as Cta | undefined;
+  const primary = normalizeCmsLinkValue(c.primaryCta);
+  const secondary = normalizeCmsLinkValue(c.secondaryCta);
   const hasActions = primary?.label || secondary?.label;
 
   return (
@@ -49,20 +45,20 @@ export function CTAStyle5({ contentJson, title, description }: SectionProps) {
           {hasActions && (
             <div className="grid gap-3">
               {primary?.label && (
-                <a
-                  href={primary.url || "#"}
+                <CmsLink
+                  value={primary}
                   className="btn-shine inline-flex min-h-[44px] items-center justify-center rounded-[var(--radius)] bg-[var(--konnit-berry)] px-5 font-extrabold text-white shadow-[0_12px_24px_rgba(143,47,103,0.2)]"
                 >
                   {primary.label}
-                </a>
+                </CmsLink>
               )}
               {secondary?.label && (
-                <a
-                  href={secondary.url || "#"}
+                <CmsLink
+                  value={secondary}
                   className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--radius)] border-2 border-[var(--line)] bg-white/80 px-5 font-extrabold text-[var(--konnit-berry)] transition-transform hover:-translate-y-0.5"
                 >
                   {secondary.label}
-                </a>
+                </CmsLink>
               )}
             </div>
           )}

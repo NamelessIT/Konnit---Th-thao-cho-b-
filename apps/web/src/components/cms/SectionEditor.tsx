@@ -11,6 +11,17 @@ import { useFetch } from "@/hooks/useCmsData";
 import { formatVND } from "@/lib/shop/format";
 import { api } from "@/lib/api-client";
 import { toast } from "sonner";
+import {
+  CMS_COMPONENT_CONFIG,
+  CMS_DEFAULT_ITEM_FIELDS,
+  CMS_EDITOR_FIELD_LABELS,
+  CMS_ITEM_FIELDS,
+  cmsFieldsForStyle,
+  normalizeCmsLinkValue,
+  normalizeCmsUrl,
+  type CmsComponentType,
+  type CmsLinkValue,
+} from "@konnit/types";
 
 interface Section {
   id: number;
@@ -30,44 +41,6 @@ interface SectionEditorProps {
     contentJson: Record<string, unknown>;
   }) => void;
 }
-
-const COMPONENT_LABELS: Record<string, string> = {
-  hero: "Hero Banner",
-  rich_text: "Văn bản",
-  image_text: "Ảnh + Văn bản",
-  feature_grid: "Lưới tính năng",
-  schedule: "Lịch trình",
-  faq: "Câu hỏi thường gặp",
-  cta: "Kêu gọi hành động",
-  sponsor: "Nhà tài trợ",
-  note_alert: "Thông báo",
-  ticket_preview: "Bảng giá vé",
-  product: "Sản phẩm",
-  contact_panel: "Liên hệ",
-  flow_steps: "Các bước (numbered)",
-};
-
-const FIELD_LABELS: Record<string, string> = {
-  eyebrow: "Nhãn nhỏ phía trên (eyebrow)",
-  subtitle: "Phụ đề",
-  title: "Tiêu đề",
-  description: "Mô tả",
-  content: "Nội dung",
-  note: "Ghi chú",
-  image: "Ảnh",
-  imagePosition: "Vị trí ảnh",
-  primaryCta: "Nút chính (label|url)",
-  secondaryCta: "Nút phụ (label|url)",
-  buttonLabel: "Nhãn nút",
-  buttonUrl: "Đường dẫn nút",
-  items: "Danh sách items",
-  tone: "Màu sắc thông báo",
-  logos: "Logo nhà tài trợ",
-  label: "Nhãn nhỏ (eyebrow)",
-  phone: "Số điện thoại",
-  qrData: "QR — nội dung/link để tạo mã quét",
-  qrImage: "QR — ảnh có sẵn (URL)",
-};
 
 export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEditorProps) {
   const [title, setTitle] = useState(section.title ?? "");
@@ -133,13 +106,19 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
     }
   }
 
-  const fields = getFieldsForType(section.component_type);
+  const componentConfig =
+    CMS_COMPONENT_CONFIG[section.component_type as CmsComponentType];
+  const fields = cmsFieldsForStyle(
+    section.component_type,
+    section.style_variant,
+    componentConfig?.fields ?? ["title", "description", "content"],
+  );
 
   return (
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="text-sm">
-          {COMPONENT_LABELS[section.component_type] ?? section.component_type} — {section.style_variant}
+          {componentConfig?.label ?? section.component_type} — {section.style_variant}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -154,7 +133,7 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
 
         {fields.map((field) => (
           <div key={field} className="space-y-2">
-            <Label>{FIELD_LABELS[field] ?? field}</Label>
+            <Label>{CMS_EDITOR_FIELD_LABELS[field] ?? field}</Label>
             {field === "content" || field === "note" ? (
               <Textarea
                 value={(contentJson[field] as string) ?? ""}
@@ -192,6 +171,11 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
                 items={(contentJson.items as Record<string, unknown>[] | undefined) ?? []}
                 onChange={(items) => updateField("items", items)}
               />
+            ) : field === "primaryCta" || field === "secondaryCta" ? (
+              <CmsLinkEditor
+                value={contentJson[field]}
+                onChange={(v) => updateField(field, v)}
+              />
             ) : (
               <Input
                 value={(contentJson[field] as string) ?? ""}
@@ -208,88 +192,6 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
     </Card>
   );
 }
-
-function getFieldsForType(type: string): string[] {
-  const map: Record<string, string[]> = {
-    hero: ["eyebrow", "title", "subtitle", "description", "content", "note", "image", "primaryCta", "secondaryCta"],
-    rich_text: ["eyebrow", "title", "description", "content", "note"],
-    image_text: ["eyebrow", "title", "description", "content", "note", "image", "imagePosition"],
-    feature_grid: ["eyebrow", "title", "description", "items"],
-    schedule: ["eyebrow", "title", "description", "items"],
-    faq: ["eyebrow", "title", "description", "items"],
-    cta: ["eyebrow", "title", "description", "buttonLabel", "buttonUrl", "note"],
-    sponsor: ["title", "description", "logos"],
-    note_alert: ["title", "description", "content", "note", "tone"],
-    ticket_preview: ["eyebrow", "title", "description", "items", "note"],
-    product: ["eyebrow", "title", "description", "items"],
-    contact_panel: ["eyebrow", "label", "title", "description", "phone", "qrData", "qrImage", "primaryCta", "secondaryCta"],
-    flow_steps: ["eyebrow", "title", "description", "items"],
-  };
-  return map[type] ?? ["title", "description", "content"];
-}
-
-type ItemFieldKind = "text" | "csv" | "facts" | "ticketType";
-interface ItemFieldDef { key: string; placeholder: string; kind?: ItemFieldKind }
-
-const ITEM_FIELDS: Record<string, ItemFieldDef[]> = {
-  product: [
-    { key: "tag", placeholder: "Tag (Safety / Bike / Camp…)" },
-    { key: "title", placeholder: "Tiêu đề" },
-    { key: "description", placeholder: "Mô tả" },
-    { key: "tint", placeholder: "Tông màu (pink / mint / sky / sun)" },
-    { key: "ageFit", placeholder: "Độ tuổi (vd 2.5-6 years)" },
-    { key: "safetyNote", placeholder: "Ghi chú an toàn" },
-    { key: "included", placeholder: "Bao gồm (style kit-card)" },
-    { key: "photos", placeholder: "Ảnh — nhãn cách nhau dấu phẩy", kind: "csv" },
-    { key: "ctaLabel", placeholder: "Nhãn nút (kit-card)" },
-    { key: "ctaUrl", placeholder: "Link nút (kit-card)" },
-    { key: "linkLabel", placeholder: "Nhãn link (catalog)" },
-    { key: "linkUrl", placeholder: "Link (catalog)" },
-  ],
-  feature_grid: [
-    { key: "icon", placeholder: "Icon / số (vd ↗ hoặc 01)" },
-    { key: "tint", placeholder: "Tông màu (bike / camp / science)" },
-    { key: "title", placeholder: "Tiêu đề" },
-    { key: "description", placeholder: "Mô tả" },
-    { key: "meta", placeholder: "Pill (vd độ tuổi)" },
-    { key: "linkLabel", placeholder: "Nhãn link" },
-    { key: "linkUrl", placeholder: "Link" },
-    { key: "photos", placeholder: "Ảnh — nhãn cách nhau dấu phẩy", kind: "csv" },
-  ],
-  flow_steps: [
-    { key: "step", placeholder: "Số bước (01, 02…) — bỏ trống để tự đánh" },
-    { key: "title", placeholder: "Tiêu đề" },
-    { key: "description", placeholder: "Mô tả" },
-  ],
-  schedule: [
-    { key: "time", placeholder: "Thời gian (vd 08:00 hoặc Ngày 1)" },
-    { key: "title", placeholder: "Hoạt động" },
-    { key: "description", placeholder: "Chi tiết" },
-  ],
-  faq: [
-    { key: "title", placeholder: "Câu hỏi" },
-    { key: "description", placeholder: "Trả lời" },
-  ],
-  image_text: [
-    { key: "label", placeholder: "Label pill (vd Movement)" },
-    { key: "tint", placeholder: "Tông màu (pink / mint / sky / sun)" },
-    { key: "title", placeholder: "Tiêu đề" },
-    { key: "description", placeholder: "Mô tả" },
-    { key: "photos", placeholder: "Ảnh — nhãn cách nhau dấu phẩy", kind: "csv" },
-    { key: "facts", placeholder: "Facts — mỗi dòng: nhãn | giá trị", kind: "facts" },
-  ],
-  ticket_preview: [
-    { key: "ticketTypeId", placeholder: "Chọn loại vé", kind: "ticketType" },
-    { key: "title", placeholder: "Tiêu đề (tự điền khi chọn vé)" },
-    { key: "price", placeholder: "Giá hiển thị (tự điền)" },
-    { key: "description", placeholder: "Mô tả" },
-  ],
-};
-const DEFAULT_ITEM_FIELDS: ItemFieldDef[] = [
-  { key: "icon", placeholder: "Icon" },
-  { key: "title", placeholder: "Tiêu đề" },
-  { key: "description", placeholder: "Mô tả" },
-];
 
 type TicketTypeLite = {
   id: number;
@@ -310,7 +212,9 @@ function ItemsEditor({
   items: Record<string, unknown>[];
   onChange: (items: Record<string, unknown>[]) => void;
 }) {
-  const defs = ITEM_FIELDS[componentType] ?? DEFAULT_ITEM_FIELDS;
+  const defs =
+    CMS_ITEM_FIELDS[componentType as CmsComponentType] ??
+    CMS_DEFAULT_ITEM_FIELDS;
   const needsTickets = defs.some((d) => d.kind === "ticketType");
   const ttQ = useFetch<TicketTypeLite[]>(needsTickets ? "/admin/ticket-types" : null);
   const ticketTypes = ttQ.data ?? [];
@@ -521,6 +425,63 @@ function LogosEditor({
       <Button variant="outline" size="sm" onClick={addLogo}>
         + Thêm logo
       </Button>
+    </div>
+  );
+}
+
+function CmsLinkEditor({
+  value,
+  onChange,
+}: {
+  value: unknown;
+  onChange: (v: CmsLinkValue | undefined) => void;
+}) {
+  const v = normalizeCmsLinkValue(value);
+  const hasInvalidUrl = Boolean(v.url.trim() && !normalizeCmsUrl(v.url));
+  function emit(next: CmsLinkValue) {
+    // Bỏ trống cả hai ô → xoá nút (không lưu CTA rỗng).
+    if (!next.label.trim() && !next.url.trim()) {
+      onChange(undefined);
+      return;
+    }
+    onChange({
+      label: next.label,
+      url: next.url,
+      ...(next.newTab ? { newTab: true } : {}),
+    });
+  }
+  return (
+    <div className="space-y-1.5 rounded-lg border border-[var(--konnit-pink-03)] p-2">
+      <Input
+        placeholder="Nhãn nút (vd Khám phá hoạt động)"
+        value={v.label}
+        onChange={(e) => emit({ ...v, label: e.target.value })}
+      />
+      <Input
+        placeholder="Đường dẫn (vd /cua-hang, #about, tel:+84..., https://...)"
+        value={v.url}
+        aria-invalid={hasInvalidUrl}
+        onChange={(e) => emit({ ...v, url: e.target.value })}
+      />
+      <label className="flex items-center gap-2 text-xs text-muted-foreground">
+        <input
+          type="checkbox"
+          checked={!!v.newTab}
+          onChange={(e) => emit({ ...v, newTab: e.target.checked })}
+        />
+        Mở tab mới
+      </label>
+      <p
+        className={
+          hasInvalidUrl
+            ? "text-[11px] text-destructive"
+            : "text-[11px] text-muted-foreground"
+        }
+      >
+        {hasInvalidUrl
+          ? "Đường dẫn không hợp lệ. Chỉ dùng /route, #anchor, http(s), mailto hoặc tel."
+          : "Để trống cả hai ô để ẩn nút."}
+      </p>
     </div>
   );
 }

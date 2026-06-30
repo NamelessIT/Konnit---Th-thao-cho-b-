@@ -1,3 +1,9 @@
+import type {
+  DiscountType,
+  OrderStatus,
+  PaymentMethod,
+} from "@konnit/types";
+
 // Khớp shape API trả về sau này (enrichTicket) để swap mock→thật dễ dàng.
 export interface TicketType {
   id: number;
@@ -44,7 +50,7 @@ export interface ChildInfo {
 
 export interface VoucherPreview {
   code: string;
-  discount_type: "percent" | "fixed";
+  discount_type: DiscountType;
   discount_value: number;
   discount_amount: number;
 }
@@ -65,7 +71,7 @@ export interface OrderItem {
 
 export interface Order {
   order_code: string;
-  status: "pending" | "paid" | "failed" | "expired";
+  status: OrderStatus;
   subtotal: number;
   discount_amount: number;
   total: number;
@@ -73,7 +79,7 @@ export interface Order {
   contact_phone: string;
   contact_email: string;
   voucher_code?: string;
-  payment_method?: "card" | "qr" | "bank";
+  payment_method?: PaymentMethod;
   items: OrderItem[];
   created_at: string;
 }
@@ -90,5 +96,5 @@ export interface CreateOrderPayload {
   children: ChildInfo[];
   voucherCode?: string;
   agreedTerms: boolean;
-  paymentMethod: "card" | "qr" | "bank";
+  paymentMethod: PaymentMethod;
 }

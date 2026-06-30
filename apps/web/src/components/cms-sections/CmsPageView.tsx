@@ -24,14 +24,31 @@ export async function CmsPageView({
   category: string;
   slug: string;
 }) {
-  const res = await fetch(`${API}/api/public/cms/pages/${category}/${slug}`, {
-    next: { revalidate: 60 },
-  });
+  let sections: SectionData[];
+  try {
+    const res = await fetch(`${API}/api/public/cms/pages/${category}/${slug}`, {
+      next: { revalidate: 60 },
+    });
 
-  if (!res.ok) {
+    if (!res.ok) {
+      return (
+        <div className="mx-auto max-w-5xl px-4 py-20 text-center">
+          <h1 className="text-2xl font-extrabold text-[var(--konnit-ink)]">Không tìm thấy trang</h1>
+          <Link href="/" className="mt-4 inline-block font-extrabold text-[var(--konnit-berry)] hover:underline">
+            ← Về trang chủ
+          </Link>
+        </div>
+      );
+    }
+
+    const json = await res.json();
+    sections = json.data?.sections ?? [];
+  } catch {
+    // API tạm không truy cập được (vd lúc build) → không làm crash prerender;
+    // ISR (revalidate 60s) sẽ tải lại nội dung khi API sẵn sàng.
     return (
       <div className="mx-auto max-w-5xl px-4 py-20 text-center">
-        <h1 className="text-2xl font-extrabold text-[var(--konnit-ink)]">Không tìm thấy trang</h1>
+        <h1 className="text-2xl font-extrabold text-[var(--konnit-ink)]">Đang cập nhật nội dung…</h1>
         <Link href="/" className="mt-4 inline-block font-extrabold text-[var(--konnit-berry)] hover:underline">
           ← Về trang chủ
         </Link>
@@ -39,7 +56,5 @@ export async function CmsPageView({
     );
   }
 
-  const json = await res.json();
-  const sections: SectionData[] = json.data?.sections ?? [];
   return <SectionRenderer sections={sections} />;
 }

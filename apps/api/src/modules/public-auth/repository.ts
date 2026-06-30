@@ -1,4 +1,5 @@
 import type { PoolClient } from 'pg';
+import type { AccountStatus } from '@konnit/types';
 import type { PublicAccess, PublicSessionUser } from './middleware';
 
 export interface PublicUserRow {
@@ -7,7 +8,7 @@ export interface PublicUserRow {
   full_name: string | null;
   avatar_url: string | null;
   email_verified: boolean;
-  status: 'active' | 'disabled';
+  status: AccountStatus;
 }
 
 export async function lockGoogleEmail(client: PoolClient, email: string) {
