@@ -15,6 +15,7 @@ export const env = {
   ADMIN_SEED_EMAIL: process.env.ADMIN_SEED_EMAIL || 'admin@konnit.local',
   ADMIN_SEED_PASSWORD: process.env.ADMIN_SEED_PASSWORD || 'Admin@123456',
   ADMIN_SEED_NAME: process.env.ADMIN_SEED_NAME || 'Konnit Admin',
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || '',
 
   // Public web base URL (for redirect/return links)
   PUBLIC_WEB_URL: process.env.PUBLIC_WEB_URL || 'http://localhost:3000',

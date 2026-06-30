@@ -13,6 +13,10 @@ export interface SessionUser {
   email: string;
   role: AdminUser['role'];
   fullName: string | null;
+  /** RBAC role keys (vd 'super_admin','admin'). Có khi gọi /admin/auth/me. */
+  roles?: string[];
+  /** RBAC permission keys. Có khi gọi /admin/auth/me. */
+  permissions?: string[];
 }
 
 export interface LoginRequest {

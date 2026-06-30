@@ -51,9 +51,11 @@ export function ContactPanelStyle2({ contentJson, title, description }: SectionP
         <div className="grid gap-3">
           <ContactCard
             label={c.label as string | undefined}
-            title={c.contactTitle as string | undefined}
+            title={(c.title as string) || title || undefined}
             phone={c.phone as string | undefined}
+            qrData={c.qrData as string | undefined}
             qrImage={c.qrImage as string | undefined}
+            className="bg-white/90"
           />
           {trust.length > 0 && (
             <div className="grid justify-items-start gap-2">

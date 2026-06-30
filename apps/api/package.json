@@ -8,6 +8,7 @@
     "start": "node dist/server.js",
     "typecheck": "tsc --noEmit",
     "db:init": "tsx src/db/init.ts",
+    "db:migrate": "tsx src/db/migrate.ts",
     "db:seed": "tsx src/db/seed.ts",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -24,6 +25,7 @@
     "express": "^5.1.0",
     "express-rate-limit": "^8.0.0",
     "express-session": "^1.18.0",
+    "google-auth-library": "^10.9.0",
     "helmet": "^8.0.0",
     "multer": "^2.0.0",
     "nodemailer": "^9.0.1",

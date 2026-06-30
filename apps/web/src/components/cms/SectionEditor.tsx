@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useFetch } from "@/hooks/useCmsData";
+import { formatVND } from "@/lib/shop/format";
 import { api } from "@/lib/api-client";
 import { toast } from "sonner";
 
@@ -46,6 +48,8 @@ const COMPONENT_LABELS: Record<string, string> = {
 };
 
 const FIELD_LABELS: Record<string, string> = {
+  eyebrow: "Nhãn nhỏ phía trên (eyebrow)",
+  subtitle: "Phụ đề",
   title: "Tiêu đề",
   description: "Mô tả",
   content: "Nội dung",
@@ -61,6 +65,8 @@ const FIELD_LABELS: Record<string, string> = {
   logos: "Logo nhà tài trợ",
   label: "Nhãn nhỏ (eyebrow)",
   phone: "Số điện thoại",
+  qrData: "QR — nội dung/link để tạo mã quét",
+  qrImage: "QR — ảnh có sẵn (URL)",
 };
 
 export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEditorProps) {
@@ -72,28 +78,33 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-      setTitle(section.title ?? "");
-      setDescription(section.description ?? "");
-      setContentJson(section.content_json ?? {});
+    setTitle(section.title ?? "");
+    setDescription(section.description ?? "");
+    setContentJson(section.content_json ?? {});
   }, [section.id]);
 
-  // Push live edits up so the builder can render a realtime WYSIWYG preview.
-  useEffect(() => {
-    onLiveChange?.({ title, description, contentJson });
-  }, [title, description, contentJson, onLiveChange]);
+  const liveTitle = useDebounce(title, 300);
+  const liveDescription = useDebounce(description, 300);
+  const debouncedContent = useDebounce(contentJson, 300);
 
-  const debouncedContent = useDebounce(contentJson, 500);
+  useEffect(() => {
+    onLiveChange?.({
+      title: liveTitle,
+      description: liveDescription,
+      contentJson: debouncedContent,
+    });
+  }, [liveTitle, liveDescription, debouncedContent, onLiveChange]);
 
   const autoSave = useCallback(async () => {
-      try {
-        await api.patch(`/admin/cms/sections/${section.id}`, {
-          title: title || null,
-          description: description || null,
-          contentJson: debouncedContent,
-        });
-      } catch {
-        // silent autosave failure
-      }
+    try {
+      await api.patch(`/admin/cms/sections/${section.id}`, {
+        title: title || null,
+        description: description || null,
+        contentJson: debouncedContent,
+      });
+    } catch {
+      // silent autosave failure
+    }
   }, [section.id, title, description, debouncedContent]);
 
   useEffect(() => {
@@ -150,7 +161,7 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
                 onChange={(e) => updateField(field, e.target.value)}
                 rows={field === "content" ? 6 : 3}
               />
-            ) : field === "image" ? (
+            ) : field === "image" || field === "qrImage" ? (
               <div className="space-y-2">
                 <Input
                   placeholder="Dán URL ảnh (Sao chép từ Media)"
@@ -170,6 +181,11 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
                   </p>
                 )}
               </div>
+            ) : field === "logos" ? (
+              <LogosEditor
+                logos={(contentJson.logos as Record<string, unknown>[] | undefined) ?? []}
+                onChange={(logos) => updateField("logos", logos)}
+              />
             ) : field === "items" ? (
               <ItemsEditor
                 componentType={section.component_type}
@@ -195,27 +211,26 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
 
 function getFieldsForType(type: string): string[] {
   const map: Record<string, string[]> = {
-    hero: ["title", "description", "content", "note", "image", "primaryCta", "secondaryCta"],
-    rich_text: ["title", "description", "content", "note"],
-    image_text: ["title", "description", "content", "note", "image", "imagePosition"],
-    feature_grid: ["title", "description", "items"],
-    schedule: ["title", "description", "items"],
-    faq: ["title", "description", "items"],
-    cta: ["title", "description", "buttonLabel", "buttonUrl", "note"],
-    sponsor: ["title", "description"],
+    hero: ["eyebrow", "title", "subtitle", "description", "content", "note", "image", "primaryCta", "secondaryCta"],
+    rich_text: ["eyebrow", "title", "description", "content", "note"],
+    image_text: ["eyebrow", "title", "description", "content", "note", "image", "imagePosition"],
+    feature_grid: ["eyebrow", "title", "description", "items"],
+    schedule: ["eyebrow", "title", "description", "items"],
+    faq: ["eyebrow", "title", "description", "items"],
+    cta: ["eyebrow", "title", "description", "buttonLabel", "buttonUrl", "note"],
+    sponsor: ["title", "description", "logos"],
     note_alert: ["title", "description", "content", "note", "tone"],
-    ticket_preview: ["title", "description", "items", "note"],
-    product: ["title", "description", "items"],
-    contact_panel: ["title", "description", "label", "phone", "primaryCta", "secondaryCta"],
-    flow_steps: ["title", "description", "items"],
+    ticket_preview: ["eyebrow", "title", "description", "items", "note"],
+    product: ["eyebrow", "title", "description", "items"],
+    contact_panel: ["eyebrow", "label", "title", "description", "phone", "qrData", "qrImage", "primaryCta", "secondaryCta"],
+    flow_steps: ["eyebrow", "title", "description", "items"],
   };
   return map[type] ?? ["title", "description", "content"];
 }
 
-type ItemFieldKind = "text" | "csv" | "facts";
+type ItemFieldKind = "text" | "csv" | "facts" | "ticketType";
 interface ItemFieldDef { key: string; placeholder: string; kind?: ItemFieldKind }
 
-// Editable fields per section type, so the new demo-driven types are editable in the builder.
 const ITEM_FIELDS: Record<string, ItemFieldDef[]> = {
   product: [
     { key: "tag", placeholder: "Tag (Safety / Bike / Camp…)" },
@@ -246,6 +261,15 @@ const ITEM_FIELDS: Record<string, ItemFieldDef[]> = {
     { key: "title", placeholder: "Tiêu đề" },
     { key: "description", placeholder: "Mô tả" },
   ],
+  schedule: [
+    { key: "time", placeholder: "Thời gian (vd 08:00 hoặc Ngày 1)" },
+    { key: "title", placeholder: "Hoạt động" },
+    { key: "description", placeholder: "Chi tiết" },
+  ],
+  faq: [
+    { key: "title", placeholder: "Câu hỏi" },
+    { key: "description", placeholder: "Trả lời" },
+  ],
   image_text: [
     { key: "label", placeholder: "Label pill (vd Movement)" },
     { key: "tint", placeholder: "Tông màu (pink / mint / sky / sun)" },
@@ -255,11 +279,10 @@ const ITEM_FIELDS: Record<string, ItemFieldDef[]> = {
     { key: "facts", placeholder: "Facts — mỗi dòng: nhãn | giá trị", kind: "facts" },
   ],
   ticket_preview: [
-    { key: "title", placeholder: "Tiêu đề" },
-    { key: "price", placeholder: "Giá (hiển thị)" },
+    { key: "ticketTypeId", placeholder: "Chọn loại vé", kind: "ticketType" },
+    { key: "title", placeholder: "Tiêu đề (tự điền khi chọn vé)" },
+    { key: "price", placeholder: "Giá hiển thị (tự điền)" },
     { key: "description", placeholder: "Mô tả" },
-    { key: "ticketTypeId", placeholder: "ID loại vé (ticketTypeId)" },
-    { key: "eventSlug", placeholder: "Slug sự kiện (eventSlug)" },
   ],
 };
 const DEFAULT_ITEM_FIELDS: ItemFieldDef[] = [
@@ -267,6 +290,16 @@ const DEFAULT_ITEM_FIELDS: ItemFieldDef[] = [
   { key: "title", placeholder: "Tiêu đề" },
   { key: "description", placeholder: "Mô tả" },
 ];
+
+type TicketTypeLite = {
+  id: number;
+  name: string;
+  price: number | string;
+  description?: string | null;
+};
+
+const selectCls =
+  "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus:border-[var(--konnit-berry)] focus:ring-2 focus:ring-[var(--konnit-berry)]/20";
 
 function ItemsEditor({
   componentType,
@@ -278,6 +311,9 @@ function ItemsEditor({
   onChange: (items: Record<string, unknown>[]) => void;
 }) {
   const defs = ITEM_FIELDS[componentType] ?? DEFAULT_ITEM_FIELDS;
+  const needsTickets = defs.some((d) => d.kind === "ticketType");
+  const ttQ = useFetch<TicketTypeLite[]>(needsTickets ? "/admin/ticket-types" : null);
+  const ticketTypes = ttQ.data ?? [];
 
   function addItem() {
     onChange([...items, {}]);
@@ -285,9 +321,21 @@ function ItemsEditor({
   function removeItem(index: number) {
     onChange(items.filter((_, i) => i !== index));
   }
+  function moveItem(index: number, dir: -1 | 1) {
+    const j = index + dir;
+    if (j < 0 || j >= items.length) return;
+    const updated = [...items];
+    [updated[index], updated[j]] = [updated[j], updated[index]];
+    onChange(updated);
+  }
   function updateItem(index: number, key: string, value: unknown) {
     const updated = [...items];
     updated[index] = { ...updated[index], [key]: value };
+    onChange(updated);
+  }
+  function updateItemMany(index: number, patch: Record<string, unknown>) {
+    const updated = [...items];
+    updated[index] = { ...updated[index], ...patch };
     onChange(updated);
   }
 
@@ -295,8 +343,66 @@ function ItemsEditor({
     <div className="space-y-3">
       {items.map((item, i) => (
         <div key={i} className="flex items-start gap-2 rounded-lg border border-[var(--konnit-pink-03)] p-2">
+          <div className="flex flex-col gap-1 pt-1">
+            <span className="text-center text-[10px] font-bold text-[var(--konnit-muted)]">#{i + 1}</span>
+            <button
+              type="button"
+              onClick={() => moveItem(i, -1)}
+              className="text-xs text-[var(--konnit-muted)] hover:text-[var(--konnit-berry)] disabled:opacity-30"
+              disabled={i === 0}
+              title="Lên"
+            >
+              ▲
+            </button>
+            <button
+              type="button"
+              onClick={() => moveItem(i, 1)}
+              className="text-xs text-[var(--konnit-muted)] hover:text-[var(--konnit-berry)] disabled:opacity-30"
+              disabled={i === items.length - 1}
+              title="Xuống"
+            >
+              ▼
+            </button>
+          </div>
           <div className="flex-1 space-y-1">
             {defs.map((def) => {
+              if (def.kind === "ticketType") {
+                const current = (item[def.key] as string) ?? "";
+                return (
+                  <div key={def.key} className="space-y-1">
+                    <select
+                      className={selectCls}
+                      value={current}
+                      onChange={(e) => {
+                        const id = e.target.value;
+                        const tt = ticketTypes.find((t) => String(t.id) === id);
+                        const patch: Record<string, unknown> = { ticketTypeId: id };
+                        if (tt) {
+                          // Luôn ghi đè khi đổi loại vé
+                          patch.title = tt.name;
+                          patch.price = formatVND(Number(tt.price));
+                          patch.description = tt.description ?? (item.description as string) ?? "";
+                        }
+                        updateItemMany(i, patch);
+                      }}
+                    >
+                      <option value="">
+                        {ttQ.loading ? "Đang tải loại vé…" : "— Chọn loại vé —"}
+                      </option>
+                      {ticketTypes.map((t) => (
+                        <option key={t.id} value={t.id}>
+                          {t.name} · {formatVND(Number(t.price))} (#{t.id})
+                        </option>
+                      ))}
+                    </select>
+                    <p className="text-[11px] text-muted-foreground">
+                      {current
+                        ? `Nút "Mua vé" sẽ mở /cua-hang#ticket-${current}`
+                        : "Chọn loại vé để nút Mua vé nhảy đúng tới vé đó."}
+                    </p>
+                  </div>
+                );
+              }
               if (def.kind === "csv") {
                 const arr = (item[def.key] as string[] | undefined) ?? [];
                 return (
@@ -352,13 +458,68 @@ function ItemsEditor({
               );
             })}
           </div>
-          <Button variant="ghost" size="icon-xs" onClick={() => removeItem(i)}>
+          <Button variant="ghost" size="icon-xs" onClick={() => removeItem(i)} title="Xoá item">
             ✕
           </Button>
         </div>
       ))}
       <Button variant="outline" size="sm" onClick={addItem}>
         + Thêm item
+      </Button>
+    </div>
+  );
+}
+
+function LogosEditor({
+  logos,
+  onChange,
+}: {
+  logos: Record<string, unknown>[];
+  onChange: (logos: Record<string, unknown>[]) => void;
+}) {
+  function addLogo() {
+    onChange([...logos, {}]);
+  }
+  function removeLogo(index: number) {
+    onChange(logos.filter((_, i) => i !== index));
+  }
+  function updateLogo(index: number, key: string, value: unknown) {
+    const updated = [...logos];
+    updated[index] = { ...updated[index], [key]: value };
+    onChange(updated);
+  }
+
+  return (
+    <div className="space-y-3">
+      {logos.map((logo, i) => (
+        <div key={i} className="flex items-start gap-2 rounded-lg border border-[var(--konnit-pink-03)] p-2">
+          <div className="flex-1 space-y-1">
+            <Input
+              placeholder="URL ảnh logo (Sao chép từ Media) — bỏ trống để hiện tên"
+              value={(logo.src as string) ?? ""}
+              onChange={(e) => updateLogo(i, "src", e.target.value)}
+            />
+            <Input
+              placeholder="Tên / alt (vd Nhà tài trợ A)"
+              value={(logo.alt as string) ?? ""}
+              onChange={(e) => updateLogo(i, "alt", e.target.value)}
+            />
+            {(logo.src as string) ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={logo.src as string}
+                alt={(logo.alt as string) ?? "logo"}
+                className="h-12 w-auto rounded border border-[var(--konnit-pink-03)] bg-white object-contain p-1"
+              />
+            ) : null}
+          </div>
+          <Button variant="ghost" size="icon-xs" onClick={() => removeLogo(i)} title="Xoá logo">
+            ✕
+          </Button>
+        </div>
+      ))}
+      <Button variant="outline" size="sm" onClick={addLogo}>
+        + Thêm logo
       </Button>
     </div>
   );

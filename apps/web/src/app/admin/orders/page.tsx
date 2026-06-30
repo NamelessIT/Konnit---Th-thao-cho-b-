@@ -29,9 +29,11 @@ import {
 } from "@/components/ui/dialog";
 import { formatVND } from "@/lib/shop/format";
 import { useFetch } from "@/hooks/useCmsData";
+import { useAuth } from "@/hooks/useAuth";
+import { api, ApiError } from "@/lib/api-client";
 import type { AdminOrder } from "@/lib/admin-ticketing/types";
 
-type StatusFilter = "all" | "pending" | "paid" | "failed" | "expired";
+type StatusFilter = "all" | "pending" | "paid" | "failed" | "expired" | "cancelled";
 type OrderStatus = AdminOrder["status"];
 
 const STATUS_LABELS: Record<StatusFilter, string> = {
@@ -40,15 +42,17 @@ const STATUS_LABELS: Record<StatusFilter, string> = {
   paid: "Đã thanh toán",
   failed: "Thất bại",
   expired: "Hết hạn",
+  cancelled: "Đã huỷ",
 };
 
-const STATUS_OPTIONS: StatusFilter[] = ["all", "pending", "paid", "failed", "expired"];
+const STATUS_OPTIONS: StatusFilter[] = ["all", "pending", "paid", "failed", "expired", "cancelled"];
 
 const VALID_TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
   pending: ["paid", "failed", "expired"],
   paid: ["failed"],
   failed: ["pending", "paid"],
   expired: ["pending"],
+  cancelled: [],
 };
 
 export default function AdminOrdersPage() {
@@ -60,6 +64,10 @@ export default function AdminOrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState<AdminOrder | null>(null);
   const [newStatus, setNewStatus] = useState<OrderStatus | "">("");
   const [updatingCode, setUpdatingCode] = useState<string | null>(null);
+  const [cancelling, setCancelling] = useState(false);
+
+  const { user } = useAuth();
+  const isSuperAdmin = user?.roles?.includes("super_admin") ?? false;
 
   useEffect(() => {
     setOrders(fetchedOrders ?? []);
@@ -115,6 +123,27 @@ export default function AdminOrdersPage() {
     );
     setUpdatingCode(null);
     setNewStatus("");
+  }
+
+  async function handleCancel() {
+    if (!selectedOrder) return;
+    if (
+      !window.confirm(
+        `Huỷ đơn ${selectedOrder.order_code}? Vé sẽ được nhả về kho và QR (nếu có) bị vô hiệu.`,
+      )
+    )
+      return;
+    setCancelling(true);
+    try {
+      await api.post(`/admin/orders/${selectedOrder.order_code}/cancel`);
+      toast.success(`Đã huỷ đơn ${selectedOrder.order_code}`);
+      setSelectedOrder(null);
+      await refetch();
+    } catch (e) {
+      toast.error(e instanceof ApiError ? e.message : "Huỷ đơn thất bại");
+    } finally {
+      setCancelling(false);
+    }
   }
 
   return (
@@ -173,9 +202,9 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Table */}
-      {loading ? (
+      {loading && orders.length === 0 ? (
         <p className="text-muted-foreground">Đang tải đơn hàng...</p>
-      ) : error ? (
+      ) : error && orders.length === 0 ? (
         <p className="text-sm text-destructive">{error}</p>
       ) : filteredOrders.length === 0 ? (
         <EmptyState
@@ -411,6 +440,17 @@ export default function AdminOrdersPage() {
 
               {/* Actions */}
               <div className="flex justify-end gap-2">
+                {isSuperAdmin && selectedOrder.status !== "cancelled" && (
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={handleCancel}
+                    disabled={cancelling}
+                  >
+                    <X className="mr-1 size-3.5" />
+                    {cancelling ? "Đang huỷ..." : "Huỷ đơn"}
+                  </Button>
+                )}
                 {selectedOrder.status === "paid" && (
                   <Button variant="outline" size="sm">
                     Gửi lại email vé
@@ -444,6 +484,7 @@ function OrderStatusBadge({ status }: { status: OrderStatus }) {
     paid: { label: "Đã thanh toán", variant: "default" },
     failed: { label: "Thất bại", variant: "destructive" },
     expired: { label: "Hết hạn", variant: "secondary" },
+    cancelled: { label: "Đã huỷ", variant: "destructive" },
   };
 
   const config = map[status];

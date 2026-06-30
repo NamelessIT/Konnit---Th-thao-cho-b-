@@ -1,0 +1,101 @@
+"use client";
+//chưa có logo /qr-logo.png
+import { useEffect, useRef } from "react";
+
+interface Props {
+  token: string | null;
+  attendeeName: string;
+  ticketName: string;
+  eventName: string;
+  isUsed: boolean;
+  checkedInAt: string | null;
+}
+
+// Trả về src nếu ảnh tồn tại & load được, ngược lại null.
+function probeImage(src: string): Promise<string | null> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(src);
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+}
+
+export function QrTicketCard({ token, attendeeName, ticketName, eventName, isUsed, checkedInAt }: Props) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      if (!token || !ref.current) return;
+
+      const [{ default: QRCodeStyling }, logo] = await Promise.all([
+        import("qr-code-styling"),
+        probeImage("/qr-logo.png"),
+      ]);
+      if (cancelled || !ref.current) return;
+
+      ref.current.innerHTML = "";
+      const qr = new QRCodeStyling({
+        width: 200,
+        height: 200,
+        data: token,
+        margin: 1,
+        qrOptions: { errorCorrectionLevel: "Q" },
+        dotsOptions: { color: "#000000", type: "dots" },
+        backgroundOptions: { color: "#ffffff" },
+        cornersSquareOptions: { color: "#000000", type: "extra-rounded" },
+        cornersDotOptions: { color: "#000000", type: "extra-rounded" },
+        // Chỉ gắn logo khi /qr-logo.png thực sự tồn tại
+        ...(logo
+          ? {
+              image: logo,
+              imageOptions: {
+                crossOrigin: "anonymous",
+                margin: 1,
+                imageSize: 0.4,
+                hideBackgroundDots: true,
+              },
+            }
+          : {}),
+      });
+      qr.append(ref.current);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [token]);
+
+  return (
+    <div
+      className={`rounded-2xl border p-5 text-center transition ${
+        isUsed ? "border-slate-200 bg-slate-50 opacity-70" : "border-[var(--konnit-pink-03)] bg-white"
+      }`}
+    >
+      {token ? (
+        <div ref={ref} className="mx-auto mb-3 grid h-[200px] w-[200px] place-items-center" />
+      ) : (
+        <div className="mx-auto mb-3 grid h-[200px] w-[200px] place-items-center rounded-xl bg-slate-100 text-xs text-slate-400">
+          Chưa có vé QR
+        </div>
+      )}
+      {token && (
+        <p
+          className="mb-2 cursor-pointer select-all break-all font-mono text-[11px] text-[var(--konnit-muted)]"
+          title="Bấm để chọn, dùng nhập tay khi check-in"
+        >
+          {token}
+        </p>
+      )}
+      <p className="font-bold text-[var(--konnit-ink)]">{attendeeName}</p>
+      <p className="text-sm text-[var(--konnit-muted)]">
+        {ticketName} · {eventName}
+      </p>
+      <p className={`mt-2 text-xs font-bold ${isUsed ? "text-slate-500" : "text-green-600"}`}>
+        {isUsed
+          ? `Đã sử dụng${checkedInAt ? " lúc " + new Date(checkedInAt).toLocaleString("vi") : ""}`
+          : "Chưa sử dụng"}
+      </p>
+    </div>
+  );
+}

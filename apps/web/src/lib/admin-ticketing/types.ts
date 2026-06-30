@@ -53,7 +53,7 @@ export interface AdminVoucher {
 
 export interface AdminOrder {
   order_code: string;
-  status: "pending" | "paid" | "failed" | "expired";
+  status: "pending" | "paid" | "failed" | "expired" | "cancelled";
   contact_name: string;
   contact_phone: string;
   contact_email: string;

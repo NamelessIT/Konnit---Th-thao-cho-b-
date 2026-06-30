@@ -12,6 +12,9 @@ import {
   Ticket,
   BadgePercent,
   ReceiptText,
+  QrCode,
+  ShieldCheck,
+  BarChart3,
 } from "lucide-react";
 import {
   Sidebar,
@@ -44,6 +47,17 @@ const SALES_MENU = [
 export function AdminSidebar() {
   const pathname = usePathname();
   const { user, logout } = useAuth();
+
+  const canCheckin = user?.role === "admin" || user?.role === "staff";
+  const isSuperAdmin = user?.role === "admin";
+
+  const salesMenu = [
+    ...SALES_MENU,
+    ...(isSuperAdmin
+      ? [{ href: "/admin/bao-cao", label: "Báo cáo & Doanh số", icon: BarChart3 }]
+      : []),
+    ...(canCheckin ? [{ href: "/admin/check-in", label: "Check-in", icon: QrCode }] : []),
+  ];
 
   const initials = (user?.fullName || user?.email || "?")
     .split(" ")
@@ -94,11 +108,12 @@ export function AdminSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
         <SidebarGroup>
           <SidebarGroupLabel>Bán vé</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {SALES_MENU.map((item) => {
+              {salesMenu.map((item) => {
                 const active = pathname.startsWith(item.href);
                 const Icon = item.icon;
 
@@ -118,6 +133,26 @@ export function AdminSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {isSuperAdmin && (
+          <SidebarGroup>
+            <SidebarGroupLabel>Hệ thống</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    render={<Link href="/admin/tai-khoan" />}
+                    isActive={pathname.startsWith("/admin/tai-khoan")}
+                    className="gap-3 data-[active=true]:bg-[var(--konnit-pink-02)] data-[active=true]:font-semibold data-[active=true]:text-[var(--konnit-berry)]"
+                  >
+                    <ShieldCheck className="size-4.5" />
+                    <span>Tài khoản & Quyền</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       <SidebarFooter className="border-t border-[var(--konnit-pink-03)] p-3">

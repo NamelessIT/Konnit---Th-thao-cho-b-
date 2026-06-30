@@ -23,6 +23,7 @@ export function ContactPanelStyle1({ contentJson, title, description }: SectionP
           label={c.label as string | undefined}
           title={(c.title as string) || title || undefined}
           phone={c.phone as string | undefined}
+          qrData={c.qrData as string | undefined}
           qrImage={c.qrImage as string | undefined}
           className="bg-white/90"
         />

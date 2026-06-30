@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import * as service from './orders.service';
 
 export async function createPublic(req: Request, res: Response) {
-  const data = await service.createOrder(req.body);
+  const userId = req.session.publicUser?.id ?? null;
+  const data = await service.createOrder({ ...req.body, userId });
   res.status(201).json({ success: true, data });
 }
 
@@ -29,4 +30,10 @@ export async function payPublic(req: Request, res: Response) {
 
 export async function listAdmin(_req: Request, res: Response) {
   res.json({ success: true, data: await service.listAdminOrders() });
+}
+
+export async function cancelAdmin(req: Request, res: Response) {
+  const adminId = req.session.user!.id;
+  const data = await service.cancelOrder(String(req.params.code), adminId);
+  res.json({ success: true, data });
 }

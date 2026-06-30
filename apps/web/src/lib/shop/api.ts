@@ -29,6 +29,7 @@ async function fetchPublicData<T>(
   try {
     const res = await fetch(`${API_BASE_URL}/api${path}`, {
       ...init,
+      credentials: "include",
       headers: {
         ...(init?.body ? { "Content-Type": "application/json" } : undefined),
         ...init?.headers,
@@ -149,6 +150,7 @@ export const shopApi = {
     }
     const res = await fetch(`${API_BASE_URL}/api/public/orders`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
@@ -168,7 +170,7 @@ export const shopApi = {
       return mockOrders.get(code) ?? null;
     }
     const url = `${API_BASE_URL}/api/public/orders/${code}${email ? `?email=${encodeURIComponent(email)}` : ""}`;
-    const res = await fetch(url);
+    const res = await fetch(url,{credentials: "include"});
     if (!res.ok) return null;
     const json = await res.json();
     return json.data;
@@ -196,6 +198,7 @@ export const shopApi = {
     }
     const res = await fetch(`${API_BASE_URL}/api/public/orders/${code}/pay`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ method }),
     });

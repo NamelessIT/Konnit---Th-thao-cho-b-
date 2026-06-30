@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { ContactQr } from "./ContactQr";
 
 interface ContactCardProps {
   /** Small uppercase label, e.g. "Parent Contact". */
@@ -7,16 +8,19 @@ interface ContactCardProps {
   title?: string;
   /** Phone number; rendered as a tel: link. */
   phone?: string;
-  /** Optional QR / contact image; falls back to a "QR" placeholder. */
+  /** Nội dung/link để TỰ SINH mã QR quét được (ưu tiên). */
+  qrData?: string;
+  /** Ảnh QR có sẵn (URL); dùng khi không có qrData. */
   qrImage?: string;
   className?: string;
 }
 
-/** Contact card with QR placeholder + phone link (demo `.contact-card` / `.qr-placeholder`). */
+/** Contact card with QR + phone link (demo `.contact-card` / `.qr-placeholder`). */
 export function ContactCard({
   label,
   title,
   phone,
+  qrData,
   qrImage,
   className,
 }: ContactCardProps) {
@@ -28,7 +32,9 @@ export function ContactCard({
       )}
     >
       <div className="grid aspect-square w-24 place-items-center rounded-md border border-[var(--konnit-berry)]/20 bg-white p-2">
-        {qrImage ? (
+        {qrData ? (
+          <ContactQr data={qrData} alt={title} />
+        ) : qrImage ? (
           <img
             src={qrImage}
             alt={title ?? "QR"}
@@ -54,7 +60,6 @@ export function ContactCard({
         {phone && (
           <a
             href={`tel:${phone.replace(/\s+/g, "")}`}
-            // Phone-detection browser extensions inject attrs into tel: links → benign hydration diff.
             suppressHydrationWarning
             className="pill mt-0.5 bg-[var(--konnit-pink-02)]"
           >

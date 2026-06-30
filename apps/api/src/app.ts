@@ -19,7 +19,11 @@ import { ticketTypesRoutes } from './modules/tickets/tickets.routes';
 import { vouchersRoutes } from './modules/vouchers/vouchers.routes';
 import { ordersRoutes } from './modules/orders/orders.routes';
 import { publicShopRoutes } from './modules/commerce/public.routes';
-
+import { publicAuthRoutes } from './modules/public-auth/routes';
+import { userOrdersRoutes } from './modules/user-orders/user-orders.routes';
+import { checkinRoutes } from './modules/checkin/checkin.routes';
+import { accessRoutes } from './modules/access/access.routes';
+import { reportsRoutes } from './modules/reports/reports.routes';
 export const app = express();
 
 // Middleware
@@ -47,17 +51,23 @@ app.use(
 
 // Routes
 app.use('/api', healthRoutes);
+app.use('/api/public/cms', publicCmsRoutes);
+// Phase 1 — admin
 app.use('/api/admin/auth', authRoutes);
 app.use('/api/admin/cms', cmsRoutes);
-app.use('/api/public/cms', publicCmsRoutes);
+app.use('/api/user/orders', userOrdersRoutes);
 app.use('/api/admin/uploads', uploadRoutes);
+app.use('/api/admin/tickets', checkinRoutes);
+app.use('/api/admin/access', accessRoutes);
 
 // Phase 2 — commerce
 app.use('/api/admin/events', eventsRoutes);
 app.use('/api/admin/ticket-types', ticketTypesRoutes);
 app.use('/api/admin/vouchers', vouchersRoutes);
 app.use('/api/admin/orders', ordersRoutes);
+app.use('/api/public/auth', publicAuthRoutes);
 app.use('/api/public', publicShopRoutes);
+app.use('/api/admin/reports', reportsRoutes);
 
 // Error handler (must be last)
 app.use(errorHandler);

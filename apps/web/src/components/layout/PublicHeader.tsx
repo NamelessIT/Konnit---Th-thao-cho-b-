@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CartNavButton } from "@/components/shop/CartNavButton";
+import { UserMenu } from "@/components/auth/UserMenu";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home" },
@@ -65,6 +66,7 @@ export function PublicHeader() {
         {/* Actions */}
         <div className="flex items-center gap-2">
           <CartNavButton />
+          <UserMenu />
           <Link
             href="/legacy/services.html#contact"
             className="btn-shine inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-2xl bg-[var(--konnit-berry)] px-4 font-black text-white"

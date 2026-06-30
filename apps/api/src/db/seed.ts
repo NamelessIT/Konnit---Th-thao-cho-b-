@@ -5,10 +5,135 @@
  */
 import 'dotenv/config';
 import bcrypt from 'bcrypt';
+import type { PoolClient } from 'pg';
 import { pool } from '../config/db';
 import { env } from '../config/env';
 import { logger } from '../utils/logger';
 import { CMS_COMPONENT_TYPES, CMS_STYLE_VARIANTS } from '@konnit/types';
+
+const ACCESS_PERMISSIONS = [
+  ['access.manage', 'access', 'manage', 'Quản lý vai trò và phân quyền'],
+  ['cms.read', 'cms', 'read', 'Xem nội dung CMS'],
+  ['cms.write', 'cms', 'write', 'Tạo và sửa nội dung CMS'],
+  ['cms.delete', 'cms', 'delete', 'Xóa nội dung CMS'],
+  ['cms.publish', 'cms', 'publish', 'Xuất bản nội dung CMS'],
+  ['events.read', 'events', 'read', 'Xem sự kiện'],
+  ['events.write', 'events', 'write', 'Tạo và sửa sự kiện'],
+  ['events.delete', 'events', 'delete', 'Xóa sự kiện'],
+  ['events.publish', 'events', 'publish', 'Xuất bản sự kiện'],
+  ['ticket_types.read', 'ticket_types', 'read', 'Xem loại vé'],
+  ['ticket_types.write', 'ticket_types', 'write', 'Tạo và sửa loại vé'],
+  ['ticket_types.delete', 'ticket_types', 'delete', 'Xóa loại vé'],
+  ['vouchers.read', 'vouchers', 'read', 'Xem voucher'],
+  ['vouchers.write', 'vouchers', 'write', 'Tạo và sửa voucher'],
+  ['vouchers.delete', 'vouchers', 'delete', 'Xóa voucher'],
+  ['orders.read_all', 'orders', 'read_all', 'Xem mọi đơn hàng'],
+  ['orders.export', 'orders', 'export', 'Xuất dữ liệu đơn hàng'],
+  ['orders.read_own', 'orders', 'read_own', 'Xem đơn hàng của chính mình'],
+  ['tickets.checkin', 'tickets', 'checkin', 'Check-in vé'],
+  ['profile.read', 'profile', 'read', 'Xem hồ sơ cá nhân'],
+  ['profile.write', 'profile', 'write', 'Cập nhật hồ sơ cá nhân'],
+] as const;
+
+const ACCESS_ROLES = [
+  ['super_admin', 'Super Admin', 'admin', 'Chủ hệ thống — cao nhất, duy nhất 1'],
+  ['admin', 'Admin', 'admin', 'Quản trị viên — đủ quyền nhưng dưới super admin'],
+  ['editor', 'Editor', 'admin', 'Quản lý nội dung và bán vé'],
+  ['viewer', 'Viewer', 'admin', 'Chỉ xem dữ liệu vận hành'],
+  ['checkin_staff', 'Check-in Staff', 'admin', 'Nhân viên check-in tại sự kiện'],
+  ['customer', 'Customer', 'public', 'Người mua vé công khai'],
+] as const;
+
+const ROLE_PERMISSIONS: Record<string, string[]> = {
+  super_admin: ACCESS_PERMISSIONS.map(([key]) => key),
+  // admin: đủ mọi quyền như super_admin (khác biệt nằm ở RANK + các hành động super-admin-only như huỷ đơn).
+  admin: ACCESS_PERMISSIONS.map(([key]) => key),
+  editor: [
+    'cms.read', 'cms.write', 'cms.publish',
+    'events.read', 'events.write', 'events.publish',
+    'ticket_types.read', 'ticket_types.write',
+    'vouchers.read', 'vouchers.write',
+    'orders.read_all', 'orders.export',
+  ],
+  viewer: [
+    'cms.read', 'events.read', 'ticket_types.read',
+    'vouchers.read', 'orders.read_all',
+  ],
+  checkin_staff: ['events.read', 'orders.read_all', 'tickets.checkin'],
+  customer: ['profile.read', 'profile.write', 'orders.read_own'],
+};
+
+async function seedAccessControl(client: PoolClient) {
+  for (const [key, resource, action, description] of ACCESS_PERMISSIONS) {
+    await client.query(
+      `INSERT INTO permissions (key, resource, action, description)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (key) DO UPDATE
+       SET resource = EXCLUDED.resource,
+           action = EXCLUDED.action,
+           description = EXCLUDED.description`,
+      [key, resource, action, description],
+    );
+  }
+
+  for (const [key, name, realm, description] of ACCESS_ROLES) {
+    await client.query(
+      `INSERT INTO roles (key, name, realm, description, is_system)
+       VALUES ($1, $2, $3, $4, true)
+       ON CONFLICT (key) DO UPDATE
+       SET name = EXCLUDED.name,
+           realm = EXCLUDED.realm,
+           description = EXCLUDED.description,
+           is_system = true`,
+      [key, name, realm, description],
+    );
+  }
+
+  for (const [roleKey, permissionKeys] of Object.entries(ROLE_PERMISSIONS)) {
+    await client.query(
+      `DELETE FROM role_permissions
+       WHERE role_id = (SELECT id FROM roles WHERE key = $1)`,
+      [roleKey],
+    );
+    await client.query(
+      `INSERT INTO role_permissions (role_id, permission_id)
+       SELECT r.id, p.id
+       FROM roles r
+       CROSS JOIN permissions p
+       WHERE r.key = $1 AND p.key = ANY($2::text[])
+       ON CONFLICT DO NOTHING`,
+      [roleKey, permissionKeys],
+    );
+  }
+
+  // Backfill role mặc định CHỈ cho tài khoản chưa có role nào (tránh re-seed ghi đè
+  // các admin tạo qua UI — vốn cũng có cột legacy role='admin').
+  await client.query(`
+    INSERT INTO admin_user_roles (admin_user_id, role_id)
+    SELECT au.id, r.id
+    FROM admin_users au
+    JOIN roles r ON r.key = CASE au.role
+      WHEN 'admin' THEN 'super_admin'
+      WHEN 'editor' THEN 'editor'
+      WHEN 'viewer' THEN 'viewer'
+      WHEN 'staff' THEN 'checkin_staff'
+    END
+    WHERE au.is_deleted = false
+      AND NOT EXISTS (
+        SELECT 1 FROM admin_user_roles x WHERE x.admin_user_id = au.id
+      )
+    ON CONFLICT DO NOTHING
+  `);
+
+  await client.query(`
+    INSERT INTO user_roles (user_id, role_id)
+    SELECT u.id, r.id
+    FROM users u
+    CROSS JOIN roles r
+    WHERE r.key = 'customer' AND u.is_deleted = false
+    ON CONFLICT DO NOTHING
+  `);
+}
 
 export async function seed() {
   const client = await pool.connect();
@@ -54,6 +179,9 @@ export async function seed() {
       [env.ADMIN_SEED_EMAIL],
     );
     const adminId = adminUserRes.rows[0]?.id ?? null;
+
+    await seedAccessControl(client);
+    logger.info('Roles and permissions seeded.');
 
     const catRes = await client.query(
       `INSERT INTO cms_categories (name, slug, description, status, published_at, created_by, updated_by)

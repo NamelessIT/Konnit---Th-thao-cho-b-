@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
 import type { PoolClient } from 'pg';
 import { AppError } from '../../middleware/errorHandler';
 import { withTransaction } from '../../config/db';
@@ -26,6 +26,7 @@ interface CreateOrderInput {
     medalName?: string;
     healthNotes?: string;
   }>;
+  userId?: number | null;
   voucherCode?: string;
   agreedTerms: boolean;
   paymentMethod?: PaymentMethod;
@@ -45,6 +46,10 @@ function generateOrderCode() {
     .toString(36)
     .slice(2, 5)
     .toUpperCase()}`;
+}
+
+function generateTicketToken() {
+  return randomBytes(15).toString('base64url'); // 20 ký tự, ~120-bit, unguessable
 }
 
 function groupQuantities(children: CreateOrderInput['children']) {
@@ -235,10 +240,10 @@ export async function createOrder(input: CreateOrderInput) {
       `INSERT INTO orders (
         order_code, status, contact_name, contact_phone, contact_email, contact_address,
         guardian_name, guardian_phone, subtotal, discount_amount, total,
-        voucher_id, voucher_code, agreed_terms, hold_expires_at
+        voucher_id, voucher_code, agreed_terms, hold_expires_at, user_id
       )
       VALUES ($1, 'pending', $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, true,
-              now() + ($13::text || ' minutes')::interval)
+              now() + ($13::text || ' minutes')::interval, $14)
       RETURNING *`,
       [
         orderCode,
@@ -254,6 +259,7 @@ export async function createOrder(input: CreateOrderInput) {
         voucher?.id ?? null,
         voucher?.code ?? input.voucherCode ?? null,
         holdMinutes,
+        input.userId ?? null,   // ← thêm dòng này
       ],
     );
     const order = orderRows[0];
@@ -422,7 +428,7 @@ export async function payOrder(code: string, method: PaymentMethod) {
         `INSERT INTO tickets (order_item_id, qr_token)
          VALUES ($1, $2)
          ON CONFLICT (order_item_id) DO NOTHING`,
-        [item.id, `TKT-${randomUUID()}`],
+        [item.id, generateTicketToken()],
       );
     }
 
@@ -445,5 +451,106 @@ export async function listAdminOrders() {
       if (order) orders.push(order);
     }
     return orders;
+  });
+}
+
+async function writeCancelAudit(
+  client: PoolClient,
+  adminId: number,
+  orderId: number,
+  prevStatus: string,
+) {
+  await client.query(
+    `INSERT INTO audit_logs (actor_id, action, entity_type, entity_id, before_json, after_json)
+     VALUES ($1, 'order.cancel', 'order', $2, $3::jsonb, $4::jsonb)`,
+    [
+      adminId,
+      orderId,
+      JSON.stringify({ status: prevStatus }),
+      JSON.stringify({ status: 'cancelled' }),
+    ],
+  );
+}
+
+/**
+ * Huỷ đơn (super_admin). Nhả slot về kho theo trạng thái:
+ *  - pending: trả lại reserved_count
+ *  - paid: trả lại sold_count, xoá vé (vô hiệu QR), hoàn lượt voucher
+ *  - expired/failed: chỉ đổi trạng thái (slot đã nhả trước đó)
+ * Idempotent: huỷ lại đơn đã cancelled không làm gì thêm.
+ */
+export async function cancelOrder(code: string, adminId: number) {
+  return withTransaction(async (client) => {
+    const { rows } = await client.query(
+      `SELECT * FROM orders WHERE order_code = $1 AND is_deleted = false FOR UPDATE`,
+      [code],
+    );
+    const order = rows[0];
+    if (!order) throw new AppError(404, 'ORDER_NOT_FOUND', 'Đơn hàng không tồn tại');
+
+    if (order.status === 'cancelled') {
+      return { status: 'cancelled', order: await findOrderById(client, order.id) };
+    }
+
+    const prevStatus = order.status as string;
+
+    if (prevStatus === 'pending' || prevStatus === 'paid') {
+      const { rows: counts } = await client.query(
+        `SELECT ticket_type_id, count(*)::int AS qty
+         FROM order_items WHERE order_id = $1 GROUP BY ticket_type_id`,
+        [order.id],
+      );
+
+      if (prevStatus === 'pending') {
+        for (const r of counts) {
+          await client.query(
+            `UPDATE ticket_types
+             SET reserved_count = greatest(reserved_count - $2, 0), updated_at = now()
+             WHERE id = $1`,
+            [r.ticket_type_id, r.qty],
+          );
+        }
+      } else {
+        // paid → nhả sold_count, xoá vé, hoàn voucher
+        for (const r of counts) {
+          await client.query(
+            `UPDATE ticket_types
+             SET sold_count = greatest(sold_count - $2, 0), updated_at = now()
+             WHERE id = $1`,
+            [r.ticket_type_id, r.qty],
+          );
+        }
+        await client.query(
+          `DELETE FROM tickets
+           WHERE order_item_id IN (SELECT id FROM order_items WHERE order_id = $1)`,
+          [order.id],
+        );
+        if (order.voucher_id) {
+          await client.query(
+            `UPDATE vouchers SET used_count = greatest(used_count - 1, 0), updated_at = now()
+             WHERE id = $1`,
+            [order.voucher_id],
+          );
+          await client.query(`DELETE FROM voucher_redemptions WHERE order_id = $1`, [order.id]);
+        }
+      }
+    }
+
+    await client.query(
+      `UPDATE orders SET status = 'cancelled', updated_at = now() WHERE id = $1`,
+      [order.id],
+    );
+    await writeCancelAudit(client, adminId, order.id, prevStatus);
+    await invalidatePublicTicketCache();
+    return { status: 'cancelled', order: await findOrderById(client, order.id) };
+  });
+}
+
+/** Quét & huỷ đơn pending hết hạn giữ chỗ, nhả vé về kho. Trả true nếu có thay đổi. */
+export async function releaseExpiredHolds() {
+  return withTransaction(async (client) => {
+    const changed = await expireHeldOrders(client);
+    if (changed) await invalidatePublicTicketCache();
+    return changed;
   });
 }
