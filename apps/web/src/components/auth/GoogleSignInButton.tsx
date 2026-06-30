@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
 import { authApi } from "@/lib/auth/api";
@@ -24,13 +24,13 @@ declare global {
 export function GoogleSignInButton() {
   const ref = useRef<HTMLDivElement>(null);
   const inFlight = useRef(false);
+  const rendered = useRef(false);
   const router = useRouter();
   const applySession = useAuth((s) => s.applySession);
-  const [ready, setReady] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  async function handleCredential(resp: { credential: string }) {
+  const handleCredential = useCallback(async (resp: { credential: string }) => {
     if (inFlight.current) return;
     inFlight.current = true;
     setBusy(true);
@@ -47,10 +47,19 @@ export function GoogleSignInButton() {
       inFlight.current = false;
       setBusy(false);
     }
-  }
+  }, [applySession, router]);
 
-  useEffect(() => {
-    if (!ready || !window.google || !CLIENT_ID || !ref.current) return;
+  const renderGoogleButton = useCallback(() => {
+    if (
+      !window.google ||
+      !CLIENT_ID ||
+      !ref.current ||
+      rendered.current
+    ) {
+      return;
+    }
+    rendered.current = true;
+    ref.current.replaceChildren();
     window.google.accounts.id.initialize({ client_id: CLIENT_ID, callback: handleCredential });
     window.google.accounts.id.renderButton(ref.current, {
       theme: "outline",
@@ -59,15 +68,18 @@ export function GoogleSignInButton() {
       text: "continue_with",
       shape: "pill",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ready]);
+  }, [handleCredential]);
+
+  useEffect(() => {
+    renderGoogleButton();
+  }, [renderGoogleButton]);
 
   return (
     <div className="flex flex-col items-center gap-2">
       <Script
         src="https://accounts.google.com/gsi/client"
         strategy="afterInteractive"
-        onLoad={() => setReady(true)}
+        onReady={renderGoogleButton}
       />
       {!CLIENT_ID && (
         <p className="text-sm text-red-500">Thiếu NEXT_PUBLIC_GOOGLE_CLIENT_ID</p>
