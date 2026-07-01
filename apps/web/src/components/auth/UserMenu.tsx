@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LocaleLink } from "@/components/i18n/LocaleLink";
-import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
+import { useLocalizedHref, useT } from "@/lib/i18n/LocaleProvider";
 import { useAuth } from "@/store/auth";
 
 export function UserMenu() {
@@ -11,6 +11,7 @@ export function UserMenu() {
   const initialized = useAuth((s) => s.initialized);
   const init = useAuth((s) => s.init);
   const signOut = useAuth((s) => s.signOut);
+  const t = useT();
   const router = useRouter();
   const localize = useLocalizedHref();
   const [open, setOpen] = useState(false);
@@ -29,7 +30,7 @@ export function UserMenu() {
         href="/dang-nhap"
         className="inline-flex min-h-[40px] items-center rounded-2xl h-11 border border-[var(--konnit-berry)] px-3 text-sm font-bold text-[var(--konnit-berry)] hover:bg-[var(--konnit-pink-02)]"
       >
-        Đăng nhập
+        {t("auth.login")}
       </LocaleLink>
     );
   }
@@ -41,7 +42,7 @@ export function UserMenu() {
       <button
         onClick={() => setOpen((o) => !o)}
         className="grid h-9 w-9 place-items-center overflow-hidden rounded-full bg-[var(--konnit-berry)] text-sm font-black text-white"
-        aria-label="Tài khoản"
+        aria-label={t("auth.myAccount")}
       >
         {user.avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -63,14 +64,14 @@ export function UserMenu() {
               onClick={() => setOpen(false)}
               className="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-[var(--konnit-pink-01)]"
             >
-              Tài khoản
+              {t("auth.myAccount")}
             </LocaleLink>
             <LocaleLink
               href="/tai-khoan/don-hang"
               onClick={() => setOpen(false)}
               className="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-[var(--konnit-pink-01)]"
             >
-              Lịch sử đơn
+              {t("auth.orderHistory")}
             </LocaleLink>
             <button
               onClick={async () => {
@@ -80,7 +81,7 @@ export function UserMenu() {
               }}
               className="block w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-red-600 hover:bg-red-50"
             >
-              Đăng xuất
+              {t("auth.logout")}
             </button>
           </div>
         </>

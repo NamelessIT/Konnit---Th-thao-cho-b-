@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useCallback } from "react";
+import { createContext, useContext, useCallback, useEffect } from "react";
 import { localizeHref, DEFAULT_LOCALE } from "./config";
 
 type Dict = Record<string, unknown>;
@@ -24,6 +24,10 @@ export function LocaleProvider({
   dict: Dict;
   children: React.ReactNode;
 }) {
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
   return (
     <LocaleContext.Provider value={{ locale, dict }}>{children}</LocaleContext.Provider>
   );

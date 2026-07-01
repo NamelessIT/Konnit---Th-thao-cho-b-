@@ -11,6 +11,7 @@ import { formatVND } from "@/lib/shop/format";
 import { shopApi, VoucherValidationError } from "@/lib/shop/api";
 import { useHoldableStepper } from "@/hooks/useHoldableStepper";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 interface CartItemRowProps {
   item: CartItem;
@@ -27,6 +28,7 @@ function CartItemRow({
   onSetQty,
   onToggleSelect,
 }: CartItemRowProps) {
+  const t = useT();
   const [localQty, setLocalQty] = useState(item.quantity);
   const debouncedQty = useDebounce(localQty, 350);
 
@@ -61,7 +63,7 @@ function CartItemRow({
           {item.ageGroup ? ` · ${item.ageGroup}` : ""}
         </p>
         <p className="mt-1 text-sm font-bold text-[var(--konnit-berry)]">
-          {formatVND(item.unitPrice)} / vé
+          {formatVND(item.unitPrice)} {t("shop.perTicket")}
         </p>
       </div>
 
@@ -119,6 +121,7 @@ function CartItemRow({
 }
 
 export function CartDetail() {
+  const t = useT();
   const hasMounted = useHasMounted();
   const { items, voucher, remove, setQty, toggleSelect, setAllSelected, setVoucher } = useCartStore();
   const { buyer } = useBuyerStore();
@@ -174,7 +177,7 @@ export function CartDetail() {
             lastValidated.current = { code, subtotal };
           } else {
             setVoucher(null);
-            setVoucherError("Mã giảm giá không còn hiệu lực cho giỏ hàng mới.");
+            setVoucherError(t("checkout.voucherExpired"));
           }
         })
         .catch((error) => {
@@ -203,13 +206,13 @@ export function CartDetail() {
         setVoucher(result);
         lastValidated.current = { code, subtotal };
       } else {
-        setVoucherError("Mã giảm giá không hợp lệ hoặc đã hết hạn.");
+        setVoucherError(t("checkout.voucherInvalid"));
       }
     } catch (error) {
       setVoucherError(
         error instanceof VoucherValidationError
           ? error.message
-          : "Mã giảm giá không hợp lệ hoặc đã hết hạn.",
+          : t("checkout.voucherInvalid"),
       );
     } finally {
       setIsValidating(false);
@@ -226,12 +229,12 @@ export function CartDetail() {
     return (
       <main className="mx-auto flex max-w-xl flex-col items-center gap-4 px-4 py-24 text-center">
         <ShoppingCart className="h-16 w-16 text-slate-200" />
-        <p className="text-lg font-bold text-[var(--konnit-ink)]">Giỏ hàng đang trống</p>
+        <p className="text-lg font-bold text-[var(--konnit-ink)]">{t("shop.cartEmpty")}</p>
         <LocaleLink
           href="/cua-hang"
           className="rounded-2xl bg-[var(--konnit-berry)] px-6 py-2.5 text-sm font-bold text-white hover:opacity-90"
         >
-          Chọn vé ngay
+          {t("shop.shopNow")}
         </LocaleLink>
       </main>
     );
@@ -239,7 +242,7 @@ export function CartDetail() {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="mb-6 text-2xl font-black text-[var(--konnit-ink)]">Giỏ hàng</h1>
+      <h1 className="mb-6 text-2xl font-black text-[var(--konnit-ink)]">{t("shop.cart")}</h1>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_300px]">
         {/* ── Danh sách vé ── */}
@@ -251,7 +254,7 @@ export function CartDetail() {
               onChange={(e) => setAllSelected(e.target.checked)}
               className="h-4 w-4 rounded accent-[var(--konnit-berry)]"
             />
-            Chọn tất cả ({items.length} loại vé)
+            {t("shop.selectAll")} ({items.length})
           </label>
 
           {items.map((item) => (
@@ -272,7 +275,7 @@ export function CartDetail() {
           {buyer.contactName && (
             <div className="rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
               <p className="mb-1 text-xs font-bold uppercase tracking-wide text-slate-400">
-                Thông tin của bạn
+                {t("shop.buyerInfo")}
               </p>
               <p className="text-sm font-bold text-[var(--konnit-ink)]">{buyer.contactName}</p>
               <p className="text-xs text-[var(--konnit-muted)]">{buyer.contactEmail}</p>
@@ -283,7 +286,7 @@ export function CartDetail() {
           {/* Voucher */}
           <div className="rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
             <p className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-400">
-              <Tag className="h-3.5 w-3.5" /> Mã giảm giá
+              <Tag className="h-3.5 w-3.5" /> {t("shop.voucherCode")}
             </p>
             {voucher ? (
               <div className="flex items-center justify-between rounded-lg bg-green-50 px-3 py-2">
@@ -297,7 +300,7 @@ export function CartDetail() {
                   onClick={handleRemoveVoucher}
                   className="text-xs text-slate-400 hover:text-red-500 underline"
                 >
-                  Xoá
+                  {t("common.remove")}
                 </button>
               </div>
             ) : (
@@ -310,7 +313,7 @@ export function CartDetail() {
                     )
                   }
                   onKeyDown={(e) => e.key === "Enter" && handleApplyVoucher()}
-                  placeholder="Nhập mã nếu có"
+                  placeholder={t("shop.voucherPlaceholder")}
                   className="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-sm outline-none focus:border-[var(--konnit-berry)]"
                 />
 
@@ -323,7 +326,7 @@ export function CartDetail() {
                   {isValidating ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
-                    "Áp dụng"
+                    t("common.apply")
                   )}
                 </Button>
               </div>
@@ -335,23 +338,23 @@ export function CartDetail() {
 
           {/* Tóm tắt */}
           <div className="h-fit rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-            <h2 className="mb-3 font-bold text-[var(--konnit-ink)]">Tóm tắt đơn</h2>
+            <h2 className="mb-3 font-bold text-[var(--konnit-ink)]">{t("shop.orderSummary")}</h2>
             <div className="mb-2 flex justify-between text-sm">
-              <span className="text-slate-500">Đã chọn</span>
-              <span>{selectedCount} vé</span>
+              <span className="text-slate-500">{t("shop.selected")}</span>
+              <span>{selectedCount}</span>
             </div>
             <div className="mb-2 flex justify-between text-sm">
-              <span className="text-slate-500">Tạm tính</span>
+              <span className="text-slate-500">{t("shop.subtotal")}</span>
               <span>{formatVND(subtotal)}</span>
             </div>
             {voucher && (
               <div className="mb-2 flex justify-between text-sm text-green-600">
-                <span>Giảm giá</span>
+                <span>{t("shop.discount")}</span>
                 <span>− {formatVND(discountAmount)}</span>
               </div>
             )}
             <div className="mb-4 flex justify-between border-t border-slate-100 pt-2">
-              <span className="font-bold text-slate-700">Tổng cộng</span>
+              <span className="font-bold text-slate-700">{t("shop.total")}</span>
               <span className="text-xl font-black text-[var(--konnit-berry)]">
                 {formatVND(total)}
               </span>
@@ -365,13 +368,13 @@ export function CartDetail() {
                   : "bg-[var(--konnit-berry)] hover:opacity-90"
               }`}
             >
-              Tiến hành thanh toán →
+              {t("shop.checkout")}
             </LocaleLink>
             <LocaleLink
               href="/cua-hang"
               className="mt-3 block text-center text-xs text-[var(--konnit-muted)] hover:text-[var(--konnit-berry)]"
             >
-              ← Tiếp tục mua vé
+              {t("shop.continueShopping")}
             </LocaleLink>
           </div>
         </div>

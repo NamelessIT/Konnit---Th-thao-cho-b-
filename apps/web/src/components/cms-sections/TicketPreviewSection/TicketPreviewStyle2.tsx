@@ -1,5 +1,8 @@
-import Link from "next/link";
+"use client";
+
 import type { SectionProps } from "@konnit/ui";
+import { LocaleLink } from "@/components/i18n/LocaleLink";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 interface Item {
   title?: string;
@@ -10,6 +13,7 @@ interface Item {
 }
 
 export function TicketPreviewStyle2({ contentJson, title }: SectionProps) {
+  const t = useT();
   const c = contentJson;
   const items = (c.items as Item[]) ?? [];
   return (
@@ -24,9 +28,9 @@ export function TicketPreviewStyle2({ contentJson, title }: SectionProps) {
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-[var(--konnit-pink-02)] text-left text-[var(--konnit-berry)]">
-                <th className="px-5 py-3 font-semibold">Loại vé</th>
-                <th className="px-5 py-3 font-semibold">Mô tả</th>
-                <th className="px-5 py-3 text-right font-semibold">Giá</th>
+                <th className="px-5 py-3 font-semibold">{t("shop.ticketType")}</th>
+                <th className="px-5 py-3 font-semibold">{t("shop.description")}</th>
+                <th className="px-5 py-3 text-right font-semibold">{t("shop.price")}</th>
                 <th className="px-5 py-3 text-center font-semibold"></th>
               </tr>
             </thead>
@@ -53,12 +57,12 @@ export function TicketPreviewStyle2({ contentJson, title }: SectionProps) {
                       {item.price ?? ""}
                     </td>
                     <td className="px-5 py-3 text-center">
-                      <Link
+                      <LocaleLink
                         href={ticketHref}
                         className="inline-block rounded-lg bg-[var(--konnit-berry)] px-3 py-1.5 text-xs font-bold text-white transition hover:opacity-90"
                       >
-                        Mua vé
-                      </Link>
+                        {t("shop.buyTicket")}
+                      </LocaleLink>
                     </td>
                   </tr>
                 );

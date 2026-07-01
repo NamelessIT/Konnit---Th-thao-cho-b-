@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Plus, Star, Trash2, Upload, Download, Check, X, Save, Search } from "lucide-react";
+import { Plus, Star, Trash2, Upload, Download, Check, X, Save, Search, ChevronLeft, ChevronRight, Wand2 } from "lucide-react";
 import { api } from "@/lib/api-client";
 import { useFetch } from "@/hooks/useCmsData";
 import { PageHeader } from "@/components/common/PageHeader";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
@@ -364,6 +365,10 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [translating, setTranslating] = useState<string | null>(null);
+  const [isTranslatingAll, setIsTranslatingAll] = useState(false);
+  const pageSize = 15;
 
   async function loadTranslations(mod: string, loc: string) {
     setLoading(true);
@@ -411,6 +416,97 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
 
   const pendingCount = Object.keys(edits).length;
 
+  async function autoTranslate(row: ExportRow) {
+    if (!row.source_value || !selectedLocale) return;
+    
+    const editKey = `${row.entity_id}:${row.field}`;
+    
+    // MyMemory API has a 500 character limit
+    if (row.source_value.length > 500) {
+      toast.error(`Nội dung quá dài (${row.source_value.length} ký tự). Max: 500`);
+      return;
+    }
+    
+    setTranslating(editKey);
+    
+    try {
+      // MyMemory API: langpair format is "source|target" (vi|en, vi|ja, etc)
+      const langPair = `vi|${selectedLocale}`;
+      const res = await fetch(
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(row.source_value)}&langpair=${langPair}`,
+        { credentials: "omit" }
+      );
+      const data = await res.json();
+      
+      if (data?.responseStatus === 200 && data?.responseData?.translatedText) {
+        const translated = data.responseData.translatedText;
+        setEdit(row, translated);
+        toast.success("Dịch tự động thành công");
+      } else {
+        const details = data?.responseDetails || "Lỗi không xác định";
+        console.error("Translation API error:", data);
+        toast.error(`Dịch thất bại: ${details}`);
+      }
+    } catch (e) {
+      toast.error("Lỗi kết nối API dịch");
+      console.error(e);
+    } finally {
+      setTranslating(null);
+    }
+  }
+
+  async function autoTranslateAll() {
+    if (emptyCount === 0) return;
+    
+    setIsTranslatingAll(true);
+    const emptyRows = filtered.filter((r) => !r.value || r.value.trim() === "");
+    let successCount = 0;
+    let skippedCount = 0;
+    
+    try {
+      for (const row of emptyRows) {
+        if (!row.source_value || !selectedLocale) continue;
+        
+        // MyMemory API has a 500 character limit
+        if (row.source_value.length > 500) {
+          skippedCount++;
+          continue;
+        }
+        
+        try {
+          const langPair = `vi|${selectedLocale}`;
+          const res = await fetch(
+            `https://api.mymemory.translated.net/get?q=${encodeURIComponent(row.source_value)}&langpair=${langPair}`,
+            { credentials: "omit" }
+          );
+          const data = await res.json();
+          
+          if (data?.responseStatus === 200 && data?.responseData?.translatedText) {
+            const translated = data.responseData.translatedText;
+            setEdit(row, translated);
+            successCount++;
+          }
+        } catch (e) {
+          console.error("Error translating row:", e);
+        }
+        
+        // Add small delay to avoid rate limiting
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+      
+      let msg = `Đã dịch ${successCount}/${emptyCount} nội dung`;
+      if (skippedCount > 0) {
+        msg += ` (bỏ qua ${skippedCount} nội dung quá dài)`;
+      }
+      toast.success(msg);
+    } catch (e) {
+      toast.error("Lỗi khi dịch tất cả");
+      console.error(e);
+    } finally {
+      setIsTranslatingAll(false);
+    }
+  }
+
   async function save() {
     if (pendingCount === 0) return;
     setSaving(true);
@@ -453,6 +549,37 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
     map.set(row.entity_id, arr);
     return map;
   }, new Map());
+
+  // Sort rows within each group - empty translations first
+  const sortedGrouped = new Map(
+    Array.from(grouped.entries()).map(([entityId, rows]) => [
+      entityId,
+      [...rows].sort((a, b) => {
+        const aEmpty = !a.value || a.value.trim() === "";
+        const bEmpty = !b.value || b.value.trim() === "";
+        if (aEmpty === bEmpty) return 0;
+        return aEmpty ? -1 : 1; // empty first
+      }),
+    ])
+  );
+
+  // Pagination logic
+  const allDisplayRows = Array.from(sortedGrouped.entries()).flatMap(([entityId, entityRows]) => [
+    { type: "group" as const, entityId, entityRows },
+    ...entityRows.map((r) => ({ type: "row" as const, row: r })),
+  ]);
+
+  const totalPages = Math.ceil(allDisplayRows.length / pageSize);
+  const start = (currentPage - 1) * pageSize;
+  const paginatedDisplay = allDisplayRows.slice(start, start + pageSize);
+
+  // Count empty translations
+  const emptyCount = filtered.filter((r) => !r.value || r.value.trim() === "").length;
+  const totalCount = filtered.length;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedModule, selectedLocale, search]);
 
   function entityLabel(entityRows: ExportRow[]): string {
     const primary = entityRows.find((r) => r.field === "name" || r.field === "title");
@@ -522,6 +649,17 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
             </Button>
           </div>
         )}
+
+        {emptyCount > 0 && !pendingCount && (
+          <Button 
+            onClick={autoTranslateAll} 
+            disabled={isTranslatingAll}
+            className="ml-auto"
+          >
+            <Wand2 className="mr-1 size-4" />
+            {isTranslatingAll ? `Đang dịch ${emptyCount}...` : `Dịch tất cả (${emptyCount})`}
+          </Button>
+        )}
       </div>
 
       {loading && (
@@ -541,75 +679,141 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
       )}
 
       {!loading && grouped.size > 0 && (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-slate-50 text-left text-xs uppercase text-slate-500">
-              <tr>
-                <th className="px-4 py-2 w-32">Field</th>
-                <th className="px-4 py-2 w-2/5">Nội dung gốc</th>
-                <th className="px-4 py-2">
-                  Bản dịch{" "}
-                  <span className="font-mono normal-case text-slate-400">({selectedLocale})</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {Array.from(grouped.entries()).flatMap(([entityId, entityRows]) => [
-                <tr key={`g-${entityId}`} className="bg-slate-50/80">
-                  <td
-                    colSpan={3}
-                    className="px-4 py-1.5 text-xs font-semibold text-slate-500"
-                  >
-                    <span className="mr-2 font-mono text-slate-400">#{entityId}</span>
-                    {entityLabel(entityRows)}
-                  </td>
-                </tr>,
-                ...entityRows.map((row) => {
-                  const current = getCurrent(row);
-                  const isDirty = editKey(row) in edits;
-                  const long = isLongField(row);
-                  return (
-                    <tr
-                      key={`${entityId}:${row.field}`}
-                      className={isDirty ? "bg-amber-50" : "hover:bg-slate-50/50"}
-                    >
-                      <td className="px-4 py-2 align-top font-mono text-xs text-slate-500">
-                        {row.field}
-                        {isDirty && (
-                          <span className="ml-1 inline-block size-1.5 rounded-full bg-amber-400 align-middle" />
-                        )}
-                      </td>
-                      <td className="px-4 py-2 align-top text-slate-500">
-                        <p className="line-clamp-4 whitespace-pre-wrap break-words text-xs">
-                          {row.source_value}
-                        </p>
-                      </td>
-                      <td className="px-4 py-2 align-top">
-                        {long ? (
-                          <textarea
-                            rows={3}
-                            className="w-full resize-y rounded border px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-                            value={current}
-                            onChange={(e) => setEdit(row, e.target.value)}
-                            placeholder="Nhập bản dịch..."
-                          />
-                        ) : (
-                          <input
-                            type="text"
-                            className="w-full rounded border px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-                            value={current}
-                            onChange={(e) => setEdit(row, e.target.value)}
-                            placeholder="Nhập bản dịch..."
-                          />
-                        )}
+        <>
+          <ScrollArea className="h-[calc(100vh-400px)] w-full rounded-none border-t">
+            <table className="w-full text-sm">
+              <thead className="sticky top-0 z-10 bg-slate-50 text-left text-xs uppercase text-slate-500">
+                <tr>
+                  <th className="px-4 py-2 w-32">Field</th>
+                  <th className="px-4 py-2 w-2/5">Nội dung gốc</th>
+                  <th className="px-4 py-2">
+                    Bản dịch{" "}
+                    <span className="font-mono normal-case text-slate-400">({selectedLocale})</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {paginatedDisplay.map((item, idx) =>
+                  item.type === "group" ? (
+                    <tr key={`g-${item.entityId}`} className="bg-slate-50/80">
+                      <td
+                        colSpan={3}
+                        className="px-4 py-1.5 text-xs font-semibold text-slate-500"
+                      >
+                        <span className="mr-2 font-mono text-slate-400">#{item.entityId}</span>
+                        {entityLabel(item.entityRows)}
                       </td>
                     </tr>
-                  );
-                }),
-              ])}
-            </tbody>
-          </table>
-        </div>
+                  ) : (
+                    (() => {
+                      const row = item.row;
+                      const current = getCurrent(row);
+                      const isDirty = editKey(row) in edits;
+                      const isEmpty = !current || current.trim() === "";
+                      const long = isLongField(row);
+                      return (
+                        <tr
+                          key={`${row.entity_id}:${row.field}`}
+                          className={`${
+                            isEmpty
+                              ? "bg-red-50 hover:bg-red-100"
+                              : isDirty
+                                ? "bg-amber-50"
+                                : "hover:bg-slate-50/50"
+                          }`}
+                        >
+                          <td className="px-4 py-2 align-top font-mono text-xs text-slate-500">
+                            {row.field}
+                            {isEmpty && (
+                              <span className="ml-1 inline-block size-1.5 rounded-full bg-red-500 align-middle" />
+                            )}
+                            {isDirty && !isEmpty && (
+                              <span className="ml-1 inline-block size-1.5 rounded-full bg-amber-400 align-middle" />
+                            )}
+                          </td>
+                          <td className="px-4 py-2 align-top text-slate-500">
+                            <p className="line-clamp-4 whitespace-pre-wrap break-words text-xs">
+                              {row.source_value}
+                            </p>
+                          </td>
+                          <td className="px-4 py-2 align-top">
+                            <div className={`flex gap-1 ${long ? "flex-col" : "items-center"}`}>
+                              {long ? (
+                                <textarea
+                                  rows={3}
+                                  className={`w-full resize-y rounded border px-2 py-1 text-sm focus:outline-none focus:ring-2 ${
+                                    isEmpty
+                                      ? "border-red-300 bg-red-50 focus:ring-red-300"
+                                      : "focus:ring-blue-300"
+                                  }`}
+                                  value={current}
+                                  onChange={(e) => setEdit(row, e.target.value)}
+                                  placeholder="Nhập bản dịch..."
+                                />
+                              ) : (
+                                <input
+                                  type="text"
+                                  className={`flex-1 rounded border px-2 py-1 text-sm focus:outline-none focus:ring-2 ${
+                                    isEmpty
+                                      ? "border-red-300 bg-red-50 focus:ring-red-300"
+                                      : "focus:ring-blue-300"
+                                  }`}
+                                  value={current}
+                                  onChange={(e) => setEdit(row, e.target.value)}
+                                  placeholder="Nhập bản dịch..."
+                                />
+                              )}
+                              {isEmpty && (
+                                <button
+                                  onClick={() => autoTranslate(row)}
+                                  disabled={translating === editKey(row)}
+                                  className="inline-flex items-center gap-1 rounded bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700 hover:bg-blue-200 disabled:opacity-50"
+                                  title="Dịch tự động"
+                                >
+                                  <Wand2 className="size-3" />
+                                  Auto
+                                </button>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })())
+                )}
+              </tbody>
+            </table>
+          </ScrollArea>
+
+          <div className="border-t px-5 py-3 text-xs text-slate-500">
+            Chưa dịch: <span className="font-bold text-red-600">{emptyCount}</span> / Tổng: <span className="font-bold">{totalCount}</span>
+          </div>
+
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between border-t px-5 py-3">
+              <span className="text-xs text-slate-500">
+                Trang {currentPage} / {totalPages}
+              </span>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                >
+                  <ChevronLeft className="size-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                >
+                  <ChevronRight className="size-4" />
+                </Button>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </section>
   );

@@ -7,6 +7,7 @@ import { Printer, Loader2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QrTicketCard } from "@/components/account/QrTicketCard";
 import { useSiteLogo } from "@/hooks/useSiteLogo";
+import { useT } from "@/lib/i18n/LocaleProvider";
 import { shopApi } from "@/lib/shop/api";
 import { formatVND } from "@/lib/shop/format";
 import type { Order } from "@/lib/shop/types";
@@ -30,6 +31,7 @@ function Row({ label, value, bold, red }: { label: string; value: string; bold?:
 }
 
 export default function BienNhanPage() {
+  const t = useT();
   const params = useParams<{ code: string }>();
   const code = params.code;
   const logoUrl = useSiteLogo();
@@ -50,7 +52,7 @@ export default function BienNhanPage() {
     return (
       <main className="flex min-h-[60vh] flex-col items-center justify-center gap-3">
         <Loader2 className="h-8 w-8 animate-spin text-(--konnit-berry)" />
-        <p className="text-sm text-slate-500">Đang tải biên nhận…</p>
+        <p className="text-sm text-slate-500">{t("receipt.loading")}</p>
       </main>
     );
   }
@@ -58,9 +60,9 @@ export default function BienNhanPage() {
   if (notFound || !order) {
     return (
       <main className="mx-auto max-w-lg px-4 py-24 text-center">
-        <h1 className="mb-2 text-2xl font-black text-slate-800">Biên nhận không tồn tại</h1>
-        <p className="mb-6 text-sm text-slate-500">Đơn hàng chưa được thanh toán hoặc mã không hợp lệ.</p>
-        <LocaleLink href="/cua-hang"><Button>Về cửa hàng</Button></LocaleLink>
+        <h1 className="mb-2 text-2xl font-black text-slate-800">{t("receipt.notFound")}</h1>
+        <p className="mb-6 text-sm text-slate-500">{t("receipt.invalid")}</p>
+        <LocaleLink href="/cua-hang"><Button>{t("common.backToStore")}</Button></LocaleLink>
       </main>
     );
   }
@@ -75,10 +77,10 @@ export default function BienNhanPage() {
       <div className="mb-6 flex items-center justify-between print:hidden">
         <LocaleLink href={`/don-hang/${code}`}
           className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-800">
-          <ArrowLeft className="h-4 w-4" />Xem đơn hàng
+          <ArrowLeft className="h-4 w-4" />{t("receipt.viewOrder")}
         </LocaleLink>
         <Button variant="outline" size="sm" onClick={() => window.print()}>
-          <Printer className="mr-2 h-4 w-4" />In biên nhận
+          <Printer className="mr-2 h-4 w-4" />{t("receipt.print")}
         </Button>
       </div>
 
@@ -86,7 +88,7 @@ export default function BienNhanPage() {
       <div className="rounded-2xl border border-slate-100 bg-white shadow-sm print:border-0 print:shadow-none">
         {/* header */}
         <div className="rounded-t-2xl bg-(--konnit-berry) px-8 py-8 text-center text-white">
-          <p className="mb-1 text-xs uppercase tracking-[3px] text-white/70">Thể thao cho bé</p>
+          <p className="mb-1 text-xs uppercase tracking-[3px] text-white/70">{t("receipt.tagline")}</p>
           {logoUrl ? (
             <img src={logoUrl} alt="Konnit" className="mx-auto h-10 w-auto rounded-full object-contain brightness-0 invert" />
           ) : (
@@ -96,7 +98,7 @@ export default function BienNhanPage() {
 
         {/* order id + date */}
         <div className="border-b border-slate-100 px-8 py-6 text-center">
-          <p className="mb-1 text-xs uppercase tracking-widest text-slate-400">Biên nhận thanh toán</p>
+          <p className="mb-1 text-xs uppercase tracking-widest text-slate-400">{t("receipt.title")}</p>
           <p className="text-2xl font-black text-(--konnit-berry)">{order.order_code}</p>
           <p className="mt-1 text-sm text-slate-500">{dateStr}</p>
         </div>
@@ -105,20 +107,20 @@ export default function BienNhanPage() {
           {/* customer */}
           <section>
             <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">
-              Thông tin người đặt
+              {t("receipt.buyerInfo")}
             </h2>
             <div className="rounded-xl bg-slate-50 px-4 py-1">
-              <Row label="Họ và tên" value={order.contact_name} bold />
-              <Row label="Số điện thoại" value={order.contact_phone} />
-              <Row label="Email" value={order.contact_email} />
-              {order.voucher_code && <Row label="Mã voucher" value={order.voucher_code} />}
+              <Row label={t("receipt.fullName")} value={order.contact_name} bold />
+              <Row label={t("receipt.phone")} value={order.contact_phone} />
+              <Row label={t("order.email")} value={order.contact_email} />
+              {order.voucher_code && <Row label={t("receipt.voucher")} value={order.voucher_code} />}
             </div>
           </section>
 
           {/* items */}
           <section>
             <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">
-              Vé đã đặt ({order.items.length} vé)
+              {t("receipt.ticketsLabel").replace("{n}", String(order.items.length))}
             </h2>
             <div className="space-y-3">
               {order.items.map((item) => (
@@ -132,8 +134,8 @@ export default function BienNhanPage() {
                     checkedInAt={item.checked_in_at ?? null}
                   />
                   <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5 px-1 text-sm text-slate-500">
-                    {item.shirt_size && <span>Áo: <span className="font-medium">{item.shirt_size}</span></span>}
-                    {item.medal_name && <span>Huy chương: <span className="font-medium">{item.medal_name}</span></span>}
+                    {item.shirt_size && <span>{t("receipt.shirt")} <span className="font-medium">{item.shirt_size}</span></span>}
+                    {item.medal_name && <span>{t("receipt.medal")} <span className="font-medium">{item.medal_name}</span></span>}
                     <span className="font-bold text-(--konnit-berry)">{formatVND(item.unit_price)}</span>
                   </div>
                 </div>
@@ -141,7 +143,7 @@ export default function BienNhanPage() {
             </div>
 
             <p className="mt-2 text-center text-xs text-slate-400">
-              Quét mã QR khi làm thủ tục check-in tại sự kiện.
+              {t("receipt.qrNote")}
             </p>
           </section>
 
@@ -149,20 +151,19 @@ export default function BienNhanPage() {
           <section className="rounded-xl bg-slate-50 px-4 py-1">
             {order.discount_amount > 0 && (
               <>
-                <Row label="Tạm tính" value={formatVND(order.subtotal)} />
-                <Row label="Giảm giá" value={`− ${formatVND(order.discount_amount)}`} />
+                <Row label={t("receipt.subtotal")} value={formatVND(order.subtotal)} />
+                <Row label={t("receipt.discount")} value={`− ${formatVND(order.discount_amount)}`} />
               </>
             )}
             <div className="flex justify-between border-t border-slate-200 py-3 text-base">
-              <span className="font-black text-slate-800">Tổng cộng</span>
+              <span className="font-black text-slate-800">{t("receipt.total")}</span>
               <span className="text-xl font-black text-(--konnit-berry)">{formatVND(order.total)}</span>
             </div>
           </section>
 
           {/* footer note */}
           <p className="text-center text-xs text-slate-400">
-            Cảm ơn bạn đã tin tưởng và đồng hành cùng <strong className="text-slate-600">Konnit</strong>.
-            Lưu lại trang này hoặc mã đơn <strong className="text-(--konnit-berry)">{order.order_code}</strong> để xem lại bất kỳ lúc nào.
+            {t("receipt.thanks")} {t("receipt.saveNote")}
           </p>
         </div>
       </div>

@@ -14,6 +14,7 @@ import { formatVND } from "@/lib/shop/format";
 import type { TicketType } from "@/lib/shop/types";
 import { useHoldableStepper } from "@/hooks/useHoldableStepper";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 interface QuantityDialogProps {
   ticket: TicketType;
@@ -24,6 +25,7 @@ interface QuantityDialogProps {
 }
 
 export function QuantityDialog({ ticket, mode, trigger, onConfirm, canOpen }: QuantityDialogProps) {
+  const t = useT();
   const [qty, setQty] = useState(1);
   const [open, setOpen] = useState(false);
 
@@ -57,7 +59,7 @@ export function QuantityDialog({ ticket, mode, trigger, onConfirm, canOpen }: Qu
       <DialogContent className="max-w-sm">
         <DialogHeader>
           <DialogTitle>
-            {mode === "buyNow" ? "Mua ngay" : "Thêm vào giỏ"}
+            {mode === "buyNow" ? t("shop.buyNow") : t("shop.addToCart")}
           </DialogTitle>
         </DialogHeader>
 
@@ -68,7 +70,7 @@ export function QuantityDialog({ ticket, mode, trigger, onConfirm, canOpen }: Qu
           )}
 
           <div className="mb-4 flex items-center justify-between rounded-xl bg-[var(--konnit-pink-02)] p-3">
-            <span className="text-sm text-slate-600">Giá mỗi vé</span>
+            <span className="text-sm text-slate-600">{t("shop.pricePerTicket")}</span>
             <span className="font-bold text-[var(--konnit-berry)]">
               {formatVND(ticket.current_price)}
             </span>
@@ -114,11 +116,11 @@ export function QuantityDialog({ ticket, mode, trigger, onConfirm, canOpen }: Qu
               <Plus className="h-4 w-4" />
             </button>
           </div>
-          <p className="mb-4 text-center text-xs text-slate-400">Còn {max} suất</p>
+          <p className="mb-4 text-center text-xs text-slate-400">{t("shop.spotsLeft").replace("{n}", String(max))}</p>
 
           {/* Tổng tạm tính */}
           <div className="mb-5 flex justify-between border-t border-slate-100 pt-3 text-sm">
-            <span className="text-slate-500">Tạm tính</span>
+            <span className="text-slate-500">{t("shop.subtotal")}</span>
             <span className="text-lg font-black text-[var(--konnit-berry)]">
               {formatVND(ticket.current_price * debouncedQty)}
             </span>
@@ -129,7 +131,7 @@ export function QuantityDialog({ ticket, mode, trigger, onConfirm, canOpen }: Qu
             disabled={soldOut}
             className="w-full bg-[var(--konnit-berry)] hover:bg-[var(--konnit-berry)]/90"
           >
-            {mode === "buyNow" ? "Mua ngay →" : "Thêm vào giỏ"}
+            {mode === "buyNow" ? `${t("shop.buyNow")} →` : t("shop.addToCart")}
           </Button>
         </div>
       </DialogContent>

@@ -6,6 +6,7 @@ import { RequireUser } from "@/components/account/RequireUser";
 import { userOrdersApi, type UserOrderList } from "@/lib/auth/user-orders-api";
 import { formatVND } from "@/lib/shop/format";
 import { ORDER_STATUS_LABELS_VI, type OrderStatus } from "@konnit/types";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 export default function Page() {
   return (
@@ -16,6 +17,7 @@ export default function Page() {
 }
 
 function OrdersList() {
+  const t = useT();
   const [data, setData] = useState<UserOrderList | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -36,16 +38,16 @@ function OrdersList() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-16">
-      <h1 className="mb-6 text-2xl font-black text-[var(--konnit-ink)]">Lịch sử đơn hàng</h1>
+      <h1 className="mb-6 text-2xl font-black text-[var(--konnit-ink)]">{t("account.orderHistory")}</h1>
 
-      {loading && <p className="py-12 text-center text-[var(--konnit-muted)]">Đang tải…</p>}
+      {loading && <p className="py-12 text-center text-[var(--konnit-muted)]">{t("common.loading")}</p>}
       {error && <p className="py-12 text-center text-red-500">{error}</p>}
 
       {!loading && !error && data && data.orders.length === 0 && (
         <div className="rounded-2xl border border-dashed border-[var(--konnit-pink-03)] py-16 text-center text-[var(--konnit-muted)]">
-          Bạn chưa có đơn hàng nào.
+          {t("account.noOrders")}
           <LocaleLink href="/cua-hang" className="ml-1 font-bold text-[var(--konnit-berry)] underline">
-            Mua vé ngay
+            {t("account.buyNow")}
           </LocaleLink>
         </div>
       )}
@@ -83,7 +85,7 @@ function OrdersList() {
                 onClick={() => setPage((p) => p - 1)}
                 className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-40"
               >
-                Trước
+                {t("account.prev")}
               </button>
               <span className="text-sm text-[var(--konnit-muted)]">
                 {data.page}/{data.totalPages}
@@ -93,7 +95,7 @@ function OrdersList() {
                 onClick={() => setPage((p) => p + 1)}
                 className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-40"
               >
-                Sau
+                {t("account.next")}
               </button>
             </div>
           )}

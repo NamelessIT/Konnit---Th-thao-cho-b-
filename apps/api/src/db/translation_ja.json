@@ -1,0 +1,2298 @@
+[
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.home",
+    "locale": "ja",
+    "source_value": "Trang chủ",
+    "value": "ホーム"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.about",
+    "locale": "ja",
+    "source_value": "Về chúng tôi",
+    "value": "私たちについて"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.business",
+    "locale": "ja",
+    "source_value": "Lĩnh vực",
+    "value": "事業内容"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.community",
+    "locale": "ja",
+    "source_value": "Cộng đồng",
+    "value": "コミュニティ"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.store",
+    "locale": "ja",
+    "source_value": "Konnit Store",
+    "value": "Konnit ストア"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.news",
+    "locale": "ja",
+    "source_value": "Tin tức",
+    "value": "ニュース"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.tickets",
+    "locale": "ja",
+    "source_value": "Vé sự kiện",
+    "value": "イベントチケット"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.join",
+    "locale": "ja",
+    "source_value": "Tham gia ngay",
+    "value": "今すぐ参加"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.openMenu",
+    "locale": "ja",
+    "source_value": "Mở menu điều hướng",
+    "value": "ナビゲーションメニューを開く"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.selectPage",
+    "locale": "ja",
+    "source_value": "Chọn trang bạn muốn xem",
+    "value": "表示したいページを選択します"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "footer.tagline",
+    "locale": "ja",
+    "source_value": "Nền tảng thể thao và hoạt động dành cho trẻ em Việt Nam",
+    "value": "ベトナムの子どものためのスポーツ＆アクティビティプラットフォーム"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.loading",
+    "locale": "ja",
+    "source_value": "Đang tải...",
+    "value": "読み込み中..."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.back",
+    "locale": "ja",
+    "source_value": "Quay lại",
+    "value": "戻る"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.notFound",
+    "locale": "ja",
+    "source_value": "Không tìm thấy trang",
+    "value": "ページが見つかりません"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.backToCategory",
+    "locale": "ja",
+    "source_value": "Quay lại danh mục",
+    "value": "カテゴリ一覧に戻る"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.backToStore",
+    "locale": "ja",
+    "source_value": "Quay lại cửa hàng",
+    "value": "店舗に戻る"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.backToOrders",
+    "locale": "ja",
+    "source_value": "Lịch sử đơn",
+    "value": "単一の履歴"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.confirm",
+    "locale": "ja",
+    "source_value": "Xác nhận",
+    "value": "承　認"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.cancel",
+    "locale": "ja",
+    "source_value": "Hủy",
+    "value": "解除！"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.processing",
+    "locale": "ja",
+    "source_value": "Đang xử lý…",
+    "value": "- 処理中\""
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.close",
+    "locale": "ja",
+    "source_value": "Đóng",
+    "value": "éãã(C)"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.remove",
+    "locale": "ja",
+    "source_value": "Xoá",
+    "value": "アイテムを選択解除@info:tooltip"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.apply",
+    "locale": "ja",
+    "source_value": "Áp dụng",
+    "value": "適用"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.sending",
+    "locale": "ja",
+    "source_value": "Đang gửi…",
+    "value": "送信しています…"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.send",
+    "locale": "ja",
+    "source_value": "Gửi yêu cầu",
+    "value": "リクエストを送信"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.home",
+    "locale": "ja",
+    "source_value": "Về trang chủ",
+    "value": "ホームページへ"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.updating",
+    "locale": "ja",
+    "source_value": "Đang cập nhật nội dung…",
+    "value": "コンテンツを更新しています…"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.login",
+    "locale": "ja",
+    "source_value": "Đăng nhập",
+    "value": "ログイン"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.loginTitle",
+    "locale": "ja",
+    "source_value": "Đăng nhập Konnit",
+    "value": "Konnitログイン"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.loginSubtitle",
+    "locale": "ja",
+    "source_value": "Đăng nhập bằng Google để xem lịch sử đơn và vé điện tử của bạn.",
+    "value": "Googleでサインインすると、申請とeチケットの履歴が表示されます。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.signupTitle",
+    "locale": "ja",
+    "source_value": "Tạo tài khoản Konnit",
+    "value": "Konnitアカウントを作成する"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.signupSubtitle",
+    "locale": "ja",
+    "source_value": "Lần đầu đăng nhập Google sẽ tự tạo tài khoản cho bạn — không cần mật khẩu.",
+    "value": "初回ログイン時にGoogleがアカウントを作成します。パスワードは必要ありません。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.tagline",
+    "locale": "ja",
+    "source_value": "Mọi trải nghiệm của bạn, gọn trong một tài khoản.",
+    "value": "すべての体験を1つのアカウントで。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.manageTickets",
+    "locale": "ja",
+    "source_value": "Quản lý vé",
+    "value": "チケット管理"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.secureWithGoogle",
+    "locale": "ja",
+    "source_value": "Bảo mật với Google",
+    "value": "Googleセキュリティ"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.communityLabel",
+    "locale": "ja",
+    "source_value": "Konnit community",
+    "value": "Konnitコミュニティ"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.accountLabel",
+    "locale": "ja",
+    "source_value": "Tài khoản Konnit",
+    "value": "Konnitアカウント"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.terms",
+    "locale": "ja",
+    "source_value": "Bằng việc tiếp tục, bạn đồng ý với Điều khoản và Chính sách bảo mật của Konnit.",
+    "value": "続行すると、Konnitの利用規約とプライバシーポリシーに同意したものとみなされます。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.loginFailed",
+    "locale": "ja",
+    "source_value": "Đăng nhập thất bại",
+    "value": "ログインに失敗しました"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.verifying",
+    "locale": "ja",
+    "source_value": "Đang xác minh…",
+    "value": "確認しています…"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.continueWithGoogle",
+    "locale": "ja",
+    "source_value": "Tiếp tục bằng Google",
+    "value": "Googleで続ける"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.gateTitle",
+    "locale": "ja",
+    "source_value": "Đăng nhập để tiếp tục",
+    "value": "ログインして続行"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.requireLoginMessage",
+    "locale": "ja",
+    "source_value": "Vui lòng đăng nhập để mua vé và sử dụng giỏ hàng.",
+    "value": "チケットを購入してカートを使用するにはログインしてください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.later",
+    "locale": "ja",
+    "source_value": "Để sau",
+    "value": "後で"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.checkingSession",
+    "locale": "ja",
+    "source_value": "Đang kiểm tra phiên đăng nhập...",
+    "value": "ログインセッションを確認しています..."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.myAccount",
+    "locale": "ja",
+    "source_value": "Tài khoản",
+    "value": "勘定科目"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.orderHistory",
+    "locale": "ja",
+    "source_value": "Lịch sử đơn",
+    "value": "単一の履歴"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.logout",
+    "locale": "ja",
+    "source_value": "Đăng xuất",
+    "value": "ログアウト"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.defaultUser",
+    "locale": "ja",
+    "source_value": "Người dùng Konnit",
+    "value": "Konnitユーザー"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.missingClientId",
+    "locale": "ja",
+    "source_value": "Thiếu NEXT_PUBLIC_GOOGLE_CLIENT_ID",
+    "value": "NEXT_PUBLIC_GOOGLE_CLIENT_IDがありません"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.added",
+    "locale": "ja",
+    "source_value": "Đã thêm!",
+    "value": "追加しました！"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.add",
+    "locale": "ja",
+    "source_value": "Thêm",
+    "value": "è¿½å "
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.addToCart",
+    "locale": "ja",
+    "source_value": "Thêm vào giỏ",
+    "value": "カートに入れる"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.buyNow",
+    "locale": "ja",
+    "source_value": "Mua ngay",
+    "value": "今すぐ購入"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.soldOut",
+    "locale": "ja",
+    "source_value": "Hết suất",
+    "value": "売り切れ"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.cart",
+    "locale": "ja",
+    "source_value": "Giỏ hàng",
+    "value": "カート"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.cartEmpty",
+    "locale": "ja",
+    "source_value": "Giỏ hàng đang trống",
+    "value": "カートは空です"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.shopNow",
+    "locale": "ja",
+    "source_value": "Chọn vé ngay",
+    "value": "今すぐチケットを選択してください"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.selectAll",
+    "locale": "ja",
+    "source_value": "Chọn tất cả",
+    "value": "すべて選択"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.subtotal",
+    "locale": "ja",
+    "source_value": "Tạm tính",
+    "value": "小計"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.discount",
+    "locale": "ja",
+    "source_value": "Giảm giá",
+    "value": "割引"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.total",
+    "locale": "ja",
+    "source_value": "Tổng cộng",
+    "value": "合計"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.voucherCode",
+    "locale": "ja",
+    "source_value": "Mã giảm giá",
+    "value": "クーポンコード"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.voucherPlaceholder",
+    "locale": "ja",
+    "source_value": "Nhập mã nếu có",
+    "value": "該当する場合はコードを入力してください"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.orderSummary",
+    "locale": "ja",
+    "source_value": "Tóm tắt đơn",
+    "value": "単一の要約"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.quantity",
+    "locale": "ja",
+    "source_value": "Số lượng",
+    "value": "カウント"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.available",
+    "locale": "ja",
+    "source_value": "Còn {n} suất",
+    "value": "残り{n}レート"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.addedToast",
+    "locale": "ja",
+    "source_value": "Đã thêm {n} vé \"{name}\" vào giỏ",
+    "value": "{n}枚のチケット「{ name }」をカートに追加しました"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.checkout",
+    "locale": "ja",
+    "source_value": "Tiến hành thanh toán →",
+    "value": "8.支払いに進む"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.continueShopping",
+    "locale": "ja",
+    "source_value": "← Tiếp tục mua vé",
+    "value": "チケットの購入←を続ける"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.buyerInfo",
+    "locale": "ja",
+    "source_value": "Thông tin của bạn",
+    "value": "あなたの情報"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.selected",
+    "locale": "ja",
+    "source_value": "Đã chọn",
+    "value": "選択color-sets"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.perTicket",
+    "locale": "ja",
+    "source_value": "/ vé",
+    "value": "- チケットの半券だ"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.pageTitle",
+    "locale": "ja",
+    "source_value": "Đăng ký tham gia",
+    "value": "登録して参加"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.pageDesc",
+    "locale": "ja",
+    "source_value": "Chọn sự kiện và loại vé phù hợp để đăng ký tham gia.",
+    "value": "該当するイベントとチケットタイプを選択します。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.noTickets",
+    "locale": "ja",
+    "source_value": "Chưa có vé published để bán.",
+    "value": "販売中の公開されたチケットはありません。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.ageGroup",
+    "locale": "ja",
+    "source_value": "Độ tuổi:",
+    "value": "年齢："
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.spotsLeft",
+    "locale": "ja",
+    "source_value": "Còn {n} suất",
+    "value": "残り{n}レート"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.bibIncluded",
+    "locale": "ja",
+    "source_value": "BIB số thi đấu",
+    "value": "ビブマッチ番号"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.medalIncluded",
+    "locale": "ja",
+    "source_value": "Huy chương hoàn thành",
+    "value": "完成したメダル"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.shirtIncluded",
+    "locale": "ja",
+    "source_value": "Áo thi đấu Konnit",
+    "value": "Konnit"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.pricePerTicket",
+    "locale": "ja",
+    "source_value": "Giá mỗi vé",
+    "value": "チケット1枚あたりの価格"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.buyTicket",
+    "locale": "ja",
+    "source_value": "Mua vé",
+    "value": "チケットを購入"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.ticketType",
+    "locale": "ja",
+    "source_value": "Loại vé",
+    "value": "チケットの種類"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.description",
+    "locale": "ja",
+    "source_value": "Mô tả",
+    "value": "説明"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.price",
+    "locale": "ja",
+    "source_value": "Giá",
+    "value": "価格"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.title",
+    "locale": "ja",
+    "source_value": "Thanh toán",
+    "value": "請求をかける"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.noItems",
+    "locale": "ja",
+    "source_value": "Bạn chưa chọn vé nào để thanh toán.",
+    "value": "支払うチケットが選択されていません。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.backToCart",
+    "locale": "ja",
+    "source_value": "Quay lại giỏ hàng",
+    "value": "カートに戻る"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentInfo",
+    "locale": "ja",
+    "source_value": "Thông tin phụ huynh",
+    "value": "親情報"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentNameRequired",
+    "locale": "ja",
+    "source_value": "Vui lòng nhập họ tên",
+    "value": "氏名を入力してください"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.summaryTitle",
+    "locale": "ja",
+    "source_value": "Đơn hàng",
+    "value": "注文"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.discountLabel",
+    "locale": "ja",
+    "source_value": "Giảm giá ({code})",
+    "value": "割引({code})"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.total",
+    "locale": "ja",
+    "source_value": "Tổng",
+    "value": "合 計"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentName",
+    "locale": "ja",
+    "source_value": "Họ và tên *",
+    "value": "名前と苗字 ： ............................................. .................................................。 ..................。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentNamePlaceholder",
+    "locale": "ja",
+    "source_value": "Nguyễn Văn A",
+    "value": "Nguyen Van A"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentPhone",
+    "locale": "ja",
+    "source_value": "Số điện thoại *",
+    "value": "電話番号"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentPhoneRequired",
+    "locale": "ja",
+    "source_value": "Vui lòng nhập SĐT",
+    "value": "電話番号を入力してください"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentPhoneInvalid",
+    "locale": "ja",
+    "source_value": "SĐT không hợp lệ",
+    "value": "無効な電話番号です"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentEmail",
+    "locale": "ja",
+    "source_value": "Email *",
+    "value": "メール："
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentEmailRequired",
+    "locale": "ja",
+    "source_value": "Vui lòng nhập email",
+    "value": "Eメールを入力してください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentEmailInvalid",
+    "locale": "ja",
+    "source_value": "Email không hợp lệ",
+    "value": "無効なメールアドレス"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentAddress",
+    "locale": "ja",
+    "source_value": "Địa chỉ",
+    "value": "住所"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentAddressPlaceholder",
+    "locale": "ja",
+    "source_value": "Số nhà, đường, phường, quận",
+    "value": "家屋番号、通り、区、地区"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.addChild",
+    "locale": "ja",
+    "source_value": "Thêm bé",
+    "value": "幼児に追加"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.removeChild",
+    "locale": "ja",
+    "source_value": "Bỏ bé này",
+    "value": "この子を閉じる"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childLabel",
+    "locale": "ja",
+    "source_value": "Bé {n}",
+    "value": "赤ちゃん{n}"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childName",
+    "locale": "ja",
+    "source_value": "Họ và tên bé *",
+    "value": "お子様のフルネーム*"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childNamePlaceholder",
+    "locale": "ja",
+    "source_value": "Nguyễn Thị B",
+    "value": "Nguyen Thi B"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childNameRequired",
+    "locale": "ja",
+    "source_value": "Vui lòng nhập tên bé",
+    "value": "お子様の名前を入力してください"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childDob",
+    "locale": "ja",
+    "source_value": "Ngày sinh *",
+    "value": "生年月日"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childDobRequired",
+    "locale": "ja",
+    "source_value": "Vui lòng nhập ngày sinh",
+    "value": "生年月日を入力してください"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childGender",
+    "locale": "ja",
+    "source_value": "Giới tính",
+    "value": "セックス"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.genderSelect",
+    "locale": "ja",
+    "source_value": "-- Chọn --",
+    "value": "選択"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.shirtSize",
+    "locale": "ja",
+    "source_value": "Size áo",
+    "value": "シャツのサイズ"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.shirtSizeSelect",
+    "locale": "ja",
+    "source_value": "-- Chọn size --",
+    "value": "--サイズを選択--"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.medalName",
+    "locale": "ja",
+    "source_value": "Tên in huy chương",
+    "value": "メダルプリント名"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.medalNamePlaceholder",
+    "locale": "ja",
+    "source_value": "Để trống = dùng tên bé",
+    "value": "空白=子供の名前を使用"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.healthNotes",
+    "locale": "ja",
+    "source_value": "Ghi chú sức khỏe",
+    "value": "ヘルスノート"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.healthNotesPlaceholder",
+    "locale": "ja",
+    "source_value": "Dị ứng, bệnh lý… (nếu có)",
+    "value": "アレルギー、病状... （ある場合）"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.commitment",
+    "locale": "ja",
+    "source_value": "Cam kết miễn trừ trách nhiệm",
+    "value": "免責事項"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.commitmentText",
+    "locale": "ja",
+    "source_value": "Phụ huynh/người giám hộ xác nhận bé đủ sức khỏe tham gia. Ban tổ chức không chịu trách nhiệm về các rủi ro ngoài tầm kiểm soát và có quyền dùng hình ảnh sự kiện cho mục đích phi thương mại.",
+    "value": "親/保護者は、子供が参加するのに十分な健康状態であることを確認します。主催者は、主催者が管理できないリスクについて責任を負わず、イベント画像を非営利目的で使用する権利を留保します。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.agreeLabel",
+    "locale": "ja",
+    "source_value": "Tôi đã đọc, hiểu và đồng ý với cam kết trên.",
+    "value": "私は上記のコミットメントを読み、理解し、同意します。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.agreeRequired",
+    "locale": "ja",
+    "source_value": "Vui lòng đồng ý cam kết để tiếp tục.",
+    "value": "コミットして続行することに同意してください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.voucherApplied",
+    "locale": "ja",
+    "source_value": "Áp dụng mã \"{code}\" thành công! Giảm {amount}",
+    "value": "コード「{ code }」が正常に適用されました！ {amount}オフ"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.voucherInvalid",
+    "locale": "ja",
+    "source_value": "Mã không hợp lệ hoặc đã hết hạn.",
+    "value": "無効または期限切れのコードです。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.voucherExpired",
+    "locale": "ja",
+    "source_value": "Mã không còn hợp lệ cho đơn hàng hiện tại.",
+    "value": "コードは現在の注文では無効になりました。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.voucherCheckFailed",
+    "locale": "ja",
+    "source_value": "Không thể kiểm tra mã giảm giá. Vui lòng thử lại.",
+    "value": "クーポンを確認できません。もう一度お試しください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.createFailed",
+    "locale": "ja",
+    "source_value": "Không thể tạo đơn hàng. Vui lòng thử lại.",
+    "value": "注文を作成できません。もう一度お試しください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.confirmBtn",
+    "locale": "ja",
+    "source_value": "Xác nhận đặt vé →",
+    "value": "予約を確定する →"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.payLater",
+    "locale": "ja",
+    "source_value": "Thanh toán ở bước tiếp theo",
+    "value": "次のステップで支払う"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.title",
+    "locale": "ja",
+    "source_value": "Thanh toán đơn hàng",
+    "value": "注文に対する支払い"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.methodTitle",
+    "locale": "ja",
+    "source_value": "Phương thức thanh toán",
+    "value": "支払い方法"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.orderCode",
+    "locale": "ja",
+    "source_value": "Mã đơn:",
+    "value": "アプリケーションコード："
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.bankTransfer",
+    "locale": "ja",
+    "source_value": "Chuyển khoản ngân hàng",
+    "value": "銀行振込"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.bankTransferDesc",
+    "locale": "ja",
+    "source_value": "Quét QR ngân hàng, BTC xác nhận thủ công.",
+    "value": "QRバンクをスキャンし、BTCを手動で確認します。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.transferred",
+    "locale": "ja",
+    "source_value": "Tôi đã chuyển khoản",
+    "value": "転勤しました"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.bankName",
+    "locale": "ja",
+    "source_value": "Ngân hàng",
+    "value": "銀行担当者"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.accountHolder",
+    "locale": "ja",
+    "source_value": "Chủ tài khoản",
+    "value": "勘定科目"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.accountNumber",
+    "locale": "ja",
+    "source_value": "Số tài khoản",
+    "value": "勘定科目"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.transferContent",
+    "locale": "ja",
+    "source_value": "Nội dung CK",
+    "value": "有価証券の内容"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.amount",
+    "locale": "ja",
+    "source_value": "Số tiền",
+    "value": "金額"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.transferNote",
+    "locale": "ja",
+    "source_value": "Sau khi chuyển khoản đúng nội dung, bấm nút bên dưới. Đơn sẽ ở trạng thái \"chờ xác nhận\" cho tới khi BTC đối soát.",
+    "value": "正しいコンテンツを転送したら、下のボタンをクリックしてください。アプリケーションは、BTCが調整されるまで「保留中の確認」状態のままです。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.noConfig",
+    "locale": "ja",
+    "source_value": "BTC chưa cấu hình thông tin chuyển khoản. Vui lòng liên hệ ban tổ chức để được hướng dẫn, hoặc bấm \"Tôi đã chuyển khoản\" sau khi đã thanh toán.",
+    "value": "主催者は転送情報を設定していません。手順については主催者にお問い合わせいただくか、お支払い後に「転送しました」をクリックしてください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.success",
+    "locale": "ja",
+    "source_value": "Thanh toán thành công.",
+    "value": "支払いが完了しました。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.pendingConfirmation",
+    "locale": "ja",
+    "source_value": "Đã ghi nhận. Đơn đang chờ BTC xác nhận chuyển khoản.",
+    "value": "確認しました。アプリケーションはBTCが転送を確認するのを待っています。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.failed",
+    "locale": "ja",
+    "source_value": "Thanh toán chưa hoàn tất. Vui lòng thử lại.",
+    "value": "支払いが完了していません。もう一度お試しください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.error",
+    "locale": "ja",
+    "source_value": "Không thể xử lý thanh toán. Vui lòng thử lại.",
+    "value": "支払いを処理できません。もう一度お試しください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.notFound",
+    "locale": "ja",
+    "source_value": "Không tìm thấy đơn hàng",
+    "value": "注文が見つかりません"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.notFoundDesc",
+    "locale": "ja",
+    "source_value": "Mã đơn không tồn tại hoặc phiên mock đã bị làm mới.",
+    "value": "単一のコードが存在しないか、モックセッションが更新されました。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.loading",
+    "locale": "ja",
+    "source_value": "Đang tải trạng thái đơn...",
+    "value": "単一のステータスを読み込んでいます..."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.notFound",
+    "locale": "ja",
+    "source_value": "Không tìm thấy đơn hàng",
+    "value": "注文が見つかりません"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.notFoundDesc",
+    "locale": "ja",
+    "source_value": "Mã đơn không tồn tại hoặc dữ liệu mock đã bị làm mới.",
+    "value": "単一のコードが存在しないか、モックデータが更新されました。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.code",
+    "locale": "ja",
+    "source_value": "Mã đơn",
+    "value": "アプリケーションコード"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.buyer",
+    "locale": "ja",
+    "source_value": "Người mua",
+    "value": "購入者"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.email",
+    "locale": "ja",
+    "source_value": "Email",
+    "value": "メール："
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.ticketCount",
+    "locale": "ja",
+    "source_value": "Số vé",
+    "value": "チケット番号"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.totalPaid",
+    "locale": "ja",
+    "source_value": "Tổng thanh toán",
+    "value": "請求をかける"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.eTickets",
+    "locale": "ja",
+    "source_value": "Vé điện tử",
+    "value": "Eチケット"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.continuePayment",
+    "locale": "ja",
+    "source_value": "Tiếp tục thanh toán",
+    "value": "お会計に進む"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.buyMore",
+    "locale": "ja",
+    "source_value": "Mua thêm vé",
+    "value": "さらにチケットを購入する"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.paid.title",
+    "locale": "ja",
+    "source_value": "Đặt vé thành công!",
+    "value": "予約が完了しました！"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.paid.desc",
+    "locale": "ja",
+    "source_value": "Đơn hàng đã được thanh toán. Email xác nhận và vé QR của từng bé sẽ được gửi tới email người mua.",
+    "value": "ご注文のお支払いが完了しました。各お子様の確認メールとQRチケットが購入者のメールアドレスに送信されます。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.pendingTransfer.title",
+    "locale": "ja",
+    "source_value": "Đơn đang chờ BTC xác nhận chuyển khoản",
+    "value": "アプリケーションは、BTCが転送を確認するのを待っています"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.pendingTransfer.desc",
+    "locale": "ja",
+    "source_value": "Bạn đã chọn thanh toán chuyển khoản. Sau khi BTC đối soát và xác nhận đã nhận tiền, vé QR của từng bé sẽ được phát hành. Bạn có thể xem lại thông tin chuyển khoản ở nút bên dưới.",
+    "value": "振込支払いを選択しました。組織委員会が和解し、金銭の受領を確認した後、各子供のQRチケットが発行されます。下のボタンで送金情報を確認できます。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.pending.title",
+    "locale": "ja",
+    "source_value": "Đơn đang chờ thanh toán",
+    "value": "保留中の支払い申請"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.pending.desc",
+    "locale": "ja",
+    "source_value": "Đơn đã được tạo nhưng chưa hoàn tất thanh toán. Vui lòng tiếp tục thanh toán để giữ vé.",
+    "value": "アプリケーションは作成されましたが、支払いは完了していません。チケットを保管するには、引き続きお支払いください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.failed.title",
+    "locale": "ja",
+    "source_value": "Thanh toán thất bại",
+    "value": "支払いに失敗しました"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.failed.desc",
+    "locale": "ja",
+    "source_value": "Thanh toán chưa thành công. Bạn có thể thử lại hoặc đặt vé mới nếu đơn đã hết hạn.",
+    "value": "お支払いに失敗しました。アプリケーションの有効期限が切れている場合は、もう一度お試しいただくか、新しいチケットを予約することができます。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.expired.title",
+    "locale": "ja",
+    "source_value": "Đơn đã hết hạn",
+    "value": "アプリケーションの有効期限が切れました"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.expired.desc",
+    "locale": "ja",
+    "source_value": "Thời gian giữ vé đã hết. Vui lòng quay lại cửa hàng để tạo đơn mới.",
+    "value": "チケットの保留時間が期限切れです。店舗に戻って新しい注文を作成してください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.processing.title",
+    "locale": "ja",
+    "source_value": "Đang xử lý đơn",
+    "value": "アプリケーションを処理しています"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.processing.desc",
+    "locale": "ja",
+    "source_value": "Trạng thái đơn hàng đang được cập nhật.",
+    "value": "注文状況が更新されています。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.orderHistory",
+    "locale": "ja",
+    "source_value": "Lịch sử đơn hàng",
+    "value": "注文履歴"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.noOrders",
+    "locale": "ja",
+    "source_value": "Bạn chưa có đơn hàng nào.",
+    "value": "まだ注文はありません。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.buyNow",
+    "locale": "ja",
+    "source_value": "Mua vé ngay",
+    "value": "今すぐチケットを購入"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.prev",
+    "locale": "ja",
+    "source_value": "Trước",
+    "value": "前回のユーザ(I)"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.next",
+    "locale": "ja",
+    "source_value": "Sau",
+    "value": "後面"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.loadError",
+    "locale": "ja",
+    "source_value": "Lỗi tải đơn",
+    "value": "単一ロードエラー"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.orderNotFound",
+    "locale": "ja",
+    "source_value": "Không tìm thấy đơn hàng",
+    "value": "注文が見つかりません"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundRequest",
+    "locale": "ja",
+    "source_value": "Yêu cầu huỷ vé",
+    "value": "キャンセルをリクエストする"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundPending",
+    "locale": "ja",
+    "source_value": "Yêu cầu hoàn tiền của bạn đang chờ admin xác nhận. Vé tạm ngưng sử dụng trong thời gian này.",
+    "value": "払い戻しリクエストは管理者の確認待ちです。チケットは一時的に停止されています。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundApproved",
+    "locale": "ja",
+    "source_value": "Admin đã duyệt hoàn tiền. Vé và voucher (nếu có) đã được thu hồi; tiền sẽ được hoàn theo liên hệ của admin.",
+    "value": "管理者が返金を承認しました。チケットとバウチャー(該当する場合)が回収されました。Uberプログラム管理者の連絡先に返金されます。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundDone",
+    "locale": "ja",
+    "source_value": "Đơn đã được hoàn tiền và đóng lại. Cảm ơn bạn.",
+    "value": "注文は返金され、クローズされました。よろしくお願いします。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.noQr",
+    "locale": "ja",
+    "source_value": "Đơn chưa thanh toán xong nên chưa có vé QR.",
+    "value": "アプリケーションはまだ支払いが完了していないため、QRチケットはありません。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.payNow",
+    "locale": "ja",
+    "source_value": "Thanh toán ngay",
+    "value": "請求をかける"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.cancelPrompt",
+    "locale": "ja",
+    "source_value": "Cần huỷ vé? Gửi yêu cầu hoàn tiền — admin sẽ liên hệ và xác nhận.",
+    "value": "キャンセルが必要ですか？払い戻しリクエストを送信してください。管理者が連絡して確認します。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundDialogTitle",
+    "locale": "ja",
+    "source_value": "Yêu cầu huỷ vé / hoàn tiền",
+    "value": "キャンセル／返金をリクエストする"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundDialogDesc",
+    "locale": "ja",
+    "source_value": "Đây là yêu cầu hoàn tiền — hệ thống KHÔNG tự chuyển tiền. Sau khi gửi, mã QR tạm thời không dùng được; admin sẽ liên hệ và có thể duyệt hoặc từ chối.",
+    "value": "これは返金リクエストです。システムは資金自体を送金しません。送信されると、QRコードは一時的に利用できなくなります。管理者から連絡があり、承認または却下することができます。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundReason",
+    "locale": "ja",
+    "source_value": "Lý do (tuỳ chọn)",
+    "value": "理由（任意）"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundReasonPlaceholder",
+    "locale": "ja",
+    "source_value": "Lý do muốn huỷ vé…",
+    "value": "チケットをキャンセルする理由…"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundSuccess",
+    "locale": "ja",
+    "source_value": "Đã gửi yêu cầu. Vé tạm ngưng sử dụng trong khi chờ admin xác nhận.",
+    "value": "リクエストを送信しました。管理者による確認を待っている間、チケットは一時的に停止されています。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundFailed",
+    "locale": "ja",
+    "source_value": "Gửi yêu cầu thất bại",
+    "value": "リクエストの送信に失敗しました"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.orderFallback",
+    "locale": "ja",
+    "source_value": "Đơn hàng",
+    "value": "注文"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.notFound",
+    "locale": "ja",
+    "source_value": "Biên nhận không tồn tại",
+    "value": "領収書が存在しません"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.loading",
+    "locale": "ja",
+    "source_value": "Đang tải biên nhận…",
+    "value": "領収書を読み込んでいます…"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.invalid",
+    "locale": "ja",
+    "source_value": "Đơn hàng chưa được thanh toán hoặc mã không hợp lệ.",
+    "value": "注文が支払われていないか、コードが無効です。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.viewOrder",
+    "locale": "ja",
+    "source_value": "Xem đơn hàng",
+    "value": "注文を表示"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.print",
+    "locale": "ja",
+    "source_value": "In biên nhận",
+    "value": "領収書を印刷"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.tagline",
+    "locale": "ja",
+    "source_value": "Thể thao cho bé",
+    "value": "ベビースポーツ"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.title",
+    "locale": "ja",
+    "source_value": "Biên nhận thanh toán",
+    "value": "支払い領収書"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.buyerInfo",
+    "locale": "ja",
+    "source_value": "Thông tin người đặt",
+    "value": "予約担当者情報"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.fullName",
+    "locale": "ja",
+    "source_value": "Họ và tên",
+    "value": "名前と苗字 ： ............................................. .................................................。 ..................。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.phone",
+    "locale": "ja",
+    "source_value": "Số điện thoại",
+    "value": "電話番号"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.voucher",
+    "locale": "ja",
+    "source_value": "Mã voucher",
+    "value": "バウチャーコード"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.ticketsLabel",
+    "locale": "ja",
+    "source_value": "Vé đã đặt ({n} vé)",
+    "value": "予約済みチケット（{ n}枚）"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.shirt",
+    "locale": "ja",
+    "source_value": "Áo:",
+    "value": "そうだな"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.medal",
+    "locale": "ja",
+    "source_value": "Huy chương:",
+    "value": "メダル："
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.qrNote",
+    "locale": "ja",
+    "source_value": "Quét mã QR khi làm thủ tục check-in tại sự kiện.",
+    "value": "イベントのチェックイン時にQRコードをスキャンします。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.subtotal",
+    "locale": "ja",
+    "source_value": "Tạm tính",
+    "value": "小計"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.discount",
+    "locale": "ja",
+    "source_value": "Giảm giá",
+    "value": "割引"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.total",
+    "locale": "ja",
+    "source_value": "Tổng cộng",
+    "value": "合計"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.thanks",
+    "locale": "ja",
+    "source_value": "Cảm ơn bạn đã tin tưởng và đồng hành cùng Konnit.",
+    "value": "Konnitを信頼し、同行していただきありがとうございます。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.saveNote",
+    "locale": "ja",
+    "source_value": "Lưu lại trang này hoặc mã đơn để xem lại bất kỳ lúc nào.",
+    "value": "このページまたはアプリケーションコードを保存して、いつでも確認できます。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "news.title",
+    "locale": "ja",
+    "source_value": "Tin tức & Sự kiện",
+    "value": "ニュース&イベント"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "news.subtitle",
+    "locale": "ja",
+    "source_value": "Khám phá các hoạt động, giải đấu và câu chuyện từ cộng đồng Konnit.",
+    "value": "Konnitコミュニティのアクティビティ、トーナメント、ストーリーをご覧ください。"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "news.noCategories",
+    "locale": "ja",
+    "source_value": "Chưa có danh mục nào được xuất bản",
+    "value": "カテゴリーはまだ公開されていません"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "news.noPages",
+    "locale": "ja",
+    "source_value": "Chưa có trang nào trong danh mục này",
+    "value": "このカテゴリーにはまだページがありません"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "news.breadcrumb",
+    "locale": "ja",
+    "source_value": "Tin tức",
+    "value": "ニュース"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "qr.noTicket",
+    "locale": "ja",
+    "source_value": "Chưa có vé QR",
+    "value": "QRチケットはまだありません"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "qr.used",
+    "locale": "ja",
+    "source_value": "Đã sử dụng",
+    "value": "使用済み"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "qr.usedAt",
+    "locale": "ja",
+    "source_value": "Đã sử dụng lúc {time}",
+    "value": "{time}に使用"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "qr.unused",
+    "locale": "ja",
+    "source_value": "Chưa sử dụng",
+    "value": "未使用"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "qr.manualCheckin",
+    "locale": "ja",
+    "source_value": "Bấm để chọn, dùng nhập tay khi check-in",
+    "value": "を押して選択し、チェックイン時に手入力を使用してください"
+  },
+  {
+    "module": "events",
+    "entity_id": 1,
+    "field": "name",
+    "locale": "ja",
+    "source_value": "Konnit Kids Run 2026",
+    "value": "Konnit Kids Run 2026"
+  },
+  {
+    "module": "events",
+    "entity_id": 1,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "Giải chạy gia đình cho các bé Konnit — vận động vui khỏe cùng ba mẹ.",
+    "value": "Konnit子どものための家族向けマラソン大会 — 親子で一緒に楽しく健康的に運動しましょう。"
+  },
+  {
+    "module": "events",
+    "entity_id": 1,
+    "field": "location",
+    "locale": "ja",
+    "source_value": "Công viên Tao Đàn, TP.HCM",
+    "value": "タオダン公園、ホーチミン市"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 1,
+    "field": "name",
+    "locale": "ja",
+    "source_value": "Vé thi đấu – Mầm",
+    "value": "競技チケット – 幼芽"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 1,
+    "field": "age_group",
+    "locale": "ja",
+    "source_value": "2–3 tuổi",
+    "value": "2～3歳"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 2,
+    "field": "name",
+    "locale": "ja",
+    "source_value": "Vé thi đấu – Chồi",
+    "value": "競技チケット – つぼみ"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 2,
+    "field": "age_group",
+    "locale": "ja",
+    "source_value": "4–6 tuổi",
+    "value": "4～6歳"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 3,
+    "field": "name",
+    "locale": "ja",
+    "source_value": "Vé trải nghiệm (Fun)",
+    "value": "体験チケット（Fun）"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 3,
+    "field": "age_group",
+    "locale": "ja",
+    "source_value": "Mọi lứa",
+    "value": "全年代"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 1,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Konnit – Học an toàn qua trò chơi",
+    "value": "Konnit – ゲームを通じて安全に学ぶ"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 1,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "Nền tảng thể thao và hoạt động dành cho trẻ em Việt Nam",
+    "value": "ベトナムの子どもたちのためのスポーツと活動のプラットフォーム"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 2,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Hoạt động — Konnit",
+    "value": "アクティビティ — Konnit"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 2,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "Hoạt động học của Konnit — vận động, thiên nhiên và khoa học vui.",
+    "value": "Konnit学習活動 — 運動、自然、楽しい科学。"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 3,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Cửa hàng Konnit",
+    "value": "Konnit ストア"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 3,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "Các bộ dụng cụ sẵn sàng cho những chuyến phiêu lưu nhỏ an toàn — xem trước danh mục.",
+    "value": "安全な小さな冒険のための準備整ったツールセット — カタログをプレビュー。"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 4,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Cộng đồng — Konnit",
+    "value": "コミュニティ — Konnit"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 4,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "Ngày hội cộng đồng Konnit — những ngày tử tế hơn cho trẻ em và gia đình.",
+    "value": "Konnit コミュニティフェスティバル — 子どもと家族のためのより良い日々。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 103,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Những chuyến phiêu lưu nhỏ an toàn cho bé mầm non.",
+    "value": "未就学児のための安全な小さなアドベンチャー。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 103,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "konnit đồng hành cùng trẻ dưới 7 tuổi và ba mẹ qua những trải nghiệm học mà chơi: đua xe thăng bằng, cắm trại mini và khám phá khoa học an toàn.",
+    "value": "konnitは、バランスレース、ミニキャンプ、安全な科学的発見などの学習と遊びを通して、7歳未満の子供と両親に同行します。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 103,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"image\":\"http://localhost:4000/uploads/2026/07/4ba5e3e3-bcbc-449e-ac9c-7100ad5172a5.png\",\"title\":\"Những chuyến phiêu lưu nhỏ an toàn cho bé mầm non.\",\"primaryCta\":{\"url\":\"/tin-tuc\",\"label\":\"Khám phá hoạt động\"},\"description\":\"konnit đồng hành cùng trẻ dưới 7 tuổi và ba mẹ qua những trải nghiệm học mà chơi: đua xe thăng bằng, cắm trại mini và khám phá khoa học an toàn.\",\"secondaryCta\":{\"url\":\"#about\",\"label\":\"An toàn là ưu tiên\"}}",
+    "value": "{\"title\":\"未就学児のための安全な小さな冒険。\",\"primaryCta\":{\"url\":\"/ tin - tuc \",\"label\":\"アクティビティを発見する\"},\"description\":\" konnitは、7歳未満のお子様と保護者の学習体験を伴います：バランスのとれたレース、ミニキャンプ、安全な科学的発見。\",\"secondaryCta\":{\"url\":\"# about \",\"label\":\"安全が最優先事項\"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 104,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Một nơi dịu dàng để con lớn lên dũng cảm.",
+    "value": "あなたが勇敢に育つための優しい場所。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 104,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "konnit tạo ra những buổi chơi có định hướng cho trẻ dưới 7 tuổi, nơi con được thử vận động, giao tiếp và khám phá trong nhịp độ nhẹ nhàng.",
+    "value": "konnitは、7歳未満の子供向けにガイド付きプレイセッションを作成し、動き、コミュニケーション、探索のテストを穏やかなペースで行います。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 104,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"label\":\"Buổi đầu tiên\",\"phone\":\"+84 90 123 4567\",\"title\":\"Một nơi dịu dàng để con lớn lên dũng cảm.\",\"trust\":[{\"icon\":\"✓\",\"label\":\"An toàn trước tiên\"},{\"icon\":\"♡\",\"label\":\"Chơi lịch sự\"},{\"icon\":\"★\",\"label\":\"Vui vẻ thân thiện\"}],\"bullets\":[\"Thiết bị được chuẩn bị đúng cỡ trước mỗi hoạt động.\",\"Ba mẹ quan sát con với gợi ý rõ ràng từ người hướng dẫn.\",\"Mỗi bé được chọn thử thách phù hợp với mức tự tin hiện tại.\"],\"eyebrow\":\"Về chúng tôi\",\"anchorId\":\"about\",\"description\":\"konnit tạo ra những buổi chơi có định hướng cho trẻ dưới 7 tuổi, nơi con được thử vận động, giao tiếp và khám phá trong nhịp độ nhẹ nhàng.\",\"contactTitle\":\"Trò chuyện với konnit\"}",
+    "value": "{\"label\":\"初めてのセッション\",\"phone\":\"+84 90 123 4567\",\"title\":\"子どもたちが勇敢に育つ優しい場所\",\"trust\":[{\"icon\":\"✓\",\"label\":\"安全第一\"},{\"icon\":\"♡\",\"label\":\"遊ぶ丁寧に\"},{\"icon\":\"★\",\"label\":\"楽しく改善しましょう\"}],\"bullets\":[\"各アクティビティの前に、機器のサイズが適切に調整されます。\", \"保護者は、インストラクターからの明確な提案を受けながら子供たちを観察します。\",\"各子供には、現在の自信レベルに適した課題が与えられます。\"],\"eyebrow\":\"About us\",\"anchorId\":\"about\",\"description\":\"konnit は、7 歳未満の子供向けにガイド付きプレイ セッションを作成し、子供たちは穏やかなペースで動き、コミュニケーションし、探索することに挑戦します。\", \"contactTitle\":\"konnit とチャット\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 105,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.",
+    "value": "学習活動は、動き、自然、探求を中心に展開されています。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 105,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "Ba nhóm hoạt động chính giúp trẻ phát triển thể chất, cảm xúc xã hội và tư duy khám phá trong một lộ trình nhẹ nhàng.",
+    "value": "3つの主な活動グループは、子供たちが身体的、社会的、感情的、探求的な考え方を穏やかに発達させるのに役立ちます。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 105,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"icon\":\"↗\",\"meta\":\"2.5–6 tuổi\",\"tint\":\"bike\",\"title\":\"Đua xe thăng bằng\",\"photos\":[\"http://localhost:4000/uploads/2026/07/85127fb3-b45f-458f-a550-8e73b3428e6b.jpg\",\"http://localhost:4000/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg\",\"http://localhost:4000/uploads/2026/07/4ba5e3e3-bcbc-449e-ac9c-7100ad5172a5.png\"],\"linkUrl\":\"/services\",\"linkLabel\":\"Tìm hiểu thêm\",\"description\":\"Đường chạy nhỏ, trò chơi giữ thăng bằng và khoảnh khắc về đích để con tự tin hơn với vận động.\"},{\"icon\":\"⌂\",\"meta\":\"3–6 tuổi\",\"tint\":\"camp\",\"title\":\"Cắm trại mini\",\"photos\":[\"Dựng lều\",\"Dạo thiên nhiên\",\"Trò chơi nhóm\"],\"linkUrl\":\"/services\",\"linkLabel\":\"Tìm hiểu thêm\",\"description\":\"Dựng lều, quan sát thiên nhiên, làm việc nhóm và học các thói quen ngoài trời thật đơn giản.\"},{\"icon\":\"◌\",\"meta\":\"4–6 tuổi\",\"tint\":\"science\",\"title\":\"Khoa học vui\",\"photos\":[\"Phòng màu sắc\",\"Thử bong bóng\",\"Theo dõi hạt mầm\"],\"linkUrl\":\"/services\",\"linkLabel\":\"Tìm hiểu thêm\",\"description\":\"Bong bóng, màu sắc, nam châm, hạt giống và những câu hỏi nhỏ để con khám phá bằng tay.\"}],\"title\":\"Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.\",\"eyebrow\":\"Hoạt động của chúng tôi\"}",
+    "value": "{\"items\":[{\"icon\":\"↗\",\"meta\":\"2.5 ～ 6 歳\",\"tint\":\"bike\",\"title\":\"バランス レース\",\"photos\":[\"レース トラック\",\"ハット チェック\",\"フィニッシュの瞬間\"],\"linkUrl\":\"/services\",\"linkLabel\":\"詳細はこちら\",\"description\":\"ミニ トラック、バランス ゲーム、お子様が動きにもっと自信を持てるように、仕上げの瞬間をサポートします。\"},{\"icon\":\"⌂\",\"meta\":\"3 ～ 6 歳\", \"tint\":\"camp\",\"title\":\"ミニキャンプ\",\"photos\":[\"テントの設営\",\"自然散策\",\"グループゲーム\"],\"linkUrl\":\"/services\",\"linkLabel\":\"Learn more\",\"description\":\"テントを設営し、自然を観察し、グループで作業し、アウトドアの習慣を学ぶことは、シンプル。\"},{\"icon\":\"◌\",\"meta\":\"4 ～ 6 歳\",\"tint\":\"science\",\"title\":\"楽しい科学\",\"photos\":[\"カラー ルーム\", \"バブルを試してみる\",\"シードを試してみる\"],\"linkUrl\":\"/services\",\"linkLabel\":\"詳細はこちら\",\"description\":\"バブル、色、磁石、シード、お子様が手で調べられる小さな質問。\"}],\"title\":\"動き、自然、発見に関する学習アクティビティ。\",\"eyebrow\":\"私たちの活動\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 106,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Những ngày hội cộng đồng cho niềm vui tuổi thơ.",
+    "value": "子供の喜びのためのコミュニティフェスティバル。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 106,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "Cộng đồng konnit cùng các thương hiệu địa phương tạo nên những ngày vui an toàn cho trẻ: khu chơi nhỏ, hoạt động sáng tạo, quà tặng và mẫu sản phẩm thân thiện với trẻ em.",
+    "value": "Konnitコミュニティとローカルブランドは、小さなプレイエリア、クリエイティブアクティビティ、ギフト、子供に優しい製品サンプルなど、子供たちにとって楽しく安全な日々を作り出しています。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 106,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"icon\":\"01\",\"title\":\"Khoảnh khắc Ngày của bé\",\"description\":\"Những ngày hội nhỏ có trạm chơi, góc nhận quà và không gian để con gặp bạn mới thật tự nhiên.\"},{\"icon\":\"02\",\"title\":\"Đồng hành thương hiệu địa phương\",\"description\":\"Mỗi sự kiện có 5–7 đối tác địa phương cùng chuẩn bị địa điểm, hoạt động và sản phẩm phù hợp cho trẻ.\"},{\"icon\":\"03\",\"title\":\"Kết nối tử tế\",\"photos\":[\"http://localhost:4000/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg\"],\"description\":\"Gia đình gặp nhau qua những trải nghiệm tử tế, nhẹ nhàng và không đặt nặng mua bán.\"}],\"title\":\"Những ngày hội cộng đồng cho niềm vui tuổi thơ.\",\"photos\":[\"Vòng tròn gia đình\",\"Người bạn đầu tiên\",\"Sự kiện cuối tuần\"],\"eyebrow\":\"Cộng đồng của chúng tôi\",\"primaryCta\":{\"url\":\"/community\",\"label\":\"Xem hoạt động cộng đồng\"},\"description\":\"Cộng đồng konnit cùng các thương hiệu địa phương tạo nên những ngày vui an toàn cho trẻ: khu chơi nhỏ, hoạt động sáng tạo, quà tặng và mẫu sản phẩm thân thiện với trẻ em.\"}",
+    "value": "{\"items\":[{\"icon\":\"01\",\"title\":\"Children's Day Moments\",\"description\":\"Small festivals with play stations, gift receiving corners and spaces for children to naturally meet new friends.\"},{\"icon\":\"02\",\"title\":\"Accompanying local brands\",\"description\":\"Each event has 5–7 local partners who jointly prepare suitable locations, activities and products for young.\"}, {\"icon\":\"03\",\"title\":\"Kind connections\",\"description\":\"Families come together through kind, gentle, non-commercial experiences.\"}],\"title\":\"Community festivals for childhood joy.\",\"photos\":[\"Family circle\",\"First friends\",\"Weekend events\"],\"eyebrow\":\"Our community me\",\"primaryCta\":{\"url\":\"/community\", \"label\":\"See community activities\"},\"description\":\"The konnit community and local brands create safe fun days for children: small play areas, creative activities, gifts and child-friendly product samples.\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 107,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Dụng cụ chỉn chu cho học và chơi an toàn.",
+    "value": "安全な学習と遊びのための適切な機器。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 107,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "Khu cửa hàng giới thiệu các món đồ hỗ trợ hoạt động tại konnit và ở nhà. Đây là phần xem trước sản phẩm.",
+    "value": "店舗地区では、konnitや自宅で働くサポートアイテムを紹介しています。これは製品のプレビューです。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 107,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"tag\":\"An toàn\",\"tint\":\"pink\",\"title\":\"Bộ mũ bảo hộ &amp; an toàn\",\"ageFit\":\"2.5–6\",\"photos\":[\"Ảnh sản phẩm\",\"Chi tiết vừa vặn\",\"Trọn bộ\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"Xem sản phẩm\",\"safetyNote\":\"cần kiểm tra vừa vặn\",\"description\":\"Mũ bảo hộ, miếng dán tên và checklist an toàn trước giờ chơi.\"},{\"tag\":\"Xe đạp\",\"tint\":\"sun\",\"title\":\"Phụ kiện xe thăng bằng\",\"ageFit\":\"3–6\",\"photos\":[\"Bảng tên\",\"Cọc đường chạy\",\"http://localhost:4000/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"Xem sản phẩm\",\"safetyNote\":\"chỉ cạnh mềm\",\"description\":\"Chuông nhỏ, bảng tên và cọc đánh dấu đường chạy nhẹ nhàng.\"},{\"tag\":\"Cắm trại\",\"tint\":\"mint\",\"title\":\"Bộ cắm trại cơ bản\",\"ageFit\":\"3–6\",\"photos\":[\"Ảnh sản phẩm\",\"Thẻ nhiệm vụ\",\"Đèn an toàn\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"Xem sản phẩm\",\"safetyNote\":\"người lớn lắp trước\",\"description\":\"Tấm ngồi, đèn giả lập an toàn và thẻ nhiệm vụ khám phá thiên nhiên.\"},{\"tag\":\"Khoa học\",\"tint\":\"sky\",\"title\":\"Bộ khám phá khoa học\",\"ageFit\":\"4–6\",\"photos\":[\"Ảnh sản phẩm\",\"Dụng cụ\",\"Thẻ câu hỏi\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"Xem sản phẩm\",\"safetyNote\":\"chơi có hướng dẫn\",\"description\":\"Ống quan sát, thẻ câu hỏi và vật liệu thí nghiệm đơn giản cho trẻ nhỏ.\"}],\"title\":\"Dụng cụ chỉn chu cho học và chơi an toàn.\",\"eyebrow\":\"Cửa hàng Konnit\",\"primaryCta\":{\"url\":\"/cua-hang\",\"label\":\"Mở cửa hàng Konnit\"},\"description\":\"Khu cửa hàng giới thiệu các món đồ hỗ trợ hoạt động tại konnit và ở nhà. Đây là phần xem trước sản phẩm.\"}",
+    "value": "{\"items\":[{\"tag\":\"Safety\",\"tint\":\"pink\",\"title\":\"Safety & Helmet Kit\",\"ageFit\":\"2.5–6\",\"photos\":[\"製品写真\",\"適合詳細\",\"フルセット\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"製品を見る\",\"safetyNote\":\"適合確認が必要ネジ\",\"description\":\"遊ぶ前のヘルメット、名前シール、安全チェックリスト。\"},{\"tag\":\"自転車\",\"tint\":\"太陽\", \"title\":\"バランスバイクアクセサリー\",\"ageFit\":\"3–6\",\"photos\":[\"製品写真\",\"ネームプレート\",\"トレイルステークス\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"製品を見る\",\"safetyNote\":\"ソフトエッジのみ\",\"description\":\"小さなベル、ネームプレート、緩やかなトレイルマーカー。\"},{\"tag\":\"プラグインキャンプ\",\"tint\":\"ミント\",\"title\":\"基本キャンプセット\",\"ageFit\":\"3–6\", \"photos\":[\"製品写真\",\"タスクカード\",\"セーフティライト\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"製品を見る\",\"safetyNote\":\"大人が取り付け済み\",\"description\":\"座板、安全シミュレーターライトと自然探査ミッションカード。\"},{\"tag\":\"科学\",\"tint\":\"sky\",\"title\":\"科学発見キットの研究\",\"ageFit\":\"4–6\",\"photos\":[\"製品写真\",\"ツール\", \"質問タグ\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"商品を見る\",\"safetyNote\":\"ガイド付き遊び\",\"description\":\"幼児向けの観察管、質問カード、簡単な実験材料。\"}],\"title\":\"安全な学びと遊びのための徹底したツール。\",\"eyebrow\":\"ストアKonnit\",\"primaryCta\":{\"url\":\"/cua-hang\",\"label\":\"Konnit ストアを開く\"}, \"description\":\"コンニットや在宅活動をサポートするアイテムを取り揃えたストアです。これは商品プレビューです。\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 108,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.",
+    "value": "学習活動は、動き、自然、探求を中心に展開されています。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 108,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"icon\":\"↗\",\"tint\":\"bike\",\"title\":\"Vận động\",\"subtitle\":\"Thăng bằng, tập trung và can đảm\"},{\"icon\":\"⌂\",\"tint\":\"camp\",\"title\":\"Thiên nhiên\",\"subtitle\":\"Thói quen ngoài trời và làm việc nhóm\"},{\"icon\":\"◌\",\"tint\":\"science\",\"title\":\"Khám phá\",\"subtitle\":\"Câu hỏi, vật liệu và sự tò mò\"}],\"title\":\"Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.\",\"eyebrow\":\"Hoạt động\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Join%20a%20first%20Konnit%20session\",\"label\":\"Tham gia buổi đầu tiên\"},\"description\":\"Ba nhóm hoạt động chính giúp trẻ phát triển thể chất, cảm xúc xã hội và tư duy khám phá trong một lộ trình nhẹ nhàng, luôn có người hướng dẫn và ba mẹ đồng hành.\",\"secondaryCta\":{\"url\":\"#contact\",\"label\":\"Liên hệ konnit\"}}",
+    "value": "{\"items\":[{\"icon\":\"↗\",\"tint\":\"自転車\",\"title\":\"動き\",\"subtitle\":\"バランス、集中力、勇気\"},{\"icon\":\"⌂\",\"tint\":\"キャンプ\",\"title\":\"自然\",\"subtitle\":\"アウトドアと仕事の習慣group\"},{\"icon\":\"◌\",\"tint\":\"科学\",\"title\":\"探検\",\"subtitle\":\"質問、資料、好奇心\"}],\"title\":\"学習活動は動きを中心に展開し、 \",\"eyebrow\":\"Activities\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Join%20a%20first%20Konnit%20session\",\"label\":\"最初のセッションに参加\"},\"description\":\"3 つの主要なアクティビティ グループは、子供たちが穏やかなルートで身体的、社会的、感情的、探索的思考を発達させるのに役立ちます。 常にガイドと保護者が付き添います。\",\"SecondaryCta\":{\"url\":\"#contact\",\"label\":\"Contact konnit\"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 109,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Ba cách để con học qua trải nghiệm.",
+    "value": "お子様が経験を通して学ぶための3つの方法。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 109,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"tint\":\"pink\",\"facts\":[{\"label\":\"Độ tuổi\",\"value\":\"2.5–6 tuổi\"},{\"label\":\"Lợi ích cho ba mẹ\",\"value\":\"Thấy con tiến bộ về thăng bằng, tập trung và can đảm.\"},{\"label\":\"Lưu ý an toàn\",\"value\":\"Kiểm tra mũ và làn chạy chậm mỗi lượt.\"},{\"label\":\"Cách diễn ra buổi học\",\"value\":\"Khởi động, đường thăng bằng, lượt chạy có hướng dẫn và kết thúc nhẹ nhàng.\"}],\"label\":\"Vận động\",\"title\":\"Đua xe thăng bằng\",\"photos\":[\"Đường đua xe\",\"Kiểm tra mũ\",\"Khoảnh khắc về đích\"],\"description\":\"Đường chạy nhỏ, trò chơi giữ thăng bằng và khoảnh khắc về đích để con tự tin hơn với vận động.\"},{\"tint\":\"mint\",\"facts\":[{\"label\":\"Độ tuổi\",\"value\":\"3–6 tuổi\"},{\"label\":\"Lợi ích cho ba mẹ\",\"value\":\"Xây dựng sự tự lập qua thói quen nhẹ nhàng.\"},{\"label\":\"Lưu ý an toàn\",\"value\":\"Khu có bóng mát, nghỉ uống nước và ranh giới rõ ràng.\"},{\"label\":\"Cách diễn ra buổi học\",\"value\":\"Dựng lều, nhiệm vụ thiên nhiên nhỏ, chia sẻ và dọn dẹp.\"}],\"label\":\"Thiên nhiên\",\"title\":\"Cắm trại mini\",\"photos\":[\"Dựng lều\",\"Dạo thiên nhiên\",\"Trò chơi nhóm\"],\"description\":\"Dựng lều, quan sát thiên nhiên, làm việc nhóm và học các thói quen ngoài trời thật đơn giản.\"},{\"tint\":\"sky\",\"facts\":[{\"label\":\"Độ tuổi\",\"value\":\"4–6 tuổi\"},{\"label\":\"Lợi ích cho ba mẹ\",\"value\":\"Nuôi dưỡng tò mò và quan sát kiên nhẫn.\"},{\"label\":\"Lưu ý an toàn\",\"value\":\"Vật liệu an toàn cho trẻ và dọn dẹp có hướng dẫn.\"},{\"label\":\"Cách diễn ra buổi học\",\"value\":\"Đặt câu hỏi, thí nghiệm bằng tay, quan sát và cùng nhìn lại.\"}],\"label\":\"Khám phá\",\"title\":\"Khoa học vui\",\"photos\":[\"Phòng màu sắc\",\"Thử bong bóng\",\"Theo dõi hạt mầm\"],\"description\":\"Bong bóng, màu sắc, nam châm, hạt giống và những câu hỏi nhỏ để con khám phá bằng tay.\"}],\"title\":\"Ba cách để con học qua trải nghiệm.\",\"eyebrow\":\"Tổng quan chương trình\",\"description\":\"Mỗi chương trình có nhịp chơi riêng, nhưng cùng chung nguyên tắc: an toàn trước, lời nói tử tế và niềm vui phù hợp với từng bé.\"}",
+    "value": "{\"items\":[{\"tint\":\"pink\",\"facts\":[{\"label\":\"年齢\",\"value\":\"2.5 ～ 6 歳\"},{\"label\":\"親にとってのメリット\",\"value\":\"お子様のバランス、集中力、勇気が向上するのを見ることができます。\"},{\"label\":\"安全上の注意\",\"value\":\"ヘルメットと徐行車線を毎回チェックしてください。 \"},{\"label\":\"レッスンの様子\",\"value\":\"ウォームアップ、バランスライン、 ランは誘導され、穏やかに終了します。\"}],\"label\":\"動き\",\"title\":\"バランス レース\",\"photos\":[\"レース トラック\",\"ヘルメットのチェック\",\"フィニッシュの瞬間\"],\"description\":\"小さなトラック、バランス ゲーム、そしてお子様が動きに自信を持てるフィニッシュの瞬間。\"},{\"tint\":\"ミント\",\"facts\":[{\"label\":\"レベル年齢\",\"値\":\"3 ～ 6 歳\"}, {\"label\":\"親のためのメリット\",\"value\":\"穏やかな日課を通して自立心を育みます。\"},{\"label\":\"安全上の注意\",\"value\":\"日陰のエリア、水の遮断、明確な境界。\"},{\"label\":\"セッションの進め方\",\"value\":\"テントの設営、自然の小さな作業、共有と片づけ。\"}],\"label\":\"自然\",\"title\":\"キャンプmini\",\"写真\":[\"テントを張る\", \"自然散策\",\"グループ ゲーム\"],\"description\":\"テントを設営し、自然を観察し、グループで作業し、屋外の習慣を学ぶのは簡単です。\"},{\"tint\":\"sky\",\"facts\":[{\"label\":\"年齢範囲\",\"value\":\"4 ～ 6 歳\"},{\"label\":\"親にとってのメリット\",\"value\":\"好奇心と粘り強い観察を養います。リング。\"},{\"ラベル\":\"安全上の注意\", \"value\":\"子供に安全な教材とガイド付きの片付け。\"},{\"label\":\"レッスンの進め方\",\"value\":\"質問し、手で実験し、観察して一緒に振り返ります。\"}],\"label\":\"探検\",\"title\":\"楽しい科学\",\"photos\":[\"カラー ルーム\",\"バブルのテスト\",\"シードの観察\"],\"description\":\"バブル、色、磁石、 子どもたちが手で調べられる種や小さな質問。\"}],\"title\":\"子どもたちが体験を通して学ぶための 3 つの方法\",\"eyebrow\":\"プログラムの概要\",\"description\":\"それぞれのプログラムには独自の遊びのリズムがありますが、原則は同じです。安全第一、優しい言葉、それぞれの子どもに適した楽しみです。\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 110,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Nhịp học nhẹ nhàng từ lúc chào đến lúc nhìn lại.",
+    "value": "挨拶から振り返りまでリズムが優しい。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 110,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"step\":\"01\",\"title\":\"Chào & nhận chỗ\",\"description\":\"Con làm quen không gian, thiết bị và người hướng dẫn trước khi bắt đầu.\"},{\"step\":\"02\",\"title\":\"Chơi có hướng dẫn\",\"description\":\"Hoạt động được chia thành thử thách nhỏ để trẻ thử từng bước.\"},{\"step\":\"03\",\"title\":\"Ba mẹ quan sát\",\"description\":\"Ba mẹ có gợi ý quan sát về vận động, cảm xúc và giao tiếp của con.\"},{\"step\":\"04\",\"title\":\"Nhìn lại & kết nối\",\"description\":\"Kết thúc nhẹ nhàng bằng ghi nhận, dọn dẹp và gợi ý buổi tiếp theo.\"}],\"title\":\"Nhịp học nhẹ nhàng từ lúc chào đến lúc nhìn lại.\",\"eyebrow\":\"Một buổi học diễn ra thế nào\"}",
+    "value": "{\"items\":[{\"step\":\"01\",\"title\":\"ようこそ、着席してください\",\"description\":\"始める前に、子どもたちはスペース、設備、インストラクターに慣れます。\"},{\"step\":\"02\",\"title\":\"ガイド付き遊び\",\"description\":\"アクティビティは小さな課題に分かれており、子どもたちは段階的に挑戦できます。\"},{\"step\":\"03\",\"title\":\"ケア観察\",\"description\":\"保護者は動きを観察するための提案をしています。 お子さまの気持ちとコミュニケーション。\"},{\"step\":\"04\",\"title\":\"振り返りとつながり\",\"description\":\"メモ、片づけ、次のセッションへの提案で優しく終わります。\"}],\"title\":\"挨拶から振り返りまで優しいリズム。\",\"eyebrow\":\"レッスンの流れ\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 111,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "An toàn trước tiên để con thoải mái vui chơi.",
+    "value": "お子様が楽しめるように、まずは安全を確保してください。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 111,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"chips\":[\"Thiết bị vừa cỡ\",\"Thử thách theo nhịp của bé\",\"Có người hướng dẫn\",\"Lời chơi lịch sự\"],\"title\":\"An toàn trước tiên để con thoải mái vui chơi.\",\"eyebrow\":\"Cam kết an toàn\",\"description\":\"Mỗi buổi chơi đều bắt đầu bằng kiểm tra thiết bị, ranh giới rõ ràng, hướng dẫn nhẹ nhàng và tôn trọng nhịp riêng của từng bé.\"}",
+    "value": "{\"chips\":[\" Medium - size device \",\" Challenge to your baby's beat \",\" Guided by someone \",\" Polite play \"],\"title\":\" Safety first for your baby's comfort .\",\"eyebrow\":\" Safety commitment \",\"description\":\" Each play session begins with equipment checks, clear boundaries, gentle instruction, and respect for each child's own pace .\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 112,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Tham gia buổi đầu tiên",
+    "value": "最初のセッションに参加する"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 112,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"label\":\"Liên hệ phụ huynh\",\"phone\":\"+84 90 123 4567\",\"title\":\"Tham gia buổi đầu tiên\",\"anchorId\":\"contact\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Join%20a%20first%20Konnit%20session\",\"label\":\"Tham gia buổi đầu tiên\"},\"description\":\"Gửi câu hỏi cho konnit để chọn hoạt động phù hợp với tuổi, mức tự tin và thời gian của gia đình.\",\"secondaryCta\":{\"url\":\"/\",\"label\":\"Về trang chủ\"}}",
+    "value": "{\"label\":\" Parent contact \",\"phone\":\"+84 90 123 4567 \",\"title\":\" Join the first session \",\"anchorId\":\" contact \",\"primaryCta\":{\"url\":\" mailto: hello@konnit.example? subject = Join %20a % 20 first % 20 Konnit % 20 session \",\"label\":\" Join the first session \"},\"description\":\" Submit a question to konnit to choose an activity that suits your age, confidence level and family time .\",\"secondaryCta\":{\"url\":\"/\",\"label\":\" Go home \"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 113,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Bộ dụng cụ sẵn sàng cho những chuyến phiêu lưu nhỏ an toàn.",
+    "value": "キットは安全な小さな冒険の準備ができています。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 113,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"icon\":\"◆\",\"tint\":\"bike\",\"title\":\"Vừa mũ bảo hộ\",\"subtitle\":\"Kiểm tra nhẹ trước mỗi lượt chạy\"},{\"icon\":\"◆\",\"tint\":\"camp\",\"title\":\"Cắm trại mini\",\"subtitle\":\"Thói quen nhỏ cho chơi ngoài trời\"},{\"icon\":\"◆\",\"tint\":\"science\",\"title\":\"Khoa học vui\",\"subtitle\":\"Dụng cụ khám phá có hướng dẫn\"}],\"title\":\"Bộ dụng cụ sẵn sàng cho những chuyến phiêu lưu nhỏ an toàn.\",\"eyebrow\":\"Cửa hàng Konnit\",\"primaryCta\":{\"url\":\"#kits\",\"label\":\"Khám phá các bộ\"},\"description\":\"Các bộ đồ chơi và dụng cụ được chọn để ba mẹ dễ chuẩn bị cho xe thăng bằng, cắm trại mini, khám phá khoa học và những buổi chơi an toàn tại nhà.\",\"secondaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Book%20a%20first%20Konnit%20session\",\"label\":\"Đặt buổi đầu tiên\"}}",
+    "value": "{\"items\":[{\"icon\":\"◆\",\"tint\":\"自転車\",\"title\":\"ヘルメットのフィッティング\",\"subtitle\":\"走行前の軽度チェック\"},{\"icon\":\"◆\",\"tint\":\"キャンプ\",\"title\":\"ミニキャンプ\",\"subtitle\":\"外遊びの小さな習慣天国\"},{\"アイコン\":\"◆\",\"色合い\":\"科学\",\"タイトル\":\"楽しい科学\",\"字幕\":\"ガイド付き発見ツール\"}], \"title\":\"安全な小さな冒険に備えたキットです。\", \"eyebrow\":\"Konnit Store\",\"primaryCta\":{\"url\":\"#kits\",\"label\":\"キットを発見\"}, \"description\":\"おもちゃのセットとツールは、ご両親がバランスバイク、ミニキャンプ、科学探検、自宅での安全な遊びの準備を簡単にできるように選択されています。\", \"secondaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Book%20a%20first%20Konnit%20session\",\"label\":\"最初のセッションを予約\"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 114,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Chọn theo hoạt động, độ tuổi và độ an toàn.",
+    "value": "アクティビティ、年齢、安全性で選択します。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 114,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"tag\":\"An toàn\",\"tint\":\"pink\",\"title\":\"Bộ mũ bảo hộ & an toàn\",\"ageFit\":\"2.5–6 tuổi\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Helmet%20and%20Safety%20Kit\",\"photos\":[\"Mũ bảo hộ\",\"Nhãn tên\",\"Checklist\"],\"ctaLabel\":\"Hỏi về bộ này\",\"included\":\"Hướng dẫn mũ, nhãn tên, checklist trước giờ chơi.\",\"safetyNote\":\"Đo trước; cần kiểm tra vừa vặn trước khi chạy.\",\"description\":\"Bộ chuẩn bị trước giờ chơi gồm mũ bảo hộ, miếng dán tên và thẻ kiểm tra an toàn ngắn gọn.\"},{\"tag\":\"Xe đạp\",\"tint\":\"sun\",\"title\":\"Phụ kiện xe thăng bằng\",\"ageFit\":\"3–6 tuổi\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Balance-Bike%20Accessories\",\"photos\":[\"Chuông\",\"Bảng tên\",\"Cọc mềm\"],\"ctaLabel\":\"Hỏi về bộ này\",\"included\":\"Chuông, bảng tên, cọc mềm, thẻ đường chạy.\",\"safetyNote\":\"Chỉ cạnh mềm; dùng ở khu chơi tốc độ thấp.\",\"description\":\"Phụ kiện nhỏ giúp con nhận biết xe của mình, luyện thăng bằng và chơi theo làn đường mềm.\"},{\"tag\":\"Cắm trại\",\"tint\":\"mint\",\"title\":\"Bộ cắm trại cơ bản\",\"ageFit\":\"3–6 tuổi\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Camping%20Starter%20Kit\",\"photos\":[\"Tấm ngồi\",\"Đèn an toàn\",\"Thẻ nhiệm vụ\"],\"ctaLabel\":\"Hỏi về bộ này\",\"included\":\"Tấm ngồi, đèn an toàn, thẻ nhiệm vụ, cờ ranh giới.\",\"safetyNote\":\"Người lớn lắp trước; giữ khu bóng mát và nghỉ uống nước.\",\"description\":\"Bộ cắm trại mini cho các hoạt động dựng lều, quan sát thiên nhiên và làm việc nhóm nhẹ nhàng.\"},{\"tag\":\"Khoa học\",\"tint\":\"sky\",\"title\":\"Bộ khám phá khoa học\",\"ageFit\":\"4–6 tuổi\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Science%20Play%20Kit\",\"photos\":[\"Quan sát\",\"Dụng cụ\",\"Thẻ\"],\"ctaLabel\":\"Hỏi về bộ này\",\"included\":\"Ống quan sát, dụng cụ an toàn, thẻ câu hỏi.\",\"safetyNote\":\"Chơi có hướng dẫn; tránh chi tiết nhỏ với trẻ nhỏ hơn.\",\"description\":\"Dụng cụ khám phá đơn giản để con quan sát, đặt câu hỏi và dọn dẹp sau mỗi thí nghiệm nhỏ.\"},{\"tag\":\"Tại nhà\",\"tint\":\"pink\",\"title\":\"Gói thói quen chơi tại nhà\",\"ageFit\":\"2.5–6 tuổi\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Home%20Play%20Routine%20Pack\",\"photos\":[\"Thói quen\",\"Bảng sticker\",\"Túi gọn gàng\"],\"ctaLabel\":\"Hỏi về bộ này\",\"included\":\"Thẻ thói quen, bảng sticker, túi gọn gàng.\",\"safetyNote\":\"Chọn từng hoạt động một và luôn có ba mẹ ở gần.\",\"description\":\"Gợi ý chơi 15 phút tại nhà để ba mẹ nối tiếp tinh thần konnit sau mỗi buổi trải nghiệm.\"}],\"title\":\"Chọn theo hoạt động, độ tuổi và độ an toàn.\",\"eyebrow\":\"Các bộ sẵn sàng để chơi\",\"anchorId\":\"kits\",\"description\":\"Đây là trang xem trước sản phẩm. Mỗi hành động sẽ gửi câu hỏi cho konnit, không có giỏ hàng, thanh toán hay tồn kho trực tuyến.\"}",
+    "value": "{\"items\":[{\"tag\":\"Safety\",\"tint\":\"pink\",\"title\":\"ヘルメット & セーフティ キット\",\"ageFit\":\"2.5 ～ 6 歳old\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Helmet%20and%20Safety%20Kit\",\"photos\":[\"ヘルメット世帯\",\"ネームラベル\",\"チェックリスト\"],\"ctaLabel\":\"このセットについて質問する\",\"include\":\"帽子、ネームラベル、事前チェックリストの説明書プレイ時間。\",\"safetyNote\":\"事前に測定してください。 走る前にフィット感をチェックする必要があります。\",\"description\":\"プレプレイ キットには、ヘルメット、名前ステッカー、簡単な安全チェック カードが含まれています。\"},{\"tag\":\"自転車\",\"tint\":\"太陽\",\"title\":\"バランス バイク アクセサリー\",\"ageFit\":\"3–6 age\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Balance-Bike%20 Accessories\",\"photos\":[\"ベル\",\"ネームプレート\", \"ソフトポール\"],\"ctaLabel\":\"このセットについて質問する\",\"include\":\"ベル、銘板、ソフトポール、トラックカード。\",\"safetyNote\":\"ソフトエッジのみ; 低速の遊び場で使用。\",\"description\":\"お子様が自分の乗り物を認識し、バランスを練習し、ソフトで遊ぶのに役立つ小さなアクセサリーレーン。\"},{\"tag\":\"キャンプ\",\"tint\":\"ミント\",\"title\":\"機械式キャンプセット バージョン\",\"ageFit\":\"3 ～ 6 歳\", \"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Camping%20Starter%20Kit\",\"photos\":[\"座るプレート\",\"安全ライト\",\"タスク カード\"],\"ctaLabel\":\"このキットについて質問する\",\"include\":\"座るプレート、安全ライト、タスク カード、境界線flags.\",\"safetyNote\":\"大人が最初に設置し、日陰の場所を確保し、休憩を取ってください。\", \"description\":\"テント泊、自然観察、軽いグループワーク用のミニキャンプセット。\"},{\"tag\":\"サイエンス\",\"tint\":\"sky\",\"title\":\"サイエンスディスカバリーセット\",\"ageFit\":\"4–6 age\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Science%20Play%20Kit\",\"photos\":[\"Observations\",\"Tools\",\"Tags\"],\"ctaLabel\":\"このキットについて質問する\", \"include\":\"観察管、安全装置、質問カード。\", \"safetyNote\":\"ガイド付き遊び。年少のお子様には細かいことは避けてください。\", \"description\":\"お子様が観察し、質問し、小さな実験の後に片づけるための簡単な探索ツール。\"},{\"tag\":\"自宅で\",\"tint\":\"ピンク\",\"title\":\"自宅での遊び習慣パック\",\"ageFit\":\"2.5–6歳\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Home%20Play%20Routine%20Pack\",\"photos\":[\"習慣\",\"ステッカーボード\",\"整理整頓バッグ\"],\"ctaLabel\":\"このセットについて質問する\",\"include\":\"習慣カード、ステッカーボード、きちんとしたバッグ。\",\"safetyNote\":\"選択それぞれのアクティビティを 1 つずつ実行し、常に保護者が近くにいてください。\",\"description\":\"保護者が各体験セッション後に konnit の精神を継続できるように、家で 15 分間プレイすることをお勧めします。\"}],\"title\":\"アクティビティ、年齢、安全性に応じて選択してください。\",\"eyebrow\":\"すぐに遊べるキット\",\"anchorId\":\"キット\",\"description\":\"これは製品のプレビュー ページです。各アクションは konnit に質問を送信します。ショッピング カートはありません。 オンラインでの支払いや在庫確認。\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 115,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Bắt đầu từ con, rồi chọn bộ phù hợp.",
+    "value": "お子様から始めて、適切なセットを選択してください。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 115,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"step\":\"01\",\"title\":\"Độ tuổi và sự tự tin\",\"description\":\"Chọn bộ phù hợp với độ tuổi và mức tự tin hiện tại, không chỉ theo hoạt động con thích.\"},{\"step\":\"02\",\"title\":\"Loại hoạt động\",\"description\":\"Xe thăng bằng cần kiểm tra vừa vặn; cắm trại cần thói quen ngoài trời; khoa học cần hướng dẫn gần.\"},{\"step\":\"03\",\"title\":\"Độ an toàn\",\"description\":\"Ưu tiên kích cỡ, cạnh mềm, vật liệu an toàn và cách ba mẹ quan sát trong lúc con chơi.\"},{\"step\":\"04\",\"title\":\"Dùng có hướng dẫn\",\"description\":\"Nếu chưa chắc, hãy hỏi konnit trước khi mua để chọn bộ dùng được cả ở lớp và tại nhà.\"}],\"title\":\"Bắt đầu từ con, rồi chọn bộ phù hợp.\",\"eyebrow\":\"Cách chọn\"}",
+    "value": "{\"items\":[{\"step\":\"01\",\"title\":\"年齢と自信\",\"description\":\"楽しむアクティビティだけでなく、年齢と現在の自信レベルに合ったセットを選んでください。\"},{\"step\":\"02\",\"title\":\"アクティビティの種類\",\"description\":\"バランスバイクにはフィットテストが必要です。キャンプにはアウトドアの習慣が必要です。科学には指導が必要です。閉じる。\"},{\"ステップ\":\"03\",\"タイトル\":\"安全性\", \"description\":\"サイズ、ソフトエッジ、安全な素材、そしてお子様が遊んでいる間保護者が観察できる方法を優先します。\"},{\"step\":\"04\",\"title\":\"説明書とともに使用\",\"description\":\"よくわからない場合は、購入前に konnit に相談して、クラスと家庭の両方で使用できるセットを選んでください。\"}],\"title\":\"お子様から始めて、適切なセットを選択してください。\",\"eyebrow\":\"使い方選択してください\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 116,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Gặp konnit trước khi chọn bộ.",
+    "value": "セットを選択する前にkonnitに会いましょう。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 116,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"title\":\"Gặp konnit trước khi chọn bộ.\",\"eyebrow\":\"Cần một bước khởi đầu nhẹ nhàng?\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Book%20a%20first%20Konnit%20session\",\"label\":\"Đặt buổi đầu tiên\"},\"description\":\"Ba mẹ có thể đặt buổi đầu tiên để konnit quan sát hoạt động con thích, sau đó gợi ý bộ dụng cụ phù hợp hơn.\",\"secondaryCta\":{\"url\":\"tel:+84901234567\",\"label\":\"Gọi +84 90 123 4567\"}}",
+    "value": "{\"title\":\" Meet konnit before choose a set .\",\"eyebrow\":\" Need a light start ?\",\"primaryCta\":{\"url\":\" mailto: hello@konnit.example? subject = Book %20a % 20 first % 20 Konnit % 20 session \",\"label\":\" Book the first session \"},\"description\":\"最初のセッションを予約して、konnitが好きなアクティビティを観察できるようにし、より適切なキットを提案できます。\",\"secondaryCta\":{\"url\":\" tel :+84901234567 \",\"label\":\" Call +84 90 123 4567 \"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 117,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Một thế giới tử tế hơn cho trẻ, qua từng ngày hội cộng đồng.",
+    "value": "コミュニティの日ごとに、子どもたちのためのより親切な世界を作りましょう。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 117,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"icon\":\"01\",\"tint\":\"berry\",\"title\":\"Ngày của bé\",\"subtitle\":\"Trạm chơi, đón tiếp nhẹ nhàng và thời gian gia đình\"},{\"icon\":\"02\",\"tint\":\"berry\",\"title\":\"Sự quan tâm địa phương\",\"subtitle\":\"5–7 thương hiệu cùng tạo không gian tốt hơn\"},{\"icon\":\"03\",\"tint\":\"berry\",\"title\":\"Quà nhỏ\",\"subtitle\":\"Mẫu sản phẩm thân thiện và bất ngờ dễ thương\"}],\"title\":\"Một thế giới tử tế hơn cho trẻ, qua từng ngày hội cộng đồng.\",\"eyebrow\":\"Cộng đồng\",\"primaryCta\":{\"url\":\"#join-next-event\",\"label\":\"Tham gia sự kiện tới\"},\"description\":\"konnit cùng gia đình và các đối tác địa phương tạo ra những không gian an toàn, vui vẻ để trẻ được chơi, nhận quà nhỏ và cảm thấy mình thuộc về một cộng đồng tử tế.\",\"secondaryCta\":{\"url\":\"#activity-highlights\",\"label\":\"Xem hoạt động\"}}",
+    "value": "{\"items\":[{\"icon\":\"01\",\"tint\":\"berry\",\"title\":\"こどもの日\",\"subtitle\":\"プレイステーションとソフトレセプションと家族の時間\"},{\"icon\":\"02\",\"tint\":\"berry\",\"title\":\"地域注目\",\"subtitle\":\"5～7ブランドが集結していい空間を創るmore\"},{\"icon\":\"03\",\"tint\":\"berry\",\"title\":\"プチギフト\",\"subtitle\":\"フレンドリーな商品モデルとキュートなサプライズ\"}] ,\"title\":\"子どもたちにとって優しい世界、一度にひとつのコミュニティフェスティバル。\",\"eyebrow\":\"コミュニティ\",\"primaryCta\":{\"url\":\"#join-next-event\",\"label\":\"次のイベントに参加\"},\"description\":\"konnitと家族、地元パートナーは、子どもたちが遊んだり、ちょっとした贈り物をもらったり、優しいコミュニティに属していると感じられる安全で楽しいスペースを作ります。\", \"secondaryCta\":{\"url\":\"#activity-highlights\",\"label\":\"アクティビティの表示\"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 118,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Chúng tôi gắn kết các gia đình qua sự quan tâm, vui chơi và trách nhiệm chung.",
+    "value": "私たちは、思いやり、遊び、責任を分かち合うことで家族を結びつけています。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 118,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"note\":\"Đây là không gian cộng đồng. Mục tiêu là tạo trải nghiệm vui, lịch sự, an toàn và ấm áp cho trẻ nhỏ cùng gia đình.\",\"title\":\"Chúng tôi gắn kết các gia đình qua sự quan tâm, vui chơi và trách nhiệm chung.\",\"eyebrow\":\"Sứ mệnh cộng đồng\",\"noteLabel\":\"Mục đích cộng đồng\",\"description\":\"konnit tổ chức các hoạt động xã hội cho trẻ em, nơi những cộng tác viên và thương hiệu địa phương cùng đóng góp địa điểm, trò chơi, quà tặng và mẫu sản phẩm tốt cho trẻ.\"}",
+    "value": "{\"note\":\"こちらはコミュニティスペースです。目標は、幼い子供や家族のために、楽しく、丁寧で、安全で、暖かい体験を作り出すことです。\",\"title\":\"私たちは、思いやり、遊び、責任を分かち合い、家族をつなぎます。\",\"eyebrow\":\" Community Mission \",\"noteLabel\":\" Community Purpose \",\"description\":\" konnitは子供のための社会活動を組織し、地元の協力者やブランドが場所、ゲーム、ギフト、子供のための良い製品のサンプルを提供します。\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 119,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Hoạt động cộng đồng hào phóng, giản dị và đặt trẻ lên trước.",
+    "value": "コミュニティ活動は寛大で、カジュアルで、子供を第一に考えています。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 119,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"step\":\"01\",\"title\":\"Ngày của bé cùng nhau\",\"description\":\"Một ngày gia đình với trạm chơi nhỏ, góc vận động, quà tặng và mẫu sản phẩm an toàn để trẻ khám phá cùng ba mẹ.\"},{\"step\":\"02\",\"title\":\"Hợp tác thương hiệu địa phương\",\"description\":\"Mỗi sự kiện kết nối 5–7 thương hiệu địa phương cùng hỗ trợ địa điểm, hoạt động và những sản phẩm đặt trẻ em lên trước.\"},{\"step\":\"03\",\"title\":\"Vài tháng một lần\",\"description\":\"Các khoảnh khắc cộng đồng được tổ chức khoảng mỗi 2–3 tháng, đủ đều đặn để mong chờ và đủ nhẹ nhàng để giữ sự tự nhiên.\"}],\"title\":\"Hoạt động cộng đồng hào phóng, giản dị và đặt trẻ lên trước.\",\"eyebrow\":\"Hoạt động nổi bật\",\"anchorId\":\"activity-highlights\"}",
+    "value": "{\"items\":[{\"step\":\"01\",\"title\":\"一緒にこどもの日\",\"description\":\"お子様が親と一緒に探索できる小さなプレイステーション、運動コーナー、ギフト、安全な製品サンプルが揃うファミリーデー。\"},{\"step\":\"02\",\"title\":\"地元ブランドのコラボレーション\",\"description\":\"各イベントでは、その場所をサポートする 5 ～ 7 の地元ブランドがつながり、 子供を第一に考えたアクティビティや製品。\"},{\"step\":\"03\",\"title\":\"数か月ごと\",\"description\":\"コミュニティの瞬間は約 2 ～ 3 か月ごとに開催され、楽しみにできるほど定期的で、自然に行えるほど軽いものです。\"}],\"title\":\"寛大でカジュアルで、子供を第一に考えたコミュニティ活動です。\",\"eyebrow\":\"注目のアクティビティ\", \"anchorId\":\"アクティビティハイライト\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 120,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Nơi dành cho ảnh cộng đồng thật sau này.",
+    "value": "今後、実際のコミュニティ写真を掲載できる場所です。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 120,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"image\":\"http://localhost:4000/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg\",\"title\":\"Nơi dành cho ảnh cộng đồng thật sau này.\",\"photos\":[\"Ngày của bé\",\"Góc quà tặng\",\"Gia đình vui chơi\"],\"eyebrow\":\"Thư viện sự kiện\",\"description\":\"Khu vực này dùng để đặt một ảnh lớn hoặc bộ ảnh nổi nhẹ ghi lại ngày hội, hoạt động, góc quà và khoảnh khắc gia đình.\"}",
+    "value": "{\"title\":\"将来の実際のコミュニティ写真のための場所\",\"photos\":[\" Baby's Day \",\" Gift Corner \",\" Family Fun \"],\"eyebrow\":\" Event Gallery \",\"description\":\"このエリアは、フェスティバル、アクティビティ、ギフトコーナー、家族の瞬間の大きな写真やスナップショットを配置するために使用されます。\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 121,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Hành trình nhẹ nhàng qua ngày hội cộng đồng.",
+    "value": "コミュニティフェスティバルを通じた穏やかな旅。"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 121,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"items\":[{\"step\":\"01\",\"title\":\"Đến nơi an toàn\",\"description\":\"Gia đình được chào đón, hướng dẫn khu vực và biết nơi con có thể chơi an toàn.\"},{\"step\":\"02\",\"title\":\"Khám phá hoạt động\",\"description\":\"Trẻ thử các trạm chơi nhẹ nhàng theo nhịp riêng, có người lớn quan sát gần.\"},{\"step\":\"03\",\"title\":\"Nhận quà nhỏ\",\"description\":\"Con nhận quà nhỏ hoặc mẫu sản phẩm thân thiện với trẻ từ các đối tác phù hợp.\"},{\"step\":\"04\",\"title\":\"Gặp gỡ gia đình\",\"description\":\"Ba mẹ có cơ hội trò chuyện với những gia đình cùng quan tâm đến tuổi thơ an toàn.\"},{\"step\":\"05\",\"title\":\"Ra về vui vẻ\",\"description\":\"Mỗi gia đình rời đi với kỷ niệm đẹp, ảnh chụp và cảm giác được kết nối.\"}],\"title\":\"Hành trình nhẹ nhàng qua ngày hội cộng đồng.\",\"eyebrow\":\"Trải nghiệm của gia đình\"}",
+    "value": "{\"items\":[{\"step\":\"01\",\"title\":\"安全に到着\",\"description\":\"家族を歓迎し、エリアを案内し、子供たちが安全に遊べる場所を知っています。\"},{\"step\":\"02\",\"title\":\"アクティビティの発見\",\"description\":\"大人が見守りながら、子供たちは自分のペースで優しいプレイステーションを試します。 \"},{\"step\":\"03\",\"title\":\"ちょっとしたプレゼントを受け取る\", \"description\":\"子どもたちは、適切なパートナーから小さな贈り物や子どもに優しい製品サンプルを受け取ります。\"},{\"step\":\"04\",\"title\":\"家族と会う\",\"description\":\"保護者は、安全な子供時代を気遣う家族と会話する機会があります。\"},{\"step\":\"05\",\"title\":\"幸せに帰宅\",\"description\":\"それぞれの家族は美しい思い出を持って帰ります。 写真とつながりの感覚。\"}],\"title\":\"地域のお祭りを巡る優しい旅。\",\"eyebrow\":\"家族体験\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 122,
+    "field": "title",
+    "locale": "ja",
+    "source_value": "Tham gia sự kiện cộng đồng tới",
+    "value": "次回のコミュニティイベントに参加しよう"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 122,
+    "field": "content_json",
+    "locale": "ja",
+    "source_value": "{\"label\":\"Liên hệ cộng đồng\",\"phone\":\"+84 90 123 4567\",\"title\":\"Tham gia sự kiện cộng đồng tới\",\"qrImage\":\"http://localhost:4000/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg\",\"anchorId\":\"join-next-event\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Join%20next%20Konnit%20community%20event\",\"label\":\"Tham gia sự kiện cộng đồng tới\"},\"description\":\"Liên hệ konnit để nhận thông tin về ngày cộng đồng tiếp theo, cách tham gia cùng gia đình hoặc cách một thương hiệu địa phương có thể đóng góp tử tế.\",\"secondaryCta\":{\"url\":\"/\",\"label\":\"Về trang chủ\"}}",
+    "value": "{\"label\":\"コミュニティ連絡先\",\"phone\":\"+84 90 123 4567 \",\"title\":\"コミュニティイベントに参加する\",\"anchorId\":\" join - next - event \",\"primaryCta\":{\"url\":\" mailto: hello@konnit.example? subject = Join % 20 next % 20 Konnit % 20 community % 20 event \",\"label\":\"コミュニティイベントに参加する\"},\"description\":\" konnitに連絡して、次のコミュニティデー、家族への参加方法、地元ブランドの貢献方法に関する情報を入手してください。\",\"secondaryCta\":{\"url\":\"/\",\"label\":\" Back to home \"}}"
+  },
+  {
+    "module": "vouchers",
+    "entity_id": 1,
+    "field": "description",
+    "locale": "ja",
+    "source_value": "Giảm 10% cho đơn đầu tiên",
+    "value": "初回注文 10% 割引"
+  }
+]

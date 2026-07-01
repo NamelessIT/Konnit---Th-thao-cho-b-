@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 
 import { useRequireUser } from "@/hooks/useRequireUser";
 import { useAuth } from "@/store/auth";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 export function RequireShopUser({ children }: { children: React.ReactNode }) {
+  const t = useT();
   const user = useAuth((state) => state.user);
   const initialized = useAuth((state) => state.initialized);
   const init = useAuth((state) => state.init);
@@ -25,8 +27,8 @@ export function RequireShopUser({ children }: { children: React.ReactNode }) {
 
   if (!initialized) {
     return (
-      <div className="py-24 text-center text-[var(--konnit-muted)]">
-        Đang kiểm tra phiên đăng nhập...
+      <div className="py-24 text-center text-(--konnit-muted)">
+        {t("auth.checkingSession")}
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import { LocaleLink } from "@/components/i18n/LocaleLink";
+import { getDictionary, tFrom } from "@/lib/i18n/dictionaries";
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
@@ -11,6 +12,7 @@ interface Category {
 
 export default async function TinTucPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
+  const t = tFrom(await getDictionary(lang));
   let categories: Category[] = [];
 
   try {
@@ -32,10 +34,10 @@ export default async function TinTucPage({ params }: { params: Promise<{ lang: s
           Konnit
         </span>
         <h1 className="gradient-text mt-4 text-4xl font-extrabold md:text-5xl">
-          Tin tức &amp; Sự kiện
+          {t("news.title")}
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-[var(--konnit-muted)]">
-          Khám phá các hoạt động, giải đấu và câu chuyện từ cộng đồng Konnit.
+          {t("news.subtitle")}
         </p>
       </header>
 
@@ -65,7 +67,7 @@ export default async function TinTucPage({ params }: { params: Promise<{ lang: s
 
         {categories.length === 0 && (
           <div className="col-span-2 rounded-2xl border border-dashed border-[var(--konnit-pink-03)] py-16 text-center text-[var(--konnit-muted)]">
-            Chưa có danh mục nào được xuất bản
+            {t("news.noCategories")}
           </div>
         )}
       </div>

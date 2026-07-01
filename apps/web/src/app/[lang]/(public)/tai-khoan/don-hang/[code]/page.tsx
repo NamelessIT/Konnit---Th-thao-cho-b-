@@ -18,6 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ORDER_STATUS_LABELS_VI, type OrderStatus } from "@konnit/types";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 export default function Page({ params }: { params: Promise<{ code: string }> }) {
   const { code } = use(params);
@@ -29,6 +30,7 @@ export default function Page({ params }: { params: Promise<{ code: string }> }) 
 }
 
 function OrderDetail({ code }: { code: string }) {
+  const t = useT();
   const [order, setOrder] = useState<UserOrderDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -40,9 +42,9 @@ function OrderDetail({ code }: { code: string }) {
     try {
       const d = await userOrdersApi.detail(code);
       setOrder(d);
-      setError(d ? "" : "Không tìm thấy đơn hàng");
+      setError(d ? "" : t("account.orderNotFound"));
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Lỗi tải đơn");
+      setError(e instanceof Error ? e.message : t("account.loadError"));
     } finally {
       setLoading(false);
     }
@@ -69,24 +71,24 @@ function OrderDetail({ code }: { code: string }) {
     setSubmitting(true);
     try {
       await userOrdersApi.requestRefund(code, refundReason.trim() || undefined);
-      toast.success("Đã gửi yêu cầu. Vé tạm ngưng sử dụng trong khi chờ admin xác nhận.");
+      toast.success(t("account.refundSuccess"));
       setShowRefund(false);
       setRefundReason("");
       await load();
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Gửi yêu cầu thất bại");
+      toast.error(e instanceof Error ? e.message : t("account.refundFailed"));
     } finally {
       setSubmitting(false);
     }
   }
 
-  if (loading) return <main className="py-24 text-center text-[var(--konnit-muted)]">Đang tải…</main>;
+  if (loading) return <main className="py-24 text-center text-[var(--konnit-muted)]">{t("common.loading")}</main>;
   if (error || !order)
     return (
       <main className="mx-auto max-w-md px-4 py-24 text-center">
-        <p className="mb-4 text-red-500">{error || "Không tìm thấy đơn hàng"}</p>
+        <p className="mb-4 text-red-500">{error || t("account.orderNotFound")}</p>
         <LocaleLink href="/tai-khoan/don-hang" className="text-[var(--konnit-berry)] underline">
-          ← Lịch sử đơn
+          ← {t("common.backToOrders")}
         </LocaleLink>
       </main>
     );
@@ -94,13 +96,13 @@ function OrderDetail({ code }: { code: string }) {
   return (
     <main className="mx-auto max-w-3xl px-4 py-16">
       <LocaleLink href="/tai-khoan/don-hang" className="text-sm text-[var(--konnit-muted)] hover:underline">
-        ← Lịch sử đơn
+        ← {t("common.backToOrders")}
       </LocaleLink>
       <h1 className="mt-2 text-2xl font-black text-[var(--konnit-ink)]">
-        {order.event?.name ?? "Đơn hàng"}
+        {order.event?.name ?? t("account.orderFallback")}
       </h1>
       <p className="mb-6 text-sm text-[var(--konnit-muted)]">
-        Mã đơn <b>{order.order_code}</b> · Tổng {formatVND(order.total)} ·{" "}
+        {t("order.code")} <b>{order.order_code}</b> · {t("checkout.total")} {formatVND(order.total)} ·{" "}
         {ORDER_STATUS_LABELS_VI[order.status as OrderStatus] ?? order.status}
       </p>
 
@@ -122,10 +124,10 @@ function OrderDetail({ code }: { code: string }) {
           {order.items.every((i) => !i.is_used) && (
             <div className="mt-6 rounded-2xl border border-[var(--konnit-pink-03)] bg-white p-5">
               <p className="text-sm text-[var(--konnit-muted)]">
-                Cần huỷ vé? Gửi yêu cầu hoàn tiền — admin sẽ liên hệ và xác nhận.
+                {t("account.cancelPrompt")}
               </p>
               <Button variant="outline" className="mt-3" onClick={() => setShowRefund(true)}>
-                Yêu cầu huỷ vé
+                {t("account.refundRequest")}
               </Button>
             </div>
           )}
@@ -134,31 +136,30 @@ function OrderDetail({ code }: { code: string }) {
 
       {order.status === "refund_requested" && (
         <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-800">
-          Yêu cầu hoàn tiền của bạn đang chờ admin xác nhận. Vé tạm ngưng sử dụng trong thời gian này.
+          {t("account.refundPending")}
         </div>
       )}
       {order.status === "refunding" && (
         <div className="rounded-2xl border border-sky-200 bg-sky-50 p-5 text-sm text-sky-800">
-          Admin đã duyệt hoàn tiền. Vé và voucher (nếu có) đã được thu hồi; tiền sẽ được hoàn theo
-          liên hệ của admin.
+          {t("account.refundApproved")}
         </div>
       )}
       {order.status === "refunded" && (
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
-          Đơn đã được hoàn tiền và đóng lại. Cảm ơn bạn.
+          {t("account.refundDone")}
         </div>
       )}
       {(order.status === "pending" ||
         order.status === "expired" ||
         order.status === "failed") && (
         <div className="rounded-2xl border border-orange-200 bg-orange-50 p-5 text-sm text-orange-800">
-          Đơn chưa thanh toán xong nên chưa có vé QR.
+          {t("account.noQr")}
           {order.status === "pending" && (
             <LocaleLink
               href={`/don-hang/${order.order_code}/thanh-toan`}
               className="ml-1 font-bold underline"
             >
-              Thanh toán ngay
+              {t("account.payNow")}
             </LocaleLink>
           )}
         </div>
@@ -175,20 +176,19 @@ function OrderDetail({ code }: { code: string }) {
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Yêu cầu huỷ vé / hoàn tiền</DialogTitle>
+            <DialogTitle>{t("account.refundDialogTitle")}</DialogTitle>
             <DialogDescription>
-              Đây là yêu cầu hoàn tiền — hệ thống KHÔNG tự chuyển tiền. Sau khi gửi, mã QR tạm thời
-              không dùng được; admin sẽ liên hệ và có thể duyệt hoặc từ chối.
+              {t("account.refundDialogDesc")}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-1.5">
-            <label className="text-sm font-medium">Lý do (tuỳ chọn)</label>
+            <label className="text-sm font-medium">{t("account.refundReason")}</label>
             <Textarea
               value={refundReason}
               maxLength={500}
               rows={3}
               onChange={(e) => setRefundReason(e.target.value)}
-              placeholder="Lý do muốn huỷ vé…"
+              placeholder={t("account.refundReasonPlaceholder")}
             />
           </div>
           <DialogFooter>
@@ -200,10 +200,10 @@ function OrderDetail({ code }: { code: string }) {
                 setRefundReason("");
               }}
             >
-              Đóng
+              {t("common.close")}
             </Button>
             <Button disabled={submitting} onClick={submitRefundRequest}>
-              {submitting ? "Đang gửi…" : "Gửi yêu cầu"}
+              {submitting ? t("common.sending") : t("common.send")}
             </Button>
           </DialogFooter>
         </DialogContent>

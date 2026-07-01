@@ -13,7 +13,7 @@ import { shopApi, VoucherValidationError } from "@/lib/shop/api";
 import { Button } from "@/components/ui/button";
 import { PaymentMethodPicker, type PaymentMethod } from "@/components/shop/PaymentMethodPicker";
 import { LocaleLink } from "@/components/i18n/LocaleLink";
-import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
+import { useLocalizedHref, useT } from "@/lib/i18n/LocaleProvider";
 import { useDebounce } from "@/hooks/useDebounce";
 import {
   GENDER_RESTRICTION,
@@ -47,6 +47,7 @@ function emptyChild(ticketTypeId: number): ChildFormData {
 }
 
 export function CheckoutForm() {
+  const t = useT();
   const hasMounted = useHasMounted();
   const router = useRouter();
   const localize = useLocalizedHref();
@@ -129,7 +130,7 @@ export function CheckoutForm() {
           setVoucherError("");
         } else {
           setVoucher(null);
-          setVoucherError("Mã không còn hợp lệ cho đơn hàng hiện tại.");
+          setVoucherError(t("checkout.voucherExpired"));
         }
       })
       .catch((error) => {
@@ -138,7 +139,7 @@ export function CheckoutForm() {
           setVoucherError(
             error instanceof VoucherValidationError
               ? error.message
-              : "Không thể kiểm tra mã giảm giá. Vui lòng thử lại.",
+              : t("checkout.voucherCheckFailed"),
           );
         }
       });
@@ -158,15 +159,15 @@ export function CheckoutForm() {
       const result = await shopApi.validateVoucher(code, subtotal);
       if (result) {
         setVoucher(result);
-        toast.success(`Áp dụng mã "${code}" thành công! Giảm ${formatVND(result.discount_amount)}`);
+        toast.success(t("checkout.voucherApplied").replace("{code}", code).replace("{amount}", formatVND(result.discount_amount)));
       } else {
-        setVoucherError("Mã không hợp lệ hoặc đã hết hạn.");
+        setVoucherError(t("checkout.voucherInvalid"));
       }
     } catch (error) {
       setVoucherError(
         error instanceof VoucherValidationError
           ? error.message
-          : "Mã không hợp lệ hoặc đã hết hạn.",
+          : t("checkout.voucherInvalid"),
       );
     } finally {
       setIsValidatingVoucher(false);
@@ -213,7 +214,7 @@ export function CheckoutForm() {
       // Chưa xoá giỏ ở đây — xoá khi thanh toán thành công
       router.push(localize(`/don-hang/${order.order_code}/thanh-toan`));
     } catch (err) {
-      toast.error("Không thể tạo đơn hàng. Vui lòng thử lại.");
+      toast.error(t("checkout.createFailed"));
     }
   }
 
@@ -223,10 +224,10 @@ export function CheckoutForm() {
     return (
       <main className="mx-auto max-w-xl px-4 py-24 text-center">
         <p className="mb-4 text-lg font-bold text-[var(--konnit-ink)]">
-          Bạn chưa chọn vé nào để thanh toán.
+          {t("checkout.noItems")}
         </p>
         <LocaleLink href="/gio-hang" className="text-sm text-[var(--konnit-berry)] underline underline-offset-4">
-          Quay lại giỏ hàng
+          {t("checkout.backToCart")}
         </LocaleLink>
       </main>
     );
@@ -234,34 +235,34 @@ export function CheckoutForm() {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="mb-8 text-2xl font-black text-[var(--konnit-ink)]">Thanh toán</h1>
+      <h1 className="mb-8 text-2xl font-black text-[var(--konnit-ink)]">{t("checkout.title")}</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-8 lg:grid-cols-[1fr_300px]">
         {/* ── Cột trái ── */}
         <div className="space-y-8">
           {/* Khối A: Phụ huynh */}
           <section className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
-            <h2 className="mb-4 font-black text-[var(--konnit-ink)]">Thông tin phụ huynh</h2>
+            <h2 className="mb-4 font-black text-[var(--konnit-ink)]">{t("checkout.parentInfo")}</h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Họ và tên *" error={errors.contactName?.message}>
-                <input {...register("contactName", { required: "Vui lòng nhập họ tên" })}
-                  placeholder="Nguyễn Văn A" className={inputCls(!!errors.contactName)} />
+              <Field label={t("checkout.parentName")} error={errors.contactName?.message}>
+                <input {...register("contactName", { required: t("checkout.parentNameRequired") })}
+                  placeholder={t("checkout.parentNamePlaceholder")} className={inputCls(!!errors.contactName)} />
               </Field>
-              <Field label="Số điện thoại *" error={errors.contactPhone?.message}>
+              <Field label={t("checkout.parentPhone")} error={errors.contactPhone?.message}>
                 <input {...register("contactPhone", {
-                  required: "Vui lòng nhập SĐT",
-                  pattern: { value: /^[0-9]{9,11}$/, message: "SĐT không hợp lệ" },
+                  required: t("checkout.parentPhoneRequired"),
+                  pattern: { value: /^[0-9]{9,11}$/, message: t("checkout.parentPhoneInvalid") },
                 })} placeholder="0901234567" inputMode="tel" className={inputCls(!!errors.contactPhone)} />
               </Field>
-              <Field label="Email *" error={errors.contactEmail?.message} className="sm:col-span-2">
+              <Field label={t("checkout.parentEmail")} error={errors.contactEmail?.message} className="sm:col-span-2">
                 <input {...register("contactEmail", {
-                  required: "Vui lòng nhập email",
-                  pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Email không hợp lệ" },
+                  required: t("checkout.parentEmailRequired"),
+                  pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: t("checkout.parentEmailInvalid") },
                 })} placeholder="email@example.com" inputMode="email" className={inputCls(!!errors.contactEmail)} />
               </Field>
-              <Field label="Địa chỉ" className="sm:col-span-2">
+              <Field label={t("checkout.parentAddress")} className="sm:col-span-2">
                 <input {...register("contactAddress")}
-                  placeholder="Số nhà, đường, phường, quận" className={inputCls(false)} />
+                  placeholder={t("checkout.parentAddressPlaceholder")} className={inputCls(false)} />
               </Field>
             </div>
           </section>
@@ -283,7 +284,7 @@ export function CheckoutForm() {
                     onClick={() => append(emptyChild(ticketTypeId))}
                     className="flex items-center gap-1 rounded-lg border border-[var(--konnit-berry)] px-2.5 py-1 text-xs font-bold text-[var(--konnit-berry)] hover:bg-[var(--konnit-pink-02)]"
                   >
-                    <Plus className="h-3.5 w-3.5" /> Thêm bé
+                    <Plus className="h-3.5 w-3.5" /> {t("checkout.addChild")}
                   </button>
                 </div>
 
@@ -291,34 +292,34 @@ export function CheckoutForm() {
                   {indices.map((idx, rankInGroup) => (
                     <div key={fields[idx]?.id} className="relative rounded-xl bg-slate-50 p-4">
                       <div className="mb-3 flex items-center justify-between">
-                        <p className="text-xs font-bold text-slate-500">Bé {rankInGroup + 1}</p>
+                        <p className="text-xs font-bold text-slate-500">{t("checkout.childLabel").replace("{n}", String(rankInGroup + 1))}</p>
                         {rankInGroup > 0 && (
                           <button
                             type="button"
                             onClick={() => remove(idx)}
                             className="flex items-center gap-1 text-xs text-slate-400 hover:text-red-500"
                           >
-                            <Minus className="h-3 w-3" /> Bỏ bé này
+                            <Minus className="h-3 w-3" /> {t("checkout.removeChild")}
                           </button>
                         )}
                       </div>
 
                       <div className="grid gap-3 sm:grid-cols-2">
-                        <Field label="Họ và tên bé *"
+                        <Field label={t("checkout.childName")}
                           error={(errors.children?.[idx] as { attendeeName?: { message?: string } })?.attendeeName?.message}>
-                          <input {...register(`children.${idx}.attendeeName`, { required: "Vui lòng nhập tên bé" })}
-                            placeholder="Nguyễn Thị B"
+                          <input {...register(`children.${idx}.attendeeName`, { required: t("checkout.childNameRequired") })}
+                            placeholder={t("checkout.childNamePlaceholder")}
                             className={inputCls(!!(errors.children?.[idx] as { attendeeName?: unknown })?.attendeeName)} />
                         </Field>
-                        <Field label="Ngày sinh *"
+                        <Field label={t("checkout.childDob")}
                           error={(errors.children?.[idx] as { attendeeDob?: { message?: string } })?.attendeeDob?.message}>
-                          <input {...register(`children.${idx}.attendeeDob`, { required: "Vui lòng nhập ngày sinh" })}
+                          <input {...register(`children.${idx}.attendeeDob`, { required: t("checkout.childDobRequired") })}
                             type="date"
                             className={inputCls(!!(errors.children?.[idx] as { attendeeDob?: unknown })?.attendeeDob)} />
                         </Field>
-                        <Field label="Giới tính">
+                        <Field label={t("checkout.childGender")}>
                           <select {...register(`children.${idx}.attendeeGender`)} className={inputCls(false)}>
-                            <option value="">-- Chọn --</option>
+                            <option value="">{t("checkout.genderSelect")}</option>
                             {GENDER_RESTRICTIONS.filter(
                               (value) => value !== GENDER_RESTRICTION.ANY,
                             ).map((value) => (
@@ -328,19 +329,19 @@ export function CheckoutForm() {
                             ))}
                           </select>
                         </Field>
-                        <Field label="Size áo">
+                        <Field label={t("checkout.shirtSize")}>
                           <select {...register(`children.${idx}.shirtSize`)} className={inputCls(false)}>
-                            <option value="">-- Chọn size --</option>
+                            <option value="">{t("checkout.shirtSizeSelect")}</option>
                             {SHIRT_SIZES.map((s) => <option key={s} value={s}>{s}</option>)}
                           </select>
                         </Field>
-                        <Field label="Tên in huy chương" className="sm:col-span-2">
+                        <Field label={t("checkout.medalName")} className="sm:col-span-2">
                           <input {...register(`children.${idx}.medalName`)}
-                            placeholder="Để trống = dùng tên bé" className={inputCls(false)} />
+                            placeholder={t("checkout.medalNamePlaceholder")} className={inputCls(false)} />
                         </Field>
-                        <Field label="Ghi chú sức khỏe" className="sm:col-span-2">
+                        <Field label={t("checkout.healthNotes")} className="sm:col-span-2">
                           <textarea {...register(`children.${idx}.healthNotes`)} rows={2}
-                            placeholder="Dị ứng, bệnh lý… (nếu có)"
+                            placeholder={t("checkout.healthNotesPlaceholder")}
                             className={inputCls(false) + " resize-none"} />
                         </Field>
                       </div>
@@ -353,19 +354,17 @@ export function CheckoutForm() {
 
           {/* Khối C: Cam kết */}
           <section className="rounded-2xl border border-orange-100 bg-orange-50 p-5">
-            <p className="mb-3 text-sm font-bold text-orange-800">Cam kết miễn trừ trách nhiệm</p>
+            <p className="mb-3 text-sm font-bold text-orange-800">{t("checkout.commitment")}</p>
             <p className="mb-4 text-xs leading-relaxed text-orange-700">
-              Phụ huynh/người giám hộ xác nhận bé đủ sức khỏe tham gia. Ban tổ chức không chịu trách
-              nhiệm về các rủi ro ngoài tầm kiểm soát và có quyền dùng hình ảnh sự kiện cho mục đích
-              phi thương mại.
+              {t("checkout.commitmentText")}
             </p>
             <label className="flex cursor-pointer items-start gap-2.5 text-sm font-bold text-orange-900">
               <input type="checkbox" {...register("agreed", { required: true })}
                 className="mt-0.5 h-4 w-4 accent-orange-500" />
-              Tôi đã đọc, hiểu và đồng ý với cam kết trên.
+              {t("checkout.agreeLabel")}
             </label>
             {errors.agreed && (
-              <p className="mt-1 text-xs text-red-500">Vui lòng đồng ý cam kết để tiếp tục.</p>
+              <p className="mt-1 text-xs text-red-500">{t("checkout.agreeRequired")}</p>
             )}
           </section>
         </div>
@@ -380,7 +379,7 @@ export function CheckoutForm() {
           {/* 2. Voucher */}
           <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
             <p className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-400">
-              <Tag className="h-3.5 w-3.5" /> Mã giảm giá
+              <Tag className="h-3.5 w-3.5" /> {t("shop.voucherCode")}
             </p>
             {voucher ? (
               <div className="flex items-center justify-between rounded-lg bg-green-50 px-3 py-2">
@@ -389,7 +388,7 @@ export function CheckoutForm() {
                   <p className="text-xs text-green-600">Giảm {formatVND(voucher.discount_amount)}</p>
                 </div>
                 <button type="button" onClick={handleRemoveVoucher}
-                  className="text-xs text-slate-400 hover:text-red-500 underline">Xoá</button>
+                  className="text-xs text-slate-400 hover:text-red-500 underline">{t("common.remove")}</button>
               </div>
             ) : (
               <div className="flex flex-col gap-2">
@@ -397,13 +396,13 @@ export function CheckoutForm() {
                   value={voucherInput}
                   onChange={(e) => setVoucherInput(e.target.value.replace(/[^A-Za-z0-9_-]/g, "").slice(0, 20))}
                   onKeyDown={(e) => e.key === "Enter" && handleApplyVoucher()}
-                  placeholder="Nhập mã nếu có"
+                  placeholder={t("shop.voucherPlaceholder")}
                   className="flex-1 rounded-lg border border-slate-200 px-3 py-1.5 text-sm outline-none focus:border-[var(--konnit-berry)]"
                 />
                 <Button type="button" onClick={handleApplyVoucher}
                   disabled={isValidatingVoucher || !voucherInput.trim()}
                   variant="outline" className="shrink-0 px-3">
-                  {isValidatingVoucher ? <Loader2 className="h-4 w-4 animate-spin" /> : "Áp dụng"}
+                  {isValidatingVoucher ? <Loader2 className="h-4 w-4 animate-spin" /> : t("common.apply")}
                 </Button>
               </div>
             )}
@@ -412,7 +411,7 @@ export function CheckoutForm() {
 
           {/* 3. Tóm tắt + nút submit */}
           <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-            <h2 className="mb-3 font-bold text-[var(--konnit-ink)]">Đơn hàng</h2>
+            <h2 className="mb-3 font-bold text-[var(--konnit-ink)]">{t("checkout.summaryTitle")}</h2>
             <div className="mb-3 space-y-1.5">
               {Array.from(groups.entries()).map(([id, idxs]) => {
                 const info = priceMap.get(id);
@@ -426,23 +425,23 @@ export function CheckoutForm() {
             </div>
             {voucher && (
               <div className="mb-2 flex justify-between text-sm text-green-600">
-                <span>Giảm giá ({voucher.code})</span>
+                <span>{t("checkout.discountLabel").replace("{code}", voucher.code)}</span>
                 <span>− {formatVND(discountAmount)}</span>
               </div>
             )}
             <div className="mb-4 flex justify-between border-t border-slate-100 pt-2">
-              <span className="font-bold">Tổng</span>
+              <span className="font-bold">{t("checkout.total")}</span>
               <span className="text-xl font-black text-[var(--konnit-berry)]">{formatVND(total)}</span>
             </div>
 
             <Button type="submit" disabled={isSubmitting}
               className="w-full bg-[var(--konnit-berry)] hover:bg-[var(--konnit-berry)]/90">
               {isSubmitting
-                ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Đang xử lý...</>
-                : "Xác nhận đặt vé →"}
+                ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />{t("common.processing")}</>
+                : t("checkout.confirmBtn")}
             </Button>
             <p className="mt-2 text-center text-xs text-slate-400">
-              Thanh toán ở bước tiếp theo
+              {t("checkout.payLater")}
             </p>
           </div>
         </div>

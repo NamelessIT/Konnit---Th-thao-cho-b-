@@ -5,6 +5,17 @@ import { TRANSLATABLE_MODULES, isValidModule, isValidField } from './translation
 
 const COLUMNS = ['module', 'entity_id', 'field', 'locale', 'source_value', 'value'] as const;
 
+/** Recursively strip leading/trailing whitespace from all JSON object keys. */
+function stripJsonKeys(obj: unknown): unknown {
+  if (Array.isArray(obj)) return obj.map(stripJsonKeys);
+  if (obj !== null && typeof obj === 'object') {
+    return Object.fromEntries(
+      Object.entries(obj as Record<string, unknown>).map(([k, v]) => [k.trim(), stripJsonKeys(v)]),
+    );
+  }
+  return obj;
+}
+
 export function listModules() {
   return Object.entries(TRANSLATABLE_MODULES).map(([key, m]) => ({
     key,
@@ -208,6 +219,22 @@ export async function importFile(file: Express.Multer.File, adminId: number): Pr
       return;
     }
     if (valueStr === '') return; // ô trống → bỏ qua, không ghi đè
+
+    // content_json must be valid JSON. Sanitise before storing:
+    // - strip literal newlines (illegal inside JSON strings)
+    // - strip spaces from JSON keys (spaced keys don't match base fields during deepMerge)
+    if (field === 'content_json') {
+      const cleaned = valueStr.replace(/[\r\n]+/g, ' ').replace(/  +/g, ' ');
+      try {
+        const parsed = JSON.parse(cleaned);
+        const normalised = JSON.stringify(stripJsonKeys(parsed));
+        valid.push({ module, entity_id: entityId, field, locale, value: normalised });
+      } catch {
+        errors.push({ row: rowNum, message: `content_json không phải JSON hợp lệ (entity ${entityId})` });
+      }
+      return;
+    }
+
     valid.push({ module, entity_id: entityId, field, locale, value: valueStr });
   });
 

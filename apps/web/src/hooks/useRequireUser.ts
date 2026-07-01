@@ -6,22 +6,22 @@ import { toast } from "sonner";
 
 import { useAuth } from "@/store/auth";
 import { useAuthGate } from "@/store/auth-gate";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 interface RequireUserOptions {
   message?: string;
   returnUrl?: string;
 }
 
-const DEFAULT_MESSAGE = "Vui lòng đăng nhập để mua vé và sử dụng giỏ hàng.";
-
 export function useRequireUser() {
+  const t = useT();
   const pathname = usePathname();
   const showGate = useAuthGate((state) => state.show);
 
   return useCallback(
     (options?: RequireUserOptions) => {
       const prompt = () => {
-        const message = options?.message ?? DEFAULT_MESSAGE;
+        const message = options?.message ?? t("auth.requireLoginMessage");
         toast.info(message);
         showGate({
           message,
@@ -42,6 +42,6 @@ export function useRequireUser() {
       prompt();
       return false;
     },
-    [pathname, showGate],
+    [t, pathname, showGate],
   );
 }

@@ -4,7 +4,6 @@ import { Baloo_2, Geist_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
-import { AuthGateDialog } from "@/components/auth/AuthGateDialog";
 import "./globals.css";
 
 // Rounded, playful display font matching the Konnit demo (ui-rounded / Arial Rounded MT Bold).
@@ -66,7 +65,6 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <TooltipProvider>{children}</TooltipProvider>
-        <AuthGateDialog />
         <Toaster richColors position="top-right" />
       </body>
     </html>

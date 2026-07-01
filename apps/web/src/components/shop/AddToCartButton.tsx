@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart";
 import type { TicketType } from "@/lib/shop/types";
 import { useRequireUser } from "@/hooks/useRequireUser";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 export function AddToCartButton({ ticket, disabled }: { ticket: TicketType; disabled?: boolean }) {
+  const t = useT();
   const [added, setAdded] = useState(false);
   const add = useCartStore((s) => s.add);
   const requireUser = useRequireUser();
@@ -34,7 +36,7 @@ export function AddToCartButton({ ticket, disabled }: { ticket: TicketType; disa
       className="gap-2 bg-[var(--konnit-berry)] px-6 hover:bg-[var(--konnit-berry)]/90"
     >
       {added ? <Check className="h-4 w-4" /> : <ShoppingCart className="h-4 w-4" />}
-      {disabled ? "Hết suất" : added ? "Đã thêm!" : "Thêm vào giỏ"}
+      {disabled ? t("shop.soldOut") : added ? t("shop.added") : t("shop.addToCart")}
     </Button>
   );
 }

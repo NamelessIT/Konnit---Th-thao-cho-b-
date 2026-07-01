@@ -14,13 +14,16 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useAuthGate } from "@/store/auth-gate";
+import { useT, useLocalizedHref } from "@/lib/i18n/LocaleProvider";
 
 export function AuthGateDialog() {
+  const t = useT();
+  const localizedHref = useLocalizedHref();
   const open = useAuthGate((state) => state.open);
   const message = useAuthGate((state) => state.message);
   const returnUrl = useAuthGate((state) => state.returnUrl);
   const hide = useAuthGate((state) => state.hide);
-  const loginUrl = `/dang-nhap?returnUrl=${encodeURIComponent(returnUrl)}`;
+  const loginUrl = localizedHref(`/dang-nhap?returnUrl=${encodeURIComponent(returnUrl)}`);
 
   return (
     <Dialog open={open} onOpenChange={(nextOpen) => !nextOpen && hide()}>
@@ -31,7 +34,7 @@ export function AuthGateDialog() {
           </span>
           <DialogHeader>
             <DialogTitle className="text-xl font-black text-[var(--konnit-ink)]">
-              Đăng nhập để tiếp tục
+              {t("auth.gateTitle")}
             </DialogTitle>
             <DialogDescription className="leading-6 text-[var(--konnit-muted)]">
               {message}
@@ -39,13 +42,13 @@ export function AuthGateDialog() {
           </DialogHeader>
         </div>
         <DialogFooter className="m-0 rounded-none border-0 bg-white px-5 py-4">
-          <DialogClose render={<Button variant="outline" />}>Để sau</DialogClose>
+          <DialogClose render={<Button variant="outline" />}>{t("auth.later")}</DialogClose>
           <Button
             render={<Link href={loginUrl} onClick={hide} />}
             className="bg-[var(--konnit-berry)] hover:bg-[var(--konnit-berry)]/90"
           >
             <LogIn data-icon="inline-start" />
-            Đăng nhập
+            {t("auth.login")}
           </Button>
         </DialogFooter>
       </DialogContent>

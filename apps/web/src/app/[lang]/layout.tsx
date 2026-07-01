@@ -1,6 +1,7 @@
 import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { FALLBACK_LOCALES } from "@/lib/i18n/config";
+import { AuthGateDialog } from "@/components/auth/AuthGateDialog";
 
 // Prebuild các locale tĩnh đã biết; locale thêm động vẫn render nhờ dynamicParams (mặc định true).
 export function generateStaticParams() {
@@ -19,6 +20,7 @@ export default async function LangLayout({
   return (
     <LocaleProvider locale={lang} dict={dict}>
       {children}
+      <AuthGateDialog />
     </LocaleProvider>
   );
 }

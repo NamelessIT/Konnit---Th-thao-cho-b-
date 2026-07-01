@@ -1,10 +1,12 @@
+"use client";
+
 import type { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from "react";
-import Link from "next/link";
 import {
   normalizeCmsLinkValue,
   normalizeCmsUrl,
   type CmsLinkValue,
 } from "@konnit/types";
+import { LocaleLink } from "@/components/i18n/LocaleLink";
 
 interface CmsLinkProps
   extends Omit<
@@ -41,9 +43,9 @@ export function CmsLink({ value, children, ...props }: CmsLinkProps) {
 
   if (href.startsWith("/")) {
     return (
-      <Link href={href} {...externalProps} {...props}>
+      <LocaleLink href={href} {...externalProps} {...props}>
         {content}
-      </Link>
+      </LocaleLink>
     );
   }
 

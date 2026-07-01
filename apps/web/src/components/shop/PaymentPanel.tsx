@@ -5,7 +5,7 @@ import type { PaymentMethod } from "@konnit/types";
 import { useRouter } from "next/navigation";
 import { Building2, Loader2 } from "lucide-react";
 import { LocaleLink } from "@/components/i18n/LocaleLink";
-import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
+import { useLocalizedHref, useT } from "@/lib/i18n/LocaleProvider";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { shopApi } from "@/lib/shop/api";
@@ -20,6 +20,7 @@ function mediaUrl(path: string) {
 }
 
 export function PaymentPanel({ code }: { code: string }) {
+  const t = useT();
   const router = useRouter();
   const localize = useLocalizedHref();
   const clearSelected = useCartStore((s) => s.clearSelected);
@@ -71,7 +72,7 @@ export function PaymentPanel({ code }: { code: string }) {
 
       if (result.status === "paid") {
         clearSelected();
-        toast.success("Thanh toán thành công.");
+        toast.success(t("payment.success"));
         router.push(localize(`/don-hang/${code}`));
         return;
       }
@@ -79,14 +80,14 @@ export function PaymentPanel({ code }: { code: string }) {
       // Chuyển khoản: đơn vẫn pending, chờ BTC xác nhận đã nhận tiền.
       if (result.status === "pending" || result.awaitingTransfer) {
         clearSelected();
-        toast.success("Đã ghi nhận. Đơn đang chờ BTC xác nhận chuyển khoản.");
+        toast.success(t("payment.pendingConfirmation"));
         router.push(localize(`/don-hang/${code}`));
         return;
       }
 
-      toast.error("Thanh toán chưa hoàn tất. Vui lòng thử lại.");
+      toast.error(t("payment.failed"));
     } catch {
-      toast.error("Không thể xử lý thanh toán. Vui lòng thử lại.");
+      toast.error(t("payment.error"));
     } finally {
       setIsPaying(false);
     }
@@ -96,7 +97,7 @@ export function PaymentPanel({ code }: { code: string }) {
     return (
       <main className="mx-auto flex max-w-xl flex-col items-center px-4 py-24 text-center">
         <Loader2 className="mb-4 h-8 w-8 animate-spin text-[var(--konnit-berry)]" />
-        <p className="text-sm text-[var(--konnit-muted)]">Đang tải đơn hàng...</p>
+        <p className="text-sm text-[var(--konnit-muted)]">{t("common.loading")}</p>
       </main>
     );
   }
@@ -105,13 +106,13 @@ export function PaymentPanel({ code }: { code: string }) {
     return (
       <main className="mx-auto max-w-xl px-4 py-24 text-center">
         <h1 className="mb-2 text-2xl font-black text-[var(--konnit-ink)]">
-          Không tìm thấy đơn hàng
+          {t("payment.notFound")}
         </h1>
         <p className="mb-6 text-sm text-[var(--konnit-muted)]">
-          Mã đơn không tồn tại hoặc phiên mock đã bị làm mới.
+          {t("payment.notFoundDesc")}
         </p>
         <LocaleLink href="/cua-hang">
-            <Button>Quay lại cửa hàng</Button>
+            <Button>{t("common.backToStore")}</Button>
         </LocaleLink>
       </main>
     );
@@ -120,16 +121,16 @@ export function PaymentPanel({ code }: { code: string }) {
   return (
     <main className="mx-auto max-w-4xl px-4 py-12">
       <h1 className="mb-2 text-3xl font-black text-[var(--konnit-ink)]">
-        Thanh toán đơn hàng
+        {t("payment.title")}
       </h1>
       <p className="mb-8 text-[var(--konnit-muted)]">
-        Mã đơn: <span className="font-bold text-[var(--konnit-berry)]">{code}</span>
+        {t("payment.orderCode")} <span className="font-bold text-[var(--konnit-berry)]">{code}</span>
       </p>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
         <section className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
           <h2 className="mb-4 font-black text-[var(--konnit-ink)]">
-            Thanh toán chuyển khoản
+            {t("payment.bankTransfer")}
           </h2>
 
           <div className="flex items-center gap-3 rounded-xl border border-[var(--konnit-berry)] bg-[var(--konnit-pink-02)] p-4">
@@ -138,10 +139,10 @@ export function PaymentPanel({ code }: { code: string }) {
             </span>
             <span>
               <span className="block text-sm font-bold text-[var(--konnit-ink)]">
-                Chuyển khoản ngân hàng
+                {t("payment.bankTransfer")}
               </span>
               <span className="block text-xs text-[var(--konnit-muted)]">
-                Quét QR ngân hàng, BTC xác nhận thủ công.
+                {t("payment.bankTransferDesc")}
               </span>
             </span>
           </div>
@@ -156,16 +157,16 @@ export function PaymentPanel({ code }: { code: string }) {
             {isPaying ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Đang xử lý...
+                {t("common.processing")}
               </>
             ) : (
-              "Tôi đã chuyển khoản"
+              t("payment.transferred")
             )}
           </Button>
         </section>
 
         <aside className="h-fit rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-          <h2 className="mb-3 font-bold text-[var(--konnit-ink)]">Tóm tắt đơn</h2>
+          <h2 className="mb-3 font-bold text-[var(--konnit-ink)]">{t("shop.orderSummary")}</h2>
 
           <div className="mb-4 space-y-2">
             {order.items.map((item) => (
@@ -178,17 +179,17 @@ export function PaymentPanel({ code }: { code: string }) {
 
           <div className="space-y-2 border-t border-slate-100 pt-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-slate-500">Tạm tính</span>
+              <span className="text-slate-500">{t("shop.subtotal")}</span>
               <span>{formatVND(order.subtotal)}</span>
             </div>
             {order.discount_amount > 0 && (
               <div className="flex justify-between text-green-600">
-                <span>Giảm giá</span>
+                <span>{t("shop.discount")}</span>
                 <span>- {formatVND(order.discount_amount)}</span>
               </div>
             )}
             <div className="flex justify-between pt-2 text-lg font-black">
-              <span>Tổng</span>
+              <span>{t("checkout.total")}</span>
               <span className="text-[var(--konnit-berry)]">{formatVND(order.total)}</span>
             </div>
           </div>
@@ -207,47 +208,46 @@ function BankTransferBlock({
   amount: number;
   settings: PaymentSettings | null;
 }) {
+  const t = useT();
   const hasConfig =
     settings && (settings.qrImagePath || settings.accountNumber || settings.accountName);
 
   return (
-    <div className="mt-6 rounded-xl bg-slate-50 p-5">
+    <div className=”mt-6 rounded-xl bg-slate-50 p-5”>
       {!hasConfig ? (
-        <p className="text-center text-sm text-[var(--konnit-muted)]">
-          BTC chưa cấu hình thông tin chuyển khoản. Vui lòng liên hệ ban tổ chức để được hướng dẫn,
-          hoặc bấm “Tôi đã chuyển khoản” sau khi đã thanh toán.
+        <p className=”text-center text-sm text-[var(--konnit-muted)]”>
+          {t(“payment.noConfig”)}
         </p>
       ) : (
-        <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
+        <div className=”flex flex-col items-center gap-4 sm:flex-row sm:items-start”>
           {settings?.qrImagePath && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={mediaUrl(settings.qrImagePath)}
-              alt="Mã QR chuyển khoản"
-              className="h-44 w-44 shrink-0 rounded-xl border border-slate-200 bg-white object-contain p-2"
+              alt=”Mã QR chuyển khoản”
+              className=”h-44 w-44 shrink-0 rounded-xl border border-slate-200 bg-white object-contain p-2”
             />
           )}
-          <div className="w-full space-y-2 text-sm">
+          <div className=”w-full space-y-2 text-sm”>
             {settings?.bankName && (
-              <Row label="Ngân hàng" value={settings.bankName} />
+              <Row label={t(“payment.bankName”)} value={settings.bankName} />
             )}
             {settings?.accountName && (
-              <Row label="Chủ tài khoản" value={settings.accountName} />
+              <Row label={t(“payment.accountHolder”)} value={settings.accountName} />
             )}
             {settings?.accountNumber && (
-              <Row label="Số tài khoản" value={settings.accountNumber} mono />
+              <Row label={t(“payment.accountNumber”)} value={settings.accountNumber} mono />
             )}
-            <Row label="Nội dung CK" value={code} mono highlight />
-            <Row label="Số tiền" value={formatVND(amount)} highlight />
+            <Row label={t(“payment.transferContent”)} value={code} mono highlight />
+            <Row label={t(“payment.amount”)} value={formatVND(amount)} highlight />
             {settings?.note && (
-              <p className="pt-1 text-xs text-[var(--konnit-muted)]">{settings.note}</p>
+              <p className=”pt-1 text-xs text-[var(--konnit-muted)]”>{settings.note}</p>
             )}
           </div>
         </div>
       )}
-      <p className="mt-4 text-center text-xs text-[var(--konnit-muted)]">
-        Sau khi chuyển khoản đúng nội dung, bấm nút bên dưới. Đơn sẽ ở trạng thái “chờ xác nhận” cho
-        tới khi BTC đối soát.
+      <p className=”mt-4 text-center text-xs text-[var(--konnit-muted)]”>
+        {t(“payment.transferNote”)}
       </p>
     </div>
   );

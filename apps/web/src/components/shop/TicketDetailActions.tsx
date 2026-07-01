@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart";
 import { formatVND } from "@/lib/shop/format";
-import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
+import { useLocalizedHref, useT } from "@/lib/i18n/LocaleProvider";
 import type { TicketType } from "@/lib/shop/types";
 import { useRequireUser } from "@/hooks/useRequireUser";
 
@@ -18,6 +18,7 @@ export function TicketDetailActions({
   ticket: TicketType;
   disabled?: boolean;
 }) {
+  const t = useT();
   const router = useRouter();
   const localize = useLocalizedHref();
   const { add, selectOnly } = useCartStore();
@@ -43,7 +44,7 @@ export function TicketDetailActions({
 
     setIsBusy(true);
     add(cartItem, qty);
-    toast.success(`Đã thêm ${qty} vé "${ticket.name}" vào giỏ`);
+    toast.success(t("shop.addedToast").replace("{n}", String(qty)).replace("{name}", ticket.name));
     setTimeout(() => setIsBusy(false), 350);
   }
 
@@ -61,8 +62,8 @@ export function TicketDetailActions({
     <div className="space-y-4">
       <div className="rounded-xl bg-slate-50 p-4">
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-sm font-bold text-slate-600">Số lượng</span>
-          <span className="text-xs text-slate-400">Còn {max} suất</span>
+          <span className="text-sm font-bold text-slate-600">{t("shop.quantity")}</span>
+          <span className="text-xs text-slate-400">{t("shop.spotsLeft").replace("{n}", String(max))}</span>
         </div>
 
         <div className="flex items-center justify-between gap-4">
@@ -91,7 +92,7 @@ export function TicketDetailActions({
           </div>
 
           <div className="text-right">
-            <p className="text-xs text-slate-400">Tạm tính</p>
+            <p className="text-xs text-slate-400">{t("shop.subtotal")}</p>
             <p className="text-lg font-black text-[var(--konnit-berry)]">
               {formatVND(ticket.current_price * qty)}
             </p>
@@ -108,7 +109,7 @@ export function TicketDetailActions({
           className="gap-2"
         >
           <ShoppingCart className="h-4 w-4" />
-          {soldOut ? "Hết suất" : "Thêm vào giỏ"}
+          {soldOut ? t("shop.soldOut") : t("shop.addToCart")}
         </Button>
 
         <Button
@@ -118,7 +119,7 @@ export function TicketDetailActions({
           className="gap-2 bg-[var(--konnit-berry)] hover:bg-[var(--konnit-berry)]/90"
         >
           <Zap className="h-4 w-4" />
-          Mua ngay
+          {t("shop.buyNow")}
         </Button>
       </div>
     </div>

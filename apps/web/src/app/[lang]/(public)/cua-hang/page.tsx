@@ -1,6 +1,7 @@
 import { TicketCard } from "@/components/shop/TicketCard";
 import { shopApi } from "@/lib/shop/api";
 import type { TicketType } from "@/lib/shop/types";
+import { getDictionary, tFrom } from "@/lib/i18n/dictionaries";
 
 export const metadata = { title: "Cửa hàng - Konnit" };
 
@@ -53,20 +54,21 @@ export default async function CuaHangPage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
+  const t = tFrom(await getDictionary(lang));
   const tickets = await shopApi.listTickets(lang);
   const sections = groupTicketsByEvent(tickets);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="mb-2 text-3xl font-black text-[var(--konnit-ink)]">Đăng ký tham gia</h1>
+      <h1 className="mb-2 text-3xl font-black text-[var(--konnit-ink)]">{t("shop.pageTitle")}</h1>
       <p className="mb-10 text-[var(--konnit-muted)]">
-        Chọn sự kiện và loại vé phù hợp để đăng ký tham gia.
+        {t("shop.pageDesc")}
       </p>
 
       <div className="space-y-12">
         {sections.length === 0 && (
           <p className="rounded-xl border border-slate-100 bg-white p-6 text-sm text-[var(--konnit-muted)] shadow-sm">
-            Chưa có vé published để bán.
+            {t("shop.noTickets")}
           </p>
         )}
 

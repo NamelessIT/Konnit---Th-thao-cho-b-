@@ -1,5 +1,8 @@
-import Link from "next/link";
+"use client";
+
 import type { SectionProps } from "@konnit/ui";
+import { LocaleLink } from "@/components/i18n/LocaleLink";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 interface Item {
   title?: string;
@@ -10,6 +13,7 @@ interface Item {
 }
 
 export function TicketPreviewStyle1({ contentJson, title }: SectionProps) {
+  const t = useT();
   const c = contentJson;
   const items = (c.items as Item[]) ?? [];
   return (
@@ -50,12 +54,12 @@ export function TicketPreviewStyle1({ contentJson, title }: SectionProps) {
                   </p>
                 )}
                 <div className="mt-5">
-                  <Link
+                  <LocaleLink
                     href={ticketHref}
                     className="inline-block rounded-xl bg-[var(--konnit-berry)] px-5 py-2.5 text-sm font-bold text-white transition hover:opacity-90"
                   >
-                    Mua vé
-                  </Link>
+                    {t("shop.buyTicket")}
+                  </LocaleLink>
                 </div>
               </div>
             );

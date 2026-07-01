@@ -115,7 +115,7 @@ export function PublicHeader() {
                 <Button
                   variant="ghost"
                   size="icon-lg"
-                  aria-label="Mở menu điều hướng"
+                  aria-label={t("nav.openMenu")}
                   className="text-[var(--konnit-ink)] lg:hidden"
                 />
               }
@@ -127,12 +127,12 @@ export function PublicHeader() {
                 <SheetTitle className="text-lg font-black text-[var(--konnit-ink)]">
                   Konnit
                 </SheetTitle>
-                <SheetDescription>Chọn trang bạn muốn xem</SheetDescription>
+                <SheetDescription>{t("nav.selectPage")}</SheetDescription>
               </SheetHeader>
 
               {/* Account — moved into sheet to save space on mobile. */}
               <div className="flex items-center justify-between gap-3 border-b border-[var(--konnit-pink-02)] px-5 py-4">
-                <span className="text-sm font-bold text-[var(--konnit-muted)]">Tài khoản</span>
+                <span className="text-sm font-bold text-[var(--konnit-muted)]">{t("auth.myAccount")}</span>
                 <UserMenu />
               </div>
 

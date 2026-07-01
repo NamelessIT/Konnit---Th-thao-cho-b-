@@ -1,4 +1,5 @@
 import { LocaleLink } from "@/components/i18n/LocaleLink";
+import { getDictionary, tFrom } from "@/lib/i18n/dictionaries";
 import { SectionRenderer } from "./SectionRenderer";
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
@@ -26,6 +27,7 @@ export async function CmsPageView({
   slug: string;
   locale?: string;
 }) {
+  const t = tFrom(await getDictionary(locale));
   let sections: SectionData[];
   const qs = locale ? `?locale=${locale}` : "";
   try {
@@ -36,9 +38,9 @@ export async function CmsPageView({
     if (!res.ok) {
       return (
         <div className="mx-auto max-w-5xl px-4 py-20 text-center">
-          <h1 className="text-2xl font-extrabold text-[var(--konnit-ink)]">Không tìm thấy trang</h1>
-          <LocaleLink href="/" className="mt-4 inline-block font-extrabold text-[var(--konnit-berry)] hover:underline">
-            ← Về trang chủ
+          <h1 className="text-2xl font-extrabold text-(--konnit-ink)">{t("common.notFound")}</h1>
+          <LocaleLink href="/" className="mt-4 inline-block font-extrabold text-(--konnit-berry) hover:underline">
+            ← {t("common.home")}
           </LocaleLink>
         </div>
       );
@@ -51,9 +53,9 @@ export async function CmsPageView({
     // ISR (revalidate 60s) sẽ tải lại nội dung khi API sẵn sàng.
     return (
       <div className="mx-auto max-w-5xl px-4 py-20 text-center">
-        <h1 className="text-2xl font-extrabold text-[var(--konnit-ink)]">Đang cập nhật nội dung…</h1>
-        <LocaleLink href="/" className="mt-4 inline-block font-extrabold text-[var(--konnit-berry)] hover:underline">
-          ← Về trang chủ
+        <h1 className="text-2xl font-extrabold text-(--konnit-ink)">{t("common.updating")}</h1>
+        <LocaleLink href="/" className="mt-4 inline-block font-extrabold text-(--konnit-berry) hover:underline">
+          ← {t("common.home")}
         </LocaleLink>
       </div>
     );

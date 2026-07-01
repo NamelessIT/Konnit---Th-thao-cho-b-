@@ -3,6 +3,7 @@
 import { Building2 } from "lucide-react";
 import type { PaymentMethod } from "@konnit/types";
 import { cn } from "@/lib/utils";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 export type { PaymentMethod } from "@konnit/types";
 
@@ -11,21 +12,23 @@ interface PaymentMethodPickerProps {
   onChange: (v: PaymentMethod) => void;
 }
 
-// Chỉ hỗ trợ chuyển khoản ngân hàng. Ví/thẻ online tạm ẩn.
-const OPTIONS: { value: PaymentMethod; label: string; icon: React.ReactNode; desc: string }[] = [
-  {
-    value: "bank",
-    label: "Chuyển khoản ngân hàng",
-    icon: <Building2 className="h-5 w-5" />,
-    desc: "Quét QR ngân hàng, BTC xác nhận thủ công",
-  },
-];
-
 export function PaymentMethodPicker({ value, onChange }: PaymentMethodPickerProps) {
+  const t = useT();
+
+  // Chỉ hỗ trợ chuyển khoản ngân hàng. Ví/thẻ online tạm ẩn.
+  const OPTIONS: { value: PaymentMethod; label: string; icon: React.ReactNode; desc: string }[] = [
+    {
+      value: "bank",
+      label: t("payment.bankTransfer"),
+      icon: <Building2 className="h-5 w-5" />,
+      desc: t("payment.bankTransferDesc"),
+    },
+  ];
+
   return (
     <div className="space-y-2">
       <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
-        Phương thức thanh toán
+        {t("payment.methodTitle")}
       </p>
       <div className="grid gap-2">
         {OPTIONS.map((opt) => (

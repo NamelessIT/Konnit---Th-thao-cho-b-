@@ -73,6 +73,7 @@ export async function fetchSourceRows(
   module: string,
 ): Promise<Array<Record<string, unknown> & { id: number }>> {
   const meta = TRANSLATABLE_MODULES[module];
+  if (meta.getSourceRows) return meta.getSourceRows();
   const cols = ['id', ...meta.fields].join(', ');
   const where = meta.where ? `WHERE ${meta.where}` : '';
   const { rows } = await query(`SELECT ${cols} FROM ${meta.table} ${where} ORDER BY id`);

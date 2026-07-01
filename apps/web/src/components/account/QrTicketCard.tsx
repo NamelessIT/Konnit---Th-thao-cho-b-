@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useSiteLogo } from "@/hooks/useSiteLogo";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 interface Props {
   token: string | null;
@@ -23,6 +24,7 @@ function probeImage(src: string): Promise<string | null> {
 }
 
 export function QrTicketCard({ token, attendeeName, ticketName, eventName, isUsed, checkedInAt }: Props) {
+  const t = useT();
   const ref = useRef<HTMLDivElement>(null);
   const siteLogoUrl = useSiteLogo();
 
@@ -79,13 +81,13 @@ export function QrTicketCard({ token, attendeeName, ticketName, eventName, isUse
         <div ref={ref} className="mx-auto mb-3 grid h-[200px] w-[200px] place-items-center" />
       ) : (
         <div className="mx-auto mb-3 grid h-[200px] w-[200px] place-items-center rounded-xl bg-slate-100 text-xs text-slate-400">
-          Chưa có vé QR
+          {t("qr.noTicket")}
         </div>
       )}
       {token && (
         <p
           className="mb-2 cursor-pointer select-all break-all font-mono text-[11px] text-[var(--konnit-muted)]"
-          title="Bấm để chọn, dùng nhập tay khi check-in"
+          title={t("qr.manualCheckin")}
         >
           {token}
         </p>
@@ -96,8 +98,8 @@ export function QrTicketCard({ token, attendeeName, ticketName, eventName, isUse
       </p>
       <p className={`mt-2 text-xs font-bold ${isUsed ? "text-slate-500" : "text-green-600"}`}>
         {isUsed
-          ? `Đã sử dụng${checkedInAt ? " lúc " + new Date(checkedInAt).toLocaleString("vi") : ""}`
-          : "Chưa sử dụng"}
+          ? (checkedInAt ? t("qr.usedAt").replace("{time}", new Date(checkedInAt).toLocaleString("vi")) : t("qr.used"))
+          : t("qr.unused")}
       </p>
     </div>
   );

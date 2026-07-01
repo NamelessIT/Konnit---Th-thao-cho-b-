@@ -1,3 +1,5 @@
+import { UI_STRING_DEFAULTS, UI_SOURCE_ROWS } from './ui-defaults';
+
 /**
  * Registry các module có thể dịch: khoá module → bảng nguồn + các field dịch được.
  * Dùng cho export (lấy giá trị gốc) và validate import.
@@ -11,9 +13,20 @@ export interface TranslatableModule {
   where?: string;
   /** Nhãn hiển thị admin. */
   label: string;
+  /**
+   * Override cách lấy source rows. Dùng cho module không có bảng DB thực (vd: ui strings).
+   * Nếu có thì bỏ qua `table` và `where`.
+   */
+  getSourceRows?: () => Promise<Array<Record<string, unknown> & { id: number }>>;
 }
 
 export const TRANSLATABLE_MODULES: Record<string, TranslatableModule> = {
+  ui: {
+    table: '__ui__',
+    fields: Object.keys(UI_STRING_DEFAULTS),
+    label: 'Giao diện (UI)',
+    getSourceRows: async () => UI_SOURCE_ROWS,
+  },
   events: {
     table: 'events',
     fields: ['name', 'description', 'location'],

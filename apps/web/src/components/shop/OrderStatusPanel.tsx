@@ -8,8 +8,10 @@ import { QrTicketCard } from "@/components/account/QrTicketCard";
 import { shopApi } from "@/lib/shop/api";
 import { formatVND } from "@/lib/shop/format";
 import type { Order } from "@/lib/shop/types";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 export function OrderStatusPanel({ code }: { code: string }) {
+  const t = useT();
   const [order, setOrder] = useState<Order | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,7 +36,7 @@ export function OrderStatusPanel({ code }: { code: string }) {
     return (
       <main className="mx-auto flex max-w-xl flex-col items-center px-4 py-24 text-center">
         <Loader2 className="mb-4 h-8 w-8 animate-spin text-[var(--konnit-berry)]" />
-        <p className="text-sm text-[var(--konnit-muted)]">Đang tải trạng thái đơn...</p>
+        <p className="text-sm text-[var(--konnit-muted)]">{t("order.loading")}</p>
       </main>
     );
   }
@@ -44,22 +46,19 @@ export function OrderStatusPanel({ code }: { code: string }) {
       <main className="mx-auto max-w-xl px-4 py-24 text-center">
         <AlertCircle className="mx-auto mb-4 h-14 w-14 text-slate-300" />
         <h1 className="mb-2 text-2xl font-black text-[var(--konnit-ink)]">
-          Không tìm thấy đơn hàng
+          {t("order.notFound")}
         </h1>
         <p className="mb-6 text-sm text-[var(--konnit-muted)]">
-          Mã đơn không tồn tại hoặc dữ liệu mock đã bị làm mới.
+          {t("order.notFoundDesc")}
         </p>
-        {/* <Button asChild>
-          <LocaleLink href="/cua-hang">Quay lại cửa hàng</LocaleLink>
-        </Button> */}
         <LocaleLink href="/cua-hang">
-            <Button>Quay lại cửa hàng</Button>
+            <Button>{t("common.backToStore")}</Button>
         </LocaleLink>
       </main>
     );
   }
 
-  const view = getStatusView(order.status, order.payment_method);
+  const view = getStatusView(order.status, order.payment_method, t);
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-16">
@@ -76,7 +75,7 @@ export function OrderStatusPanel({ code }: { code: string }) {
 
         <div className="mx-auto mb-6 w-fit rounded-xl bg-[var(--konnit-pink-02)] px-6 py-3">
           <p className="text-xs font-bold uppercase tracking-wide text-[var(--konnit-muted)]">
-            Mã đơn
+            {t("order.code")}
           </p>
           <p className="text-2xl font-black tracking-widest text-[var(--konnit-berry)]">
             {order.order_code}
@@ -85,19 +84,19 @@ export function OrderStatusPanel({ code }: { code: string }) {
 
         <div className="mx-auto mb-6 max-w-md rounded-xl bg-slate-50 p-4 text-left">
           <div className="mb-3 flex justify-between text-sm">
-            <span className="text-slate-500">Người mua</span>
+            <span className="text-slate-500">{t("order.buyer")}</span>
             <span className="font-bold text-[var(--konnit-ink)]">{order.contact_name}</span>
           </div>
           <div className="mb-3 flex justify-between text-sm">
-            <span className="text-slate-500">Email</span>
+            <span className="text-slate-500">{t("order.email")}</span>
             <span className="font-bold text-[var(--konnit-ink)]">{order.contact_email}</span>
           </div>
           <div className="mb-3 flex justify-between text-sm">
-            <span className="text-slate-500">Số vé</span>
+            <span className="text-slate-500">{t("order.ticketCount")}</span>
             <span className="font-bold text-[var(--konnit-ink)]">{order.items.length}</span>
           </div>
           <div className="flex justify-between border-t border-slate-200 pt-3">
-            <span className="font-bold text-slate-700">Tổng thanh toán</span>
+            <span className="font-bold text-slate-700">{t("order.totalPaid")}</span>
             <span className="text-lg font-black text-[var(--konnit-berry)]">
               {formatVND(order.total)}
             </span>
@@ -106,7 +105,7 @@ export function OrderStatusPanel({ code }: { code: string }) {
 
         {order.status === "paid" && order.items.some((item) => item.qr_token) && (
           <div className="mx-auto mb-6 max-w-md text-left">
-            <p className="mb-3 text-sm font-bold text-(--konnit-muted)">Vé điện tử</p>
+            <p className="mb-3 text-sm font-bold text-(--konnit-muted)">{t("order.eTickets")}</p>
             <div className="space-y-3">
               {order.items.map((item) => (
                 <QrTicketCard
@@ -129,7 +128,7 @@ export function OrderStatusPanel({ code }: { code: string }) {
               href={`/don-hang/${order.order_code}/thanh-toan`}
               className="rounded-xl bg-[var(--konnit-berry)] px-5 py-2.5 text-sm font-bold text-white hover:opacity-90"
             >
-              Tiếp tục thanh toán
+              {t("order.continuePayment")}
             </LocaleLink>
           )}
 
@@ -137,14 +136,14 @@ export function OrderStatusPanel({ code }: { code: string }) {
             href="/cua-hang"
             className="rounded-xl border border-[var(--konnit-berry)] px-5 py-2.5 text-sm font-bold text-[var(--konnit-berry)] hover:bg-[var(--konnit-pink-02)]"
           >
-            Mua thêm vé
+            {t("order.buyMore")}
           </LocaleLink>
 
           <LocaleLink
             href="/"
             className="rounded-xl bg-slate-100 px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-200"
           >
-            Về trang chủ
+            {t("common.home")}
           </LocaleLink>
         </div>
       </section>
@@ -152,56 +151,50 @@ export function OrderStatusPanel({ code }: { code: string }) {
   );
 }
 
-function getStatusView(status: Order["status"], paymentMethod?: Order["payment_method"]) {
+function getStatusView(status: Order["status"], paymentMethod: Order["payment_method"] | undefined, t: (key: string) => string) {
   switch (status) {
     case "paid":
       return {
         Icon: CheckCircle2,
         iconClass: "text-green-500",
-        title: "Đặt vé thành công!",
-        description:
-          "Đơn hàng đã được thanh toán. Email xác nhận và vé QR của từng bé sẽ được gửi tới email người mua.",
+        title: t("order.paid.title"),
+        description: t("order.paid.desc"),
       };
     case "pending":
       if (paymentMethod === "bank") {
         return {
           Icon: Clock,
           iconClass: "text-orange-500",
-          title: "Đơn đang chờ BTC xác nhận chuyển khoản",
-          description:
-            "Bạn đã chọn thanh toán chuyển khoản. Sau khi BTC đối soát và xác nhận đã nhận tiền, vé QR của từng bé sẽ được phát hành. Bạn có thể xem lại thông tin chuyển khoản ở nút bên dưới.",
+          title: t("order.pendingTransfer.title"),
+          description: t("order.pendingTransfer.desc"),
         };
       }
       return {
         Icon: Clock,
         iconClass: "text-orange-500",
-        title: "Đơn đang chờ thanh toán",
-        description:
-          "Đơn đã được tạo nhưng chưa hoàn tất thanh toán. Vui lòng tiếp tục thanh toán để giữ vé.",
+        title: t("order.pending.title"),
+        description: t("order.pending.desc"),
       };
     case "failed":
       return {
         Icon: XCircle,
         iconClass: "text-red-500",
-        title: "Thanh toán thất bại",
-        description:
-          "Thanh toán chưa thành công. Bạn có thể thử lại hoặc đặt vé mới nếu đơn đã hết hạn.",
+        title: t("order.failed.title"),
+        description: t("order.failed.desc"),
       };
     case "expired":
       return {
         Icon: AlertCircle,
         iconClass: "text-slate-400",
-        title: "Đơn đã hết hạn",
-        description:
-          "Thời gian giữ vé đã hết. Vui lòng quay lại cửa hàng để tạo đơn mới.",
+        title: t("order.expired.title"),
+        description: t("order.expired.desc"),
       };
     default:
-      // refund_requested / refunding / refunded — UI chi tiết ở trang tài khoản
       return {
         Icon: Clock,
         iconClass: "text-slate-400",
-        title: "Đang xử lý đơn",
-        description: "Trạng thái đơn hàng đang được cập nhật.",
+        title: t("order.processing.title"),
+        description: t("order.processing.desc"),
       };
   }
 }

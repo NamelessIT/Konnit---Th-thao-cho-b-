@@ -50,6 +50,64 @@ export async function resolveLocale(raw: unknown): Promise<string> {
 }
 
 type Row = Record<string, unknown> & { id: number };
+type CmsJson = Record<string, unknown>;
+
+/** Kiểm tra một giá trị có phải là URL / path media không (không dịch). */
+function isMediaUrl(s: unknown): boolean {
+  if (typeof s !== 'string' || s === '') return false;
+  return (
+    s.startsWith('http://') ||
+    s.startsWith('https://') ||
+    s.startsWith('/uploads/') ||
+    s.startsWith('mailto:') ||
+    s.startsWith('tel:')
+  );
+}
+
+/**
+ * Deep-merge `patch` vào `base` (immutable).
+ * - Object → merge đệ quy; key chỉ có ở base được giữ lại
+ * - Array toàn string URL (photos, …) → luôn giữ base (media không dịch)
+ * - Array object cùng độ dài → merge từng phần tử
+ * - Array chiều dài khác → patch thắng
+ * - Primitive URL (image, …) ở base → giữ base nếu patch không phải URL
+ * - Primitive text → patch thắng
+ */
+function deepMerge(base: unknown, patch: unknown): unknown {
+  if (patch === null || patch === undefined) return base;
+  if (base === null || base === undefined) return patch;
+
+  if (Array.isArray(base) && Array.isArray(patch)) {
+    // Mảng toàn string chứa URL → media reference, không dịch
+    if (
+      base.length > 0 &&
+      base.every((item) => typeof item === 'string') &&
+      base.some(isMediaUrl)
+    ) {
+      return base;
+    }
+    if (base.length === patch.length) {
+      return base.map((item, i) => deepMerge(item, patch[i]));
+    }
+    return patch;
+  }
+
+  if (
+    typeof base === 'object' && !Array.isArray(base) &&
+    typeof patch === 'object' && !Array.isArray(patch)
+  ) {
+    const result = { ...(base as CmsJson) };
+    for (const [k, v] of Object.entries(patch as CmsJson)) {
+      result[k] = deepMerge((base as CmsJson)[k], v);
+    }
+    return result;
+  }
+
+  // Primitive URL ở base (vd: image, qrImage) → không dịch
+  if (isMediaUrl(base) && !isMediaUrl(patch)) return base;
+
+  return patch;
+}
 
 /**
  * Overlay bản dịch lên một mảng rows.
@@ -94,7 +152,10 @@ export async function applyTranslations<T extends Row>(
       if (val == null || val === '') continue;
       if (field === 'content_json') {
         try {
-          next[field] = JSON.parse(val);
+          const translated = JSON.parse(val);
+          // Deep-merge: original làm base, translation phủ các text field.
+          // Các field không được dịch (image URL, tint color, …) giữ từ original.
+          next[field] = deepMerge(next[field] as CmsJson, translated);
         } catch {
           // giữ nguyên gốc nếu bản dịch không parse được
         }

@@ -9,6 +9,7 @@ import { seedAdmin } from './seeds/admin.seed';
 import { seedAccessControl } from './seeds/access.seed';
 import { seedCms } from './seeds/cms.seed';
 import { seedCommerce } from './seeds/commerce.seed';
+import { seedTranslations } from './seeds/translations.seed';
 
 export async function seed() {
   const client = await pool.connect();
@@ -19,6 +20,8 @@ export async function seed() {
     logger.info('Roles and permissions seeded.');
     await seedCms(client, adminId);
     await seedCommerce(client);
+    await seedTranslations(client);
+    logger.info('Translations seeded.');
     await client.query('COMMIT');
   } catch (err) {
     await client.query('ROLLBACK');

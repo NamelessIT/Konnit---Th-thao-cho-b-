@@ -1,0 +1,2298 @@
+[
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.home",
+    "locale": "en",
+    "source_value": "Trang chủ",
+    "value": "Home"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.about",
+    "locale": "en",
+    "source_value": "Về chúng tôi",
+    "value": "About Us"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.business",
+    "locale": "en",
+    "source_value": "Lĩnh vực",
+    "value": "Business"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.community",
+    "locale": "en",
+    "source_value": "Cộng đồng",
+    "value": "Community"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.store",
+    "locale": "en",
+    "source_value": "Konnit Store",
+    "value": "Konnit Store"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.news",
+    "locale": "en",
+    "source_value": "Tin tức",
+    "value": "News"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.tickets",
+    "locale": "en",
+    "source_value": "Vé sự kiện",
+    "value": "Event Tickets"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.join",
+    "locale": "en",
+    "source_value": "Tham gia ngay",
+    "value": "Join Now"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.openMenu",
+    "locale": "en",
+    "source_value": "Mở menu điều hướng",
+    "value": "Open the navigation menu"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "nav.selectPage",
+    "locale": "en",
+    "source_value": "Chọn trang bạn muốn xem",
+    "value": "Select the page you want to view"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "footer.tagline",
+    "locale": "en",
+    "source_value": "Nền tảng thể thao và hoạt động dành cho trẻ em Việt Nam",
+    "value": "Sports and activity platform for Vietnamese children"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.loading",
+    "locale": "en",
+    "source_value": "Đang tải...",
+    "value": "Loading..."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.back",
+    "locale": "en",
+    "source_value": "Quay lại",
+    "value": "Back"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.notFound",
+    "locale": "en",
+    "source_value": "Không tìm thấy trang",
+    "value": "Page Not Found"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.backToCategory",
+    "locale": "en",
+    "source_value": "Quay lại danh mục",
+    "value": "Back to Category"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.backToStore",
+    "locale": "en",
+    "source_value": "Quay lại cửa hàng",
+    "value": "Back to Category"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.backToOrders",
+    "locale": "en",
+    "source_value": "Lịch sử đơn",
+    "value": "Order History"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.confirm",
+    "locale": "en",
+    "source_value": "Xác nhận",
+    "value": "Confirm"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.cancel",
+    "locale": "en",
+    "source_value": "Hủy",
+    "value": "Cancel"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.processing",
+    "locale": "en",
+    "source_value": "Đang xử lý…",
+    "value": "Processing…"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.close",
+    "locale": "en",
+    "source_value": "Đóng",
+    "value": "Close"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.remove",
+    "locale": "en",
+    "source_value": "Xoá",
+    "value": "Remove"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.apply",
+    "locale": "en",
+    "source_value": "Áp dụng",
+    "value": "Apply"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.sending",
+    "locale": "en",
+    "source_value": "Đang gửi…",
+    "value": "Sending…"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.send",
+    "locale": "en",
+    "source_value": "Gửi yêu cầu",
+    "value": "Send Request"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.home",
+    "locale": "en",
+    "source_value": "Về trang chủ",
+    "value": "Home"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "common.updating",
+    "locale": "en",
+    "source_value": "Đang cập nhật nội dung…",
+    "value": "Content update"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.login",
+    "locale": "en",
+    "source_value": "Đăng nhập",
+    "value": "Login"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.loginTitle",
+    "locale": "en",
+    "source_value": "Đăng nhập Konnit",
+    "value": "Login to Konnit"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.loginSubtitle",
+    "locale": "en",
+    "source_value": "Đăng nhập bằng Google để xem lịch sử đơn và vé điện tử của bạn.",
+    "value": "Login with Google to view your order history and e-tickets."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.signupTitle",
+    "locale": "en",
+    "source_value": "Tạo tài khoản Konnit",
+    "value": "Create a Konnit Account"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.signupSubtitle",
+    "locale": "en",
+    "source_value": "Lần đầu đăng nhập Google sẽ tự tạo tài khoản cho bạn — không cần mật khẩu.",
+    "value": "The first time you log in with Google, an account will be automatically created for you — no password required."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.tagline",
+    "locale": "en",
+    "source_value": "Mọi trải nghiệm của bạn, gọn trong một tài khoản.",
+    "value": "All your experiences, in one account."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.manageTickets",
+    "locale": "en",
+    "source_value": "Quản lý vé",
+    "value": "Manage Tickets"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.secureWithGoogle",
+    "locale": "en",
+    "source_value": "Bảo mật với Google",
+    "value": "Secure with Google"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.communityLabel",
+    "locale": "en",
+    "source_value": "Konnit community",
+    "value": "Konnit Community"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.accountLabel",
+    "locale": "en",
+    "source_value": "Tài khoản Konnit",
+    "value": "Konnit Account"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.terms",
+    "locale": "en",
+    "source_value": "Bằng việc tiếp tục, bạn đồng ý với Điều khoản và Chính sách bảo mật của Konnit.",
+    "value": "By continuing, you agree to Konnit's Terms and Privacy Policy."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.loginFailed",
+    "locale": "en",
+    "source_value": "Đăng nhập thất bại",
+    "value": "Login Failed"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.verifying",
+    "locale": "en",
+    "source_value": "Đang xác minh…",
+    "value": "Verifying…"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.continueWithGoogle",
+    "locale": "en",
+    "source_value": "Tiếp tục bằng Google",
+    "value": "Continue with Google"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.gateTitle",
+    "locale": "en",
+    "source_value": "Đăng nhập để tiếp tục",
+    "value": "Login to continue"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.requireLoginMessage",
+    "locale": "en",
+    "source_value": "Vui lòng đăng nhập để mua vé và sử dụng giỏ hàng.",
+    "value": "Please log in to purchase tickets and use your shopping cart."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.later",
+    "locale": "en",
+    "source_value": "Để sau",
+    "value": "Later"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.checkingSession",
+    "locale": "en",
+    "source_value": "Đang kiểm tra phiên đăng nhập...",
+    "value": "Checking session..."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.myAccount",
+    "locale": "en",
+    "source_value": "Tài khoản",
+    "value": "My Account"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.orderHistory",
+    "locale": "en",
+    "source_value": "Lịch sử đơn",
+    "value": "Order History"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.logout",
+    "locale": "en",
+    "source_value": "Đăng xuất",
+    "value": "Logout"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.defaultUser",
+    "locale": "en",
+    "source_value": "Người dùng Konnit",
+    "value": "Konnit User"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "auth.missingClientId",
+    "locale": "en",
+    "source_value": "Thiếu NEXT_PUBLIC_GOOGLE_CLIENT_ID",
+    "value": "Missing client_id"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.added",
+    "locale": "en",
+    "source_value": "Đã thêm!",
+    "value": "Added!"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.add",
+    "locale": "en",
+    "source_value": "Thêm",
+    "value": "Add"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.addToCart",
+    "locale": "en",
+    "source_value": "Thêm vào giỏ",
+    "value": "Add to Cart"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.buyNow",
+    "locale": "en",
+    "source_value": "Mua ngay",
+    "value": "Buy Now"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.soldOut",
+    "locale": "en",
+    "source_value": "Hết suất",
+    "value": "Sold Out"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.cart",
+    "locale": "en",
+    "source_value": "Giỏ hàng",
+    "value": "Cart"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.cartEmpty",
+    "locale": "en",
+    "source_value": "Giỏ hàng đang trống",
+    "value": "Your cart is empty"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.shopNow",
+    "locale": "en",
+    "source_value": "Chọn vé ngay",
+    "value": "Shop Now"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.selectAll",
+    "locale": "en",
+    "source_value": "Chọn tất cả",
+    "value": "Select All"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.subtotal",
+    "locale": "en",
+    "source_value": "Tạm tính",
+    "value": "Subtotal"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.discount",
+    "locale": "en",
+    "source_value": "Giảm giá",
+    "value": "Discount"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.total",
+    "locale": "en",
+    "source_value": "Tổng cộng",
+    "value": "Total"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.voucherCode",
+    "locale": "en",
+    "source_value": "Mã giảm giá",
+    "value": "Voucher Code"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.voucherPlaceholder",
+    "locale": "en",
+    "source_value": "Nhập mã nếu có",
+    "value": "Enter code if any"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.orderSummary",
+    "locale": "en",
+    "source_value": "Tóm tắt đơn",
+    "value": "Order Summary"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.quantity",
+    "locale": "en",
+    "source_value": "Số lượng",
+    "value": "Quantity"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.available",
+    "locale": "en",
+    "source_value": "Còn {n} suất",
+    "value": "Spots Left: {n}"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.addedToast",
+    "locale": "en",
+    "source_value": "Đã thêm {n} vé \"{name}\" vào giỏ",
+    "value": "Added {n} \"{name}\" tickets to your cart"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.checkout",
+    "locale": "en",
+    "source_value": "Tiến hành thanh toán →",
+    "value": "Checkout"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.continueShopping",
+    "locale": "en",
+    "source_value": "← Tiếp tục mua vé",
+    "value": "Continue shopping"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.buyerInfo",
+    "locale": "en",
+    "source_value": "Thông tin của bạn",
+    "value": "Your information"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.selected",
+    "locale": "en",
+    "source_value": "Đã chọn",
+    "value": "Selected"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.perTicket",
+    "locale": "en",
+    "source_value": "/ vé",
+    "value": "Tickets"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.pageTitle",
+    "locale": "en",
+    "source_value": "Đăng ký tham gia",
+    "value": "Register to Participate"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.pageDesc",
+    "locale": "en",
+    "source_value": "Chọn sự kiện và loại vé phù hợp để đăng ký tham gia.",
+    "value": "Choose the event and ticket type that suits you to register."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.noTickets",
+    "locale": "en",
+    "source_value": "Chưa có vé published để bán.",
+    "value": "No tickets available for sale."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.ageGroup",
+    "locale": "en",
+    "source_value": "Độ tuổi:",
+    "value": "Age Group:"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.spotsLeft",
+    "locale": "en",
+    "source_value": "Còn {n} suất",
+    "value": "Spots Left: {n}"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.bibIncluded",
+    "locale": "en",
+    "source_value": "BIB số thi đấu",
+    "value": "BIB Included"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.medalIncluded",
+    "locale": "en",
+    "source_value": "Huy chương hoàn thành",
+    "value": "Medal Included"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.shirtIncluded",
+    "locale": "en",
+    "source_value": "Áo thi đấu Konnit",
+    "value": "Shirt Included"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.pricePerTicket",
+    "locale": "en",
+    "source_value": "Giá mỗi vé",
+    "value": "Price per ticket"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.buyTicket",
+    "locale": "en",
+    "source_value": "Mua vé",
+    "value": "Purchase tickets"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.ticketType",
+    "locale": "en",
+    "source_value": "Loại vé",
+    "value": "Type of Ticket"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.description",
+    "locale": "en",
+    "source_value": "Mô tả",
+    "value": "Description"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "shop.price",
+    "locale": "en",
+    "source_value": "Giá",
+    "value": "Price"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.title",
+    "locale": "en",
+    "source_value": "Thanh toán",
+    "value": "Checkout"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.noItems",
+    "locale": "en",
+    "source_value": "Bạn chưa chọn vé nào để thanh toán.",
+    "value": "You haven't selected any tickets to checkout."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.backToCart",
+    "locale": "en",
+    "source_value": "Quay lại giỏ hàng",
+    "value": "Back to Cart"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentInfo",
+    "locale": "en",
+    "source_value": "Thông tin phụ huynh",
+    "value": "Parent Information"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentNameRequired",
+    "locale": "en",
+    "source_value": "Vui lòng nhập họ tên",
+    "value": "Please enter your full name"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.summaryTitle",
+    "locale": "en",
+    "source_value": "Đơn hàng",
+    "value": "Order"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.discountLabel",
+    "locale": "en",
+    "source_value": "Giảm giá ({code})",
+    "value": "Discount"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.total",
+    "locale": "en",
+    "source_value": "Tổng",
+    "value": "Total"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentName",
+    "locale": "en",
+    "source_value": "Họ và tên *",
+    "value": "Parent Name *"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentNamePlaceholder",
+    "locale": "en",
+    "source_value": "Nguyễn Văn A",
+    "value": "Nguyen Van A"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentPhone",
+    "locale": "en",
+    "source_value": "Số điện thoại *",
+    "value": "Parent Phone *"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentPhoneRequired",
+    "locale": "en",
+    "source_value": "Vui lòng nhập SĐT",
+    "value": "Please enter phone number"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentPhoneInvalid",
+    "locale": "en",
+    "source_value": "SĐT không hợp lệ",
+    "value": "Invalid phone number"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentEmail",
+    "locale": "en",
+    "source_value": "Email *",
+    "value": "Email *"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentEmailRequired",
+    "locale": "en",
+    "source_value": "Vui lòng nhập email",
+    "value": "Please enter email"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentEmailInvalid",
+    "locale": "en",
+    "source_value": "Email không hợp lệ",
+    "value": "Invalid email"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentAddress",
+    "locale": "en",
+    "source_value": "Địa chỉ",
+    "value": "Address"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.parentAddressPlaceholder",
+    "locale": "en",
+    "source_value": "Số nhà, đường, phường, quận",
+    "value": "House number, street, ward, district"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.addChild",
+    "locale": "en",
+    "source_value": "Thêm bé",
+    "value": "Add Child"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.removeChild",
+    "locale": "en",
+    "source_value": "Bỏ bé này",
+    "value": "Remove Child"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childLabel",
+    "locale": "en",
+    "source_value": "Bé {n}",
+    "value": "Child {n}"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childName",
+    "locale": "en",
+    "source_value": "Họ và tên bé *",
+    "value": "Child Name *"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childNamePlaceholder",
+    "locale": "en",
+    "source_value": "Nguyễn Thị B",
+    "value": "Nguyen Thi B"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childNameRequired",
+    "locale": "en",
+    "source_value": "Vui lòng nhập tên bé",
+    "value": "Please enter child name"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childDob",
+    "locale": "en",
+    "source_value": "Ngày sinh *",
+    "value": "Date of Birth *"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childDobRequired",
+    "locale": "en",
+    "source_value": "Vui lòng nhập ngày sinh",
+    "value": "Please enter date of birth"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.childGender",
+    "locale": "en",
+    "source_value": "Giới tính",
+    "value": "Gender"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.genderSelect",
+    "locale": "en",
+    "source_value": "-- Chọn --",
+    "value": "-- Select --"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.shirtSize",
+    "locale": "en",
+    "source_value": "Size áo",
+    "value": "Shirt Size"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.shirtSizeSelect",
+    "locale": "en",
+    "source_value": "-- Chọn size --",
+    "value": "-- Select Size --"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.medalName",
+    "locale": "en",
+    "source_value": "Tên in huy chương",
+    "value": "Medal Name"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.medalNamePlaceholder",
+    "locale": "en",
+    "source_value": "Để trống = dùng tên bé",
+    "value": "Leave blank = use child name"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.healthNotes",
+    "locale": "en",
+    "source_value": "Ghi chú sức khỏe",
+    "value": "Health Notes"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.healthNotesPlaceholder",
+    "locale": "en",
+    "source_value": "Dị ứng, bệnh lý… (nếu có)",
+    "value": "Allergies, medical conditions… (if any)"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.commitment",
+    "locale": "en",
+    "source_value": "Cam kết miễn trừ trách nhiệm",
+    "value": "Disclaimer Commitment"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.commitmentText",
+    "locale": "en",
+    "source_value": "Phụ huynh/người giám hộ xác nhận bé đủ sức khỏe tham gia. Ban tổ chức không chịu trách nhiệm về các rủi ro ngoài tầm kiểm soát và có quyền dùng hình ảnh sự kiện cho mục đích phi thương mại.",
+    "value": "Parents/guardians confirm that the child is healthy enough to participate. The organizers are not responsible for risks beyond their control and have the right to use event images for non-commercial purposes."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.agreeLabel",
+    "locale": "en",
+    "source_value": "Tôi đã đọc, hiểu và đồng ý với cam kết trên.",
+    "value": "I have read, understood, and agree to the above commitment."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.agreeRequired",
+    "locale": "en",
+    "source_value": "Vui lòng đồng ý cam kết để tiếp tục.",
+    "value": "Please agree to the commitment to continue."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.voucherApplied",
+    "locale": "en",
+    "source_value": "Áp dụng mã \"{code}\" thành công! Giảm {amount}",
+    "value": "Apply voucher \"{code}\" successfully! Discount {amount}"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.voucherInvalid",
+    "locale": "en",
+    "source_value": "Mã không hợp lệ hoặc đã hết hạn.",
+    "value": "Invalid or expired voucher code."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.voucherExpired",
+    "locale": "en",
+    "source_value": "Mã không còn hợp lệ cho đơn hàng hiện tại.",
+    "value": "Voucher code is no longer valid for the current order."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.voucherCheckFailed",
+    "locale": "en",
+    "source_value": "Không thể kiểm tra mã giảm giá. Vui lòng thử lại.",
+    "value": "Unable to check voucher code. Please try again."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.createFailed",
+    "locale": "en",
+    "source_value": "Không thể tạo đơn hàng. Vui lòng thử lại.",
+    "value": "Unable to create order. Please try again."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.confirmBtn",
+    "locale": "en",
+    "source_value": "Xác nhận đặt vé →",
+    "value": "Confirm Order →"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "checkout.payLater",
+    "locale": "en",
+    "source_value": "Thanh toán ở bước tiếp theo",
+    "value": "Pay Later"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.title",
+    "locale": "en",
+    "source_value": "Thanh toán đơn hàng",
+    "value": "Order Payment"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.methodTitle",
+    "locale": "en",
+    "source_value": "Phương thức thanh toán",
+    "value": "Payment method"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.orderCode",
+    "locale": "en",
+    "source_value": "Mã đơn:",
+    "value": "Order Code:"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.bankTransfer",
+    "locale": "en",
+    "source_value": "Chuyển khoản ngân hàng",
+    "value": "Bank Transfer"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.bankTransferDesc",
+    "locale": "en",
+    "source_value": "Quét QR ngân hàng, BTC xác nhận thủ công.",
+    "value": "Scan the bank QR code, BTC confirms manually."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.transferred",
+    "locale": "en",
+    "source_value": "Tôi đã chuyển khoản",
+    "value": "I have transferred"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.bankName",
+    "locale": "en",
+    "source_value": "Ngân hàng",
+    "value": "Bank Name"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.accountHolder",
+    "locale": "en",
+    "source_value": "Chủ tài khoản",
+    "value": "Account Holder"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.accountNumber",
+    "locale": "en",
+    "source_value": "Số tài khoản",
+    "value": "Account Number"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.transferContent",
+    "locale": "en",
+    "source_value": "Nội dung CK",
+    "value": "Transfer Content"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.amount",
+    "locale": "en",
+    "source_value": "Số tiền",
+    "value": "Amount"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.transferNote",
+    "locale": "en",
+    "source_value": "Sau khi chuyển khoản đúng nội dung, bấm nút bên dưới. Đơn sẽ ở trạng thái \"chờ xác nhận\" cho tới khi BTC đối soát.",
+    "value": "After transferring with the correct content, click the button below. The order will be in \"pending confirmation\" status until BTC reconciles."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.noConfig",
+    "locale": "en",
+    "source_value": "BTC chưa cấu hình thông tin chuyển khoản. Vui lòng liên hệ ban tổ chức để được hướng dẫn, hoặc bấm \"Tôi đã chuyển khoản\" sau khi đã thanh toán.",
+    "value": "The organizer has not configured the bank transfer information. Please contact the organizer for guidance, or click \"I have transferred\" after making the payment."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.success",
+    "locale": "en",
+    "source_value": "Thanh toán thành công.",
+    "value": "Payment Successful."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.pendingConfirmation",
+    "locale": "en",
+    "source_value": "Đã ghi nhận. Đơn đang chờ BTC xác nhận chuyển khoản.",
+    "value": "Pending Confirmation"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.failed",
+    "locale": "en",
+    "source_value": "Thanh toán chưa hoàn tất. Vui lòng thử lại.",
+    "value": "Payment Failed. Please try again."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.error",
+    "locale": "en",
+    "source_value": "Không thể xử lý thanh toán. Vui lòng thử lại.",
+    "value": "Unable to process payment. Please try again."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.notFound",
+    "locale": "en",
+    "source_value": "Không tìm thấy đơn hàng",
+    "value": "Order Not Found"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "payment.notFoundDesc",
+    "locale": "en",
+    "source_value": "Mã đơn không tồn tại hoặc phiên mock đã bị làm mới.",
+    "value": "The order code does not exist or the mock session has been refreshed."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.loading",
+    "locale": "en",
+    "source_value": "Đang tải trạng thái đơn...",
+    "value": "Loading order status..."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.notFound",
+    "locale": "en",
+    "source_value": "Không tìm thấy đơn hàng",
+    "value": "Order Not Found"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.notFoundDesc",
+    "locale": "en",
+    "source_value": "Mã đơn không tồn tại hoặc dữ liệu mock đã bị làm mới.",
+    "value": "The order code does not exist or the mock data has been refreshed."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.code",
+    "locale": "en",
+    "source_value": "Mã đơn",
+    "value": "Order Code"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.buyer",
+    "locale": "en",
+    "source_value": "Người mua",
+    "value": "Buyer"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.email",
+    "locale": "en",
+    "source_value": "Email",
+    "value": "Email"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.ticketCount",
+    "locale": "en",
+    "source_value": "Số vé",
+    "value": "Ticket Count"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.totalPaid",
+    "locale": "en",
+    "source_value": "Tổng thanh toán",
+    "value": "Total Paid"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.eTickets",
+    "locale": "en",
+    "source_value": "Vé điện tử",
+    "value": "E-Tickets"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.continuePayment",
+    "locale": "en",
+    "source_value": "Tiếp tục thanh toán",
+    "value": "Continue Payment"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.buyMore",
+    "locale": "en",
+    "source_value": "Mua thêm vé",
+    "value": "Buy More Tickets"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.paid.title",
+    "locale": "en",
+    "source_value": "Đặt vé thành công!",
+    "value": "Order Successfully Placed!"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.paid.desc",
+    "locale": "en",
+    "source_value": "Đơn hàng đã được thanh toán. Email xác nhận và vé QR của từng bé sẽ được gửi tới email người mua.",
+    "value": "The order has been paid. A confirmation email and QR tickets for each child will be sent to the buyer's email."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.pendingTransfer.title",
+    "locale": "en",
+    "source_value": "Đơn đang chờ BTC xác nhận chuyển khoản",
+    "value": "Order Pending Transfer Confirmation"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.pendingTransfer.desc",
+    "locale": "en",
+    "source_value": "Bạn đã chọn thanh toán chuyển khoản. Sau khi BTC đối soát và xác nhận đã nhận tiền, vé QR của từng bé sẽ được phát hành. Bạn có thể xem lại thông tin chuyển khoản ở nút bên dưới.",
+    "value": "You have chosen bank transfer payment. After the organizer reconciles and confirms receipt of the payment, QR tickets for each child will be issued. You can review the bank transfer information using the button below."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.pending.title",
+    "locale": "en",
+    "source_value": "Đơn đang chờ thanh toán",
+    "value": "Order Pending Payment"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.pending.desc",
+    "locale": "en",
+    "source_value": "Đơn đã được tạo nhưng chưa hoàn tất thanh toán. Vui lòng tiếp tục thanh toán để giữ vé.",
+    "value": "The order has been created but payment is not yet complete. Please continue to payment to secure your tickets."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.failed.title",
+    "locale": "en",
+    "source_value": "Thanh toán thất bại",
+    "value": "Payment Failed"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.failed.desc",
+    "locale": "en",
+    "source_value": "Thanh toán chưa thành công. Bạn có thể thử lại hoặc đặt vé mới nếu đơn đã hết hạn.",
+    "value": "Payment was not successful. You can try again or place a new order if the previous one has expired."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.expired.title",
+    "locale": "en",
+    "source_value": "Đơn đã hết hạn",
+    "value": "Order Expired"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.expired.desc",
+    "locale": "en",
+    "source_value": "Thời gian giữ vé đã hết. Vui lòng quay lại cửa hàng để tạo đơn mới.",
+    "value": "The ticket hold time has expired. Please return to the store to create a new order."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.processing.title",
+    "locale": "en",
+    "source_value": "Đang xử lý đơn",
+    "value": "Order Processing"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "order.processing.desc",
+    "locale": "en",
+    "source_value": "Trạng thái đơn hàng đang được cập nhật.",
+    "value": "The order status is being updated."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.orderHistory",
+    "locale": "en",
+    "source_value": "Lịch sử đơn hàng",
+    "value": "Order History"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.noOrders",
+    "locale": "en",
+    "source_value": "Bạn chưa có đơn hàng nào.",
+    "value": "You have no orders."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.buyNow",
+    "locale": "en",
+    "source_value": "Mua vé ngay",
+    "value": "Buy Tickets Now"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.prev",
+    "locale": "en",
+    "source_value": "Trước",
+    "value": "Previous"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.next",
+    "locale": "en",
+    "source_value": "Sau",
+    "value": "Next"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.loadError",
+    "locale": "en",
+    "source_value": "Lỗi tải đơn",
+    "value": "Failed to load orders"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.orderNotFound",
+    "locale": "en",
+    "source_value": "Không tìm thấy đơn hàng",
+    "value": "Order not found"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundRequest",
+    "locale": "en",
+    "source_value": "Yêu cầu huỷ vé",
+    "value": "Refund Request"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundPending",
+    "locale": "en",
+    "source_value": "Yêu cầu hoàn tiền của bạn đang chờ admin xác nhận. Vé tạm ngưng sử dụng trong thời gian này.",
+    "value": "Your refund request is pending admin approval. The ticket is temporarily suspended during this period."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundApproved",
+    "locale": "en",
+    "source_value": "Admin đã duyệt hoàn tiền. Vé và voucher (nếu có) đã được thu hồi; tiền sẽ được hoàn theo liên hệ của admin.",
+    "value": "The refund has been approved by the admin. The ticket and voucher (if any) have been revoked; the money will be refunded according to the admin's instructions."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundDone",
+    "locale": "en",
+    "source_value": "Đơn đã được hoàn tiền và đóng lại. Cảm ơn bạn.",
+    "value": "The order has been refunded and closed. Thank you."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.noQr",
+    "locale": "en",
+    "source_value": "Đơn chưa thanh toán xong nên chưa có vé QR.",
+    "value": "The order has not been paid yet, so there is no QR ticket."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.payNow",
+    "locale": "en",
+    "source_value": "Thanh toán ngay",
+    "value": "Pay Now"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.cancelPrompt",
+    "locale": "en",
+    "source_value": "Cần huỷ vé? Gửi yêu cầu hoàn tiền — admin sẽ liên hệ và xác nhận.",
+    "value": "Need to cancel your ticket? Submit a refund request — the admin will contact and confirm."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundDialogTitle",
+    "locale": "en",
+    "source_value": "Yêu cầu huỷ vé / hoàn tiền",
+    "value": "Refund Request / Cancellation"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundDialogDesc",
+    "locale": "en",
+    "source_value": "Đây là yêu cầu hoàn tiền — hệ thống KHÔNG tự chuyển tiền. Sau khi gửi, mã QR tạm thời không dùng được; admin sẽ liên hệ và có thể duyệt hoặc từ chối.",
+    "value": "This is a refund request — the system does NOT automatically transfer money. After submission, the QR code will be temporarily unavailable; the admin will contact you and may approve or reject the request."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundReason",
+    "locale": "en",
+    "source_value": "Lý do (tuỳ chọn)",
+    "value": "Reason (optional)"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundReasonPlaceholder",
+    "locale": "en",
+    "source_value": "Lý do muốn huỷ vé…",
+    "value": "Reason for cancellation..."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundSuccess",
+    "locale": "en",
+    "source_value": "Đã gửi yêu cầu. Vé tạm ngưng sử dụng trong khi chờ admin xác nhận.",
+    "value": "The refund request has been submitted. The ticket is temporarily unavailable while waiting for admin confirmation."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.refundFailed",
+    "locale": "en",
+    "source_value": "Gửi yêu cầu thất bại",
+    "value": "Failed to submit the refund request"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "account.orderFallback",
+    "locale": "en",
+    "source_value": "Đơn hàng",
+    "value": "Order"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.notFound",
+    "locale": "en",
+    "source_value": "Biên nhận không tồn tại",
+    "value": "Receipt does not exist"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.loading",
+    "locale": "en",
+    "source_value": "Đang tải biên nhận…",
+    "value": "Loading receipt..."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.invalid",
+    "locale": "en",
+    "source_value": "Đơn hàng chưa được thanh toán hoặc mã không hợp lệ.",
+    "value": "The order has not been paid or the code is invalid."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.viewOrder",
+    "locale": "en",
+    "source_value": "Xem đơn hàng",
+    "value": "View Order"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.print",
+    "locale": "en",
+    "source_value": "In biên nhận",
+    "value": "Print Receipt"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.tagline",
+    "locale": "en",
+    "source_value": "Thể thao cho bé",
+    "value": "Sports for Kids"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.title",
+    "locale": "en",
+    "source_value": "Biên nhận thanh toán",
+    "value": "Payment Receipt"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.buyerInfo",
+    "locale": "en",
+    "source_value": "Thông tin người đặt",
+    "value": "Buyer Information"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.fullName",
+    "locale": "en",
+    "source_value": "Họ và tên",
+    "value": "Full Name"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.phone",
+    "locale": "en",
+    "source_value": "Số điện thoại",
+    "value": "Phone Number"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.voucher",
+    "locale": "en",
+    "source_value": "Mã voucher",
+    "value": "Voucher Code"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.ticketsLabel",
+    "locale": "en",
+    "source_value": "Vé đã đặt ({n} vé)",
+    "value": "Tickets Booked ({n} tickets)"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.shirt",
+    "locale": "en",
+    "source_value": "Áo:",
+    "value": "Shirt:"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.medal",
+    "locale": "en",
+    "source_value": "Huy chương:",
+    "value": "Medal:"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.qrNote",
+    "locale": "en",
+    "source_value": "Quét mã QR khi làm thủ tục check-in tại sự kiện.",
+    "value": "Scan the QR code during check-in at the event."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.subtotal",
+    "locale": "en",
+    "source_value": "Tạm tính",
+    "value": "Subtotal"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.discount",
+    "locale": "en",
+    "source_value": "Giảm giá",
+    "value": "Discount"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.total",
+    "locale": "en",
+    "source_value": "Tổng cộng",
+    "value": "Total"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.thanks",
+    "locale": "en",
+    "source_value": "Cảm ơn bạn đã tin tưởng và đồng hành cùng Konnit.",
+    "value": "Thank you for trusting and accompanying Konnit."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "receipt.saveNote",
+    "locale": "en",
+    "source_value": "Lưu lại trang này hoặc mã đơn để xem lại bất kỳ lúc nào.",
+    "value": "Save this page or your order code to view it anytime."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "news.title",
+    "locale": "en",
+    "source_value": "Tin tức & Sự kiện",
+    "value": "News & Events"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "news.subtitle",
+    "locale": "en",
+    "source_value": "Khám phá các hoạt động, giải đấu và câu chuyện từ cộng đồng Konnit.",
+    "value": "Explore activities, tournaments, and stories from the Konnit community."
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "news.noCategories",
+    "locale": "en",
+    "source_value": "Chưa có danh mục nào được xuất bản",
+    "value": "No categories have been published"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "news.noPages",
+    "locale": "en",
+    "source_value": "Chưa có trang nào trong danh mục này",
+    "value": "No pages have been published in this category"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "news.breadcrumb",
+    "locale": "en",
+    "source_value": "Tin tức",
+    "value": "News"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "qr.noTicket",
+    "locale": "en",
+    "source_value": "Chưa có vé QR",
+    "value": "No QR Ticket"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "qr.used",
+    "locale": "en",
+    "source_value": "Đã sử dụng",
+    "value": "Used"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "qr.usedAt",
+    "locale": "en",
+    "source_value": "Đã sử dụng lúc {time}",
+    "value": "Used at {time}"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "qr.unused",
+    "locale": "en",
+    "source_value": "Chưa sử dụng",
+    "value": "Unused"
+  },
+  {
+    "module": "ui",
+    "entity_id": 1,
+    "field": "qr.manualCheckin",
+    "locale": "en",
+    "source_value": "Bấm để chọn, dùng nhập tay khi check-in",
+    "value": "Click to select, use manual input when checking in"
+  },
+  {
+    "module": "events",
+    "entity_id": 1,
+    "field": "name",
+    "locale": "en",
+    "source_value": "Konnit Kids Run 2026",
+    "value": "Konnit Kids Run 2026"
+  },
+  {
+    "module": "events",
+    "entity_id": 1,
+    "field": "description",
+    "locale": "en",
+    "source_value": "Giải chạy gia đình cho các bé Konnit — vận động vui khỏe cùng ba mẹ.",
+    "value": "Family running tournament for Konnit children — healthy and fun exercise with their parents."
+  },
+  {
+    "module": "events",
+    "entity_id": 1,
+    "field": "location",
+    "locale": "en",
+    "source_value": "Công viên Tao Đàn, TP.HCM",
+    "value": "Tao Dan Park, Ho Chi Minh City"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 1,
+    "field": "name",
+    "locale": "en",
+    "source_value": "Vé thi đấu – Mầm",
+    "value": "Competition Ticket – Seedling"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 1,
+    "field": "age_group",
+    "locale": "en",
+    "source_value": "2–3 tuổi",
+    "value": "2–3 years old"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 2,
+    "field": "name",
+    "locale": "en",
+    "source_value": "Vé thi đấu – Chồi",
+    "value": "Competition Ticket – Bud"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 2,
+    "field": "age_group",
+    "locale": "en",
+    "source_value": "4–6 tuổi",
+    "value": "4–6 years old"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 3,
+    "field": "name",
+    "locale": "en",
+    "source_value": "Vé trải nghiệm (Fun)",
+    "value": "Experience Ticket (Fun)"
+  },
+  {
+    "module": "ticket_types",
+    "entity_id": 3,
+    "field": "age_group",
+    "locale": "en",
+    "source_value": "Mọi lứa",
+    "value": "All ages"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 1,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Konnit – Học an toàn qua trò chơi",
+    "value": "Konnit – Learn safely through games"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 1,
+    "field": "description",
+    "locale": "en",
+    "source_value": "Nền tảng thể thao và hoạt động dành cho trẻ em Việt Nam",
+    "value": "Sports and activity platform for Vietnamese children"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 2,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Hoạt động — Konnit",
+    "value": "Activities — Konnit"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 2,
+    "field": "description",
+    "locale": "en",
+    "source_value": "Hoạt động học của Konnit — vận động, thiên nhiên và khoa học vui.",
+    "value": "Konnit learning activities — movement, nature, and fun science."
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 3,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Cửa hàng Konnit",
+    "value": "Konnit Store"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 3,
+    "field": "description",
+    "locale": "en",
+    "source_value": "Các bộ dụng cụ sẵn sàng cho những chuyến phiêu lưu nhỏ an toàn — xem trước danh mục.",
+    "value": "Tool sets ready for safe little adventures — preview the catalog."
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 4,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Cộng đồng — Konnit",
+    "value": "Community — Konnit"
+  },
+  {
+    "module": "cms_pages",
+    "entity_id": 4,
+    "field": "description",
+    "locale": "en",
+    "source_value": "Ngày hội cộng đồng Konnit — những ngày tử tế hơn cho trẻ em và gia đình.",
+    "value": "Konnit community festival — nicer days for children and families."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 103,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Những chuyến phiêu lưu nhỏ an toàn cho bé mầm non.",
+    "value": "Safe little adventures for preschoolers."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 103,
+    "field": "description",
+    "locale": "en",
+    "source_value": "konnit đồng hành cùng trẻ dưới 7 tuổi và ba mẹ qua những trải nghiệm học mà chơi: đua xe thăng bằng, cắm trại mini và khám phá khoa học an toàn.",
+    "value": "Konnit accompanies children under 7 years old and their parents through learning and playing experiences: balance bike racing, mini camping and safe scientific exploration."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 103,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"image\":\"http://localhost:4000/uploads/2026/07/4ba5e3e3-bcbc-449e-ac9c-7100ad5172a5.png\",\"title\":\"Những chuyến phiêu lưu nhỏ an toàn cho bé mầm non.\",\"primaryCta\":{\"url\":\"/tin-tuc\",\"label\":\"Khám phá hoạt động\"},\"description\":\"konnit đồng hành cùng trẻ dưới 7 tuổi và ba mẹ qua những trải nghiệm học mà chơi: đua xe thăng bằng, cắm trại mini và khám phá khoa học an toàn.\",\"secondaryCta\":{\"url\":\"#about\",\"label\":\"An toàn là ưu tiên\"}}",
+    "value": "{\"title\":\"Safe mini adventures for preschool children.\",\"primaryCta\":{\"url\":\"/tin-tuc\",\"label\":\"Discover activities\"},\"description\":\"konnit accompanies children under 7 years old and their parents through learning experiences through play: balance racing, mini camping and safe science exploration.\",\"secondaryCta\":{\"url\":\"#about\",\"label\":\"Safety is priority\"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 104,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Một nơi dịu dàng để con lớn lên dũng cảm.",
+    "value": "A gentle place for children to grow up brave."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 104,
+    "field": "description",
+    "locale": "en",
+    "source_value": "konnit tạo ra những buổi chơi có định hướng cho trẻ dưới 7 tuổi, nơi con được thử vận động, giao tiếp và khám phá trong nhịp độ nhẹ nhàng.",
+    "value": "Konnit creates guided play sessions for children under 7 years old, where they try to move, communicate and explore at a gentle pace."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 104,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"label\":\"Buổi đầu tiên\",\"phone\":\"+84 90 123 4567\",\"title\":\"Một nơi dịu dàng để con lớn lên dũng cảm.\",\"trust\":[{\"icon\":\"✓\",\"label\":\"An toàn trước tiên\"},{\"icon\":\"♡\",\"label\":\"Chơi lịch sự\"},{\"icon\":\"★\",\"label\":\"Vui vẻ thân thiện\"}],\"bullets\":[\"Thiết bị được chuẩn bị đúng cỡ trước mỗi hoạt động.\",\"Ba mẹ quan sát con với gợi ý rõ ràng từ người hướng dẫn.\",\"Mỗi bé được chọn thử thách phù hợp với mức tự tin hiện tại.\"],\"eyebrow\":\"Về chúng tôi\",\"anchorId\":\"about\",\"description\":\"konnit tạo ra những buổi chơi có định hướng cho trẻ dưới 7 tuổi, nơi con được thử vận động, giao tiếp và khám phá trong nhịp độ nhẹ nhàng.\",\"contactTitle\":\"Trò chuyện với konnit\"}",
+    "value": "{\"label\":\"The first session\",\"phone\":\"+84 90 123 4567\",\"title\":\"A gentle place for children to grow up brave.\",\"trust\":[{\"icon\":\"✓\",\"label\":\"Safety first\"},{\"icon\":\"♡\",\"label\":\"Play politely\"},{\"icon\":\"★\",\"label\":\"Have fun improvement\"}],\"bullets\":[\"Equipment is properly sized before each activity.\", \"Parents observe their children with clear suggestions from the instructor.\",\"Each child is given a challenge appropriate to their current confidence level.\"],\"eyebrow\":\"About us\",\"anchorId\":\"about\",\"description\":\"konnit creates guided play sessions for children under 7 years old, where children are challenged to move, communicate and explore at a gentle pace.\", \"contactTitle\":\"Chat with konnit\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 105,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.",
+    "value": "Learning activities revolve around movement, nature and discovery."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 105,
+    "field": "description",
+    "locale": "en",
+    "source_value": "Ba nhóm hoạt động chính giúp trẻ phát triển thể chất, cảm xúc xã hội và tư duy khám phá trong một lộ trình nhẹ nhàng.",
+    "value": "Three main groups of activities help children develop physically, socially emotionally and exploratory thinking in a gentle path."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 105,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"icon\":\"↗\",\"meta\":\"2.5–6 tuổi\",\"tint\":\"bike\",\"title\":\"Đua xe thăng bằng\",\"photos\":[\"http://localhost:4000/uploads/2026/07/85127fb3-b45f-458f-a550-8e73b3428e6b.jpg\",\"http://localhost:4000/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg\",\"http://localhost:4000/uploads/2026/07/4ba5e3e3-bcbc-449e-ac9c-7100ad5172a5.png\"],\"linkUrl\":\"/services\",\"linkLabel\":\"Tìm hiểu thêm\",\"description\":\"Đường chạy nhỏ, trò chơi giữ thăng bằng và khoảnh khắc về đích để con tự tin hơn với vận động.\"},{\"icon\":\"⌂\",\"meta\":\"3–6 tuổi\",\"tint\":\"camp\",\"title\":\"Cắm trại mini\",\"photos\":[\"Dựng lều\",\"Dạo thiên nhiên\",\"Trò chơi nhóm\"],\"linkUrl\":\"/services\",\"linkLabel\":\"Tìm hiểu thêm\",\"description\":\"Dựng lều, quan sát thiên nhiên, làm việc nhóm và học các thói quen ngoài trời thật đơn giản.\"},{\"icon\":\"◌\",\"meta\":\"4–6 tuổi\",\"tint\":\"science\",\"title\":\"Khoa học vui\",\"photos\":[\"Phòng màu sắc\",\"Thử bong bóng\",\"Theo dõi hạt mầm\"],\"linkUrl\":\"/services\",\"linkLabel\":\"Tìm hiểu thêm\",\"description\":\"Bong bóng, màu sắc, nam châm, hạt giống và những câu hỏi nhỏ để con khám phá bằng tay.\"}],\"title\":\"Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.\",\"eyebrow\":\"Hoạt động của chúng tôi\"}",
+    "value": "{\"items\":[{\"icon\":\"↗\",\"meta\":\"2.5–6 years old\",\"tint\":\"bike\",\"title\":\"Balance racing\",\"photos\":[\"Race track\",\"Hat check\",\"Finishing moments\"],\"linkUrl\":\"/services\",\"linkLabel\":\"Learn more\",\"description\":\"Mini tracks, balance games and finishing moments so your child can be more confident with movement.\"},{\"icon\":\"⌂\",\"meta\":\"3–6 years old\", \"tint\":\"camp\",\"title\":\"Mini camping\",\"photos\":[\"Setting up a tent\",\"Nature walk\",\"Group games\"],\"linkUrl\":\"/services\",\"linkLabel\":\"Learn more\",\"description\":\"Setting up a tent, observing nature, working in groups and learning outdoor habits is simple.\"},{\"icon\":\"◌\",\"meta\":\"4–6 age\",\"tint\":\"science\",\"title\":\"Fun science\",\"photos\":[\"Color room\", \"Try bubbles\",\"Try seeds\"],\"linkUrl\":\"/services\",\"linkLabel\":\"Learn more\",\"description\":\"Bubbles, colors, magnets, seeds and little questions for your child to explore with their hands.\"}],\"title\":\"Learning activities around movement, nature and discovery.\",\"eyebrow\":\"Our activities\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 106,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Những ngày hội cộng đồng cho niềm vui tuổi thơ.",
+    "value": "Community festivals for childhood joy."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 106,
+    "field": "description",
+    "locale": "en",
+    "source_value": "Cộng đồng konnit cùng các thương hiệu địa phương tạo nên những ngày vui an toàn cho trẻ: khu chơi nhỏ, hoạt động sáng tạo, quà tặng và mẫu sản phẩm thân thiện với trẻ em.",
+    "value": "Konnit community together with local brands create safe fun days for children: small play areas, creative activities, gifts and child-friendly product samples."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 106,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"icon\":\"01\",\"title\":\"Khoảnh khắc Ngày của bé\",\"description\":\"Những ngày hội nhỏ có trạm chơi, góc nhận quà và không gian để con gặp bạn mới thật tự nhiên.\"},{\"icon\":\"02\",\"title\":\"Đồng hành thương hiệu địa phương\",\"description\":\"Mỗi sự kiện có 5–7 đối tác địa phương cùng chuẩn bị địa điểm, hoạt động và sản phẩm phù hợp cho trẻ.\"},{\"icon\":\"03\",\"title\":\"Kết nối tử tế\",\"photos\":[\"http://localhost:4000/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg\"],\"description\":\"Gia đình gặp nhau qua những trải nghiệm tử tế, nhẹ nhàng và không đặt nặng mua bán.\"}],\"title\":\"Những ngày hội cộng đồng cho niềm vui tuổi thơ.\",\"photos\":[\"Vòng tròn gia đình\",\"Người bạn đầu tiên\",\"Sự kiện cuối tuần\"],\"eyebrow\":\"Cộng đồng của chúng tôi\",\"primaryCta\":{\"url\":\"/community\",\"label\":\"Xem hoạt động cộng đồng\"},\"description\":\"Cộng đồng konnit cùng các thương hiệu địa phương tạo nên những ngày vui an toàn cho trẻ: khu chơi nhỏ, hoạt động sáng tạo, quà tặng và mẫu sản phẩm thân thiện với trẻ em.\"}",
+    "value": "{\"items\":[{\"icon\":\"01\",\"title\":\"Children's Day Moments\",\"description\":\"Small festivals with play stations, gift receiving corners and spaces for children to naturally meet new friends.\"},{\"icon\":\"02\",\"title\":\"Accompanying local brands\",\"description\":\"Each event has 5–7 local partners who jointly prepare suitable locations, activities and products for young.\"}, {\"icon\":\"03\",\"title\":\"Kind connections\",\"description\":\"Families come together through kind, gentle, non-commercial experiences.\"}],\"title\":\"Community festivals for childhood joy.\",\"photos\":[\"Family circle\",\"First friends\",\"Weekend events\"],\"eyebrow\":\"Our community me\",\"primaryCta\":{\"url\":\"/community\", \"label\":\"See community activities\"},\"description\":\"The konnit community and local brands create safe fun days for children: small play areas, creative activities, gifts and child-friendly product samples.\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 107,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Dụng cụ chỉn chu cho học và chơi an toàn.",
+    "value": "Corrective tools for learning and playing safely."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 107,
+    "field": "description",
+    "locale": "en",
+    "source_value": "Khu cửa hàng giới thiệu các món đồ hỗ trợ hoạt động tại konnit và ở nhà. Đây là phần xem trước sản phẩm.",
+    "value": "The store introduces items to support activities in Konnit and at home. This is a product preview."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 107,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"tag\":\"An toàn\",\"tint\":\"pink\",\"title\":\"Bộ mũ bảo hộ &amp; an toàn\",\"ageFit\":\"2.5–6\",\"photos\":[\"Ảnh sản phẩm\",\"Chi tiết vừa vặn\",\"Trọn bộ\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"Xem sản phẩm\",\"safetyNote\":\"cần kiểm tra vừa vặn\",\"description\":\"Mũ bảo hộ, miếng dán tên và checklist an toàn trước giờ chơi.\"},{\"tag\":\"Xe đạp\",\"tint\":\"sun\",\"title\":\"Phụ kiện xe thăng bằng\",\"ageFit\":\"3–6\",\"photos\":[\"Bảng tên\",\"Cọc đường chạy\",\"http://localhost:4000/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"Xem sản phẩm\",\"safetyNote\":\"chỉ cạnh mềm\",\"description\":\"Chuông nhỏ, bảng tên và cọc đánh dấu đường chạy nhẹ nhàng.\"},{\"tag\":\"Cắm trại\",\"tint\":\"mint\",\"title\":\"Bộ cắm trại cơ bản\",\"ageFit\":\"3–6\",\"photos\":[\"Ảnh sản phẩm\",\"Thẻ nhiệm vụ\",\"Đèn an toàn\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"Xem sản phẩm\",\"safetyNote\":\"người lớn lắp trước\",\"description\":\"Tấm ngồi, đèn giả lập an toàn và thẻ nhiệm vụ khám phá thiên nhiên.\"},{\"tag\":\"Khoa học\",\"tint\":\"sky\",\"title\":\"Bộ khám phá khoa học\",\"ageFit\":\"4–6\",\"photos\":[\"Ảnh sản phẩm\",\"Dụng cụ\",\"Thẻ câu hỏi\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"Xem sản phẩm\",\"safetyNote\":\"chơi có hướng dẫn\",\"description\":\"Ống quan sát, thẻ câu hỏi và vật liệu thí nghiệm đơn giản cho trẻ nhỏ.\"}],\"title\":\"Dụng cụ chỉn chu cho học và chơi an toàn.\",\"eyebrow\":\"Cửa hàng Konnit\",\"primaryCta\":{\"url\":\"/cua-hang\",\"label\":\"Mở cửa hàng Konnit\"},\"description\":\"Khu cửa hàng giới thiệu các món đồ hỗ trợ hoạt động tại konnit và ở nhà. Đây là phần xem trước sản phẩm.\"}",
+    "value": "{\"items\":[{\"tag\":\"Safety\",\"tint\":\"pink\",\"title\":\"Safety & Helmet Kit\",\"ageFit\":\"2.5–6\",\"photos\":[\"Product photo\",\"Fit details\",\"Full set\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"View product\",\"safetyNote\":\"need to check fit screw\",\"description\":\"Helmet, name sticker and safety checklist before playtime.\"},{\"tag\":\"Bicycle\",\"tint\":\"sun\", \"title\":\"Balance bike accessories\",\"ageFit\":\"3–6\",\"photos\":[\"Product photo\",\"Nameplate\",\"Trail stakes\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"View product\",\"safetyNote\":\"soft edges only\",\"description\":\"Small bells, nameplates and gentle trail markers.\"},{\"tag\":\"Plug in camp\",\"tint\":\"mint\",\"title\":\"Basic Camping Set\",\"ageFit\":\"3–6\", \"photos\":[\"Product photo\",\"Task card\",\"Safety light\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"View product\",\"safetyNote\":\"pre-installed by adults\",\"description\":\"Sitting plate, safety simulator light and nature exploration mission card.\"},{\"tag\":\"Science\",\"tint\":\"sky\",\"title\":\"Science discovery kit study\",\"ageFit\":\"4–6\",\"photos\":[\"Product photos\",\"Tools\", \"Question tag\"],\"linkUrl\":\"/store#kits\",\"linkLabel\":\"View product\",\"safetyNote\":\"guided play\",\"description\":\"Observation tubes, question cards and simple experiment materials for young children.\"}],\"title\":\"Thorough tools for safe learning and play.\",\"eyebrow\":\"Store Konnit\",\"primaryCta\":{\"url\":\"/cua-hang\",\"label\":\"Open Konnit store\"}, \"description\":\"The store features items that support activities at konnit and at home. This is a product preview.\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 108,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.",
+    "value": "Learning activities revolve around movement, nature and discovery."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 108,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"icon\":\"↗\",\"tint\":\"bike\",\"title\":\"Vận động\",\"subtitle\":\"Thăng bằng, tập trung và can đảm\"},{\"icon\":\"⌂\",\"tint\":\"camp\",\"title\":\"Thiên nhiên\",\"subtitle\":\"Thói quen ngoài trời và làm việc nhóm\"},{\"icon\":\"◌\",\"tint\":\"science\",\"title\":\"Khám phá\",\"subtitle\":\"Câu hỏi, vật liệu và sự tò mò\"}],\"title\":\"Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.\",\"eyebrow\":\"Hoạt động\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Join%20a%20first%20Konnit%20session\",\"label\":\"Tham gia buổi đầu tiên\"},\"description\":\"Ba nhóm hoạt động chính giúp trẻ phát triển thể chất, cảm xúc xã hội và tư duy khám phá trong một lộ trình nhẹ nhàng, luôn có người hướng dẫn và ba mẹ đồng hành.\",\"secondaryCta\":{\"url\":\"#contact\",\"label\":\"Liên hệ konnit\"}}",
+    "value": "{\"items\":[{\"icon\":\"↗\",\"tint\":\"bike\",\"title\":\"Movement\",\"subtitle\":\"Balance, focus and courage\"},{\"icon\":\"⌂\",\"tint\":\"camp\",\"title\":\"Nature\",\"subtitle\":\"Outdoor and work habits group\"},{\"icon\":\"◌\",\"tint\":\"science\",\"title\":\"Explore\",\"subtitle\":\"Questions, materials and curiosities\"}],\"title\":\"Learning activities revolve around movement, nature and discovery.\",\"eyebrow\":\"Activities\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Join%20a%20first%20Konnit%20session\",\"label\":\"Join the first session\"},\"description\":\"Three main groups of activities help children develop physically, socially emotionally and exploratory thinking in a gentle route, There is always a guide and parents to accompany you.\",\"secondaryCta\":{\"url\":\"#contact\",\"label\":\"Contact konnit\"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 109,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Ba cách để con học qua trải nghiệm.",
+    "value": "Three ways for children to learn through experience."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 109,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"tint\":\"pink\",\"facts\":[{\"label\":\"Độ tuổi\",\"value\":\"2.5–6 tuổi\"},{\"label\":\"Lợi ích cho ba mẹ\",\"value\":\"Thấy con tiến bộ về thăng bằng, tập trung và can đảm.\"},{\"label\":\"Lưu ý an toàn\",\"value\":\"Kiểm tra mũ và làn chạy chậm mỗi lượt.\"},{\"label\":\"Cách diễn ra buổi học\",\"value\":\"Khởi động, đường thăng bằng, lượt chạy có hướng dẫn và kết thúc nhẹ nhàng.\"}],\"label\":\"Vận động\",\"title\":\"Đua xe thăng bằng\",\"photos\":[\"Đường đua xe\",\"Kiểm tra mũ\",\"Khoảnh khắc về đích\"],\"description\":\"Đường chạy nhỏ, trò chơi giữ thăng bằng và khoảnh khắc về đích để con tự tin hơn với vận động.\"},{\"tint\":\"mint\",\"facts\":[{\"label\":\"Độ tuổi\",\"value\":\"3–6 tuổi\"},{\"label\":\"Lợi ích cho ba mẹ\",\"value\":\"Xây dựng sự tự lập qua thói quen nhẹ nhàng.\"},{\"label\":\"Lưu ý an toàn\",\"value\":\"Khu có bóng mát, nghỉ uống nước và ranh giới rõ ràng.\"},{\"label\":\"Cách diễn ra buổi học\",\"value\":\"Dựng lều, nhiệm vụ thiên nhiên nhỏ, chia sẻ và dọn dẹp.\"}],\"label\":\"Thiên nhiên\",\"title\":\"Cắm trại mini\",\"photos\":[\"Dựng lều\",\"Dạo thiên nhiên\",\"Trò chơi nhóm\"],\"description\":\"Dựng lều, quan sát thiên nhiên, làm việc nhóm và học các thói quen ngoài trời thật đơn giản.\"},{\"tint\":\"sky\",\"facts\":[{\"label\":\"Độ tuổi\",\"value\":\"4–6 tuổi\"},{\"label\":\"Lợi ích cho ba mẹ\",\"value\":\"Nuôi dưỡng tò mò và quan sát kiên nhẫn.\"},{\"label\":\"Lưu ý an toàn\",\"value\":\"Vật liệu an toàn cho trẻ và dọn dẹp có hướng dẫn.\"},{\"label\":\"Cách diễn ra buổi học\",\"value\":\"Đặt câu hỏi, thí nghiệm bằng tay, quan sát và cùng nhìn lại.\"}],\"label\":\"Khám phá\",\"title\":\"Khoa học vui\",\"photos\":[\"Phòng màu sắc\",\"Thử bong bóng\",\"Theo dõi hạt mầm\"],\"description\":\"Bong bóng, màu sắc, nam châm, hạt giống và những câu hỏi nhỏ để con khám phá bằng tay.\"}],\"title\":\"Ba cách để con học qua trải nghiệm.\",\"eyebrow\":\"Tổng quan chương trình\",\"description\":\"Mỗi chương trình có nhịp chơi riêng, nhưng cùng chung nguyên tắc: an toàn trước, lời nói tử tế và niềm vui phù hợp với từng bé.\"}",
+    "value": "{\"items\":[{\"tint\":\"pink\",\"facts\":[{\"label\":\"Age\",\"value\":\"2.5–6 years old\"},{\"label\":\"Benefits for parents\",\"value\":\"Seeing your child improve in balance, concentration and courage.\"},{\"label\":\"Safety notes\",\"value\":\"Check the helmet and slow lane at every turn.\"},{\"label\":\"How to lesson taking place\",\"value\":\"Warm up, balance line, The run is guided and ends gently.\"}],\"label\":\"Movement\",\"title\":\"Balance racing\",\"photos\":[\"Race track\",\"Checking the helmet\",\"Finishing moment\"],\"description\":\"Small track, balance game and finishing moment to make your child more confident with movement.\"},{\"tint\":\"mint\",\"facts\":[{\"label\":\"Level age\",\"value\":\"3–6 years old\"}, {\"label\":\"Benefits for parents\",\"value\":\"Building independence through gentle routines.\"},{\"label\":\"Safety notes\",\"value\":\"Shaded area, water breaks and clear boundaries.\"},{\"label\":\"How the session takes place\",\"value\":\"Setting up a tent, small nature tasks, sharing and cleaning up.\"}],\"label\":\"Nature\",\"title\":\"Camping mini\",\"photos\":[\"Setting up a tent\", \"Nature walks\",\"Group games\"],\"description\":\"Setting up a tent, observing nature, working in groups and learning outdoor habits is simple.\"},{\"tint\":\"sky\",\"facts\":[{\"label\":\"Age range\",\"value\":\"4–6 years old\"},{\"label\":\"Benefits for parents\",\"value\":\"Cultivate curiosity and persistent observation ring.\"},{\"label\":\"Safety note\", \"value\":\"Child-safe materials and guided cleanup.\"},{\"label\":\"How the lesson goes\",\"value\":\"Ask questions, experiment with your hands, observe and look back together.\"}],\"label\":\"Explore\",\"title\":\"Fun science\",\"photos\":[\"Color room\",\"Test bubbles\",\"Watch seeds\"],\"description\":\"Bubbles, colors, magnets, seeds and small questions for children to explore with their hands.\"}],\"title\":\"Three ways for children to learn through experience.\",\"eyebrow\":\"Program overview\",\"description\":\"Each program has its own rhythm of play, but the same principles: safety first, kind words and fun appropriate for each child.\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 110,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Nhịp học nhẹ nhàng từ lúc chào đến lúc nhìn lại.",
+    "value": "The learning rhythm is gentle from greeting to looking back."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 110,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"step\":\"01\",\"title\":\"Chào & nhận chỗ\",\"description\":\"Con làm quen không gian, thiết bị và người hướng dẫn trước khi bắt đầu.\"},{\"step\":\"02\",\"title\":\"Chơi có hướng dẫn\",\"description\":\"Hoạt động được chia thành thử thách nhỏ để trẻ thử từng bước.\"},{\"step\":\"03\",\"title\":\"Ba mẹ quan sát\",\"description\":\"Ba mẹ có gợi ý quan sát về vận động, cảm xúc và giao tiếp của con.\"},{\"step\":\"04\",\"title\":\"Nhìn lại & kết nối\",\"description\":\"Kết thúc nhẹ nhàng bằng ghi nhận, dọn dẹp và gợi ý buổi tiếp theo.\"}],\"title\":\"Nhịp học nhẹ nhàng từ lúc chào đến lúc nhìn lại.\",\"eyebrow\":\"Một buổi học diễn ra thế nào\"}",
+    "value": "{\"items\":[{\"step\":\"01\",\"title\":\"Welcome & take your seat\",\"description\":\"Children get familiar with the space, equipment and instructor before starting.\"},{\"step\":\"02\",\"title\":\"Guided play\",\"description\":\"Activities are divided into small challenges for children to try step by step.\"},{\"step\":\"03\",\"title\":\"Parents care observation\",\"description\":\"Parents have suggestions for observing movement, child's emotions and communication.\"},{\"step\":\"04\",\"title\":\"Looking back & connecting\",\"description\":\"End gently with notes, clean up and suggestions for the next session.\"}],\"title\":\"Gentle rhythm from greeting to looking back.\",\"eyebrow\":\"How a lesson goes\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 111,
+    "field": "title",
+    "locale": "en",
+    "source_value": "An toàn trước tiên để con thoải mái vui chơi.",
+    "value": "Safety first so your children can play comfortably."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 111,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"chips\":[\"Thiết bị vừa cỡ\",\"Thử thách theo nhịp của bé\",\"Có người hướng dẫn\",\"Lời chơi lịch sự\"],\"title\":\"An toàn trước tiên để con thoải mái vui chơi.\",\"eyebrow\":\"Cam kết an toàn\",\"description\":\"Mỗi buổi chơi đều bắt đầu bằng kiểm tra thiết bị, ranh giới rõ ràng, hướng dẫn nhẹ nhàng và tôn trọng nhịp riêng của từng bé.\"}",
+    "value": "{\"chips\":[\"Sized equipment\",\"Challenge at your baby's pace\",\"Instructor\",\"Polite play\"],\"title\":\"Safety first so your child can have fun.\",\"eyebrow\":\"Safety commitment\",\"description\":\"Each play session begins with equipment checks, clear boundaries, gentle guidance and respect for each child's own rhythm.\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 112,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Tham gia buổi đầu tiên",
+    "value": "Join the first session"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 112,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"label\":\"Liên hệ phụ huynh\",\"phone\":\"+84 90 123 4567\",\"title\":\"Tham gia buổi đầu tiên\",\"anchorId\":\"contact\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Join%20a%20first%20Konnit%20session\",\"label\":\"Tham gia buổi đầu tiên\"},\"description\":\"Gửi câu hỏi cho konnit để chọn hoạt động phù hợp với tuổi, mức tự tin và thời gian của gia đình.\",\"secondaryCta\":{\"url\":\"/\",\"label\":\"Về trang chủ\"}}",
+    "value": "{\"label\":\"Contact parents\",\"phone\":\"+84 90 123 4567\",\"title\":\"Join the first session\",\"anchorId\":\"contact\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Join%20a%20first%20Konnit%20session\",\"label\":\"Join the first session fairy\"},\"description\":\"Send a question to konnit to choose an activity suitable for your family's age, confidence level and time.\", \"secondaryCta\":{\"url\":\"/\",\"label\":\"Back to home page\"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 113,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Bộ dụng cụ sẵn sàng cho những chuyến phiêu lưu nhỏ an toàn.",
+    "value": "The kit is ready for safe little adventures."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 113,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"icon\":\"◆\",\"tint\":\"bike\",\"title\":\"Vừa mũ bảo hộ\",\"subtitle\":\"Kiểm tra nhẹ trước mỗi lượt chạy\"},{\"icon\":\"◆\",\"tint\":\"camp\",\"title\":\"Cắm trại mini\",\"subtitle\":\"Thói quen nhỏ cho chơi ngoài trời\"},{\"icon\":\"◆\",\"tint\":\"science\",\"title\":\"Khoa học vui\",\"subtitle\":\"Dụng cụ khám phá có hướng dẫn\"}],\"title\":\"Bộ dụng cụ sẵn sàng cho những chuyến phiêu lưu nhỏ an toàn.\",\"eyebrow\":\"Cửa hàng Konnit\",\"primaryCta\":{\"url\":\"#kits\",\"label\":\"Khám phá các bộ\"},\"description\":\"Các bộ đồ chơi và dụng cụ được chọn để ba mẹ dễ chuẩn bị cho xe thăng bằng, cắm trại mini, khám phá khoa học và những buổi chơi an toàn tại nhà.\",\"secondaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Book%20a%20first%20Konnit%20session\",\"label\":\"Đặt buổi đầu tiên\"}}",
+    "value": "{\"items\":[{\"icon\":\"◆\",\"tint\":\"bike\",\"title\":\"Fit helmet\",\"subtitle\":\"Light check before each run\"},{\"icon\":\"◆\",\"tint\":\"camp\",\"title\":\"Mini camping\",\"subtitle\":\"Small habits for playing outside heaven\"},{\"icon\":\"◆\",\"tint\":\"science\",\"title\":\"Fun science\",\"subtitle\":\"Guided discovery tools\"}], \"title\":\"Kits ready for safe little adventures.\", \"eyebrow\":\"Konnit Store\",\"primaryCta\":{\"url\":\"#kits\",\"label\":\"Discover the kits\"}, \"description\":\"Toy sets and tools are selected to make it easy for parents to prepare for balance bikes, mini camping, science exploration and safe play sessions at home.\", \"secondaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Book%20a%20first%20Konnit%20session\",\"label\":\"Book first session\"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 114,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Chọn theo hoạt động, độ tuổi và độ an toàn.",
+    "value": "Choose according to activity, age and safety."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 114,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"tag\":\"An toàn\",\"tint\":\"pink\",\"title\":\"Bộ mũ bảo hộ & an toàn\",\"ageFit\":\"2.5–6 tuổi\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Helmet%20and%20Safety%20Kit\",\"photos\":[\"Mũ bảo hộ\",\"Nhãn tên\",\"Checklist\"],\"ctaLabel\":\"Hỏi về bộ này\",\"included\":\"Hướng dẫn mũ, nhãn tên, checklist trước giờ chơi.\",\"safetyNote\":\"Đo trước; cần kiểm tra vừa vặn trước khi chạy.\",\"description\":\"Bộ chuẩn bị trước giờ chơi gồm mũ bảo hộ, miếng dán tên và thẻ kiểm tra an toàn ngắn gọn.\"},{\"tag\":\"Xe đạp\",\"tint\":\"sun\",\"title\":\"Phụ kiện xe thăng bằng\",\"ageFit\":\"3–6 tuổi\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Balance-Bike%20Accessories\",\"photos\":[\"Chuông\",\"Bảng tên\",\"Cọc mềm\"],\"ctaLabel\":\"Hỏi về bộ này\",\"included\":\"Chuông, bảng tên, cọc mềm, thẻ đường chạy.\",\"safetyNote\":\"Chỉ cạnh mềm; dùng ở khu chơi tốc độ thấp.\",\"description\":\"Phụ kiện nhỏ giúp con nhận biết xe của mình, luyện thăng bằng và chơi theo làn đường mềm.\"},{\"tag\":\"Cắm trại\",\"tint\":\"mint\",\"title\":\"Bộ cắm trại cơ bản\",\"ageFit\":\"3–6 tuổi\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Camping%20Starter%20Kit\",\"photos\":[\"Tấm ngồi\",\"Đèn an toàn\",\"Thẻ nhiệm vụ\"],\"ctaLabel\":\"Hỏi về bộ này\",\"included\":\"Tấm ngồi, đèn an toàn, thẻ nhiệm vụ, cờ ranh giới.\",\"safetyNote\":\"Người lớn lắp trước; giữ khu bóng mát và nghỉ uống nước.\",\"description\":\"Bộ cắm trại mini cho các hoạt động dựng lều, quan sát thiên nhiên và làm việc nhóm nhẹ nhàng.\"},{\"tag\":\"Khoa học\",\"tint\":\"sky\",\"title\":\"Bộ khám phá khoa học\",\"ageFit\":\"4–6 tuổi\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Science%20Play%20Kit\",\"photos\":[\"Quan sát\",\"Dụng cụ\",\"Thẻ\"],\"ctaLabel\":\"Hỏi về bộ này\",\"included\":\"Ống quan sát, dụng cụ an toàn, thẻ câu hỏi.\",\"safetyNote\":\"Chơi có hướng dẫn; tránh chi tiết nhỏ với trẻ nhỏ hơn.\",\"description\":\"Dụng cụ khám phá đơn giản để con quan sát, đặt câu hỏi và dọn dẹp sau mỗi thí nghiệm nhỏ.\"},{\"tag\":\"Tại nhà\",\"tint\":\"pink\",\"title\":\"Gói thói quen chơi tại nhà\",\"ageFit\":\"2.5–6 tuổi\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Home%20Play%20Routine%20Pack\",\"photos\":[\"Thói quen\",\"Bảng sticker\",\"Túi gọn gàng\"],\"ctaLabel\":\"Hỏi về bộ này\",\"included\":\"Thẻ thói quen, bảng sticker, túi gọn gàng.\",\"safetyNote\":\"Chọn từng hoạt động một và luôn có ba mẹ ở gần.\",\"description\":\"Gợi ý chơi 15 phút tại nhà để ba mẹ nối tiếp tinh thần konnit sau mỗi buổi trải nghiệm.\"}],\"title\":\"Chọn theo hoạt động, độ tuổi và độ an toàn.\",\"eyebrow\":\"Các bộ sẵn sàng để chơi\",\"anchorId\":\"kits\",\"description\":\"Đây là trang xem trước sản phẩm. Mỗi hành động sẽ gửi câu hỏi cho konnit, không có giỏ hàng, thanh toán hay tồn kho trực tuyến.\"}",
+    "value": "{\"items\":[{\"tag\":\"Safety\",\"tint\":\"pink\",\"title\":\"Helmet & Safety Kit\",\"ageFit\":\"2.5–6 years old\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Helmet%20and%20Safety%20Kit\",\"photos\":[\"Helmet household\",\"Name label\",\"Checklist\"],\"ctaLabel\":\"Ask about this set\",\"included\":\"Instructions for hat, name label, checklist before playtime.\",\"safetyNote\":\"Measure in advance; need to check fit before running.\",\"description\":\"Pre-play kit includes helmet, name sticker and brief safety check card.\"},{\"tag\":\"Bicycle\",\"tint\":\"sun\",\"title\":\"Balance bike accessories\",\"ageFit\":\"3–6 age\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Balance-Bike%20Accessories\",\"photos\":[\"Bell\",\"Nameplate\", \"Soft poles\"],\"ctaLabel\":\"Ask about this set\",\"included\":\"Bell, nameplate, soft poles, track card.\",\"safetyNote\":\"Soft edge only; used in low-speed play areas.\",\"description\":\"Small accessory to help children recognize their vehicle, practice balance and play in soft lanes.\"},{\"tag\":\"Camping\",\"tint\":\"mint\",\"title\":\"Mechanical camping set version\",\"ageFit\":\"3–6 years old\", \"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Camping%20Starter%20Kit\",\"photos\":[\"Sitting plate\",\"Safety light\",\"Task card\"],\"ctaLabel\":\"Ask about this kit\",\"included\":\"Sit plate, safety light, task card, boundary flags.\",\"safetyNote\":\"Adults install first; keep shaded areas and take water breaks.\", \"description\":\"Mini camping set for tenting, nature observation and light group work.\"},{\"tag\":\"Science\",\"tint\":\"sky\",\"title\":\"Science discovery set\",\"ageFit\":\"4–6 age\",\"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Science%20Play%20Kit\",\"photos\":[\"Observations\",\"Tools\",\"Tags\"],\"ctaLabel\":\"Ask about this kit\", \"included\":\"Observation tubes, safety equipment, question cards.\", \"safetyNote\":\"Guided play; avoid small details with younger children.\", \"description\":\"Simple exploration tool for children to observe, ask questions and clean up after each small experiment.\"},{\"tag\":\"At home\",\"tint\":\"pink\",\"title\":\"Play habits pack at home\",\"ageFit\":\"2.5–6 years old\", \"ctaUrl\":\"mailto:hello@konnit.example?subject=Ask%20about%20Home%20Play%20Routine%20Pack\",\"photos\":[\"Habits\",\"Sticker board\",\"Tidy bag\"],\"ctaLabel\":\"Ask about this set\",\"included\":\"Habit card, sticker board, neat bag.\",\"safetyNote\":\"Select each activity one by one and Always have parents nearby.\", \"description\":\"Suggested to play for 15 minutes at home so that parents can continue the konnit spirit after each experience session.\"}],\"title\":\"Choose according to activity, age and safety.\",\"eyebrow\":\"Kits ready to play\",\"anchorId\":\"kits\",\"description\":\"This is the product preview page. Each action will send questions to konnit, no shopping cart, payment or inventory online.\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 115,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Bắt đầu từ con, rồi chọn bộ phù hợp.",
+    "value": "Start with the child, then choose the appropriate set."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 115,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"step\":\"01\",\"title\":\"Độ tuổi và sự tự tin\",\"description\":\"Chọn bộ phù hợp với độ tuổi và mức tự tin hiện tại, không chỉ theo hoạt động con thích.\"},{\"step\":\"02\",\"title\":\"Loại hoạt động\",\"description\":\"Xe thăng bằng cần kiểm tra vừa vặn; cắm trại cần thói quen ngoài trời; khoa học cần hướng dẫn gần.\"},{\"step\":\"03\",\"title\":\"Độ an toàn\",\"description\":\"Ưu tiên kích cỡ, cạnh mềm, vật liệu an toàn và cách ba mẹ quan sát trong lúc con chơi.\"},{\"step\":\"04\",\"title\":\"Dùng có hướng dẫn\",\"description\":\"Nếu chưa chắc, hãy hỏi konnit trước khi mua để chọn bộ dùng được cả ở lớp và tại nhà.\"}],\"title\":\"Bắt đầu từ con, rồi chọn bộ phù hợp.\",\"eyebrow\":\"Cách chọn\"}",
+    "value": "{\"items\":[{\"step\":\"01\",\"title\":\"Age and confidence\",\"description\":\"Choose a set that suits your age and current confidence level, not just the activities you enjoy.\"},{\"step\":\"02\",\"title\":\"Activity type\",\"description\":\"Balance bikes need a fit test; camping needs outdoor habits; science needs guidance close.\"},{\"step\":\"03\",\"title\":\"Safety\", \"description\":\"Prioritize size, soft edges, safe materials and how parents can observe while children play.\"},{\"step\":\"04\",\"title\":\"Used with instructions\",\"description\":\"If not sure, ask konnit before buying to choose a set that can be used both in class and at home.\"}],\"title\":\"Start with the child, then choose the right set.\",\"eyebrow\":\"How to choose\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 116,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Gặp konnit trước khi chọn bộ.",
+    "value": "Meet Konnit before choosing a set."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 116,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"title\":\"Gặp konnit trước khi chọn bộ.\",\"eyebrow\":\"Cần một bước khởi đầu nhẹ nhàng?\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Book%20a%20first%20Konnit%20session\",\"label\":\"Đặt buổi đầu tiên\"},\"description\":\"Ba mẹ có thể đặt buổi đầu tiên để konnit quan sát hoạt động con thích, sau đó gợi ý bộ dụng cụ phù hợp hơn.\",\"secondaryCta\":{\"url\":\"tel:+84901234567\",\"label\":\"Gọi +84 90 123 4567\"}}",
+    "value": "{\"title\":\"Meet Konnit before choosing a set.\",\"eyebrow\":\"Need a gentle start?\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Book%20a%20first%20Konnit%20session\",\"label\":\"Book the first session\"},\"description\":\"Parents can book the first session for konnit to observe their child's activities like, then suggest a more suitable kit.\", \"secondaryCta\":{\"url\":\"tel:+84901234567\",\"label\":\"Call +84 90 123 4567\"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 117,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Một thế giới tử tế hơn cho trẻ, qua từng ngày hội cộng đồng.",
+    "value": "A kinder world for children, one community festival at a time."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 117,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"icon\":\"01\",\"tint\":\"berry\",\"title\":\"Ngày của bé\",\"subtitle\":\"Trạm chơi, đón tiếp nhẹ nhàng và thời gian gia đình\"},{\"icon\":\"02\",\"tint\":\"berry\",\"title\":\"Sự quan tâm địa phương\",\"subtitle\":\"5–7 thương hiệu cùng tạo không gian tốt hơn\"},{\"icon\":\"03\",\"tint\":\"berry\",\"title\":\"Quà nhỏ\",\"subtitle\":\"Mẫu sản phẩm thân thiện và bất ngờ dễ thương\"}],\"title\":\"Một thế giới tử tế hơn cho trẻ, qua từng ngày hội cộng đồng.\",\"eyebrow\":\"Cộng đồng\",\"primaryCta\":{\"url\":\"#join-next-event\",\"label\":\"Tham gia sự kiện tới\"},\"description\":\"konnit cùng gia đình và các đối tác địa phương tạo ra những không gian an toàn, vui vẻ để trẻ được chơi, nhận quà nhỏ và cảm thấy mình thuộc về một cộng đồng tử tế.\",\"secondaryCta\":{\"url\":\"#activity-highlights\",\"label\":\"Xem hoạt động\"}}",
+    "value": "{\"items\":[{\"icon\":\"01\",\"tint\":\"berry\",\"title\":\"Children's day\",\"subtitle\":\"Play stations, soft receptions and family time\"},{\"icon\":\"02\",\"tint\":\"berry\",\"title\":\"Local attention\",\"subtitle\":\"5–7 brands together create good spaces more\"},{\"icon\":\"03\",\"tint\":\"berry\",\"title\":\"Small gift\",\"subtitle\":\"Friendly product model and cute surprise\"}] ,\"title\":\"A kinder world for children, one community festival at a time.\",\"eyebrow\":\"Community\",\"primaryCta\":{\"url\":\"#join-next-event\",\"label\":\"Join the next event\"},\"description\":\"konnit and families and local partners create safe, fun spaces for children to play, receive small gifts and feel like they belong to a kind community.\", \"secondaryCta\":{\"url\":\"#activity-highlights\",\"label\":\"View activity\"}}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 118,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Chúng tôi gắn kết các gia đình qua sự quan tâm, vui chơi và trách nhiệm chung.",
+    "value": "We bond families through care, play and shared responsibility."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 118,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"note\":\"Đây là không gian cộng đồng. Mục tiêu là tạo trải nghiệm vui, lịch sự, an toàn và ấm áp cho trẻ nhỏ cùng gia đình.\",\"title\":\"Chúng tôi gắn kết các gia đình qua sự quan tâm, vui chơi và trách nhiệm chung.\",\"eyebrow\":\"Sứ mệnh cộng đồng\",\"noteLabel\":\"Mục đích cộng đồng\",\"description\":\"konnit tổ chức các hoạt động xã hội cho trẻ em, nơi những cộng tác viên và thương hiệu địa phương cùng đóng góp địa điểm, trò chơi, quà tặng và mẫu sản phẩm tốt cho trẻ.\"}",
+    "value": "{\"note\":\"This is a community space. The goal is to create a fun, polite, safe and warm experience for children and their families.\",\"title\":\"We connect families through care, play and shared responsibility.\",\"eyebrow\":\"Community mission\",\"noteLabel\":\"Community purpose\",\"description\":\"konnit organizes social activities for children, where collaborators and local brands contribute locations, games, gifts and good product samples for children.\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 119,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Hoạt động cộng đồng hào phóng, giản dị và đặt trẻ lên trước.",
+    "value": "Community activities are generous, simple and put children first."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 119,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"step\":\"01\",\"title\":\"Ngày của bé cùng nhau\",\"description\":\"Một ngày gia đình với trạm chơi nhỏ, góc vận động, quà tặng và mẫu sản phẩm an toàn để trẻ khám phá cùng ba mẹ.\"},{\"step\":\"02\",\"title\":\"Hợp tác thương hiệu địa phương\",\"description\":\"Mỗi sự kiện kết nối 5–7 thương hiệu địa phương cùng hỗ trợ địa điểm, hoạt động và những sản phẩm đặt trẻ em lên trước.\"},{\"step\":\"03\",\"title\":\"Vài tháng một lần\",\"description\":\"Các khoảnh khắc cộng đồng được tổ chức khoảng mỗi 2–3 tháng, đủ đều đặn để mong chờ và đủ nhẹ nhàng để giữ sự tự nhiên.\"}],\"title\":\"Hoạt động cộng đồng hào phóng, giản dị và đặt trẻ lên trước.\",\"eyebrow\":\"Hoạt động nổi bật\",\"anchorId\":\"activity-highlights\"}",
+    "value": "{\"items\":[{\"step\":\"01\",\"title\":\"Children's day together\",\"description\":\"A family day with small play stations, movement corners, gifts and safe product samples for children to explore with their parents.\"},{\"step\":\"02\",\"title\":\"Local brand collaboration\",\"description\":\"Each event connects 5–7 local brands that support the location, activities and products that put kids first.\"},{\"step\":\"03\",\"title\":\"Every few months\",\"description\":\"Community moments held approximately every 2–3 months, regular enough to look forward to and light enough to keep it natural.\"}],\"title\":\"Community activities that are generous, casual and put kids first.\",\"eyebrow\":\"Featured activities\", \"anchorId\":\"activity-highlights\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 120,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Nơi dành cho ảnh cộng đồng thật sau này.",
+    "value": "A place for real community photos later."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 120,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"image\":\"http://localhost:4000/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg\",\"title\":\"Nơi dành cho ảnh cộng đồng thật sau này.\",\"photos\":[\"Ngày của bé\",\"Góc quà tặng\",\"Gia đình vui chơi\"],\"eyebrow\":\"Thư viện sự kiện\",\"description\":\"Khu vực này dùng để đặt một ảnh lớn hoặc bộ ảnh nổi nhẹ ghi lại ngày hội, hoạt động, góc quà và khoảnh khắc gia đình.\"}",
+    "value": "{\"title\":\"A place for real community photos later.\",\"photos\":[\"Children's Day\",\"Gift corner\",\"Family fun\"],\"eyebrow\":\"Event gallery\",\"description\":\"This area is used to place a large photo or set of light embossed photos capturing festivals, activities, gift corners and family moments.\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 121,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Hành trình nhẹ nhàng qua ngày hội cộng đồng.",
+    "value": "Gentle journey through the community festival."
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 121,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"items\":[{\"step\":\"01\",\"title\":\"Đến nơi an toàn\",\"description\":\"Gia đình được chào đón, hướng dẫn khu vực và biết nơi con có thể chơi an toàn.\"},{\"step\":\"02\",\"title\":\"Khám phá hoạt động\",\"description\":\"Trẻ thử các trạm chơi nhẹ nhàng theo nhịp riêng, có người lớn quan sát gần.\"},{\"step\":\"03\",\"title\":\"Nhận quà nhỏ\",\"description\":\"Con nhận quà nhỏ hoặc mẫu sản phẩm thân thiện với trẻ từ các đối tác phù hợp.\"},{\"step\":\"04\",\"title\":\"Gặp gỡ gia đình\",\"description\":\"Ba mẹ có cơ hội trò chuyện với những gia đình cùng quan tâm đến tuổi thơ an toàn.\"},{\"step\":\"05\",\"title\":\"Ra về vui vẻ\",\"description\":\"Mỗi gia đình rời đi với kỷ niệm đẹp, ảnh chụp và cảm giác được kết nối.\"}],\"title\":\"Hành trình nhẹ nhàng qua ngày hội cộng đồng.\",\"eyebrow\":\"Trải nghiệm của gia đình\"}",
+    "value": "{\"items\":[{\"step\":\"01\",\"title\":\"Arrive safely\",\"description\":\"Families are welcomed, shown the area and know where children can play safely.\"},{\"step\":\"02\",\"title\":\"Discovering activities\",\"description\":\"Children try out gentle play stations at their own pace, with an adult observing near.\"},{\"step\":\"03\",\"title\":\"Receive a small gift\", \"description\":\"Children receive small gifts or child-friendly product samples from suitable partners.\"},{\"step\":\"04\",\"title\":\"Meet the family\",\"description\":\"Parents have the opportunity to chat with families who care about a safe childhood.\"},{\"step\":\"05\",\"title\":\"Go home happy\",\"description\":\"Each family leaves with beautiful memories, photos and a feeling of connection.\"}],\"title\":\"A gentle journey through the community festival.\",\"eyebrow\":\"Family experience\"}"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 122,
+    "field": "title",
+    "locale": "en",
+    "source_value": "Tham gia sự kiện cộng đồng tới",
+    "value": "Join the next community event"
+  },
+  {
+    "module": "cms_sections",
+    "entity_id": 122,
+    "field": "content_json",
+    "locale": "en",
+    "source_value": "{\"label\":\"Liên hệ cộng đồng\",\"phone\":\"+84 90 123 4567\",\"title\":\"Tham gia sự kiện cộng đồng tới\",\"qrImage\":\"http://localhost:4000/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg\",\"anchorId\":\"join-next-event\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Join%20next%20Konnit%20community%20event\",\"label\":\"Tham gia sự kiện cộng đồng tới\"},\"description\":\"Liên hệ konnit để nhận thông tin về ngày cộng đồng tiếp theo, cách tham gia cùng gia đình hoặc cách một thương hiệu địa phương có thể đóng góp tử tế.\",\"secondaryCta\":{\"url\":\"/\",\"label\":\"Về trang chủ\"}}",
+    "value": "{\"label\":\"Community Contact\",\"phone\":\"+84 90 123 4567\",\"title\":\"Join the next community event\",\"anchorId\":\"join-next-event\",\"primaryCta\":{\"url\":\"mailto:hello@konnit.example?subject=Join%20next%20Konnit%20community%20event\",\"label\":\"Join join the next community event\"},\"description\":\"Contact konnit to receive information about the next community day, how to join the family or how a local brand can make a kind contribution.\",\"secondaryCta\":{\"url\":\"/\",\"label\":\"Back to home\"}}"
+  },
+  {
+    "module": "vouchers",
+    "entity_id": 1,
+    "field": "description",
+    "locale": "en",
+    "source_value": "Giảm 10% cho đơn đầu tiên",
+    "value": "10% off your first order"
+  }
+]

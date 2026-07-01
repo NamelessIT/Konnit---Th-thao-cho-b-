@@ -9,12 +9,13 @@ import { Button } from "@/components/ui/button";
 import { formatVND } from "@/lib/shop/format";
 import { useCartStore } from "@/store/cart";
 import { QuantityDialog } from "@/components/shop/QuantityDialog";
-import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
+import { useLocalizedHref, useT } from "@/lib/i18n/LocaleProvider";
 import type { TicketType } from "@/lib/shop/types";
 import { useRequireUser } from "@/hooks/useRequireUser";
 
 export function TicketCard({ ticket }: { ticket: TicketType }) {
   const router = useRouter();
+  const t = useT();
   const localize = useLocalizedHref();
   const { add, selectOnly } = useCartStore();
   const requireUser = useRequireUser();
@@ -31,7 +32,7 @@ export function TicketCard({ ticket }: { ticket: TicketType }) {
       },
       qty,
     );
-    toast.success(`Đã thêm ${qty} vé "${ticket.name}" vào giỏ`);
+    toast.success(t("shop.addedToast").replace("{n}", String(qty)).replace("{name}", ticket.name));
   }
 
   function handleBuyNow(qty: number) {
@@ -62,7 +63,7 @@ export function TicketCard({ ticket }: { ticket: TicketType }) {
             <Badge className="mb-2 w-fit bg-orange-500 text-white">Early Bird</Badge>
           )}
           {soldOut && (
-            <Badge variant="destructive" className="mb-2 w-fit">Hết suất</Badge>
+            <Badge variant="destructive" className="mb-2 w-fit">{t("shop.soldOut")}</Badge>
           )}
           <h2 className="text-lg font-black text-[var(--konnit-ink)]">{ticket.name}</h2>
           {ticket.age_group && (
@@ -82,7 +83,7 @@ export function TicketCard({ ticket }: { ticket: TicketType }) {
               </span>
             )}
           </div>
-          <p className="mt-1 text-xs text-slate-400">Còn {ticket.available} suất</p>
+          <p className="mt-1 text-xs text-slate-400">{t("shop.available").replace("{n}", String(ticket.available))}</p>
         </CardContent>
       </a>
 
@@ -100,7 +101,7 @@ export function TicketCard({ ticket }: { ticket: TicketType }) {
               onClick={(e) => e.preventDefault()}
             >
               <ShoppingCart className="mr-1.5 h-4 w-4" />
-              Thêm 
+              {t("shop.add")}
             </Button>
           }
           onConfirm={handleAddToCart}
@@ -116,7 +117,7 @@ export function TicketCard({ ticket }: { ticket: TicketType }) {
               onClick={(e) => e.preventDefault()}
             >
               <Zap className="mr-1.5 h-4 w-4" />
-              Mua ngay
+              {t("shop.buyNow")}
             </Button>
           }
           onConfirm={handleBuyNow}
