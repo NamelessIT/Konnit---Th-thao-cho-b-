@@ -9,6 +9,7 @@ import { useCartStore } from "@/store/cart";
 import { formatVND } from "@/lib/shop/format";
 import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
 import type { TicketType } from "@/lib/shop/types";
+import { useRequireUser } from "@/hooks/useRequireUser";
 
 export function TicketDetailActions({
   ticket,
@@ -22,6 +23,7 @@ export function TicketDetailActions({
   const { add, selectOnly } = useCartStore();
   const [qty, setQty] = useState(1);
   const [isBusy, setIsBusy] = useState(false);
+  const requireUser = useRequireUser();
 
   const max = ticket.available;
   const soldOut = disabled || max <= 0;
@@ -37,6 +39,7 @@ export function TicketDetailActions({
 
   function handleAddToCart() {
     if (soldOut || isBusy) return;
+    if (!requireUser()) return;
 
     setIsBusy(true);
     add(cartItem, qty);
@@ -46,6 +49,7 @@ export function TicketDetailActions({
 
   function handleBuyNow() {
     if (soldOut || isBusy) return;
+    if (!requireUser()) return;
 
     setIsBusy(true);
     add(cartItem, qty);

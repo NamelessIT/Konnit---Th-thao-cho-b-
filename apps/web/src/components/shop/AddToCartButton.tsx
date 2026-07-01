@@ -5,12 +5,16 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart";
 import type { TicketType } from "@/lib/shop/types";
+import { useRequireUser } from "@/hooks/useRequireUser";
 
 export function AddToCartButton({ ticket, disabled }: { ticket: TicketType; disabled?: boolean }) {
   const [added, setAdded] = useState(false);
   const add = useCartStore((s) => s.add);
+  const requireUser = useRequireUser();
 
   function handleAdd() {
+    if (!requireUser()) return;
+
     add({
       ticketTypeId: ticket.id,
       name: ticket.name,

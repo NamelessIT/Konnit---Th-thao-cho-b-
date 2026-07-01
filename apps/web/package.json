@@ -9,7 +9,9 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "guide:capture": "playwright test -c e2e/user-guide/playwright.config.ts",
+    "guide:report": "playwright show-report ../../docs/user-guide/playwright-report"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -35,6 +37,7 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
