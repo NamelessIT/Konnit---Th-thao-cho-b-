@@ -6,6 +6,7 @@ import { ShoppingCart } from "lucide-react";
 import { useHasMounted } from "@/hooks/useHasMounted";
 import { useCartStore } from "@/store/cart";
 import { cn } from "@/lib/utils";
+import { useRequireUser } from "@/hooks/useRequireUser";
 
 interface CartNavButtonProps {
   className?: string;
@@ -14,6 +15,7 @@ interface CartNavButtonProps {
 
 export function CartNavButton({ className, showLabel = false }: CartNavButtonProps) {
   const hasMounted = useHasMounted();
+  const requireUser = useRequireUser();
 
   const totalQuantity = useCartStore((state) =>
     state.items.reduce((sum, item) => sum + item.quantity, 0),
@@ -24,6 +26,11 @@ export function CartNavButton({ className, showLabel = false }: CartNavButtonPro
   return (
     <Link
       href="/gio-hang"
+      onClick={(event) => {
+        if (!requireUser({ returnUrl: "/gio-hang" })) {
+          event.preventDefault();
+        }
+      }}
       aria-label="Giỏ hàng"
       className={cn(
         "relative inline-flex h-10 items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-600",

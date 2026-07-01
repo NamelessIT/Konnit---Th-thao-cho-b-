@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import {
   Dialog,
@@ -20,9 +20,10 @@ interface QuantityDialogProps {
   mode: "cart" | "buyNow";
   trigger: React.ReactNode;
   onConfirm: (qty: number) => void;
+  canOpen?: () => boolean;
 }
 
-export function QuantityDialog({ ticket, mode, trigger, onConfirm }: QuantityDialogProps) {
+export function QuantityDialog({ ticket, mode, trigger, onConfirm, canOpen }: QuantityDialogProps) {
   const [qty, setQty] = useState(1);
   const [open, setOpen] = useState(false);
 
@@ -36,20 +37,21 @@ export function QuantityDialog({ ticket, mode, trigger, onConfirm }: QuantityDia
 
   const debouncedQty = useDebounce(qty, 500);
 
-  // Reset qty when dialog closes
-  useEffect(() => {
-    if (!open) {
-      setQty(1);
-    }
-  }, [open]);
-
   function handleConfirm() {
     onConfirm(qty);
+    setQty(1);
     setOpen(false);
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(nextOpen) => {
+        if (nextOpen && canOpen && !canOpen()) return;
+        if (!nextOpen) setQty(1);
+        setOpen(nextOpen);
+      }}
+    >
       <DialogTrigger render={trigger as React.ReactElement} />
 
       <DialogContent className="max-w-sm">

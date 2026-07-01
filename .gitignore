@@ -45,3 +45,10 @@ plan.md
 AGENTS.md
 CLAUDE.md
 packages/types/tsconfig.tsbuildinfo
+
+# User guide screenshot tooling — contains live session cookies, never commit
+docs/user-guide/.auth/
+docs/user-guide/playwright-report/
+docs/user-guide/.test-results/
+/docs/user-guide
+/apps/web/e2e

@@ -10,10 +10,13 @@ import { formatVND } from "@/lib/shop/format";
 import { useCartStore } from "@/store/cart";
 import { QuantityDialog } from "@/components/shop/QuantityDialog";
 import type { TicketType } from "@/lib/shop/types";
+import { useRequireUser } from "@/hooks/useRequireUser";
 
 export function TicketCard({ ticket }: { ticket: TicketType }) {
   const router = useRouter();
-  const { add, selectOnly } = useCartStore();  const soldOut = ticket.available === 0;
+  const { add, selectOnly } = useCartStore();
+  const requireUser = useRequireUser();
+  const soldOut = ticket.available === 0;
   function handleAddToCart(qty: number) {
     add(
       {
@@ -86,6 +89,7 @@ export function TicketCard({ ticket }: { ticket: TicketType }) {
         <QuantityDialog
           ticket={ticket}
           mode="cart"
+          canOpen={requireUser}
           trigger={
             <Button
               variant="outline"
@@ -94,7 +98,7 @@ export function TicketCard({ ticket }: { ticket: TicketType }) {
               onClick={(e) => e.preventDefault()}
             >
               <ShoppingCart className="mr-1.5 h-4 w-4" />
-              Thêm giỏ
+              Thêm 
             </Button>
           }
           onConfirm={handleAddToCart}
@@ -102,6 +106,7 @@ export function TicketCard({ ticket }: { ticket: TicketType }) {
         <QuantityDialog
           ticket={ticket}
           mode="buyNow"
+          canOpen={requireUser}
           trigger={
             <Button
               className="flex-1 bg-[var(--konnit-berry)] hover:bg-[var(--konnit-berry)]/90"
