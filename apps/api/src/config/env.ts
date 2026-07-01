@@ -22,6 +22,8 @@ export const env = {
 
   // Order hold (slot reservation) window in minutes
   ORDER_HOLD_MINUTES: parseInt(process.env.ORDER_HOLD_MINUTES || '15', 10),
+  // Hold window (hours) for bank-transfer orders awaiting manual confirmation
+  TRANSFER_HOLD_HOURS: parseInt(process.env.TRANSFER_HOLD_HOURS || '24', 10),
   REDIS_URL: process.env.REDIS_URL || '',
   PUBLIC_TICKETS_CACHE_TTL_SECONDS: parseInt(
     process.env.PUBLIC_TICKETS_CACHE_TTL_SECONDS || '30',

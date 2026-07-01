@@ -3,14 +3,20 @@
 import { useEffect, useState } from "react";
 import type { PaymentMethod } from "@konnit/types";
 import { useRouter } from "next/navigation";
-import { CreditCard, Loader2, QrCode } from "lucide-react";
+import { Building2, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { shopApi } from "@/lib/shop/api";
 import { formatVND } from "@/lib/shop/format";
 import { useCartStore } from "@/store/cart";
-import type { Order } from "@/lib/shop/types";
+import type { Order, PaymentSettings } from "@/lib/shop/types";
+
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000").replace(/\/$/, "");
+
+function mediaUrl(path: string) {
+  return path.startsWith("http") ? path : `${API_BASE_URL}${path}`;
+}
 
 export function PaymentPanel({ code }: { code: string }) {
   const router = useRouter();
@@ -18,6 +24,7 @@ export function PaymentPanel({ code }: { code: string }) {
 
   const [order, setOrder] = useState<Order | null>(null);
   const [method, setMethod] = useState<PaymentMethod>("qr");
+  const [bankSettings, setBankSettings] = useState<PaymentSettings | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isPaying, setIsPaying] = useState(false);
 
@@ -25,11 +32,15 @@ export function PaymentPanel({ code }: { code: string }) {
     let alive = true;
 
     async function loadOrder() {
-      const result = await shopApi.getOrder(code);
+      const [result, settings] = await Promise.all([
+        shopApi.getOrder(code),
+        shopApi.getPaymentSettings().catch(() => null),
+      ]);
       if (!alive) return;
 
       setOrder(result);
-      setMethod(result?.payment_method ?? "qr");
+      setMethod("bank"); // chỉ hỗ trợ chuyển khoản
+      setBankSettings(settings);
       setIsLoading(false);
 
       if (result && result.status !== "pending") {
@@ -59,6 +70,14 @@ export function PaymentPanel({ code }: { code: string }) {
       if (result.status === "paid") {
         clearSelected();
         toast.success("Thanh toán thành công.");
+        router.push(`/don-hang/${code}`);
+        return;
+      }
+
+      // Chuyển khoản: đơn vẫn pending, chờ BTC xác nhận đã nhận tiền.
+      if (result.status === "pending" || result.awaitingTransfer) {
+        clearSelected();
+        toast.success("Đã ghi nhận. Đơn đang chờ BTC xác nhận chuyển khoản.");
         router.push(`/don-hang/${code}`);
         return;
       }
@@ -108,54 +127,24 @@ export function PaymentPanel({ code }: { code: string }) {
       <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
         <section className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
           <h2 className="mb-4 font-black text-[var(--konnit-ink)]">
-            Chọn phương thức thanh toán
+            Thanh toán chuyển khoản
           </h2>
 
-          <div className="grid gap-3">
-            <PaymentOption
-              active={method === "card"}
-              icon={<CreditCard className="h-5 w-5" />}
-              title="Thẻ ngân hàng"
-              desc="Form demo, không lưu thông tin thẻ."
-              onClick={() => setMethod("card")}
-            />
-            <PaymentOption
-              active={method === "qr"}
-              icon={<QrCode className="h-5 w-5" />}
-              title="Ví / QR"
-              desc="Quét mã để thanh toán thử."
-              onClick={() => setMethod("qr")}
-            />
-            <PaymentOption
-              active={method === "bank"}
-              icon={<QrCode className="h-5 w-5" />}
-              title="Chuyển khoản QR"
-              desc="QR ngân hàng demo."
-              onClick={() => setMethod("bank")}
-            />
+          <div className="flex items-center gap-3 rounded-xl border border-[var(--konnit-berry)] bg-[var(--konnit-pink-02)] p-4">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-white text-[var(--konnit-berry)]">
+              <Building2 className="h-5 w-5" />
+            </span>
+            <span>
+              <span className="block text-sm font-bold text-[var(--konnit-ink)]">
+                Chuyển khoản ngân hàng
+              </span>
+              <span className="block text-xs text-[var(--konnit-muted)]">
+                Quét QR ngân hàng, BTC xác nhận thủ công.
+              </span>
+            </span>
           </div>
 
-          {method === "card" ? (
-            <div className="mt-6 grid gap-3 rounded-xl bg-slate-50 p-4">
-              <input className={inputCls} placeholder="Số thẻ demo" />
-              <div className="grid grid-cols-2 gap-3">
-                <input className={inputCls} placeholder="MM/YY" />
-                <input className={inputCls} placeholder="CVV" />
-              </div>
-            </div>
-          ) : (
-            <div className="mt-6 flex flex-col items-center rounded-xl bg-slate-50 p-6 text-center">
-              <div className="grid h-44 w-44 place-items-center rounded-xl border border-slate-200 bg-white">
-                <QrCode className="h-24 w-24 text-[var(--konnit-berry)]" />
-              </div>
-              <p className="mt-3 text-sm font-bold text-[var(--konnit-ink)]">
-                Konnit mock QR
-              </p>
-              <p className="text-xs text-[var(--konnit-muted)]">
-                Nội dung: {code} - {formatVND(order.total)}
-              </p>
-            </div>
-          )}
+          <BankTransferBlock code={code} amount={order.total} settings={bankSettings} />
 
           <Button
             onClick={handlePay}
@@ -168,7 +157,7 @@ export function PaymentPanel({ code }: { code: string }) {
                 Đang xử lý...
               </>
             ) : (
-              "Xác nhận thanh toán"
+              "Tôi đã chuyển khoản"
             )}
           </Button>
         </section>
@@ -207,40 +196,84 @@ export function PaymentPanel({ code }: { code: string }) {
   );
 }
 
-function PaymentOption({
-  active,
-  icon,
-  title,
-  desc,
-  onClick,
+function BankTransferBlock({
+  code,
+  amount,
+  settings,
 }: {
-  active: boolean;
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-  onClick: () => void;
+  code: string;
+  amount: number;
+  settings: PaymentSettings | null;
 }) {
+  const hasConfig =
+    settings && (settings.qrImagePath || settings.accountNumber || settings.accountName);
+
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={[
-        "flex items-center gap-3 rounded-xl border p-4 text-left transition",
-        active
-          ? "border-[var(--konnit-berry)] bg-[var(--konnit-pink-02)]"
-          : "border-slate-200 hover:bg-slate-50",
-      ].join(" ")}
-    >
-      <span className="grid h-10 w-10 place-items-center rounded-lg bg-white text-[var(--konnit-berry)]">
-        {icon}
-      </span>
-      <span>
-        <span className="block text-sm font-bold text-[var(--konnit-ink)]">{title}</span>
-        <span className="block text-xs text-[var(--konnit-muted)]">{desc}</span>
-      </span>
-    </button>
+    <div className="mt-6 rounded-xl bg-slate-50 p-5">
+      {!hasConfig ? (
+        <p className="text-center text-sm text-[var(--konnit-muted)]">
+          BTC chưa cấu hình thông tin chuyển khoản. Vui lòng liên hệ ban tổ chức để được hướng dẫn,
+          hoặc bấm “Tôi đã chuyển khoản” sau khi đã thanh toán.
+        </p>
+      ) : (
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
+          {settings?.qrImagePath && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={mediaUrl(settings.qrImagePath)}
+              alt="Mã QR chuyển khoản"
+              className="h-44 w-44 shrink-0 rounded-xl border border-slate-200 bg-white object-contain p-2"
+            />
+          )}
+          <div className="w-full space-y-2 text-sm">
+            {settings?.bankName && (
+              <Row label="Ngân hàng" value={settings.bankName} />
+            )}
+            {settings?.accountName && (
+              <Row label="Chủ tài khoản" value={settings.accountName} />
+            )}
+            {settings?.accountNumber && (
+              <Row label="Số tài khoản" value={settings.accountNumber} mono />
+            )}
+            <Row label="Nội dung CK" value={code} mono highlight />
+            <Row label="Số tiền" value={formatVND(amount)} highlight />
+            {settings?.note && (
+              <p className="pt-1 text-xs text-[var(--konnit-muted)]">{settings.note}</p>
+            )}
+          </div>
+        </div>
+      )}
+      <p className="mt-4 text-center text-xs text-[var(--konnit-muted)]">
+        Sau khi chuyển khoản đúng nội dung, bấm nút bên dưới. Đơn sẽ ở trạng thái “chờ xác nhận” cho
+        tới khi BTC đối soát.
+      </p>
+    </div>
   );
 }
 
-const inputCls =
-  "w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[var(--konnit-berry)]";
+function Row({
+  label,
+  value,
+  mono,
+  highlight,
+}: {
+  label: string;
+  value: string;
+  mono?: boolean;
+  highlight?: boolean;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3 border-b border-slate-200/70 pb-1.5">
+      <span className="text-slate-500">{label}</span>
+      <span
+        className={[
+          "text-right font-bold",
+          mono ? "font-mono" : "",
+          highlight ? "text-[var(--konnit-berry)]" : "text-[var(--konnit-ink)]",
+        ].join(" ")}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}

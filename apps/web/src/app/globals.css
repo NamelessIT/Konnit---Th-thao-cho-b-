@@ -169,8 +169,8 @@
     letter-spacing: 0;
   }
   ::selection {
-    background: var(--konnit-pink-04);
-    color: var(--konnit-berry);
+    background: rgba(143, 47, 103, 0.2);
+    color: inherit;
   }
 }
 

@@ -6,6 +6,7 @@ import { withTransaction } from '../../config/db';
 import { env } from '../../config/env';
 import { availableSlots, currentPrice, evaluateVoucher, type TicketTypeRow } from '../commerce/pricing';
 import { invalidatePublicTicketCache } from '../tickets/tickets.service';
+import { sendReceiptEmail } from '../../services/mailer';
 
 interface CreateOrderInput {
   contact: {
@@ -176,6 +177,7 @@ async function findOrderById(client: PoolClient, orderId: number) {
     contact_email: order.contact_email,
     voucher_code: order.voucher_code ?? undefined,
     payment_method: order.payment_method ?? undefined,
+    paid_at: order.paid_at ?? null,
     items: items.map((item) => ({
       ...item,
       unit_price: Number(item.unit_price),
@@ -319,8 +321,126 @@ export async function getOrderByCode(code: string, email?: string) {
   });
 }
 
+interface LockedOrderRow {
+  id: number;
+  subtotal: string | number;
+  voucher_code: string | null;
+}
+
+/**
+ * Hoàn tất một đơn `pending` đã được lock + xác thực (chưa hết hạn) thành `paid`:
+ * trừ reserved/tăng sold, redeem voucher, ghi payment success, sinh vé QR.
+ * Dùng chung cho thanh toán tức thì (card/qr) và admin xác nhận chuyển khoản.
+ */
+async function finalizePaidOrder(
+  client: PoolClient,
+  order: LockedOrderRow,
+  method: PaymentMethod,
+  meta?: Record<string, unknown>,
+) {
+  const { rows: counts } = await client.query(
+    `SELECT ticket_type_id, count(*)::int AS qty
+     FROM order_items
+     WHERE order_id = $1
+     GROUP BY ticket_type_id
+     ORDER BY ticket_type_id`,
+    [order.id],
+  );
+  const ids = counts.map((row) => row.ticket_type_id);
+  const ticketRows = await lockPublicTicketTypes(client, ids);
+  const ticketMap = new Map(ticketRows.map((ticket) => [ticket.id, ticket]));
+  if (ticketRows.length !== ids.length) {
+    throw new AppError(409, 'TICKET_INVALID', 'Vé trong đơn không còn hợp lệ');
+  }
+
+  for (const row of counts) {
+    const ticket = ticketMap.get(row.ticket_type_id)!;
+    if (Number(ticket.reserved_count) < Number(row.qty)) {
+      throw new AppError(409, 'TICKET_HOLD_INVALID', `Số lượng giữ chỗ của "${ticket.name}" không hợp lệ`);
+    }
+  }
+
+  const subtotal = Number(order.subtotal);
+  const { voucher, discountAmount } = await validateVoucherForOrder(
+    client,
+    order.voucher_code ?? undefined,
+    subtotal,
+  );
+  const total = Math.max(0, subtotal - discountAmount);
+
+  for (const row of counts) {
+    await client.query(
+      `UPDATE ticket_types
+       SET reserved_count = reserved_count - $2,
+           sold_count = sold_count + $2,
+           updated_at = now()
+       WHERE id = $1 AND reserved_count >= $2`,
+      [row.ticket_type_id, row.qty],
+    );
+  }
+
+  if (voucher) {
+    await client.query(
+      `UPDATE vouchers
+       SET used_count = used_count + 1, updated_at = now()
+       WHERE id = $1`,
+      [voucher.id],
+    );
+    await client.query(
+      `INSERT INTO voucher_redemptions (voucher_id, order_id)
+       VALUES ($1, $2)
+       ON CONFLICT DO NOTHING`,
+      [voucher.id, order.id],
+    );
+  }
+
+  await client.query(
+    `INSERT INTO payments (order_id, gateway, amount, status, transaction_ref, response_code, gateway_response_json)
+     VALUES ($1, $2, $3, 'success', $4, '00', $5::jsonb)`,
+    [order.id, method, total, `DEV-${randomUUID()}`, meta ? JSON.stringify(meta) : null],
+  );
+
+  await client.query(
+    `UPDATE orders
+     SET status = 'paid',
+         discount_amount = $2,
+         total = $3,
+         voucher_id = $4,
+         voucher_code = $5,
+         paid_at = now(),
+         updated_at = now()
+     WHERE id = $1`,
+    [order.id, discountAmount, total, voucher?.id ?? null, voucher?.code ?? null],
+  );
+
+  const { rows: orderItems } = await client.query(
+    `SELECT id FROM order_items WHERE order_id = $1 ORDER BY id`,
+    [order.id],
+  );
+  for (const item of orderItems) {
+    await client.query(
+      `INSERT INTO tickets (order_item_id, qr_token)
+       VALUES ($1, $2)
+       ON CONFLICT (order_item_id) DO NOTHING`,
+      [item.id, generateTicketToken()],
+    );
+  }
+
+  await invalidatePublicTicketCache();
+  return findOrderById(client, order.id);
+}
+
+/** Trả về gateway của payment mới nhất của đơn (null nếu chưa có). */
+async function latestPaymentGateway(client: PoolClient, orderId: number): Promise<string | null> {
+  const { rows } = await client.query(
+    `SELECT gateway FROM payments WHERE order_id = $1 ORDER BY created_at DESC, id DESC LIMIT 1`,
+    [orderId],
+  );
+  return rows[0]?.gateway ?? null;
+}
+
 export async function payOrder(code: string, method: PaymentMethod) {
-  return withTransaction(async (client) => {
+  const result = await withTransaction(async (client) => {
     if (await expireHeldOrders(client)) {
       await invalidatePublicTicketCache();
     }
@@ -345,97 +465,87 @@ export async function payOrder(code: string, method: PaymentMethod) {
       throw new AppError(409, 'ORDER_EXPIRED', 'Đơn hàng đã hết thời gian giữ vé');
     }
 
-    const { rows: counts } = await client.query(
-      `SELECT ticket_type_id, count(*)::int AS qty
-       FROM order_items
-       WHERE order_id = $1
-       GROUP BY ticket_type_id
-       ORDER BY ticket_type_id`,
-      [order.id],
-    );
-    const ids = counts.map((row) => row.ticket_type_id);
-    const ticketRows = await lockPublicTicketTypes(client, ids);
-    const ticketMap = new Map(ticketRows.map((ticket) => [ticket.id, ticket]));
-    if (ticketRows.length !== ids.length) {
-      throw new AppError(409, 'TICKET_INVALID', 'Vé trong đơn không còn hợp lệ');
-    }
-
-    for (const row of counts) {
-      const ticket = ticketMap.get(row.ticket_type_id)!;
-      if (Number(ticket.reserved_count) < Number(row.qty)) {
-        throw new AppError(409, 'TICKET_HOLD_INVALID', `Số lượng giữ chỗ của "${ticket.name}" không hợp lệ`);
-      }
-    }
-
-    const subtotal = Number(order.subtotal);
-    const { voucher, discountAmount } = await validateVoucherForOrder(
-      client,
-      order.voucher_code ?? undefined,
-      subtotal,
-    );
-    const total = Math.max(0, subtotal - discountAmount);
-
-    for (const row of counts) {
+    // Chuyển khoản: KHÔNG mark paid ngay. Ghi nhận ý định, gia hạn giữ chỗ,
+    // chờ admin đối soát rồi xác nhận (confirmTransferPayment).
+    if (method === 'bank') {
       await client.query(
-        `UPDATE ticket_types
-         SET reserved_count = reserved_count - $2,
-             sold_count = sold_count + $2,
+        `INSERT INTO payments (order_id, gateway, amount, status, transaction_ref)
+         VALUES ($1, 'bank', $2, 'initiated', $3)`,
+        [order.id, Number(order.total), `TRANSFER-${randomUUID()}`],
+      );
+      await client.query(
+        `UPDATE orders
+         SET hold_expires_at = now() + ($2::text || ' hours')::interval,
              updated_at = now()
-         WHERE id = $1 AND reserved_count >= $2`,
-        [row.ticket_type_id, row.qty],
-      );
-    }
-
-    if (voucher) {
-      await client.query(
-        `UPDATE vouchers
-         SET used_count = used_count + 1, updated_at = now()
          WHERE id = $1`,
-        [voucher.id],
+        [order.id, env.TRANSFER_HOLD_HOURS],
       );
-      await client.query(
-        `INSERT INTO voucher_redemptions (voucher_id, order_id)
-         VALUES ($1, $2)
-         ON CONFLICT DO NOTHING`,
-        [voucher.id, order.id],
-      );
+      return {
+        status: 'pending',
+        awaitingTransfer: true,
+        order: await findOrderById(client, order.id),
+      };
     }
 
-    await client.query(
-      `INSERT INTO payments (order_id, gateway, amount, status, transaction_ref, response_code)
-       VALUES ($1, $2, $3, 'success', $4, '00')`,
-      [order.id, method, total, `DEV-${randomUUID()}`],
-    );
-
-    await client.query(
-      `UPDATE orders
-       SET status = 'paid',
-           discount_amount = $2,
-           total = $3,
-           voucher_id = $4,
-           voucher_code = $5,
-           paid_at = now(),
-           updated_at = now()
-       WHERE id = $1`,
-      [order.id, discountAmount, total, voucher?.id ?? null, voucher?.code ?? null],
-    );
-
-    const { rows: orderItems } = await client.query(
-      `SELECT id FROM order_items WHERE order_id = $1 ORDER BY id`,
-      [order.id],
-    );
-    for (const item of orderItems) {
-      await client.query(
-        `INSERT INTO tickets (order_item_id, qr_token)
-         VALUES ($1, $2)
-         ON CONFLICT (order_item_id) DO NOTHING`,
-        [item.id, generateTicketToken()],
-      );
-    }
-
-    await invalidatePublicTicketCache();
-    return { status: 'paid', order: await findOrderById(client, order.id) };
+    // Thẻ / ví (mock tức thì)
+    const finalized = await finalizePaidOrder(client, order, method);
+    return { status: 'paid' as const, order: finalized };
   });
+
+  if (result.status === 'paid' && result.order) {
+    sendReceiptEmail(result.order).catch((e) => console.error('[mailer]', e));
+  }
+
+  return result;
+}
+
+/**
+ * Admin xác nhận đã nhận tiền chuyển khoản → hoàn tất đơn thành `paid`.
+ * Yêu cầu đơn đang `pending`, payment mới nhất là `bank`, và chưa hết hạn giữ chỗ.
+ */
+export async function confirmTransferPayment(code: string, adminId: number) {
+  const result = await withTransaction(async (client) => {
+    if (await expireHeldOrders(client)) {
+      await invalidatePublicTicketCache();
+    }
+
+    const { rows: orderRows } = await client.query(
+      `SELECT * FROM orders WHERE order_code = $1 AND is_deleted = false FOR UPDATE`,
+      [code],
+    );
+    const order = orderRows[0];
+    if (!order) throw new AppError(404, 'ORDER_NOT_FOUND', 'Đơn hàng không tồn tại');
+
+    if (order.status === 'paid') {
+      return { status: 'paid', order: await findOrderById(client, order.id) };
+    }
+    if (order.status !== 'pending') {
+      throw new AppError(409, 'ORDER_NOT_PAYABLE', 'Đơn hàng không thể xác nhận thanh toán');
+    }
+
+    const gateway = await latestPaymentGateway(client, order.id);
+    if (gateway !== 'bank') {
+      throw new AppError(409, 'NOT_TRANSFER_ORDER', 'Đơn không phải thanh toán chuyển khoản');
+    }
+    if (order.hold_expires_at && new Date(order.hold_expires_at).getTime() < Date.now()) {
+      if (await expireHeldOrders(client)) {
+        await invalidatePublicTicketCache();
+      }
+      throw new AppError(409, 'ORDER_EXPIRED', 'Đơn hàng đã hết thời gian giữ vé');
+    }
+
+    const finalized = await finalizePaidOrder(client, order, 'bank', {
+      confirmedBy: adminId,
+      method: 'bank_transfer_manual',
+    });
+    return { status: 'paid' as const, order: finalized };
+  });
+
+  if (result.order) {
+    sendReceiptEmail(result.order).catch((e) => console.error('[mailer]', e));
+  }
+
+  return result;
 }
 
 export async function listAdminOrders() {

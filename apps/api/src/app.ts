@@ -25,6 +25,7 @@ import { checkinRoutes } from './modules/checkin/checkin.routes';
 import { accessRoutes } from './modules/access/access.routes';
 import { reportsRoutes } from './modules/reports/reports.routes';
 import { userRefundRoutes, adminRefundRoutes } from './modules/refunds/refunds.routes';
+import { settingsRoutes } from './modules/settings/settings.routes';
 export const app = express();
 
 // Middleware
@@ -71,6 +72,7 @@ app.use('/api/admin/orders', adminRefundRoutes);
 app.use('/api/public/auth', publicAuthRoutes);
 app.use('/api/public', publicShopRoutes);
 app.use('/api/admin/reports', reportsRoutes);
+app.use('/api/admin/settings', settingsRoutes);
 
 // Error handler (must be last)
 app.use(errorHandler);

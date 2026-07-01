@@ -67,6 +67,7 @@ export interface OrderItem {
   medal_name?: string;
   health_notes?: string;
   qr_token?: string;
+  checked_in_at?: string | null;
 }
 
 export interface Order {
@@ -80,8 +81,36 @@ export interface Order {
   contact_email: string;
   voucher_code?: string;
   payment_method?: PaymentMethod;
+  paid_at?: string | null;
   items: OrderItem[];
   created_at: string;
+}
+
+// Cấu hình chuyển khoản công khai (admin cấu hình từ panel)
+export interface PaymentSettings {
+  qrImagePath: string | null;
+  accountName: string;
+  accountNumber: string;
+  bankName: string;
+  note: string;
+}
+
+// Cấu hình SMTP (admin, có mask password)
+export interface SmtpSettings {
+  enabled: boolean;
+  host: string;
+  port: number;
+  secure: boolean;
+  user: string;
+  pass: string;
+  fromName: string;
+  fromEmail: string;
+}
+
+export interface PayResult {
+  status: OrderStatus;
+  awaitingTransfer?: boolean;
+  redirectUrl?: string;
 }
 
 export interface CreateOrderPayload {

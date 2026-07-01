@@ -1,6 +1,6 @@
 "use client";
 
-import { CreditCard, QrCode, Building2 } from "lucide-react";
+import { Building2 } from "lucide-react";
 import type { PaymentMethod } from "@konnit/types";
 import { cn } from "@/lib/utils";
 
@@ -11,24 +11,13 @@ interface PaymentMethodPickerProps {
   onChange: (v: PaymentMethod) => void;
 }
 
+// Chỉ hỗ trợ chuyển khoản ngân hàng. Ví/thẻ online tạm ẩn.
 const OPTIONS: { value: PaymentMethod; label: string; icon: React.ReactNode; desc: string }[] = [
   {
-    value: "card",
-    label: "Thẻ ngân hàng",
-    icon: <CreditCard className="h-5 w-5" />,
-    desc: "Visa, Mastercard, ATM nội địa",
-  },
-  {
-    value: "qr",
-    label: "Ví / QR",
-    icon: <QrCode className="h-5 w-5" />,
-    desc: "MoMo, ZaloPay, VietQR",
-  },
-  {
     value: "bank",
-    label: "Chuyển khoản",
+    label: "Chuyển khoản ngân hàng",
     icon: <Building2 className="h-5 w-5" />,
-    desc: "QR ngân hàng, xác nhận thủ công",
+    desc: "Quét QR ngân hàng, BTC xác nhận thủ công",
   },
 ];
 

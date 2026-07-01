@@ -130,7 +130,7 @@ export default function CheckInPage() {
     }, [scanning]);
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="">
       <h1 className="mb-1 flex items-center gap-2 text-2xl font-black text-[var(--konnit-ink)]">
         <QrCode className="size-6" /> Check-in vé
       </h1>

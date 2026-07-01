@@ -101,6 +101,8 @@ export default function AdminOrdersPage() {
 
   const { user } = useAuth();
   const canManageRefunds = user?.permissions?.includes("orders.manage_refunds") ?? false;
+  const canConfirmPayment = user?.permissions?.includes("orders.confirm_payment") ?? false;
+  const [confirmPayOpen, setConfirmPayOpen] = useState(false);
 
   useEffect(() => {
     setOrders(fetchedOrders ?? []);
@@ -137,6 +139,22 @@ export default function AdminOrdersPage() {
   function openRefund(action: RefundAction) {
     setReason("");
     setRefundAction(action);
+  }
+
+  async function submitConfirmPayment() {
+    if (!selectedOrder) return;
+    setBusy(true);
+    try {
+      await api.post(`/admin/orders/${selectedOrder.order_code}/confirm-payment`, {});
+      toast.success("Đã xác nhận thanh toán — vé QR đã được phát hành.");
+      setConfirmPayOpen(false);
+      setSelectedOrder(null);
+      await refetch();
+    } catch (e) {
+      toast.error(e instanceof ApiError ? e.message : "Thao tác thất bại");
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function submitRefund() {
@@ -376,46 +394,44 @@ export default function AdminOrdersPage() {
                 </div>
               </div>
 
-              {/* Refund actions */}
-              {canManageRefunds && (
-                <div className="flex flex-wrap items-center justify-end gap-2 border-t pt-4">
-                  {selectedOrder.status === "paid" &&
-                    (selectedOrder.items.some((i) => i.checked_in_at) ? (
-                      <span className="mr-auto text-xs text-muted-foreground">
-                        Đã có vé check-in — không thể hoàn tiền.
-                      </span>
-                    ) : (
-                      <Button variant="destructive" size="sm" onClick={() => openRefund("start")}>
-                        Bắt đầu hoàn tiền
-                      </Button>
-                    ))}
-                  {selectedOrder.status === "refund_requested" && (
-                    <>
-                      <Button size="sm" onClick={() => openRefund("approve")}>
-                        Duyệt yêu cầu
-                      </Button>
-                      <Button variant="outline" size="sm" onClick={() => openRefund("reject")}>
-                        Từ chối
-                      </Button>
-                    </>
-                  )}
-                  {selectedOrder.status === "refunding" && (
-                    <Button size="sm" onClick={() => openRefund("complete")}>
-                      Đánh dấu đã hoàn tiền
+              {/* Order actions */}
+              <div className="flex flex-wrap items-center justify-end gap-2 border-t pt-4">
+                {canConfirmPayment &&
+                  selectedOrder.status === "pending" &&
+                  selectedOrder.payment_method === "bank" && (
+                    <Button size="sm" className="mr-auto" onClick={() => setConfirmPayOpen(true)}>
+                      Xác nhận đã nhận chuyển khoản
                     </Button>
                   )}
-                  <Button variant="ghost" size="sm" onClick={() => setSelectedOrder(null)}>
-                    Đóng
+                {canManageRefunds && selectedOrder.status === "paid" &&
+                  (selectedOrder.items.some((i) => i.checked_in_at) ? (
+                    <span className="mr-auto text-xs text-muted-foreground">
+                      Đã có vé check-in — không thể hoàn tiền.
+                    </span>
+                  ) : (
+                    <Button variant="destructive" size="sm" onClick={() => openRefund("start")}>
+                      Bắt đầu hoàn tiền
+                    </Button>
+                  ))}
+                {canManageRefunds && selectedOrder.status === "refund_requested" && (
+                  <>
+                    <Button size="sm" onClick={() => openRefund("approve")}>
+                      Duyệt yêu cầu
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => openRefund("reject")}>
+                      Từ chối
+                    </Button>
+                  </>
+                )}
+                {canManageRefunds && selectedOrder.status === "refunding" && (
+                  <Button size="sm" onClick={() => openRefund("complete")}>
+                    Đánh dấu đã hoàn tiền
                   </Button>
-                </div>
-              )}
-              {!canManageRefunds && (
-                <div className="flex justify-end">
-                  <Button variant="ghost" size="sm" onClick={() => setSelectedOrder(null)}>
-                    Đóng
-                  </Button>
-                </div>
-              )}
+                )}
+                <Button variant="ghost" size="sm" onClick={() => setSelectedOrder(null)}>
+                  Đóng
+                </Button>
+              </div>
             </div>
           )}
         </DialogContent>
@@ -469,6 +485,33 @@ export default function AdminOrdersPage() {
               </DialogFooter>
             </>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Confirm transfer payment dialog */}
+      <Dialog
+        open={confirmPayOpen}
+        onOpenChange={(open) => {
+          if (!open && !busy) setConfirmPayOpen(false);
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Xác nhận đã nhận chuyển khoản</DialogTitle>
+            <DialogDescription>
+              Chỉ xác nhận khi đã đối soát và thấy tiền về tài khoản với đúng nội dung là mã đơn{" "}
+              <span className="font-mono font-semibold">{selectedOrder?.order_code}</span>. Hệ thống sẽ
+              chuyển đơn sang “Đã thanh toán”, trừ suất vé và phát hành vé QR cho từng bé.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" disabled={busy} onClick={() => setConfirmPayOpen(false)}>
+              Đóng
+            </Button>
+            <Button disabled={busy} onClick={submitConfirmPayment}>
+              {busy ? "Đang xử lý…" : "Xác nhận & phát hành vé"}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

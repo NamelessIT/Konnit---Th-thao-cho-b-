@@ -6,6 +6,7 @@ import * as eventsCtrl from '../events/events.controller';
 import * as ticketsCtrl from '../tickets/tickets.controller';
 import * as vouchersCtrl from '../vouchers/vouchers.controller';
 import * as ordersCtrl from '../orders/orders.controller';
+import * as settingsCtrl from '../settings/settings.controller';
 import { validateVoucherSchema } from '../vouchers/vouchers.validation';
 
 /** Public storefront read endpoints (events, ticket types, voucher validate). */
@@ -20,3 +21,5 @@ publicShopRoutes.post('/vouchers/validate', validate(validateVoucherSchema), asy
 publicShopRoutes.post('/orders', asyncHandler(ordersCtrl.createPublic));
 publicShopRoutes.get('/orders/:code', asyncHandler(ordersCtrl.getPublic));
 publicShopRoutes.post('/orders/:code/pay', asyncHandler(ordersCtrl.payPublic));
+publicShopRoutes.get('/settings/payment', asyncHandler(settingsCtrl.getPublicPayment));
+publicShopRoutes.get('/tickets/qr/:token', asyncHandler(ticketsCtrl.getQrImage));

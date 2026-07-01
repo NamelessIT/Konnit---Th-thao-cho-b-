@@ -403,6 +403,20 @@ CREATE TABLE IF NOT EXISTS order_refunds (
   updated_at            TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- ===== App settings (key-value) =====
+CREATE TABLE IF NOT EXISTS app_settings (
+  key        TEXT PRIMARY KEY,
+  value      JSONB NOT NULL DEFAULT '{}',
+  updated_by INT REFERENCES admin_users(id),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+INSERT INTO app_settings (key, value)
+VALUES ('bank_transfer', '{}'::jsonb)
+ON CONFLICT (key) DO NOTHING;
+INSERT INTO app_settings (key, value)
+VALUES ('smtp', '{"enabled":false,"host":"","port":587,"secure":false,"user":"","pass":"","fromName":"Konnit","fromEmail":""}')
+ON CONFLICT (key) DO NOTHING;
+
 -- ===== Phase 2 Indexes =====
 CREATE INDEX IF NOT EXISTS idx_ticket_types_event ON ticket_types(event_id) WHERE is_deleted = false;
 CREATE INDEX IF NOT EXISTS idx_events_slug ON events(slug) WHERE is_deleted = false;

@@ -23,11 +23,17 @@ export async function getPublic(req: Request, res: Response) {
 }
 
 export async function payPublic(req: Request, res: Response) {
-  const method = req.body.method === 'card' || req.body.method === 'bank' ? req.body.method : 'qr';
-  const data = await service.payOrder(String(req.params.code), method);
+  // Chỉ hỗ trợ chuyển khoản ngân hàng — ví/thẻ online tạm ẩn.
+  const data = await service.payOrder(String(req.params.code), 'bank');
   res.json({ success: true, data });
 }
 
 export async function listAdmin(_req: Request, res: Response) {
   res.json({ success: true, data: await service.listAdminOrders() });
+}
+
+export async function confirmPayment(req: Request, res: Response) {
+  const adminId = req.session.user!.id;
+  const data = await service.confirmTransferPayment(String(req.params.code), adminId);
+  res.json({ success: true, data });
 }

@@ -15,6 +15,7 @@ import {
   QrCode,
   ShieldCheck,
   BarChart3,
+  Wallet,
 } from "lucide-react";
 import {
   Sidebar,
@@ -147,6 +148,16 @@ export function AdminSidebar() {
                   >
                     <ShieldCheck className="size-4.5" />
                     <span>Tài khoản & Quyền</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    render={<Link href="/admin/thanh-toan" />}
+                    isActive={pathname.startsWith("/admin/thanh-toan")}
+                    className="gap-3 data-[active=true]:bg-[var(--konnit-pink-02)] data-[active=true]:font-semibold data-[active=true]:text-[var(--konnit-berry)]"
+                  >
+                    <Wallet className="size-4.5" />
+                    <span>Cấu hình thanh toán</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>

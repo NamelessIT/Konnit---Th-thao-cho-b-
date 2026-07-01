@@ -51,7 +51,7 @@ export function CheckoutForm() {
   const { items, voucher, setVoucher } = useCartStore();
   const { buyer, setBuyer } = useBuyerStore();
 
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("qr");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("bank");
   const [voucherInput, setVoucherInput] = useState("");
   const [voucherError, setVoucherError] = useState("");
   const [isValidatingVoucher, setIsValidatingVoucher] = useState(false);

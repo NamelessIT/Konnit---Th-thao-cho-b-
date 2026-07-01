@@ -21,7 +21,10 @@ export const ACCESS_PERMISSIONS = [
   ['orders.read_own', 'orders', 'read_own', 'Xem đơn hàng của chính mình'],
   ['orders.request_refund', 'orders', 'request_refund', 'Gửi yêu cầu hoàn tiền đơn của mình'],
   ['orders.manage_refunds', 'orders', 'manage_refunds', 'Duyệt/từ chối/hoàn tiền đơn hàng'],
+  ['orders.confirm_payment', 'orders', 'confirm_payment', 'Xác nhận đã nhận chuyển khoản'],
   ['tickets.checkin', 'tickets', 'checkin', 'Check-in vé'],
+  ['settings.read', 'settings', 'read', 'Xem cấu hình hệ thống'],
+  ['settings.write', 'settings', 'write', 'Sửa cấu hình hệ thống'],
   ['profile.read', 'profile', 'read', 'Xem hồ sơ cá nhân'],
   ['profile.write', 'profile', 'write', 'Cập nhật hồ sơ cá nhân'],
 ] as const;
@@ -46,7 +49,8 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     'events.read', 'events.write', 'events.publish',
     'ticket_types.read', 'ticket_types.write',
     'vouchers.read', 'vouchers.write',
-    'orders.read_all', 'orders.export',
+    'orders.read_all', 'orders.export', 'orders.confirm_payment',
+    'settings.read',
   ],
   viewer: [
     'cms.read', 'events.read', 'ticket_types.read',

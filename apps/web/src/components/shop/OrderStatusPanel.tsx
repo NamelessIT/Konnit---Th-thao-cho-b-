@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AlertCircle, CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { QrTicketCard } from "@/components/account/QrTicketCard";
 import { shopApi } from "@/lib/shop/api";
 import { formatVND } from "@/lib/shop/format";
 import type { Order } from "@/lib/shop/types";
@@ -58,7 +59,7 @@ export function OrderStatusPanel({ code }: { code: string }) {
     );
   }
 
-  const view = getStatusView(order.status);
+  const view = getStatusView(order.status, order.payment_method);
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-16">
@@ -104,19 +105,19 @@ export function OrderStatusPanel({ code }: { code: string }) {
         </div>
 
         {order.status === "paid" && order.items.some((item) => item.qr_token) && (
-          <div className="mx-auto mb-6 max-w-md rounded-xl border border-green-100 bg-green-50 p-4 text-left">
-            <p className="mb-3 text-sm font-bold text-green-700">Vé điện tử</p>
-            <div className="space-y-2">
+          <div className="mx-auto mb-6 max-w-md text-left">
+            <p className="mb-3 text-sm font-bold text-(--konnit-muted)">Vé điện tử</p>
+            <div className="space-y-3">
               {order.items.map((item) => (
-                <div key={item.id} className="rounded-lg bg-white px-3 py-2 text-sm">
-                  <p className="font-bold text-[var(--konnit-ink)]">{item.attendee_name}</p>
-                  <p className="text-xs text-[var(--konnit-muted)]">{item.ticket_name}</p>
-                  {item.qr_token && (
-                    <p className="mt-1 break-all font-mono text-xs text-green-700">
-                      {item.qr_token}
-                    </p>
-                  )}
-                </div>
+                <QrTicketCard
+                  key={item.id}
+                  token={item.qr_token ?? null}
+                  attendeeName={item.attendee_name}
+                  ticketName={item.ticket_name}
+                  eventName=""
+                  isUsed={!!item.checked_in_at}
+                  checkedInAt={item.checked_in_at ?? null}
+                />
               ))}
             </div>
           </div>
@@ -151,7 +152,7 @@ export function OrderStatusPanel({ code }: { code: string }) {
   );
 }
 
-function getStatusView(status: Order["status"]) {
+function getStatusView(status: Order["status"], paymentMethod?: Order["payment_method"]) {
   switch (status) {
     case "paid":
       return {
@@ -162,6 +163,15 @@ function getStatusView(status: Order["status"]) {
           "Đơn hàng đã được thanh toán. Email xác nhận và vé QR của từng bé sẽ được gửi tới email người mua.",
       };
     case "pending":
+      if (paymentMethod === "bank") {
+        return {
+          Icon: Clock,
+          iconClass: "text-orange-500",
+          title: "Đơn đang chờ BTC xác nhận chuyển khoản",
+          description:
+            "Bạn đã chọn thanh toán chuyển khoản. Sau khi BTC đối soát và xác nhận đã nhận tiền, vé QR của từng bé sẽ được phát hành. Bạn có thể xem lại thông tin chuyển khoản ở nút bên dưới.",
+        };
+      }
       return {
         Icon: Clock,
         iconClass: "text-orange-500",

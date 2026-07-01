@@ -1,4 +1,11 @@
-import type { TicketType, VoucherPreview, Order, CreateOrderPayload } from "./types";
+import type {
+  TicketType,
+  VoucherPreview,
+  Order,
+  CreateOrderPayload,
+  PaymentSettings,
+  PayResult,
+} from "./types";
 import { getMockTickets, getMockTicket } from "./mock-data";
 
 const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
@@ -176,8 +183,8 @@ export const shopApi = {
     return json.data;
   },
 
-  async payOrder(code: string, method: "card" | "qr" | "bank"): Promise<{ status: string; redirectUrl?: string }> {
-    const live = await fetchPublicData<{ status: string; redirectUrl?: string }>(
+  async payOrder(code: string, method: "card" | "qr" | "bank"): Promise<PayResult> {
+    const live = await fetchPublicData<PayResult>(
       `/public/orders/${code}/pay`,
       {
         method: "POST",
@@ -190,6 +197,10 @@ export const shopApi = {
     if (USE_MOCK && live.unavailable) {
       await delay(800);
       const order = mockOrders.get(code);
+      // Chuyển khoản: giữ pending, chờ admin xác nhận. Thẻ/ví: paid ngay.
+      if (method === "bank") {
+        return { status: "pending", awaitingTransfer: true };
+      }
       if (order) {
         order.status = "paid";
         mockOrders.set(code, order);
@@ -204,5 +215,10 @@ export const shopApi = {
     });
     const json = await res.json();
     return json.data;
+  },
+
+  async getPaymentSettings(): Promise<PaymentSettings | null> {
+    const live = await fetchPublicData<PaymentSettings>("/public/settings/payment");
+    return live.data;
   },
 };

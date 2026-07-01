@@ -8,9 +8,9 @@ export default function PublicLayout({
 }) {
   return (
     <>
-      <PublicHeader />
-      <main className="flex-1 pt-[100px]">{children}</main>
-      <PublicFooter />
+      <div className="print:hidden"><PublicHeader /></div>
+      <main className="flex-1 pt-[100px] print:pt-0">{children}</main>
+      <div className="print:hidden"><PublicFooter /></div>
     </>
   );
 }
