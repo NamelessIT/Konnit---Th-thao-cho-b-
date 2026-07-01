@@ -12,7 +12,8 @@ import { formatVND } from "@/lib/shop/format";
 import { shopApi, VoucherValidationError } from "@/lib/shop/api";
 import { Button } from "@/components/ui/button";
 import { PaymentMethodPicker, type PaymentMethod } from "@/components/shop/PaymentMethodPicker";
-import Link from "next/link";
+import { LocaleLink } from "@/components/i18n/LocaleLink";
+import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
 import { useDebounce } from "@/hooks/useDebounce";
 import {
   GENDER_RESTRICTION,
@@ -48,6 +49,7 @@ function emptyChild(ticketTypeId: number): ChildFormData {
 export function CheckoutForm() {
   const hasMounted = useHasMounted();
   const router = useRouter();
+  const localize = useLocalizedHref();
   const { items, voucher, setVoucher } = useCartStore();
   const { buyer, setBuyer } = useBuyerStore();
 
@@ -209,7 +211,7 @@ export function CheckoutForm() {
       });
 
       // Chưa xoá giỏ ở đây — xoá khi thanh toán thành công
-      router.push(`/don-hang/${order.order_code}/thanh-toan`);
+      router.push(localize(`/don-hang/${order.order_code}/thanh-toan`));
     } catch (err) {
       toast.error("Không thể tạo đơn hàng. Vui lòng thử lại.");
     }
@@ -223,9 +225,9 @@ export function CheckoutForm() {
         <p className="mb-4 text-lg font-bold text-[var(--konnit-ink)]">
           Bạn chưa chọn vé nào để thanh toán.
         </p>
-        <Link href="/gio-hang" className="text-sm text-[var(--konnit-berry)] underline underline-offset-4">
+        <LocaleLink href="/gio-hang" className="text-sm text-[var(--konnit-berry)] underline underline-offset-4">
           Quay lại giỏ hàng
-        </Link>
+        </LocaleLink>
       </main>
     );
   }

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import type { PaymentMethod } from "@konnit/types";
 import { useRouter } from "next/navigation";
 import { Building2, Loader2 } from "lucide-react";
-import Link from "next/link";
+import { LocaleLink } from "@/components/i18n/LocaleLink";
+import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { shopApi } from "@/lib/shop/api";
@@ -20,6 +21,7 @@ function mediaUrl(path: string) {
 
 export function PaymentPanel({ code }: { code: string }) {
   const router = useRouter();
+  const localize = useLocalizedHref();
   const clearSelected = useCartStore((s) => s.clearSelected);
 
   const [order, setOrder] = useState<Order | null>(null);
@@ -44,7 +46,7 @@ export function PaymentPanel({ code }: { code: string }) {
       setIsLoading(false);
 
       if (result && result.status !== "pending") {
-        router.replace(`/don-hang/${code}`);
+        router.replace(localize(`/don-hang/${code}`));
       }
     }
 
@@ -70,7 +72,7 @@ export function PaymentPanel({ code }: { code: string }) {
       if (result.status === "paid") {
         clearSelected();
         toast.success("Thanh toán thành công.");
-        router.push(`/don-hang/${code}`);
+        router.push(localize(`/don-hang/${code}`));
         return;
       }
 
@@ -78,7 +80,7 @@ export function PaymentPanel({ code }: { code: string }) {
       if (result.status === "pending" || result.awaitingTransfer) {
         clearSelected();
         toast.success("Đã ghi nhận. Đơn đang chờ BTC xác nhận chuyển khoản.");
-        router.push(`/don-hang/${code}`);
+        router.push(localize(`/don-hang/${code}`));
         return;
       }
 
@@ -108,9 +110,9 @@ export function PaymentPanel({ code }: { code: string }) {
         <p className="mb-6 text-sm text-[var(--konnit-muted)]">
           Mã đơn không tồn tại hoặc phiên mock đã bị làm mới.
         </p>
-        <Link href="/cua-hang">
+        <LocaleLink href="/cua-hang">
             <Button>Quay lại cửa hàng</Button>
-        </Link>
+        </LocaleLink>
       </main>
     );
   }

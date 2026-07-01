@@ -7,15 +7,16 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      // Path riêng tư giờ có prefix locale (/vi/..., /en/...) → dùng wildcard segment.
       disallow: [
         "/admin/",
         "/api/",
-        "/tai-khoan/",
-        "/don-hang/",
-        "/thanh-toan",
-        "/gio-hang",
-        "/dang-nhap",
-        "/dang-ky",
+        "/*/tai-khoan/",
+        "/*/don-hang/",
+        "/*/thanh-toan",
+        "/*/gio-hang",
+        "/*/dang-nhap",
+        "/*/dang-ky",
       ],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,

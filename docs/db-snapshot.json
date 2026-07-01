@@ -1,0 +1,3380 @@
+{
+  "admin_user_roles": {
+    "count": 2,
+    "rows": [
+      {
+        "admin_user_id": 1,
+        "role_id": 1,
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "admin_user_id": 3,
+        "role_id": 4,
+        "created_at": "2026-07-01T02:18:10.472Z"
+      }
+    ]
+  },
+  "admin_users": {
+    "count": 2,
+    "rows": [
+      {
+        "id": 1,
+        "email": "admin@konnit.local",
+        "password_hash": "$2b$12$dDdVeqW.vMlEKEpKgcqTJe9EQzMk0DhInjFgO99FJ5eW/dvL/z4vC",
+        "full_name": "Konnit Admin",
+        "role": "admin",
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 3,
+        "email": "admin@admin.vn",
+        "password_hash": "$2b$12$6VmyuQYiLh4IKvWjD0PkmeaSY8o0Alzd5eI4qkp4h/Fpvp5pL0Pt2",
+        "full_name": "admin2",
+        "role": "viewer",
+        "status": "active",
+        "created_at": "2026-07-01T02:18:10.472Z",
+        "updated_at": "2026-07-01T02:18:10.472Z",
+        "is_deleted": false
+      }
+    ]
+  },
+  "app_settings": {
+    "count": 3,
+    "rows": [
+      {
+        "key": "bank_transfer",
+        "value": {
+          "note": "SĐT + Nội dung",
+          "bankName": "ACB",
+          "accountName": "Nguyen Vu Dieu Ai",
+          "qrImagePath": "/uploads/2026/07/c3e4bc51-cac6-409c-9cbc-b58468cad8aa.png",
+          "accountNumber": "43336167 "
+        },
+        "updated_by": 1,
+        "updated_at": "2026-06-30T18:17:01.342Z"
+      },
+      {
+        "key": "logo",
+        "value": {
+          "url": "/uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg"
+        },
+        "updated_by": 1,
+        "updated_at": "2026-07-01T04:04:29.977Z"
+      },
+      {
+        "key": "smtp",
+        "value": {
+          "host": "smtp.gmail.com",
+          "pass": "doto aeyt wihl jypq",
+          "port": 587,
+          "user": "truong310100@gmail.com",
+          "secure": false,
+          "enabled": true,
+          "fromName": "Konnit",
+          "fromEmail": "truong310100@gmail.com"
+        },
+        "updated_by": 1,
+        "updated_at": "2026-07-01T04:04:36.585Z"
+      }
+    ]
+  },
+  "audit_logs": {
+    "count": 1,
+    "rows": [
+      {
+        "id": 1,
+        "actor_id": 1,
+        "action": "ticket.checkin",
+        "entity_type": "tickets",
+        "entity_id": 3,
+        "before_json": null,
+        "after_json": {
+          "event": "Konnit Kids Run 2026",
+          "attendee": "test@gmail.com",
+          "order_code": "KNTMR1H1N7WPDA"
+        },
+        "ip_address": "::1",
+        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0",
+        "created_at": "2026-07-01T02:59:24.336Z"
+      }
+    ]
+  },
+  "auth_identities": {
+    "count": 0,
+    "rows": []
+  },
+  "cms_categories": {
+    "count": 1,
+    "rows": [
+      {
+        "id": 1,
+        "name": "Trang chủ",
+        "slug": "landing",
+        "description": "Nội dung trang chủ Konnit",
+        "parent_id": null,
+        "sort_order": 0,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "published_at": "2026-06-30T10:30:15.461Z",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      }
+    ]
+  },
+  "cms_component_styles": {
+    "count": 42,
+    "rows": [
+      {
+        "id": 1,
+        "template_id": 1,
+        "style_key": "style_1",
+        "name": "Banner lớn",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 2,
+        "template_id": 1,
+        "style_key": "style_2",
+        "name": "Split image/text",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 3,
+        "template_id": 1,
+        "style_key": "style_3",
+        "name": "Centered",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 4,
+        "template_id": 1,
+        "style_key": "style_4",
+        "name": "Image overlay",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 5,
+        "template_id": 1,
+        "style_key": "style_5",
+        "name": "Split board",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 6,
+        "template_id": 2,
+        "style_key": "style_1",
+        "name": "Plain article",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 7,
+        "template_id": 2,
+        "style_key": "style_2",
+        "name": "Card content",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 8,
+        "template_id": 2,
+        "style_key": "style_3",
+        "name": "Highlighted block",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 9,
+        "template_id": 3,
+        "style_key": "style_1",
+        "name": "Image left",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 10,
+        "template_id": 3,
+        "style_key": "style_2",
+        "name": "Image right",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 11,
+        "template_id": 3,
+        "style_key": "style_3",
+        "name": "Image background",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 12,
+        "template_id": 3,
+        "style_key": "style_4",
+        "name": "Program split + facts",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 13,
+        "template_id": 3,
+        "style_key": "style_5",
+        "name": "Gallery panel",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 14,
+        "template_id": 4,
+        "style_key": "style_1",
+        "name": "3 cards",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 15,
+        "template_id": 4,
+        "style_key": "style_2",
+        "name": "Icon grid",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 16,
+        "template_id": 4,
+        "style_key": "style_3",
+        "name": "Horizontal list",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 17,
+        "template_id": 4,
+        "style_key": "style_4",
+        "name": "Service card (gallery + pill)",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 18,
+        "template_id": 4,
+        "style_key": "style_5",
+        "name": "Numbered panel",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 19,
+        "template_id": 5,
+        "style_key": "style_1",
+        "name": "Timeline",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 20,
+        "template_id": 5,
+        "style_key": "style_2",
+        "name": "Table",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 21,
+        "template_id": 5,
+        "style_key": "style_3",
+        "name": "Card list",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 22,
+        "template_id": 6,
+        "style_key": "style_1",
+        "name": "Accordion",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 23,
+        "template_id": 6,
+        "style_key": "style_2",
+        "name": "Two-column",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 24,
+        "template_id": 7,
+        "style_key": "style_1",
+        "name": "Simple centered",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 25,
+        "template_id": 7,
+        "style_key": "style_2",
+        "name": "Colored card",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 26,
+        "template_id": 7,
+        "style_key": "style_3",
+        "name": "Sticky mobile CTA",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 27,
+        "template_id": 7,
+        "style_key": "style_4",
+        "name": "Panel + chips",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 28,
+        "template_id": 7,
+        "style_key": "style_5",
+        "name": "Panel 2 cột (note/actions)",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 29,
+        "template_id": 8,
+        "style_key": "style_1",
+        "name": "Logo grid",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 30,
+        "template_id": 8,
+        "style_key": "style_2",
+        "name": "Carousel",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 31,
+        "template_id": 9,
+        "style_key": "style_1",
+        "name": "Info",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 32,
+        "template_id": 9,
+        "style_key": "style_2",
+        "name": "Warning",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 33,
+        "template_id": 9,
+        "style_key": "style_3",
+        "name": "Success",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 34,
+        "template_id": 10,
+        "style_key": "style_1",
+        "name": "Price cards",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 35,
+        "template_id": 10,
+        "style_key": "style_2",
+        "name": "Compact table",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 36,
+        "template_id": 11,
+        "style_key": "style_1",
+        "name": "Catalog grid (4-up)",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 37,
+        "template_id": 11,
+        "style_key": "style_2",
+        "name": "Kit card + facts",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 38,
+        "template_id": 12,
+        "style_key": "style_1",
+        "name": "Card + actions",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 39,
+        "template_id": 12,
+        "style_key": "style_2",
+        "name": "About panel (bullets + trust)",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 40,
+        "template_id": 13,
+        "style_key": "style_1",
+        "name": "3 cột",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 41,
+        "template_id": 13,
+        "style_key": "style_2",
+        "name": "4 cột",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 42,
+        "template_id": 13,
+        "style_key": "style_3",
+        "name": "5 cột",
+        "description": null,
+        "preview_image_path": null,
+        "css_class": null,
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      }
+    ]
+  },
+  "cms_component_templates": {
+    "count": 13,
+    "rows": [
+      {
+        "id": 1,
+        "type_key": "hero",
+        "name": "Hero Banner",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "title",
+          "subtitle",
+          "description",
+          "content",
+          "note",
+          "image",
+          "primaryCta",
+          "secondaryCta"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 2,
+        "type_key": "rich_text",
+        "name": "Nội dung văn bản",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "title",
+          "description",
+          "content",
+          "note"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 3,
+        "type_key": "image_text",
+        "name": "Ảnh + Văn bản",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "title",
+          "description",
+          "content",
+          "note",
+          "image",
+          "imagePosition"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 4,
+        "type_key": "feature_grid",
+        "name": "Lưới tính năng",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "title",
+          "description",
+          "items",
+          "primaryCta"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 5,
+        "type_key": "schedule",
+        "name": "Lịch trình",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "title",
+          "description",
+          "items"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 6,
+        "type_key": "faq",
+        "name": "Câu hỏi thường gặp",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "title",
+          "description",
+          "items"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 7,
+        "type_key": "cta",
+        "name": "Kêu gọi hành động",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "title",
+          "description",
+          "buttonLabel",
+          "buttonUrl",
+          "primaryCta",
+          "secondaryCta",
+          "note"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 8,
+        "type_key": "sponsor",
+        "name": "Nhà tài trợ",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "title",
+          "description",
+          "logos"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 9,
+        "type_key": "note_alert",
+        "name": "Thông báo",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "title",
+          "description",
+          "content",
+          "note",
+          "tone"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 10,
+        "type_key": "ticket_preview",
+        "name": "Bảng giá vé",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "title",
+          "description",
+          "items",
+          "note"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 11,
+        "type_key": "product",
+        "name": "Sản phẩm",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "title",
+          "description",
+          "items",
+          "primaryCta"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 12,
+        "type_key": "contact_panel",
+        "name": "Liên hệ",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "label",
+          "title",
+          "description",
+          "phone",
+          "qrData",
+          "qrImage",
+          "primaryCta",
+          "secondaryCta"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 13,
+        "type_key": "flow_steps",
+        "name": "Các bước",
+        "description": null,
+        "allowed_fields_json": [
+          "anchorId",
+          "eyebrow",
+          "title",
+          "description",
+          "items"
+        ],
+        "status": "active",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      }
+    ]
+  },
+  "cms_pages": {
+    "count": 4,
+    "rows": [
+      {
+        "id": 2,
+        "category_id": 1,
+        "title": "Hoạt động — Konnit",
+        "slug": "services",
+        "description": "Hoạt động học của Konnit — vận động, thiên nhiên và khoa học vui.",
+        "seo_title": null,
+        "seo_description": null,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "published_at": "2026-06-30T10:30:15.461Z",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 3,
+        "category_id": 1,
+        "title": "Cửa hàng Konnit",
+        "slug": "store",
+        "description": "Các bộ dụng cụ sẵn sàng cho những chuyến phiêu lưu nhỏ an toàn — xem trước danh mục.",
+        "seo_title": null,
+        "seo_description": null,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "published_at": "2026-06-30T10:30:15.461Z",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 4,
+        "category_id": 1,
+        "title": "Cộng đồng — Konnit",
+        "slug": "community",
+        "description": "Ngày hội cộng đồng Konnit — những ngày tử tế hơn cho trẻ em và gia đình.",
+        "seo_title": null,
+        "seo_description": null,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "published_at": "2026-06-30T10:30:15.461Z",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      },
+      {
+        "id": 1,
+        "category_id": 1,
+        "title": "Konnit – Học an toàn qua trò chơi",
+        "slug": "home",
+        "description": "Nền tảng thể thao và hoạt động dành cho trẻ em Việt Nam",
+        "seo_title": null,
+        "seo_description": null,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "published_at": "2026-07-01T10:50:56.960Z",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-07-01T10:50:56.960Z",
+        "is_deleted": false
+      }
+    ]
+  },
+  "cms_sections": {
+    "count": 20,
+    "rows": [
+      {
+        "id": 48,
+        "page_id": 2,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "hero",
+        "style_variant": "style_5",
+        "title": "Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.",
+        "description": null,
+        "content_json": {
+          "items": [
+            {
+              "icon": "↗",
+              "tint": "bike",
+              "title": "Vận động",
+              "subtitle": "Thăng bằng, tập trung và can đảm"
+            },
+            {
+              "icon": "⌂",
+              "tint": "camp",
+              "title": "Thiên nhiên",
+              "subtitle": "Thói quen ngoài trời và làm việc nhóm"
+            },
+            {
+              "icon": "◌",
+              "tint": "science",
+              "title": "Khám phá",
+              "subtitle": "Câu hỏi, vật liệu và sự tò mò"
+            }
+          ],
+          "title": "Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.",
+          "eyebrow": "Hoạt động",
+          "primaryCta": {
+            "url": "mailto:hello@konnit.example?subject=Join%20a%20first%20Konnit%20session",
+            "label": "Tham gia buổi đầu tiên"
+          },
+          "description": "Ba nhóm hoạt động chính giúp trẻ phát triển thể chất, cảm xúc xã hội và tư duy khám phá trong một lộ trình nhẹ nhàng, luôn có người hướng dẫn và ba mẹ đồng hành.",
+          "secondaryCta": {
+            "url": "#contact",
+            "label": "Liên hệ konnit"
+          }
+        },
+        "sort_order": 1,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 57,
+        "page_id": 4,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "hero",
+        "style_variant": "style_5",
+        "title": "Một thế giới tử tế hơn cho trẻ, qua từng ngày hội cộng đồng.",
+        "description": null,
+        "content_json": {
+          "items": [
+            {
+              "icon": "01",
+              "tint": "berry",
+              "title": "Ngày của bé",
+              "subtitle": "Trạm chơi, đón tiếp nhẹ nhàng và thời gian gia đình"
+            },
+            {
+              "icon": "02",
+              "tint": "berry",
+              "title": "Sự quan tâm địa phương",
+              "subtitle": "5–7 thương hiệu cùng tạo không gian tốt hơn"
+            },
+            {
+              "icon": "03",
+              "tint": "berry",
+              "title": "Quà nhỏ",
+              "subtitle": "Mẫu sản phẩm thân thiện và bất ngờ dễ thương"
+            }
+          ],
+          "title": "Một thế giới tử tế hơn cho trẻ, qua từng ngày hội cộng đồng.",
+          "eyebrow": "Cộng đồng",
+          "primaryCta": {
+            "url": "#join-next-event",
+            "label": "Tham gia sự kiện tới"
+          },
+          "description": "konnit cùng gia đình và các đối tác địa phương tạo ra những không gian an toàn, vui vẻ để trẻ được chơi, nhận quà nhỏ và cảm thấy mình thuộc về một cộng đồng tử tế.",
+          "secondaryCta": {
+            "url": "#activity-highlights",
+            "label": "Xem hoạt động"
+          }
+        },
+        "sort_order": 1,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 44,
+        "page_id": 1,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "contact_panel",
+        "style_variant": "style_2",
+        "title": "Một nơi dịu dàng để con lớn lên dũng cảm.",
+        "description": "konnit tạo ra những buổi chơi có định hướng cho trẻ dưới 7 tuổi, nơi con được thử vận động, giao tiếp và khám phá trong nhịp độ nhẹ nhàng.",
+        "content_json": {
+          "label": "Buổi đầu tiên",
+          "phone": "+84 90 123 4567",
+          "title": "Một nơi dịu dàng để con lớn lên dũng cảm.",
+          "trust": [
+            {
+              "icon": "✓",
+              "label": "An toàn trước tiên"
+            },
+            {
+              "icon": "♡",
+              "label": "Chơi lịch sự"
+            },
+            {
+              "icon": "★",
+              "label": "Vui vẻ thân thiện"
+            }
+          ],
+          "bullets": [
+            "Thiết bị được chuẩn bị đúng cỡ trước mỗi hoạt động.",
+            "Ba mẹ quan sát con với gợi ý rõ ràng từ người hướng dẫn.",
+            "Mỗi bé được chọn thử thách phù hợp với mức tự tin hiện tại."
+          ],
+          "eyebrow": "Về chúng tôi",
+          "anchorId": "about",
+          "description": "konnit tạo ra những buổi chơi có định hướng cho trẻ dưới 7 tuổi, nơi con được thử vận động, giao tiếp và khám phá trong nhịp độ nhẹ nhàng.",
+          "contactTitle": "Trò chuyện với konnit"
+        },
+        "sort_order": 2,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 45,
+        "page_id": 1,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "feature_grid",
+        "style_variant": "style_4",
+        "title": "Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.",
+        "description": "Ba nhóm hoạt động chính giúp trẻ phát triển thể chất, cảm xúc xã hội và tư duy khám phá trong một lộ trình nhẹ nhàng.",
+        "content_json": {
+          "items": [
+            {
+              "icon": "↗",
+              "meta": "2.5–6 tuổi",
+              "tint": "bike",
+              "title": "Đua xe thăng bằng",
+              "photos": [
+                "Đường đua xe",
+                "Kiểm tra mũ",
+                "Khoảnh khắc về đích"
+              ],
+              "linkUrl": "/services",
+              "linkLabel": "Tìm hiểu thêm",
+              "description": "Đường chạy nhỏ, trò chơi giữ thăng bằng và khoảnh khắc về đích để con tự tin hơn với vận động."
+            },
+            {
+              "icon": "⌂",
+              "meta": "3–6 tuổi",
+              "tint": "camp",
+              "title": "Cắm trại mini",
+              "photos": [
+                "Dựng lều",
+                "Dạo thiên nhiên",
+                "Trò chơi nhóm"
+              ],
+              "linkUrl": "/services",
+              "linkLabel": "Tìm hiểu thêm",
+              "description": "Dựng lều, quan sát thiên nhiên, làm việc nhóm và học các thói quen ngoài trời thật đơn giản."
+            },
+            {
+              "icon": "◌",
+              "meta": "4–6 tuổi",
+              "tint": "science",
+              "title": "Khoa học vui",
+              "photos": [
+                "Phòng màu sắc",
+                "Thử bong bóng",
+                "Theo dõi hạt mầm"
+              ],
+              "linkUrl": "/services",
+              "linkLabel": "Tìm hiểu thêm",
+              "description": "Bong bóng, màu sắc, nam châm, hạt giống và những câu hỏi nhỏ để con khám phá bằng tay."
+            }
+          ],
+          "title": "Các hoạt động học xoay quanh vận động, thiên nhiên và khám phá.",
+          "eyebrow": "Hoạt động của chúng tôi"
+        },
+        "sort_order": 3,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 46,
+        "page_id": 1,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "feature_grid",
+        "style_variant": "style_5",
+        "title": "Những ngày hội cộng đồng cho niềm vui tuổi thơ.",
+        "description": "Cộng đồng konnit cùng các thương hiệu địa phương tạo nên những ngày vui an toàn cho trẻ: khu chơi nhỏ, hoạt động sáng tạo, quà tặng và mẫu sản phẩm thân thiện với trẻ em.",
+        "content_json": {
+          "items": [
+            {
+              "icon": "01",
+              "title": "Khoảnh khắc Ngày của bé",
+              "description": "Những ngày hội nhỏ có trạm chơi, góc nhận quà và không gian để con gặp bạn mới thật tự nhiên."
+            },
+            {
+              "icon": "02",
+              "title": "Đồng hành thương hiệu địa phương",
+              "description": "Mỗi sự kiện có 5–7 đối tác địa phương cùng chuẩn bị địa điểm, hoạt động và sản phẩm phù hợp cho trẻ."
+            },
+            {
+              "icon": "03",
+              "title": "Kết nối tử tế",
+              "description": "Gia đình gặp nhau qua những trải nghiệm tử tế, nhẹ nhàng và không đặt nặng mua bán."
+            }
+          ],
+          "title": "Những ngày hội cộng đồng cho niềm vui tuổi thơ.",
+          "photos": [
+            "Vòng tròn gia đình",
+            "Người bạn đầu tiên",
+            "Sự kiện cuối tuần"
+          ],
+          "eyebrow": "Cộng đồng của chúng tôi",
+          "primaryCta": {
+            "url": "/community",
+            "label": "Xem hoạt động cộng đồng"
+          },
+          "description": "Cộng đồng konnit cùng các thương hiệu địa phương tạo nên những ngày vui an toàn cho trẻ: khu chơi nhỏ, hoạt động sáng tạo, quà tặng và mẫu sản phẩm thân thiện với trẻ em."
+        },
+        "sort_order": 4,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 47,
+        "page_id": 1,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "product",
+        "style_variant": "style_1",
+        "title": "Dụng cụ chỉn chu cho học và chơi an toàn.",
+        "description": "Khu cửa hàng giới thiệu các món đồ hỗ trợ hoạt động tại konnit và ở nhà. Đây là phần xem trước sản phẩm.",
+        "content_json": {
+          "items": [
+            {
+              "tag": "An toàn",
+              "tint": "pink",
+              "title": "Bộ mũ bảo hộ & an toàn",
+              "ageFit": "2.5–6",
+              "photos": [
+                "Ảnh sản phẩm",
+                "Chi tiết vừa vặn",
+                "Trọn bộ"
+              ],
+              "linkUrl": "/store#kits",
+              "linkLabel": "Xem sản phẩm",
+              "safetyNote": "cần kiểm tra vừa vặn",
+              "description": "Mũ bảo hộ, miếng dán tên và checklist an toàn trước giờ chơi."
+            },
+            {
+              "tag": "Xe đạp",
+              "tint": "sun",
+              "title": "Phụ kiện xe thăng bằng",
+              "ageFit": "3–6",
+              "photos": [
+                "Ảnh sản phẩm",
+                "Bảng tên",
+                "Cọc đường chạy"
+              ],
+              "linkUrl": "/store#kits",
+              "linkLabel": "Xem sản phẩm",
+              "safetyNote": "chỉ cạnh mềm",
+              "description": "Chuông nhỏ, bảng tên và cọc đánh dấu đường chạy nhẹ nhàng."
+            },
+            {
+              "tag": "Cắm trại",
+              "tint": "mint",
+              "title": "Bộ cắm trại cơ bản",
+              "ageFit": "3–6",
+              "photos": [
+                "Ảnh sản phẩm",
+                "Thẻ nhiệm vụ",
+                "Đèn an toàn"
+              ],
+              "linkUrl": "/store#kits",
+              "linkLabel": "Xem sản phẩm",
+              "safetyNote": "người lớn lắp trước",
+              "description": "Tấm ngồi, đèn giả lập an toàn và thẻ nhiệm vụ khám phá thiên nhiên."
+            },
+            {
+              "tag": "Khoa học",
+              "tint": "sky",
+              "title": "Bộ khám phá khoa học",
+              "ageFit": "4–6",
+              "photos": [
+                "Ảnh sản phẩm",
+                "Dụng cụ",
+                "Thẻ câu hỏi"
+              ],
+              "linkUrl": "/store#kits",
+              "linkLabel": "Xem sản phẩm",
+              "safetyNote": "chơi có hướng dẫn",
+              "description": "Ống quan sát, thẻ câu hỏi và vật liệu thí nghiệm đơn giản cho trẻ nhỏ."
+            }
+          ],
+          "title": "Dụng cụ chỉn chu cho học và chơi an toàn.",
+          "eyebrow": "Cửa hàng Konnit",
+          "primaryCta": {
+            "url": "/cua-hang",
+            "label": "Mở cửa hàng Konnit"
+          },
+          "description": "Khu cửa hàng giới thiệu các món đồ hỗ trợ hoạt động tại konnit và ở nhà. Đây là phần xem trước sản phẩm."
+        },
+        "sort_order": 5,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 56,
+        "page_id": 3,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "cta",
+        "style_variant": "style_5",
+        "title": "Gặp konnit trước khi chọn bộ.",
+        "description": null,
+        "content_json": {
+          "title": "Gặp konnit trước khi chọn bộ.",
+          "eyebrow": "Cần một bước khởi đầu nhẹ nhàng?",
+          "primaryCta": {
+            "url": "mailto:hello@konnit.example?subject=Book%20a%20first%20Konnit%20session",
+            "label": "Đặt buổi đầu tiên"
+          },
+          "description": "Ba mẹ có thể đặt buổi đầu tiên để konnit quan sát hoạt động con thích, sau đó gợi ý bộ dụng cụ phù hợp hơn.",
+          "secondaryCta": {
+            "url": "tel:+84901234567",
+            "label": "Gọi +84 90 123 4567"
+          }
+        },
+        "sort_order": 4,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 58,
+        "page_id": 4,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "cta",
+        "style_variant": "style_5",
+        "title": "Chúng tôi gắn kết các gia đình qua sự quan tâm, vui chơi và trách nhiệm chung.",
+        "description": null,
+        "content_json": {
+          "note": "Đây là không gian cộng đồng. Mục tiêu là tạo trải nghiệm vui, lịch sự, an toàn và ấm áp cho trẻ nhỏ cùng gia đình.",
+          "title": "Chúng tôi gắn kết các gia đình qua sự quan tâm, vui chơi và trách nhiệm chung.",
+          "eyebrow": "Sứ mệnh cộng đồng",
+          "noteLabel": "Mục đích cộng đồng",
+          "description": "konnit tổ chức các hoạt động xã hội cho trẻ em, nơi những cộng tác viên và thương hiệu địa phương cùng đóng góp địa điểm, trò chơi, quà tặng và mẫu sản phẩm tốt cho trẻ."
+        },
+        "sort_order": 2,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 59,
+        "page_id": 4,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "flow_steps",
+        "style_variant": "style_1",
+        "title": "Hoạt động cộng đồng hào phóng, giản dị và đặt trẻ lên trước.",
+        "description": null,
+        "content_json": {
+          "items": [
+            {
+              "step": "01",
+              "title": "Ngày của bé cùng nhau",
+              "description": "Một ngày gia đình với trạm chơi nhỏ, góc vận động, quà tặng và mẫu sản phẩm an toàn để trẻ khám phá cùng ba mẹ."
+            },
+            {
+              "step": "02",
+              "title": "Hợp tác thương hiệu địa phương",
+              "description": "Mỗi sự kiện kết nối 5–7 thương hiệu địa phương cùng hỗ trợ địa điểm, hoạt động và những sản phẩm đặt trẻ em lên trước."
+            },
+            {
+              "step": "03",
+              "title": "Vài tháng một lần",
+              "description": "Các khoảnh khắc cộng đồng được tổ chức khoảng mỗi 2–3 tháng, đủ đều đặn để mong chờ và đủ nhẹ nhàng để giữ sự tự nhiên."
+            }
+          ],
+          "title": "Hoạt động cộng đồng hào phóng, giản dị và đặt trẻ lên trước.",
+          "eyebrow": "Hoạt động nổi bật",
+          "anchorId": "activity-highlights"
+        },
+        "sort_order": 3,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 60,
+        "page_id": 4,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "image_text",
+        "style_variant": "style_5",
+        "title": "Nơi dành cho ảnh cộng đồng thật sau này.",
+        "description": null,
+        "content_json": {
+          "title": "Nơi dành cho ảnh cộng đồng thật sau này.",
+          "photos": [
+            "Ngày của bé",
+            "Góc quà tặng",
+            "Gia đình vui chơi"
+          ],
+          "eyebrow": "Thư viện sự kiện",
+          "description": "Khu vực này dùng để đặt một ảnh lớn hoặc bộ ảnh nổi nhẹ ghi lại ngày hội, hoạt động, góc quà và khoảnh khắc gia đình."
+        },
+        "sort_order": 4,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 61,
+        "page_id": 4,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "flow_steps",
+        "style_variant": "style_3",
+        "title": "Hành trình nhẹ nhàng qua ngày hội cộng đồng.",
+        "description": null,
+        "content_json": {
+          "items": [
+            {
+              "step": "01",
+              "title": "Đến nơi an toàn",
+              "description": "Gia đình được chào đón, hướng dẫn khu vực và biết nơi con có thể chơi an toàn."
+            },
+            {
+              "step": "02",
+              "title": "Khám phá hoạt động",
+              "description": "Trẻ thử các trạm chơi nhẹ nhàng theo nhịp riêng, có người lớn quan sát gần."
+            },
+            {
+              "step": "03",
+              "title": "Nhận quà nhỏ",
+              "description": "Con nhận quà nhỏ hoặc mẫu sản phẩm thân thiện với trẻ từ các đối tác phù hợp."
+            },
+            {
+              "step": "04",
+              "title": "Gặp gỡ gia đình",
+              "description": "Ba mẹ có cơ hội trò chuyện với những gia đình cùng quan tâm đến tuổi thơ an toàn."
+            },
+            {
+              "step": "05",
+              "title": "Ra về vui vẻ",
+              "description": "Mỗi gia đình rời đi với kỷ niệm đẹp, ảnh chụp và cảm giác được kết nối."
+            }
+          ],
+          "title": "Hành trình nhẹ nhàng qua ngày hội cộng đồng.",
+          "eyebrow": "Trải nghiệm của gia đình"
+        },
+        "sort_order": 5,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 62,
+        "page_id": 4,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "contact_panel",
+        "style_variant": "style_1",
+        "title": "Tham gia sự kiện cộng đồng tới",
+        "description": null,
+        "content_json": {
+          "label": "Liên hệ cộng đồng",
+          "phone": "+84 90 123 4567",
+          "title": "Tham gia sự kiện cộng đồng tới",
+          "anchorId": "join-next-event",
+          "primaryCta": {
+            "url": "mailto:hello@konnit.example?subject=Join%20next%20Konnit%20community%20event",
+            "label": "Tham gia sự kiện cộng đồng tới"
+          },
+          "description": "Liên hệ konnit để nhận thông tin về ngày cộng đồng tiếp theo, cách tham gia cùng gia đình hoặc cách một thương hiệu địa phương có thể đóng góp tử tế.",
+          "secondaryCta": {
+            "url": "/",
+            "label": "Về trang chủ"
+          }
+        },
+        "sort_order": 6,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 43,
+        "page_id": 1,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "hero",
+        "style_variant": "style_4",
+        "title": "Những chuyến phiêu lưu nhỏ an toàn cho bé mầm non.",
+        "description": "konnit đồng hành cùng trẻ dưới 7 tuổi và ba mẹ qua những trải nghiệm học mà chơi: đua xe thăng bằng, cắm trại mini và khám phá khoa học an toàn.",
+        "content_json": {
+          "image": "http://localhost:4000/uploads/2026/07/4ba5e3e3-bcbc-449e-ac9c-7100ad5172a5.png",
+          "title": "Những chuyến phiêu lưu nhỏ an toàn cho bé mầm non.",
+          "primaryCta": {
+            "url": "/tin-tuc",
+            "label": "Khám phá hoạt động"
+          },
+          "description": "konnit đồng hành cùng trẻ dưới 7 tuổi và ba mẹ qua những trải nghiệm học mà chơi: đua xe thăng bằng, cắm trại mini và khám phá khoa học an toàn.",
+          "secondaryCta": {
+            "url": "#about",
+            "label": "An toàn là ưu tiên"
+          }
+        },
+        "sort_order": 1,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:50:58.036Z",
+        "is_deleted": false
+      },
+      {
+        "id": 49,
+        "page_id": 2,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "image_text",
+        "style_variant": "style_4",
+        "title": "Ba cách để con học qua trải nghiệm.",
+        "description": null,
+        "content_json": {
+          "items": [
+            {
+              "tint": "pink",
+              "facts": [
+                {
+                  "label": "Độ tuổi",
+                  "value": "2.5–6 tuổi"
+                },
+                {
+                  "label": "Lợi ích cho ba mẹ",
+                  "value": "Thấy con tiến bộ về thăng bằng, tập trung và can đảm."
+                },
+                {
+                  "label": "Lưu ý an toàn",
+                  "value": "Kiểm tra mũ và làn chạy chậm mỗi lượt."
+                },
+                {
+                  "label": "Cách diễn ra buổi học",
+                  "value": "Khởi động, đường thăng bằng, lượt chạy có hướng dẫn và kết thúc nhẹ nhàng."
+                }
+              ],
+              "label": "Vận động",
+              "title": "Đua xe thăng bằng",
+              "photos": [
+                "Đường đua xe",
+                "Kiểm tra mũ",
+                "Khoảnh khắc về đích"
+              ],
+              "description": "Đường chạy nhỏ, trò chơi giữ thăng bằng và khoảnh khắc về đích để con tự tin hơn với vận động."
+            },
+            {
+              "tint": "mint",
+              "facts": [
+                {
+                  "label": "Độ tuổi",
+                  "value": "3–6 tuổi"
+                },
+                {
+                  "label": "Lợi ích cho ba mẹ",
+                  "value": "Xây dựng sự tự lập qua thói quen nhẹ nhàng."
+                },
+                {
+                  "label": "Lưu ý an toàn",
+                  "value": "Khu có bóng mát, nghỉ uống nước và ranh giới rõ ràng."
+                },
+                {
+                  "label": "Cách diễn ra buổi học",
+                  "value": "Dựng lều, nhiệm vụ thiên nhiên nhỏ, chia sẻ và dọn dẹp."
+                }
+              ],
+              "label": "Thiên nhiên",
+              "title": "Cắm trại mini",
+              "photos": [
+                "Dựng lều",
+                "Dạo thiên nhiên",
+                "Trò chơi nhóm"
+              ],
+              "description": "Dựng lều, quan sát thiên nhiên, làm việc nhóm và học các thói quen ngoài trời thật đơn giản."
+            },
+            {
+              "tint": "sky",
+              "facts": [
+                {
+                  "label": "Độ tuổi",
+                  "value": "4–6 tuổi"
+                },
+                {
+                  "label": "Lợi ích cho ba mẹ",
+                  "value": "Nuôi dưỡng tò mò và quan sát kiên nhẫn."
+                },
+                {
+                  "label": "Lưu ý an toàn",
+                  "value": "Vật liệu an toàn cho trẻ và dọn dẹp có hướng dẫn."
+                },
+                {
+                  "label": "Cách diễn ra buổi học",
+                  "value": "Đặt câu hỏi, thí nghiệm bằng tay, quan sát và cùng nhìn lại."
+                }
+              ],
+              "label": "Khám phá",
+              "title": "Khoa học vui",
+              "photos": [
+                "Phòng màu sắc",
+                "Thử bong bóng",
+                "Theo dõi hạt mầm"
+              ],
+              "description": "Bong bóng, màu sắc, nam châm, hạt giống và những câu hỏi nhỏ để con khám phá bằng tay."
+            }
+          ],
+          "title": "Ba cách để con học qua trải nghiệm.",
+          "eyebrow": "Tổng quan chương trình",
+          "description": "Mỗi chương trình có nhịp chơi riêng, nhưng cùng chung nguyên tắc: an toàn trước, lời nói tử tế và niềm vui phù hợp với từng bé."
+        },
+        "sort_order": 2,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 50,
+        "page_id": 2,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "flow_steps",
+        "style_variant": "style_2",
+        "title": "Nhịp học nhẹ nhàng từ lúc chào đến lúc nhìn lại.",
+        "description": null,
+        "content_json": {
+          "items": [
+            {
+              "step": "01",
+              "title": "Chào & nhận chỗ",
+              "description": "Con làm quen không gian, thiết bị và người hướng dẫn trước khi bắt đầu."
+            },
+            {
+              "step": "02",
+              "title": "Chơi có hướng dẫn",
+              "description": "Hoạt động được chia thành thử thách nhỏ để trẻ thử từng bước."
+            },
+            {
+              "step": "03",
+              "title": "Ba mẹ quan sát",
+              "description": "Ba mẹ có gợi ý quan sát về vận động, cảm xúc và giao tiếp của con."
+            },
+            {
+              "step": "04",
+              "title": "Nhìn lại & kết nối",
+              "description": "Kết thúc nhẹ nhàng bằng ghi nhận, dọn dẹp và gợi ý buổi tiếp theo."
+            }
+          ],
+          "title": "Nhịp học nhẹ nhàng từ lúc chào đến lúc nhìn lại.",
+          "eyebrow": "Một buổi học diễn ra thế nào"
+        },
+        "sort_order": 3,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 51,
+        "page_id": 2,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "cta",
+        "style_variant": "style_4",
+        "title": "An toàn trước tiên để con thoải mái vui chơi.",
+        "description": null,
+        "content_json": {
+          "chips": [
+            "Thiết bị vừa cỡ",
+            "Thử thách theo nhịp của bé",
+            "Có người hướng dẫn",
+            "Lời chơi lịch sự"
+          ],
+          "title": "An toàn trước tiên để con thoải mái vui chơi.",
+          "eyebrow": "Cam kết an toàn",
+          "description": "Mỗi buổi chơi đều bắt đầu bằng kiểm tra thiết bị, ranh giới rõ ràng, hướng dẫn nhẹ nhàng và tôn trọng nhịp riêng của từng bé."
+        },
+        "sort_order": 4,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 52,
+        "page_id": 2,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "contact_panel",
+        "style_variant": "style_1",
+        "title": "Tham gia buổi đầu tiên",
+        "description": null,
+        "content_json": {
+          "label": "Liên hệ phụ huynh",
+          "phone": "+84 90 123 4567",
+          "title": "Tham gia buổi đầu tiên",
+          "anchorId": "contact",
+          "primaryCta": {
+            "url": "mailto:hello@konnit.example?subject=Join%20a%20first%20Konnit%20session",
+            "label": "Tham gia buổi đầu tiên"
+          },
+          "description": "Gửi câu hỏi cho konnit để chọn hoạt động phù hợp với tuổi, mức tự tin và thời gian của gia đình.",
+          "secondaryCta": {
+            "url": "/",
+            "label": "Về trang chủ"
+          }
+        },
+        "sort_order": 5,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 53,
+        "page_id": 3,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "hero",
+        "style_variant": "style_5",
+        "title": "Bộ dụng cụ sẵn sàng cho những chuyến phiêu lưu nhỏ an toàn.",
+        "description": null,
+        "content_json": {
+          "items": [
+            {
+              "icon": "◆",
+              "tint": "bike",
+              "title": "Vừa mũ bảo hộ",
+              "subtitle": "Kiểm tra nhẹ trước mỗi lượt chạy"
+            },
+            {
+              "icon": "◆",
+              "tint": "camp",
+              "title": "Cắm trại mini",
+              "subtitle": "Thói quen nhỏ cho chơi ngoài trời"
+            },
+            {
+              "icon": "◆",
+              "tint": "science",
+              "title": "Khoa học vui",
+              "subtitle": "Dụng cụ khám phá có hướng dẫn"
+            }
+          ],
+          "title": "Bộ dụng cụ sẵn sàng cho những chuyến phiêu lưu nhỏ an toàn.",
+          "eyebrow": "Cửa hàng Konnit",
+          "primaryCta": {
+            "url": "#kits",
+            "label": "Khám phá các bộ"
+          },
+          "description": "Các bộ đồ chơi và dụng cụ được chọn để ba mẹ dễ chuẩn bị cho xe thăng bằng, cắm trại mini, khám phá khoa học và những buổi chơi an toàn tại nhà.",
+          "secondaryCta": {
+            "url": "mailto:hello@konnit.example?subject=Book%20a%20first%20Konnit%20session",
+            "label": "Đặt buổi đầu tiên"
+          }
+        },
+        "sort_order": 1,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 54,
+        "page_id": 3,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "product",
+        "style_variant": "style_2",
+        "title": "Chọn theo hoạt động, độ tuổi và độ an toàn.",
+        "description": null,
+        "content_json": {
+          "items": [
+            {
+              "tag": "An toàn",
+              "tint": "pink",
+              "title": "Bộ mũ bảo hộ & an toàn",
+              "ageFit": "2.5–6 tuổi",
+              "ctaUrl": "mailto:hello@konnit.example?subject=Ask%20about%20Helmet%20and%20Safety%20Kit",
+              "photos": [
+                "Mũ bảo hộ",
+                "Nhãn tên",
+                "Checklist"
+              ],
+              "ctaLabel": "Hỏi về bộ này",
+              "included": "Hướng dẫn mũ, nhãn tên, checklist trước giờ chơi.",
+              "safetyNote": "Đo trước; cần kiểm tra vừa vặn trước khi chạy.",
+              "description": "Bộ chuẩn bị trước giờ chơi gồm mũ bảo hộ, miếng dán tên và thẻ kiểm tra an toàn ngắn gọn."
+            },
+            {
+              "tag": "Xe đạp",
+              "tint": "sun",
+              "title": "Phụ kiện xe thăng bằng",
+              "ageFit": "3–6 tuổi",
+              "ctaUrl": "mailto:hello@konnit.example?subject=Ask%20about%20Balance-Bike%20Accessories",
+              "photos": [
+                "Chuông",
+                "Bảng tên",
+                "Cọc mềm"
+              ],
+              "ctaLabel": "Hỏi về bộ này",
+              "included": "Chuông, bảng tên, cọc mềm, thẻ đường chạy.",
+              "safetyNote": "Chỉ cạnh mềm; dùng ở khu chơi tốc độ thấp.",
+              "description": "Phụ kiện nhỏ giúp con nhận biết xe của mình, luyện thăng bằng và chơi theo làn đường mềm."
+            },
+            {
+              "tag": "Cắm trại",
+              "tint": "mint",
+              "title": "Bộ cắm trại cơ bản",
+              "ageFit": "3–6 tuổi",
+              "ctaUrl": "mailto:hello@konnit.example?subject=Ask%20about%20Camping%20Starter%20Kit",
+              "photos": [
+                "Tấm ngồi",
+                "Đèn an toàn",
+                "Thẻ nhiệm vụ"
+              ],
+              "ctaLabel": "Hỏi về bộ này",
+              "included": "Tấm ngồi, đèn an toàn, thẻ nhiệm vụ, cờ ranh giới.",
+              "safetyNote": "Người lớn lắp trước; giữ khu bóng mát và nghỉ uống nước.",
+              "description": "Bộ cắm trại mini cho các hoạt động dựng lều, quan sát thiên nhiên và làm việc nhóm nhẹ nhàng."
+            },
+            {
+              "tag": "Khoa học",
+              "tint": "sky",
+              "title": "Bộ khám phá khoa học",
+              "ageFit": "4–6 tuổi",
+              "ctaUrl": "mailto:hello@konnit.example?subject=Ask%20about%20Science%20Play%20Kit",
+              "photos": [
+                "Quan sát",
+                "Dụng cụ",
+                "Thẻ"
+              ],
+              "ctaLabel": "Hỏi về bộ này",
+              "included": "Ống quan sát, dụng cụ an toàn, thẻ câu hỏi.",
+              "safetyNote": "Chơi có hướng dẫn; tránh chi tiết nhỏ với trẻ nhỏ hơn.",
+              "description": "Dụng cụ khám phá đơn giản để con quan sát, đặt câu hỏi và dọn dẹp sau mỗi thí nghiệm nhỏ."
+            },
+            {
+              "tag": "Tại nhà",
+              "tint": "pink",
+              "title": "Gói thói quen chơi tại nhà",
+              "ageFit": "2.5–6 tuổi",
+              "ctaUrl": "mailto:hello@konnit.example?subject=Ask%20about%20Home%20Play%20Routine%20Pack",
+              "photos": [
+                "Thói quen",
+                "Bảng sticker",
+                "Túi gọn gàng"
+              ],
+              "ctaLabel": "Hỏi về bộ này",
+              "included": "Thẻ thói quen, bảng sticker, túi gọn gàng.",
+              "safetyNote": "Chọn từng hoạt động một và luôn có ba mẹ ở gần.",
+              "description": "Gợi ý chơi 15 phút tại nhà để ba mẹ nối tiếp tinh thần konnit sau mỗi buổi trải nghiệm."
+            }
+          ],
+          "title": "Chọn theo hoạt động, độ tuổi và độ an toàn.",
+          "eyebrow": "Các bộ sẵn sàng để chơi",
+          "anchorId": "kits",
+          "description": "Đây là trang xem trước sản phẩm. Mỗi hành động sẽ gửi câu hỏi cho konnit, không có giỏ hàng, thanh toán hay tồn kho trực tuyến."
+        },
+        "sort_order": 2,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      },
+      {
+        "id": 55,
+        "page_id": 3,
+        "template_id": null,
+        "style_id": null,
+        "component_type": "flow_steps",
+        "style_variant": "style_2",
+        "title": "Bắt đầu từ con, rồi chọn bộ phù hợp.",
+        "description": null,
+        "content_json": {
+          "items": [
+            {
+              "step": "01",
+              "title": "Độ tuổi và sự tự tin",
+              "description": "Chọn bộ phù hợp với độ tuổi và mức tự tin hiện tại, không chỉ theo hoạt động con thích."
+            },
+            {
+              "step": "02",
+              "title": "Loại hoạt động",
+              "description": "Xe thăng bằng cần kiểm tra vừa vặn; cắm trại cần thói quen ngoài trời; khoa học cần hướng dẫn gần."
+            },
+            {
+              "step": "03",
+              "title": "Độ an toàn",
+              "description": "Ưu tiên kích cỡ, cạnh mềm, vật liệu an toàn và cách ba mẹ quan sát trong lúc con chơi."
+            },
+            {
+              "step": "04",
+              "title": "Dùng có hướng dẫn",
+              "description": "Nếu chưa chắc, hãy hỏi konnit trước khi mua để chọn bộ dùng được cả ở lớp và tại nhà."
+            }
+          ],
+          "title": "Bắt đầu từ con, rồi chọn bộ phù hợp.",
+          "eyebrow": "Cách chọn"
+        },
+        "sort_order": 3,
+        "is_visible": true,
+        "status": "published",
+        "created_by": 1,
+        "updated_by": 1,
+        "created_at": "2026-07-01T10:23:20.696Z",
+        "updated_at": "2026-07-01T10:23:20.696Z",
+        "is_deleted": false
+      }
+    ]
+  },
+  "events": {
+    "count": 1,
+    "rows": [
+      {
+        "id": 1,
+        "name": "Konnit Kids Run 2026",
+        "slug": "konnit-kids-run-2026",
+        "description": "Giải chạy gia đình cho các bé Konnit — vận động vui khỏe cùng ba mẹ.",
+        "location": "Công viên Tao Đàn, TP.HCM",
+        "map_url": null,
+        "starts_at": "2026-07-30T10:30:15.461Z",
+        "registration_opens_at": "2026-06-29T10:30:15.461Z",
+        "registration_closes_at": "2026-07-25T10:30:15.461Z",
+        "banner_path": null,
+        "cms_page_id": null,
+        "status": "published",
+        "created_by": null,
+        "updated_by": null,
+        "published_at": "2026-06-30T10:30:15.461Z",
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      }
+    ]
+  },
+  "languages": {
+    "count": 2,
+    "rows": [
+      {
+        "id": 2,
+        "code": "en",
+        "name": "English",
+        "native_name": "English",
+        "is_active": true,
+        "is_default": false,
+        "sort_order": 1,
+        "created_at": "2026-07-01T10:23:13.986Z",
+        "updated_at": "2026-07-01T10:24:08.495Z"
+      },
+      {
+        "id": 1,
+        "code": "vi",
+        "name": "Tiếng Việt",
+        "native_name": "Tiếng Việt",
+        "is_active": true,
+        "is_default": true,
+        "sort_order": 0,
+        "created_at": "2026-07-01T10:23:13.986Z",
+        "updated_at": "2026-07-01T10:24:09.707Z"
+      }
+    ]
+  },
+  "order_addons": {
+    "count": 0,
+    "rows": []
+  },
+  "order_items": {
+    "count": 5,
+    "rows": [
+      {
+        "id": 1,
+        "order_id": 1,
+        "ticket_type_id": 1,
+        "ticket_type_name": "Vé thi đấu – Mầm",
+        "unit_price": "200000",
+        "attendee_name": "test@gmail.com",
+        "attendee_dob": "2026-06-30T17:00:00.000Z",
+        "attendee_gender": "male",
+        "shirt_size": "2T",
+        "bib_number": null,
+        "medal_name": "test@gmail.com",
+        "health_notes": "test@gmail.com",
+        "created_at": "2026-06-30T18:15:19.400Z"
+      },
+      {
+        "id": 2,
+        "order_id": 2,
+        "ticket_type_id": 1,
+        "ticket_type_name": "Vé thi đấu – Mầm",
+        "unit_price": "200000",
+        "attendee_name": "teest",
+        "attendee_dob": "2026-06-30T17:00:00.000Z",
+        "attendee_gender": null,
+        "shirt_size": null,
+        "bib_number": null,
+        "medal_name": null,
+        "health_notes": null,
+        "created_at": "2026-07-01T01:34:16.345Z"
+      },
+      {
+        "id": 3,
+        "order_id": 3,
+        "ticket_type_id": 1,
+        "ticket_type_name": "Vé thi đấu – Mầm",
+        "unit_price": "200000",
+        "attendee_name": "test@gmail.com",
+        "attendee_dob": "2026-06-30T17:00:00.000Z",
+        "attendee_gender": "male",
+        "shirt_size": "12T",
+        "bib_number": null,
+        "medal_name": null,
+        "health_notes": null,
+        "created_at": "2026-07-01T02:23:56.004Z"
+      },
+      {
+        "id": 4,
+        "order_id": 4,
+        "ticket_type_id": 2,
+        "ticket_type_name": "Vé thi đấu – Chồi",
+        "unit_price": "250000",
+        "attendee_name": "test@gmail.com",
+        "attendee_dob": "2026-06-30T17:00:00.000Z",
+        "attendee_gender": null,
+        "shirt_size": null,
+        "bib_number": null,
+        "medal_name": null,
+        "health_notes": null,
+        "created_at": "2026-07-01T02:33:01.669Z"
+      },
+      {
+        "id": 5,
+        "order_id": 5,
+        "ticket_type_id": 3,
+        "ticket_type_name": "Vé trải nghiệm (Fun)",
+        "unit_price": "150000",
+        "attendee_name": "test@gmail.com",
+        "attendee_dob": "2026-06-30T17:00:00.000Z",
+        "attendee_gender": null,
+        "shirt_size": null,
+        "bib_number": null,
+        "medal_name": null,
+        "health_notes": null,
+        "created_at": "2026-07-01T02:43:49.574Z"
+      }
+    ]
+  },
+  "order_refunds": {
+    "count": 0,
+    "rows": []
+  },
+  "orders": {
+    "count": 5,
+    "rows": [
+      {
+        "id": 1,
+        "user_id": null,
+        "order_code": "KNTMR0YVPF8WMC",
+        "status": "expired",
+        "contact_name": "test",
+        "contact_phone": "1231231231",
+        "contact_email": "test@gmail.com",
+        "contact_address": "test@gmail.com",
+        "guardian_name": null,
+        "guardian_phone": null,
+        "subtotal": "200000",
+        "discount_amount": "0",
+        "total": "200000",
+        "voucher_id": null,
+        "voucher_code": null,
+        "agreed_terms": true,
+        "hold_expires_at": "2026-06-30T18:30:19.400Z",
+        "note": null,
+        "created_at": "2026-06-30T18:15:19.400Z",
+        "updated_at": "2026-06-30T18:36:35.706Z",
+        "paid_at": null,
+        "is_deleted": false
+      },
+      {
+        "id": 2,
+        "user_id": null,
+        "order_code": "KNTMR1EK74XA2I",
+        "status": "expired",
+        "contact_name": "test",
+        "contact_phone": "1231231231",
+        "contact_email": "test@gmail.com",
+        "contact_address": "test@gmail.com",
+        "guardian_name": null,
+        "guardian_phone": null,
+        "subtotal": "200000",
+        "discount_amount": "0",
+        "total": "200000",
+        "voucher_id": null,
+        "voucher_code": null,
+        "agreed_terms": true,
+        "hold_expires_at": "2026-07-01T01:49:16.345Z",
+        "note": null,
+        "created_at": "2026-07-01T01:34:16.345Z",
+        "updated_at": "2026-07-01T01:50:01.524Z",
+        "paid_at": null,
+        "is_deleted": false
+      },
+      {
+        "id": 3,
+        "user_id": null,
+        "order_code": "KNTMR1GC299DV8",
+        "status": "paid",
+        "contact_name": "test",
+        "contact_phone": "1231231231",
+        "contact_email": "test@gmail.com",
+        "contact_address": "test@gmail.com",
+        "guardian_name": null,
+        "guardian_phone": null,
+        "subtotal": "200000",
+        "discount_amount": "0",
+        "total": "200000",
+        "voucher_id": null,
+        "voucher_code": null,
+        "agreed_terms": true,
+        "hold_expires_at": "2026-07-02T02:24:03.541Z",
+        "note": null,
+        "created_at": "2026-07-01T02:23:56.004Z",
+        "updated_at": "2026-07-01T02:25:35.048Z",
+        "paid_at": "2026-07-01T02:25:35.048Z",
+        "is_deleted": false
+      },
+      {
+        "id": 4,
+        "user_id": null,
+        "order_code": "KNTMR1GNRAM5EG",
+        "status": "paid",
+        "contact_name": "test",
+        "contact_phone": "1231231231",
+        "contact_email": "test@gmail.com",
+        "contact_address": "test@gmail.com",
+        "guardian_name": null,
+        "guardian_phone": null,
+        "subtotal": "250000",
+        "discount_amount": "0",
+        "total": "250000",
+        "voucher_id": null,
+        "voucher_code": null,
+        "agreed_terms": true,
+        "hold_expires_at": "2026-07-02T02:33:10.166Z",
+        "note": null,
+        "created_at": "2026-07-01T02:33:01.669Z",
+        "updated_at": "2026-07-01T02:33:49.366Z",
+        "paid_at": "2026-07-01T02:33:49.366Z",
+        "is_deleted": false
+      },
+      {
+        "id": 5,
+        "user_id": null,
+        "order_code": "KNTMR1H1N7WPDA",
+        "status": "paid",
+        "contact_name": "test",
+        "contact_phone": "1231231231",
+        "contact_email": "test@gmail.com",
+        "contact_address": "test@gmail.com",
+        "guardian_name": null,
+        "guardian_phone": null,
+        "subtotal": "150000",
+        "discount_amount": "0",
+        "total": "150000",
+        "voucher_id": null,
+        "voucher_code": null,
+        "agreed_terms": true,
+        "hold_expires_at": "2026-07-02T02:43:54.858Z",
+        "note": null,
+        "created_at": "2026-07-01T02:43:49.574Z",
+        "updated_at": "2026-07-01T02:44:11.020Z",
+        "paid_at": "2026-07-01T02:44:11.020Z",
+        "is_deleted": false
+      }
+    ]
+  },
+  "payments": {
+    "count": 6,
+    "rows": [
+      {
+        "id": 1,
+        "order_id": 3,
+        "gateway": "bank",
+        "amount": "200000",
+        "status": "initiated",
+        "transaction_ref": "TRANSFER-78306204-8c71-40de-acdc-c82fed73955b",
+        "bank_code": null,
+        "response_code": null,
+        "gateway_response_json": null,
+        "created_at": "2026-07-01T02:24:03.541Z"
+      },
+      {
+        "id": 2,
+        "order_id": 3,
+        "gateway": "bank",
+        "amount": "200000",
+        "status": "success",
+        "transaction_ref": "DEV-909e0054-c8b9-4863-a30c-83d3d605ae27",
+        "bank_code": null,
+        "response_code": "00",
+        "gateway_response_json": {
+          "method": "bank_transfer_manual",
+          "confirmedBy": 1
+        },
+        "created_at": "2026-07-01T02:25:35.048Z"
+      },
+      {
+        "id": 3,
+        "order_id": 4,
+        "gateway": "bank",
+        "amount": "250000",
+        "status": "initiated",
+        "transaction_ref": "TRANSFER-0c45e908-785a-4270-aa90-901085336517",
+        "bank_code": null,
+        "response_code": null,
+        "gateway_response_json": null,
+        "created_at": "2026-07-01T02:33:10.166Z"
+      },
+      {
+        "id": 4,
+        "order_id": 4,
+        "gateway": "bank",
+        "amount": "250000",
+        "status": "success",
+        "transaction_ref": "DEV-003ba749-6890-485a-91e1-c3807cfea537",
+        "bank_code": null,
+        "response_code": "00",
+        "gateway_response_json": {
+          "method": "bank_transfer_manual",
+          "confirmedBy": 1
+        },
+        "created_at": "2026-07-01T02:33:49.366Z"
+      },
+      {
+        "id": 5,
+        "order_id": 5,
+        "gateway": "bank",
+        "amount": "150000",
+        "status": "initiated",
+        "transaction_ref": "TRANSFER-7105e8c8-2430-4eff-9bbd-3f42933e3c3a",
+        "bank_code": null,
+        "response_code": null,
+        "gateway_response_json": null,
+        "created_at": "2026-07-01T02:43:54.858Z"
+      },
+      {
+        "id": 6,
+        "order_id": 5,
+        "gateway": "bank",
+        "amount": "150000",
+        "status": "success",
+        "transaction_ref": "DEV-50618188-1c38-4dc8-b460-07c25de28711",
+        "bank_code": null,
+        "response_code": "00",
+        "gateway_response_json": {
+          "method": "bank_transfer_manual",
+          "confirmedBy": 1
+        },
+        "created_at": "2026-07-01T02:44:11.020Z"
+      }
+    ]
+  },
+  "permissions": {
+    "count": 31,
+    "rows": [
+      {
+        "id": 1,
+        "key": "access.manage",
+        "resource": "access",
+        "action": "manage",
+        "description": "Quản lý vai trò và phân quyền",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 2,
+        "key": "cms.read",
+        "resource": "cms",
+        "action": "read",
+        "description": "Xem nội dung CMS",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 3,
+        "key": "cms.write",
+        "resource": "cms",
+        "action": "write",
+        "description": "Tạo và sửa nội dung CMS",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 4,
+        "key": "cms.delete",
+        "resource": "cms",
+        "action": "delete",
+        "description": "Xóa nội dung CMS",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 5,
+        "key": "cms.publish",
+        "resource": "cms",
+        "action": "publish",
+        "description": "Xuất bản nội dung CMS",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 6,
+        "key": "events.read",
+        "resource": "events",
+        "action": "read",
+        "description": "Xem sự kiện",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 7,
+        "key": "events.write",
+        "resource": "events",
+        "action": "write",
+        "description": "Tạo và sửa sự kiện",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 8,
+        "key": "events.delete",
+        "resource": "events",
+        "action": "delete",
+        "description": "Xóa sự kiện",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 9,
+        "key": "events.publish",
+        "resource": "events",
+        "action": "publish",
+        "description": "Xuất bản sự kiện",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 10,
+        "key": "ticket_types.read",
+        "resource": "ticket_types",
+        "action": "read",
+        "description": "Xem loại vé",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 11,
+        "key": "ticket_types.write",
+        "resource": "ticket_types",
+        "action": "write",
+        "description": "Tạo và sửa loại vé",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 12,
+        "key": "ticket_types.delete",
+        "resource": "ticket_types",
+        "action": "delete",
+        "description": "Xóa loại vé",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 13,
+        "key": "vouchers.read",
+        "resource": "vouchers",
+        "action": "read",
+        "description": "Xem voucher",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 14,
+        "key": "vouchers.write",
+        "resource": "vouchers",
+        "action": "write",
+        "description": "Tạo và sửa voucher",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 15,
+        "key": "vouchers.delete",
+        "resource": "vouchers",
+        "action": "delete",
+        "description": "Xóa voucher",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 16,
+        "key": "orders.read_all",
+        "resource": "orders",
+        "action": "read_all",
+        "description": "Xem mọi đơn hàng",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 17,
+        "key": "orders.export",
+        "resource": "orders",
+        "action": "export",
+        "description": "Xuất dữ liệu đơn hàng",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 18,
+        "key": "orders.read_own",
+        "resource": "orders",
+        "action": "read_own",
+        "description": "Xem đơn hàng của chính mình",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 19,
+        "key": "orders.request_refund",
+        "resource": "orders",
+        "action": "request_refund",
+        "description": "Gửi yêu cầu hoàn tiền đơn của mình",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 20,
+        "key": "orders.manage_refunds",
+        "resource": "orders",
+        "action": "manage_refunds",
+        "description": "Duyệt/từ chối/hoàn tiền đơn hàng",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 44,
+        "key": "orders.confirm_payment",
+        "resource": "orders",
+        "action": "confirm_payment",
+        "description": "Xác nhận đã nhận chuyển khoản",
+        "created_at": "2026-06-30T18:11:49.526Z"
+      },
+      {
+        "id": 21,
+        "key": "tickets.checkin",
+        "resource": "tickets",
+        "action": "checkin",
+        "description": "Check-in vé",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 46,
+        "key": "settings.read",
+        "resource": "settings",
+        "action": "read",
+        "description": "Xem cấu hình hệ thống",
+        "created_at": "2026-06-30T18:11:49.526Z"
+      },
+      {
+        "id": 47,
+        "key": "settings.write",
+        "resource": "settings",
+        "action": "write",
+        "description": "Sửa cấu hình hệ thống",
+        "created_at": "2026-06-30T18:11:49.526Z"
+      },
+      {
+        "id": 74,
+        "key": "languages.read",
+        "resource": "languages",
+        "action": "read",
+        "description": "Xem danh sách ngôn ngữ",
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "id": 75,
+        "key": "languages.write",
+        "resource": "languages",
+        "action": "write",
+        "description": "Tạo/sửa/bật-tắt ngôn ngữ",
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "id": 76,
+        "key": "translations.read",
+        "resource": "translations",
+        "action": "read",
+        "description": "Xem bảng dịch",
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "id": 77,
+        "key": "translations.write",
+        "resource": "translations",
+        "action": "write",
+        "description": "Sửa bản dịch nội dung",
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "id": 78,
+        "key": "translations.import",
+        "resource": "translations",
+        "action": "import",
+        "description": "Nhập bản dịch từ file",
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "id": 22,
+        "key": "profile.read",
+        "resource": "profile",
+        "action": "read",
+        "description": "Xem hồ sơ cá nhân",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 23,
+        "key": "profile.write",
+        "resource": "profile",
+        "action": "write",
+        "description": "Cập nhật hồ sơ cá nhân",
+        "created_at": "2026-06-30T10:30:15.461Z"
+      }
+    ]
+  },
+  "role_permissions": {
+    "count": 92,
+    "rows": [
+      {
+        "role_id": 1,
+        "permission_id": 1,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 2,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 3,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 4,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 5,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 6,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 7,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 8,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 9,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 10,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 11,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 12,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 13,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 14,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 15,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 16,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 17,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 18,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 19,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 20,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 44,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 21,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 46,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 47,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 74,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 75,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 76,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 77,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 78,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 22,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 1,
+        "permission_id": 23,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 1,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 2,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 3,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 4,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 5,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 6,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 7,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 8,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 9,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 10,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 11,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 12,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 13,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 14,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 15,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 16,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 17,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 18,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 19,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 20,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 44,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 21,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 46,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 47,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 74,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 75,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 76,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 77,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 78,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 22,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 2,
+        "permission_id": 23,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 2,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 3,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 5,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 6,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 7,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 9,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 10,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 11,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 13,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 14,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 16,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 17,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 44,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 46,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 74,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 76,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 77,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 3,
+        "permission_id": 78,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 4,
+        "permission_id": 2,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 4,
+        "permission_id": 6,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 4,
+        "permission_id": 10,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 4,
+        "permission_id": 13,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 4,
+        "permission_id": 16,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 5,
+        "permission_id": 6,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 5,
+        "permission_id": 16,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 5,
+        "permission_id": 21,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 6,
+        "permission_id": 18,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 6,
+        "permission_id": 19,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 6,
+        "permission_id": 22,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      },
+      {
+        "role_id": 6,
+        "permission_id": 23,
+        "created_at": "2026-07-01T10:23:20.696Z"
+      }
+    ]
+  },
+  "roles": {
+    "count": 6,
+    "rows": [
+      {
+        "id": 1,
+        "key": "super_admin",
+        "name": "Super Admin",
+        "realm": "admin",
+        "description": "Chủ hệ thống — cao nhất, duy nhất 1",
+        "is_system": true,
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 2,
+        "key": "admin",
+        "name": "Admin",
+        "realm": "admin",
+        "description": "Quản trị viên — đủ quyền nhưng dưới super admin",
+        "is_system": true,
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 3,
+        "key": "editor",
+        "name": "Editor",
+        "realm": "admin",
+        "description": "Quản lý nội dung và bán vé",
+        "is_system": true,
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 4,
+        "key": "viewer",
+        "name": "Viewer",
+        "realm": "admin",
+        "description": "Chỉ xem dữ liệu vận hành",
+        "is_system": true,
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 5,
+        "key": "checkin_staff",
+        "name": "Check-in Staff",
+        "realm": "admin",
+        "description": "Nhân viên check-in tại sự kiện",
+        "is_system": true,
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z"
+      },
+      {
+        "id": 6,
+        "key": "customer",
+        "name": "Customer",
+        "realm": "public",
+        "description": "Người mua vé công khai",
+        "is_system": true,
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z"
+      }
+    ]
+  },
+  "schema_migrations": {
+    "count": 6,
+    "rows": [
+      {
+        "version": "001_public_users_rbac.sql",
+        "applied_at": "2026-06-30T01:36:16.824Z"
+      },
+      {
+        "version": "002_order_refund_workflow.sql",
+        "applied_at": "2026-06-30T18:11:38.232Z"
+      },
+      {
+        "version": "003_payment_settings.sql",
+        "applied_at": "2026-06-30T18:11:38.303Z"
+      },
+      {
+        "version": "004_smtp_settings.sql",
+        "applied_at": "2026-07-01T02:13:32.296Z"
+      },
+      {
+        "version": "005_logo_setting.sql",
+        "applied_at": "2026-07-01T10:23:13.977Z"
+      },
+      {
+        "version": "006_i18n.sql",
+        "applied_at": "2026-07-01T10:23:13.986Z"
+      }
+    ]
+  },
+  "ticket_types": {
+    "count": 3,
+    "rows": [
+      {
+        "id": 1,
+        "event_id": 1,
+        "name": "Vé thi đấu – Mầm",
+        "slug": "mam",
+        "description": null,
+        "age_group": "2–3 tuổi",
+        "age_min": 2,
+        "age_max": 3,
+        "gender_restriction": "any",
+        "price": "250000",
+        "early_bird_price": "200000",
+        "early_bird_until": "2026-07-10T10:30:15.461Z",
+        "quota_total": 100,
+        "sold_count": 1,
+        "reserved_count": 0,
+        "includes_shirt": true,
+        "image_path": null,
+        "sort_order": 0,
+        "status": "published",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-07-01T02:25:35.048Z",
+        "is_deleted": false
+      },
+      {
+        "id": 2,
+        "event_id": 1,
+        "name": "Vé thi đấu – Chồi",
+        "slug": "choi",
+        "description": null,
+        "age_group": "4–6 tuổi",
+        "age_min": 4,
+        "age_max": 6,
+        "gender_restriction": "any",
+        "price": "300000",
+        "early_bird_price": "250000",
+        "early_bird_until": "2026-07-10T10:30:15.461Z",
+        "quota_total": 100,
+        "sold_count": 1,
+        "reserved_count": 0,
+        "includes_shirt": true,
+        "image_path": null,
+        "sort_order": 1,
+        "status": "published",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-07-01T02:33:49.366Z",
+        "is_deleted": false
+      },
+      {
+        "id": 3,
+        "event_id": 1,
+        "name": "Vé trải nghiệm (Fun)",
+        "slug": "fun",
+        "description": null,
+        "age_group": "Mọi lứa",
+        "age_min": 2,
+        "age_max": 12,
+        "gender_restriction": "any",
+        "price": "150000",
+        "early_bird_price": null,
+        "early_bird_until": "2026-07-10T10:30:15.461Z",
+        "quota_total": 200,
+        "sold_count": 1,
+        "reserved_count": 0,
+        "includes_shirt": false,
+        "image_path": null,
+        "sort_order": 2,
+        "status": "published",
+        "created_by": null,
+        "updated_by": null,
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-07-01T02:44:11.020Z",
+        "is_deleted": false
+      }
+    ]
+  },
+  "tickets": {
+    "count": 3,
+    "rows": [
+      {
+        "id": 1,
+        "order_item_id": 3,
+        "qr_token": "OS6_DsnSqgv3_8nOZFpu",
+        "checked_in_at": null,
+        "checked_in_by": null,
+        "created_at": "2026-07-01T02:25:35.048Z",
+        "revoked_at": null,
+        "revoked_by": null,
+        "revoke_reason": null
+      },
+      {
+        "id": 2,
+        "order_item_id": 4,
+        "qr_token": "JXanFrRSscdFmf5X87Xq",
+        "checked_in_at": null,
+        "checked_in_by": null,
+        "created_at": "2026-07-01T02:33:49.366Z",
+        "revoked_at": null,
+        "revoked_by": null,
+        "revoke_reason": null
+      },
+      {
+        "id": 3,
+        "order_item_id": 5,
+        "qr_token": "_TavhkxrfbCNzk8xhtPN",
+        "checked_in_at": "2026-07-01T02:59:24.336Z",
+        "checked_in_by": 1,
+        "created_at": "2026-07-01T02:44:11.020Z",
+        "revoked_at": null,
+        "revoked_by": null,
+        "revoke_reason": null
+      }
+    ]
+  },
+  "translations": {
+    "count": 1,
+    "rows": [
+      {
+        "id": 1,
+        "module": "cms_pages",
+        "entity_id": 1,
+        "field": "title",
+        "locale": "en",
+        "value": "Learn safely through games",
+        "updated_by": 1,
+        "updated_at": "2026-07-01T10:32:41.939Z"
+      }
+    ]
+  },
+  "uploads": {
+    "count": 3,
+    "rows": [
+      {
+        "id": 1,
+        "original_name": "avatar_VIENDONG_myH26.png",
+        "file_name": "c3e4bc51-cac6-409c-9cbc-b58468cad8aa.png",
+        "mime_type": "image/png",
+        "size_bytes": 2098749,
+        "path": "uploads/2026/07/c3e4bc51-cac6-409c-9cbc-b58468cad8aa.png",
+        "uploaded_by": 1,
+        "created_at": "2026-06-30T18:16:59.694Z",
+        "is_deleted": false
+      },
+      {
+        "id": 2,
+        "original_name": "482091445_1140221077899253_9075394562822270856_n.jpg",
+        "file_name": "a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg",
+        "mime_type": "image/jpeg",
+        "size_bytes": 20991,
+        "path": "uploads/2026/07/a63e3d0d-a1b2-4b3d-bf1b-3f94ecb3b601.jpg",
+        "uploaded_by": 1,
+        "created_at": "2026-07-01T04:04:29.918Z",
+        "is_deleted": false
+      },
+      {
+        "id": 3,
+        "original_name": "konnit-hero.png",
+        "file_name": "4ba5e3e3-bcbc-449e-ac9c-7100ad5172a5.png",
+        "mime_type": "image/png",
+        "size_bytes": 1986286,
+        "path": "uploads/2026/07/4ba5e3e3-bcbc-449e-ac9c-7100ad5172a5.png",
+        "uploaded_by": 1,
+        "created_at": "2026-07-01T04:07:13.254Z",
+        "is_deleted": false
+      }
+    ]
+  },
+  "user_roles": {
+    "count": 0,
+    "rows": []
+  },
+  "users": {
+    "count": 0,
+    "rows": []
+  },
+  "voucher_redemptions": {
+    "count": 0,
+    "rows": []
+  },
+  "vouchers": {
+    "count": 1,
+    "rows": [
+      {
+        "id": 1,
+        "code": "KONNIT10",
+        "description": "Giảm 10% cho đơn đầu tiên",
+        "discount_type": "percent",
+        "discount_value": "10.00",
+        "min_order_amount": "0",
+        "max_uses": 1000,
+        "used_count": 0,
+        "starts_at": null,
+        "expires_at": null,
+        "status": "active",
+        "created_by": null,
+        "created_at": "2026-06-30T10:30:15.461Z",
+        "updated_at": "2026-06-30T10:30:15.461Z",
+        "is_deleted": false
+      }
+    ]
+  }
+}

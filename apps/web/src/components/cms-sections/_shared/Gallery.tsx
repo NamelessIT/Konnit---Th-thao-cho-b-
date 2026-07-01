@@ -16,6 +16,11 @@ const TINT_GRADIENT: Record<GalleryTint, string> = {
   sun: "linear-gradient(135deg, var(--konnit-sun), var(--konnit-pink-03))",
 };
 
+/** Chỉ coi là ảnh thật khi là URL hợp lệ (tránh render nhãn text thành <img src> → 404). */
+function isImageUrl(src: string | undefined): src is string {
+  return !!src && /^(https?:\/\/|\/|data:)/.test(src);
+}
+
 /** Position presets matching the demo's `.photo-slot-large` + two `.photo-slot-small`. */
 const SLOT_POSITION = [
   { top: 42, left: 18, width: "56%", height: 112 }, // large
@@ -71,25 +76,28 @@ export function Gallery({
         const { delay, ...pos } = SLOT_POSITION[i] as (typeof SLOT_POSITION)[number] & {
           delay?: string;
         };
+        // `src` chỉ dùng làm ảnh nếu là URL; nếu là text (nhãn CMS) thì hiện dạng placeholder.
+        const imgSrc = isImageUrl(item.src) ? item.src : undefined;
+        const label = item.label ?? (imgSrc ? undefined : item.src);
         return (
           <div
             key={i}
             className="float-photo absolute grid place-items-end justify-items-start rounded-[var(--radius)] border-[3px] border-white/90 p-2.5 shadow-[var(--shadow-float)]"
             style={{
               ...pos,
-              background: item.src ? undefined : TINT_GRADIENT[tint],
+              background: imgSrc ? undefined : TINT_GRADIENT[tint],
               animationDelay: delay,
             }}
           >
-            {item.src ? (
+            {imgSrc ? (
               <img
-                src={item.src}
+                src={imgSrc}
                 alt={item.label ?? ""}
                 className="absolute inset-0 h-full w-full rounded-[5px] object-cover"
               />
-            ) : item.label ? (
+            ) : label ? (
               <span className="max-w-full rounded-[var(--radius)] bg-white/85 px-2 py-1.5 text-[11px] font-extrabold leading-tight text-[var(--konnit-ink)]">
-                {item.label}
+                {label}
               </span>
             ) : null}
           </div>

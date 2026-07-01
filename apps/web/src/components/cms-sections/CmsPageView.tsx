@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { LocaleLink } from "@/components/i18n/LocaleLink";
 import { SectionRenderer } from "./SectionRenderer";
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
@@ -34,9 +34,9 @@ export async function CmsPageView({
       return (
         <div className="mx-auto max-w-5xl px-4 py-20 text-center">
           <h1 className="text-2xl font-extrabold text-[var(--konnit-ink)]">Không tìm thấy trang</h1>
-          <Link href="/" className="mt-4 inline-block font-extrabold text-[var(--konnit-berry)] hover:underline">
+          <LocaleLink href="/" className="mt-4 inline-block font-extrabold text-[var(--konnit-berry)] hover:underline">
             ← Về trang chủ
-          </Link>
+          </LocaleLink>
         </div>
       );
     }
@@ -49,9 +49,9 @@ export async function CmsPageView({
     return (
       <div className="mx-auto max-w-5xl px-4 py-20 text-center">
         <h1 className="text-2xl font-extrabold text-[var(--konnit-ink)]">Đang cập nhật nội dung…</h1>
-        <Link href="/" className="mt-4 inline-block font-extrabold text-[var(--konnit-berry)] hover:underline">
+        <LocaleLink href="/" className="mt-4 inline-block font-extrabold text-[var(--konnit-berry)] hover:underline">
           ← Về trang chủ
-        </Link>
+        </LocaleLink>
       </div>
     );
   }

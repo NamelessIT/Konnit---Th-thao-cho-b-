@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { LocaleLink } from "@/components/i18n/LocaleLink";
+import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
 import { useAuth } from "@/store/auth";
 
 export function UserMenu() {
@@ -11,6 +12,7 @@ export function UserMenu() {
   const init = useAuth((s) => s.init);
   const signOut = useAuth((s) => s.signOut);
   const router = useRouter();
+  const localize = useLocalizedHref();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -23,12 +25,12 @@ export function UserMenu() {
 
   if (!user) {
     return (
-      <Link
+      <LocaleLink
         href="/dang-nhap"
         className="inline-flex min-h-[40px] items-center rounded-2xl h-11 border border-[var(--konnit-berry)] px-3 text-sm font-bold text-[var(--konnit-berry)] hover:bg-[var(--konnit-pink-02)]"
       >
         Đăng nhập
-      </Link>
+      </LocaleLink>
     );
   }
 
@@ -56,25 +58,25 @@ export function UserMenu() {
             <div className="truncate px-3 py-2 text-xs text-[var(--konnit-muted)]">
               {user.email}
             </div>
-            <Link
+            <LocaleLink
               href="/tai-khoan"
               onClick={() => setOpen(false)}
               className="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-[var(--konnit-pink-01)]"
             >
               Tài khoản
-            </Link>
-            <Link
+            </LocaleLink>
+            <LocaleLink
               href="/tai-khoan/don-hang"
               onClick={() => setOpen(false)}
               className="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-[var(--konnit-pink-01)]"
             >
               Lịch sử đơn
-            </Link>
+            </LocaleLink>
             <button
               onClick={async () => {
                 await signOut();
                 setOpen(false);
-                router.push("/");
+                router.push(localize("/"));
               }}
               className="block w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-red-600 hover:bg-red-50"
             >

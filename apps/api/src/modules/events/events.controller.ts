@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as service from './events.service';
+import { resolveLocale } from '../../services/i18n';
 
 // ===== Admin =====
 export async function list(_req: Request, res: Response) {
@@ -32,5 +33,6 @@ export async function publish(req: Request, res: Response) {
 
 // ===== Public =====
 export async function getPublicBySlug(req: Request, res: Response) {
-  res.json({ success: true, data: await service.getPublicBySlug(String(req.params.slug)) });
+  const locale = await resolveLocale(req.query.locale);
+  res.json({ success: true, data: await service.getPublicBySlug(String(req.params.slug), locale) });
 }

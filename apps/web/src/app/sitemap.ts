@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { FALLBACK_LOCALES } from "@/lib/i18n/config";
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000").replace(/\/$/, "");
@@ -23,40 +24,56 @@ async function fetchData<T>(path: string): Promise<T | null> {
 type TicketLite = { id: number; updated_at?: string | null };
 type CategoryLite = { slug: string };
 type CategoryDetail = { pages?: { slug: string; updated_at?: string | null }[] };
+type PublicLanguage = { code: string };
+
+/** hreflang alternates: mỗi path phát ra cho toàn bộ locale. */
+function alternates(path: string, locales: string[]) {
+  const languages: Record<string, string> = {};
+  for (const l of locales) languages[l] = `${SITE_URL}/${l}${path}`;
+  return { languages };
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  const langs = await fetchData<PublicLanguage[]>("/api/public/languages");
+  const locales = langs?.length ? langs.map((l) => l.code) : [...FALLBACK_LOCALES];
 
-  const entries: MetadataRoute.Sitemap = STATIC_ROUTES.map((route) => ({
-    url: `${SITE_URL}${route || "/"}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: route === "" ? 1 : 0.8,
-  }));
+  const entries: MetadataRoute.Sitemap = [];
 
-  // Loại vé đang publish → /cua-hang/:id
-  const tickets = await fetchData<TicketLite[]>("/api/public/ticket-types");
-  for (const t of tickets ?? []) {
-    entries.push({
-      url: `${SITE_URL}/cua-hang/${t.id}`,
-      lastModified: t.updated_at ? new Date(t.updated_at) : now,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    });
+  const push = (
+    path: string,
+    lastModified: Date,
+    changeFrequency: "weekly" | "monthly",
+    priority: number,
+  ) => {
+    for (const locale of locales) {
+      entries.push({
+        url: `${SITE_URL}/${locale}${path}`,
+        lastModified,
+        changeFrequency,
+        priority,
+        alternates: alternates(path, locales),
+      });
+    }
+  };
+
+  for (const route of STATIC_ROUTES) {
+    push(route || "", now, "weekly", route === "" ? 1 : 0.8);
   }
 
-  // Trang CMS publish (trừ category 'landing' đã có route tĩnh) → /c/:cat/:page
+  // Loại vé đang publish → /:locale/cua-hang/:id
+  const tickets = await fetchData<TicketLite[]>("/api/public/ticket-types");
+  for (const t of tickets ?? []) {
+    push(`/cua-hang/${t.id}`, t.updated_at ? new Date(t.updated_at) : now, "weekly", 0.7);
+  }
+
+  // Trang CMS publish (trừ category 'landing') → /:locale/c/:cat/:page
   const categories = await fetchData<CategoryLite[]>("/api/public/cms/categories");
   for (const cat of categories ?? []) {
     if (cat.slug === "landing") continue;
     const detail = await fetchData<CategoryDetail>(`/api/public/cms/categories/${cat.slug}`);
     for (const p of detail?.pages ?? []) {
-      entries.push({
-        url: `${SITE_URL}/c/${cat.slug}/${p.slug}`,
-        lastModified: p.updated_at ? new Date(p.updated_at) : now,
-        changeFrequency: "monthly",
-        priority: 0.6,
-      });
+      push(`/c/${cat.slug}/${p.slug}`, p.updated_at ? new Date(p.updated_at) : now, "monthly", 0.6);
     }
   }
 

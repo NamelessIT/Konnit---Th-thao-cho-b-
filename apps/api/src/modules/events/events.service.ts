@@ -3,6 +3,7 @@ import * as repo from './events.repository';
 import { AppError } from '../../middleware/errorHandler';
 import { enrichTicket } from '../commerce/pricing';
 import { invalidatePublicTicketCache } from '../tickets/tickets.service';
+import { applyTranslations, applyTranslationsOne } from '../../services/i18n';
 
 export async function listAdmin() {
   return repo.findAllAdmin();
@@ -14,12 +15,19 @@ export async function getById(id: number) {
   return ev;
 }
 
-/** Public event detail with enriched ticket types. */
-export async function getPublicBySlug(slug: string) {
+/** Public event detail with enriched ticket types, đã dịch theo locale. */
+export async function getPublicBySlug(slug: string, locale = '') {
   const ev = await repo.findPublishedBySlug(slug);
   if (!ev) throw new AppError(404, 'NOT_FOUND', 'Sự kiện không tồn tại');
   const ticketTypes = await repo.findPublishedTicketTypes(ev.id);
-  return { ...ev, ticket_types: ticketTypes.map((t) => enrichTicket(t)) };
+
+  const translatedEv = await applyTranslationsOne('events', locale, ev, [
+    'name', 'description', 'location',
+  ]);
+  const translatedTickets = await applyTranslations('ticket_types', locale, ticketTypes, [
+    'name', 'description', 'age_group',
+  ]);
+  return { ...translatedEv, ticket_types: translatedTickets.map((t) => enrichTicket(t)) };
 }
 
 export async function create(input: Record<string, unknown>, userId: number) {

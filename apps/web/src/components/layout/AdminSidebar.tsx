@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   BarChart3,
   Wallet,
+  Languages,
 } from "lucide-react";
 import {
   Sidebar,
@@ -165,6 +166,16 @@ export function AdminSidebar() {
                   >
                     <Wallet className="size-4.5" />
                     <span>Cấu hình thanh toán</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    render={<Link href="/admin/ngon-ngu" />}
+                    isActive={pathname.startsWith("/admin/ngon-ngu")}
+                    className="gap-3 data-[active=true]:bg-[var(--konnit-pink-02)] data-[active=true]:font-semibold data-[active=true]:text-[var(--konnit-berry)]"
+                  >
+                    <Languages className="size-4.5" />
+                    <span>Ngôn ngữ & Bản dịch</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>

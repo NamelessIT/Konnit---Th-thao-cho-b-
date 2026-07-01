@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
+import { LocaleLink } from "@/components/i18n/LocaleLink";
 
 import { useHasMounted } from "@/hooks/useHasMounted";
 import { useCartStore } from "@/store/cart";
@@ -22,7 +22,7 @@ export function CartNavButton({ className, showLabel = false }: CartNavButtonPro
   const displayQuantity = hasMounted ? totalQuantity : 0;
 
   return (
-    <Link
+    <LocaleLink
       href="/gio-hang"
       aria-label="Giỏ hàng"
       className={cn(
@@ -39,6 +39,6 @@ export function CartNavButton({ className, showLabel = false }: CartNavButtonPro
           {displayQuantity > 99 ? "99+" : displayQuantity}
         </span>
       ) : null}
-    </Link>
+    </LocaleLink>
   );
 }

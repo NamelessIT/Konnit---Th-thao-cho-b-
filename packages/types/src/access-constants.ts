@@ -25,6 +25,11 @@ export const ACCESS_PERMISSIONS = [
   ['tickets.checkin', 'tickets', 'checkin', 'Check-in vé'],
   ['settings.read', 'settings', 'read', 'Xem cấu hình hệ thống'],
   ['settings.write', 'settings', 'write', 'Sửa cấu hình hệ thống'],
+  ['languages.read', 'languages', 'read', 'Xem danh sách ngôn ngữ'],
+  ['languages.write', 'languages', 'write', 'Tạo/sửa/bật-tắt ngôn ngữ'],
+  ['translations.read', 'translations', 'read', 'Xem bảng dịch'],
+  ['translations.write', 'translations', 'write', 'Sửa bản dịch nội dung'],
+  ['translations.import', 'translations', 'import', 'Nhập bản dịch từ file'],
   ['profile.read', 'profile', 'read', 'Xem hồ sơ cá nhân'],
   ['profile.write', 'profile', 'write', 'Cập nhật hồ sơ cá nhân'],
 ] as const;
@@ -51,6 +56,7 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     'vouchers.read', 'vouchers.write',
     'orders.read_all', 'orders.export', 'orders.confirm_payment',
     'settings.read',
+    'languages.read', 'translations.read', 'translations.write', 'translations.import',
   ],
   viewer: [
     'cms.read', 'events.read', 'ticket_types.read',

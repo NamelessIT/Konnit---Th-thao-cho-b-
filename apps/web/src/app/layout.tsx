@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Baloo_2, Geist_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import "./globals.css";
 
 // Rounded, playful display font matching the Konnit demo (ui-rounded / Arial Rounded MT Bold).
@@ -41,21 +43,23 @@ export async function generateMetadata(): Promise<Metadata> {
       template: "%s | Konnit",
     },
     description: "Konnit — Nền tảng thể thao và hoạt động dành cho trẻ em Việt Nam",
+    icons: { icon: "/api/favicon" },
     ...(logoUrl && {
       openGraph: { images: [{ url: logoUrl }] },
-      icons: { icon: logoUrl },
     }),
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Locale do proxy set qua header (admin/không prefix → mặc định).
+  const locale = (await headers()).get("x-locale") ?? DEFAULT_LOCALE;
   return (
     <html
-      lang="vi"
+      lang={locale}
       data-scroll-behavior="smooth"
       className={`${baloo.variable} ${geistMono.variable} h-full antialiased`}
     >

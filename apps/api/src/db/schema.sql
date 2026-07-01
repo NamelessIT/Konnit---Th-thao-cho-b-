@@ -420,6 +420,42 @@ INSERT INTO app_settings (key, value)
 VALUES ('logo', '{"url":null}')
 ON CONFLICT (key) DO NOTHING;
 
+-- ===== i18n (đa ngôn ngữ) =====
+CREATE TABLE IF NOT EXISTS languages (
+  id          SERIAL PRIMARY KEY,
+  code        TEXT UNIQUE NOT NULL,
+  name        TEXT NOT NULL,
+  native_name TEXT,
+  is_active   BOOLEAN NOT NULL DEFAULT true,
+  is_default  BOOLEAN NOT NULL DEFAULT false,
+  sort_order  INT NOT NULL DEFAULT 0,
+  created_at  TIMESTAMPTZ DEFAULT now(),
+  updated_at  TIMESTAMPTZ DEFAULT now()
+);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_languages_default
+  ON languages(is_default) WHERE is_default = true;
+
+CREATE TABLE IF NOT EXISTS translations (
+  id         SERIAL PRIMARY KEY,
+  module     TEXT NOT NULL,
+  entity_id  INT  NOT NULL,
+  field      TEXT NOT NULL,
+  locale     TEXT NOT NULL,
+  value      TEXT,
+  updated_by INT REFERENCES admin_users(id),
+  updated_at TIMESTAMPTZ DEFAULT now(),
+  UNIQUE (module, entity_id, field, locale)
+);
+CREATE INDEX IF NOT EXISTS idx_translations_lookup
+  ON translations (module, locale, entity_id);
+
+INSERT INTO languages (code, name, native_name, is_active, is_default, sort_order)
+VALUES ('vi', 'Tiếng Việt', 'Tiếng Việt', true, true, 0)
+ON CONFLICT (code) DO NOTHING;
+INSERT INTO languages (code, name, native_name, is_active, is_default, sort_order)
+VALUES ('en', 'English', 'English', true, false, 1)
+ON CONFLICT (code) DO NOTHING;
+
 -- ===== Phase 2 Indexes =====
 CREATE INDEX IF NOT EXISTS idx_ticket_types_event ON ticket_types(event_id) WHERE is_deleted = false;
 CREATE INDEX IF NOT EXISTS idx_events_slug ON events(slug) WHERE is_deleted = false;

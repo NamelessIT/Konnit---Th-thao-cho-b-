@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart";
 import { formatVND } from "@/lib/shop/format";
+import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
 import type { TicketType } from "@/lib/shop/types";
 
 export function TicketDetailActions({
@@ -17,6 +18,7 @@ export function TicketDetailActions({
   disabled?: boolean;
 }) {
   const router = useRouter();
+  const localize = useLocalizedHref();
   const { add, selectOnly } = useCartStore();
   const [qty, setQty] = useState(1);
   const [isBusy, setIsBusy] = useState(false);
@@ -48,7 +50,7 @@ export function TicketDetailActions({
     setIsBusy(true);
     add(cartItem, qty);
     selectOnly(ticket.id);
-    router.push("/thanh-toan");
+    router.push(localize("/thanh-toan"));
   }
 
   return (

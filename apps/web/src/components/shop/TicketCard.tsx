@@ -9,10 +9,12 @@ import { Button } from "@/components/ui/button";
 import { formatVND } from "@/lib/shop/format";
 import { useCartStore } from "@/store/cart";
 import { QuantityDialog } from "@/components/shop/QuantityDialog";
+import { useLocalizedHref } from "@/lib/i18n/LocaleProvider";
 import type { TicketType } from "@/lib/shop/types";
 
 export function TicketCard({ ticket }: { ticket: TicketType }) {
   const router = useRouter();
+  const localize = useLocalizedHref();
   const { add, selectOnly } = useCartStore();  const soldOut = ticket.available === 0;
   function handleAddToCart(qty: number) {
     add(
@@ -42,7 +44,7 @@ export function TicketCard({ ticket }: { ticket: TicketType }) {
       qty,
     );
     selectOnly(ticket.id);
-    router.push("/thanh-toan");
+    router.push(localize("/thanh-toan"));
   }
 
   return (

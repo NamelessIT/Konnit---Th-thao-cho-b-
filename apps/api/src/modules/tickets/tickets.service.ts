@@ -4,6 +4,9 @@ import { AppError } from '../../middleware/errorHandler';
 import { enrichTicket } from '../commerce/pricing';
 import { env } from '../../config/env';
 import { deleteCachedKeys, getCachedJson, setCachedJson } from '../../config/redisCache';
+import { applyTranslations, applyTranslationsOne } from '../../services/i18n';
+
+const TICKET_FIELDS = ['name', 'description', 'age_group'];
 
 const PUBLIC_TICKETS_CACHE_KEY = 'public:ticket-types:v1';
 
@@ -11,24 +14,27 @@ export async function invalidatePublicTicketCache() {
   await deleteCachedKeys([PUBLIC_TICKETS_CACHE_KEY]);
 }
 
-export async function listPublic() {
-  const cached = await getCachedJson<unknown[]>(PUBLIC_TICKETS_CACHE_KEY);
-  if (cached) return cached;
-
-  const rows = await repo.findPublicList();
-  const tickets = rows.map((t) => enrichTicket(t));
-  await setCachedJson(
+/** Cache lưu bản gốc (vi); bản dịch overlay sau khi đọc cache theo từng locale. */
+export async function listPublic(locale = '') {
+  let tickets = await getCachedJson<Array<Record<string, unknown> & { id: number }>>(
     PUBLIC_TICKETS_CACHE_KEY,
-    tickets,
-    env.PUBLIC_TICKETS_CACHE_TTL_SECONDS,
   );
-  return tickets;
+  if (!tickets) {
+    const rows = await repo.findPublicList();
+    tickets = rows.map((t) => enrichTicket(t));
+    await setCachedJson(
+      PUBLIC_TICKETS_CACHE_KEY,
+      tickets,
+      env.PUBLIC_TICKETS_CACHE_TTL_SECONDS,
+    );
+  }
+  return applyTranslations('ticket_types', locale, tickets, TICKET_FIELDS);
 }
 
-export async function getPublicById(id: number) {
+export async function getPublicById(id: number, locale = '') {
   const t = await repo.findPublicById(id);
   if (!t) throw new AppError(404, 'NOT_FOUND', 'Vé không tồn tại');
-  return enrichTicket(t);
+  return applyTranslationsOne('ticket_types', locale, enrichTicket(t), TICKET_FIELDS);
 }
 
 export async function listAdmin(eventId?: number) {

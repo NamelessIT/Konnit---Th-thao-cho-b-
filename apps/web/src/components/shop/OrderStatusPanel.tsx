@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { LocaleLink } from "@/components/i18n/LocaleLink";
 import { AlertCircle, CheckCircle2, Clock, Loader2, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QrTicketCard } from "@/components/account/QrTicketCard";
@@ -50,11 +50,11 @@ export function OrderStatusPanel({ code }: { code: string }) {
           Mã đơn không tồn tại hoặc dữ liệu mock đã bị làm mới.
         </p>
         {/* <Button asChild>
-          <Link href="/cua-hang">Quay lại cửa hàng</Link>
+          <LocaleLink href="/cua-hang">Quay lại cửa hàng</LocaleLink>
         </Button> */}
-        <Link href="/cua-hang">
+        <LocaleLink href="/cua-hang">
             <Button>Quay lại cửa hàng</Button>
-        </Link>
+        </LocaleLink>
       </main>
     );
   }
@@ -125,27 +125,27 @@ export function OrderStatusPanel({ code }: { code: string }) {
 
         <div className="flex flex-wrap justify-center gap-3">
           {order.status === "pending" && (
-            <Link
+            <LocaleLink
               href={`/don-hang/${order.order_code}/thanh-toan`}
               className="rounded-xl bg-[var(--konnit-berry)] px-5 py-2.5 text-sm font-bold text-white hover:opacity-90"
             >
               Tiếp tục thanh toán
-            </Link>
+            </LocaleLink>
           )}
 
-          <Link
+          <LocaleLink
             href="/cua-hang"
             className="rounded-xl border border-[var(--konnit-berry)] px-5 py-2.5 text-sm font-bold text-[var(--konnit-berry)] hover:bg-[var(--konnit-pink-02)]"
           >
             Mua thêm vé
-          </Link>
+          </LocaleLink>
 
-          <Link
+          <LocaleLink
             href="/"
             className="rounded-xl bg-slate-100 px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-200"
           >
             Về trang chủ
-          </Link>
+          </LocaleLink>
         </div>
       </section>
     </main>

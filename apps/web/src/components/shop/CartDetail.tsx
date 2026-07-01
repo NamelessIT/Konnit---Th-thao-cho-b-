@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
+import { LocaleLink } from "@/components/i18n/LocaleLink";
 import { Trash2, Plus, Minus, ShoppingCart, Tag, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore, type CartItem } from "@/store/cart";
@@ -227,12 +227,12 @@ export function CartDetail() {
       <main className="mx-auto flex max-w-xl flex-col items-center gap-4 px-4 py-24 text-center">
         <ShoppingCart className="h-16 w-16 text-slate-200" />
         <p className="text-lg font-bold text-[var(--konnit-ink)]">Giỏ hàng đang trống</p>
-        <Link
+        <LocaleLink
           href="/cua-hang"
           className="rounded-2xl bg-[var(--konnit-berry)] px-6 py-2.5 text-sm font-bold text-white hover:opacity-90"
         >
           Chọn vé ngay
-        </Link>
+        </LocaleLink>
       </main>
     );
   }
@@ -357,7 +357,7 @@ export function CartDetail() {
               </span>
             </div>
 
-            <Link
+            <LocaleLink
               href={voucher ? `/thanh-toan?voucher=${encodeURIComponent(voucher.code)}` : "/thanh-toan"}
               className={`block w-full rounded-xl py-2.5 text-center text-sm font-bold text-white transition ${
                 selectedItems.length === 0
@@ -366,13 +366,13 @@ export function CartDetail() {
               }`}
             >
               Tiến hành thanh toán →
-            </Link>
-            <Link
+            </LocaleLink>
+            <LocaleLink
               href="/cua-hang"
               className="mt-3 block text-center text-xs text-[var(--konnit-muted)] hover:text-[var(--konnit-berry)]"
             >
               ← Tiếp tục mua vé
-            </Link>
+            </LocaleLink>
           </div>
         </div>
       </div>

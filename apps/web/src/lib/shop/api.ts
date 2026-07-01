@@ -57,16 +57,20 @@ async function fetchPublicData<T>(
   }
 }
 
-async function listShopTickets(): Promise<TicketType[]> {
-  const live = await fetchPublicData<TicketType[]>("/public/ticket-types");
+function localeQuery(locale?: string) {
+  return locale ? `?locale=${encodeURIComponent(locale)}` : "";
+}
+
+async function listShopTickets(locale?: string): Promise<TicketType[]> {
+  const live = await fetchPublicData<TicketType[]>(`/public/ticket-types${localeQuery(locale)}`);
   if (live.data) return live.data;
   if (!USE_MOCK || !live.unavailable) return [];
   await delay();
   return getMockTickets();
 }
 
-async function getShopTicket(id: number): Promise<TicketType | null> {
-  const live = await fetchPublicData<TicketType>(`/public/ticket-types/${id}`);
+async function getShopTicket(id: number, locale?: string): Promise<TicketType | null> {
+  const live = await fetchPublicData<TicketType>(`/public/ticket-types/${id}${localeQuery(locale)}`);
   if (live.data) return live.data;
   if (!USE_MOCK || !live.unavailable) return null;
   await delay();
@@ -74,12 +78,12 @@ async function getShopTicket(id: number): Promise<TicketType | null> {
 }
 
 export const shopApi = {
-  async listTickets(): Promise<TicketType[]> {
-    return listShopTickets();
+  async listTickets(locale?: string): Promise<TicketType[]> {
+    return listShopTickets(locale);
   },
 
-  async getTicket(id: number): Promise<TicketType | null> {
-    return getShopTicket(id);
+  async getTicket(id: number, locale?: string): Promise<TicketType | null> {
+    return getShopTicket(id, locale);
   },
 
   async validateVoucher(

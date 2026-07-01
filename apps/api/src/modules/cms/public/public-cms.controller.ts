@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { query } from '../../../config/db';
 import { AppError } from '../../../middleware/errorHandler';
+import { resolveLocale, applyTranslations, applyTranslationsOne } from '../../../services/i18n';
 
 export async function listCategories(_req: Request, res: Response) {
   const { rows } = await query(
@@ -60,5 +61,16 @@ export async function getPageWithSections(req: Request, res: Response) {
     [page.id],
   );
 
-  res.json({ success: true, data: { ...page, category_name: category.name, sections } });
+  const locale = await resolveLocale(req.query.locale);
+  const translatedPage = await applyTranslationsOne('cms_pages', locale, page, [
+    'title', 'description', 'seo_title', 'seo_description',
+  ]);
+  const translatedSections = await applyTranslations('cms_sections', locale, sections, [
+    'title', 'description', 'content_json',
+  ]);
+
+  res.json({
+    success: true,
+    data: { ...translatedPage, category_name: category.name, sections: translatedSections },
+  });
 }

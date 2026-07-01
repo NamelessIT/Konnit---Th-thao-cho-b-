@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
 import QRCode from 'qrcode';
 import * as service from './tickets.service';
+import { resolveLocale } from '../../services/i18n';
 
 // ===== Public =====
-export async function listPublic(_req: Request, res: Response) {
-  res.json({ success: true, data: await service.listPublic() });
+export async function listPublic(req: Request, res: Response) {
+  const locale = await resolveLocale(req.query.locale);
+  res.json({ success: true, data: await service.listPublic(locale) });
 }
 
 /** Public — trả về ảnh PNG mã QR của vé (dùng trên trang biên nhận). */
@@ -21,7 +23,8 @@ export async function getQrImage(req: Request, res: Response) {
 }
 
 export async function getPublic(req: Request, res: Response) {
-  res.json({ success: true, data: await service.getPublicById(Number(req.params.id)) });
+  const locale = await resolveLocale(req.query.locale);
+  res.json({ success: true, data: await service.getPublicById(Number(req.params.id), locale) });
 }
 
 // ===== Admin =====
