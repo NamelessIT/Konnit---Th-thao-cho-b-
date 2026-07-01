@@ -65,7 +65,7 @@ export function ProductStyle1({ contentJson, title, description }: SectionProps)
               <Gallery
                 caption="Product photos"
                 tint={item.tint ?? "pink"}
-                items={(item.photos ?? []).map((label) => ({ label }))}
+                items={(item.photos ?? []).map((src) => ({ src }))}
               />
               {item.title && (
                 <h3 className="text-2xl font-extrabold leading-tight text-[var(--konnit-ink)]">

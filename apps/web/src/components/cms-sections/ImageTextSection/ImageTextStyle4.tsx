@@ -50,7 +50,7 @@ export function ImageTextStyle4({ contentJson, title, description }: SectionProp
                 tint={p.tint ?? "pink"}
                 height={260}
                 className="my-0 h-full"
-                items={(p.photos ?? []).map((label) => ({ label }))}
+                items={(p.photos ?? []).map((src) => ({ src }))}
               />
               <div className="grid content-start gap-3">
                 {p.label && <span className="pill">{p.label}</span>}

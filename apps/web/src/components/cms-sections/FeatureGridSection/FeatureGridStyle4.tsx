@@ -71,7 +71,7 @@ export function FeatureGridStyle4({ contentJson, title, description }: SectionPr
                 <Gallery
                   caption="Activity photos"
                   tint={t.gallery}
-                  items={(item.photos ?? []).map((label) => ({ label }))}
+                  items={(item.photos ?? []).map((src) => ({ src }))}
                 />
                 {item.title && (
                   <h3 className="text-2xl font-extrabold leading-tight text-[var(--konnit-ink)]">

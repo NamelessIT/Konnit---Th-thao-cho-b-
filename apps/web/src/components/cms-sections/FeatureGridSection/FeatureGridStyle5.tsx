@@ -47,7 +47,7 @@ export function FeatureGridStyle5({ contentJson, title, description }: SectionPr
             caption="Community photos"
             tint="mint"
             className="mt-2"
-            items={((c.photos as string[]) ?? []).map((label) => ({ label }))}
+            items={((c.photos as string[]) ?? []).map((src) => ({ src }))}
           />
         </div>
 

@@ -64,7 +64,7 @@ export function ProductStyle2({ contentJson, title, description }: SectionProps)
                   caption="Product preview"
                   tint={item.tint ?? "pink"}
                   height={252}
-                  items={(item.photos ?? []).map((label) => ({ label }))}
+                  items={(item.photos ?? []).map((src) => ({ src }))}
                 />
                 {item.title && (
                   <h3 className="text-2xl font-extrabold leading-tight text-[var(--konnit-ink)]">

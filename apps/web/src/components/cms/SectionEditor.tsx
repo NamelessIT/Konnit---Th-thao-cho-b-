@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDebounce } from "@/hooks/useDebounce";
+import { X } from "lucide-react";
 import { MediaPickerDialog } from "@/components/cms/MediaPickerDialog";
 import { useFetch } from "@/hooks/useCmsData";
 import { formatVND } from "@/lib/shop/format";
@@ -308,23 +309,30 @@ function ItemsEditor({
                 );
               }
               if (def.kind === "csv") {
-                const arr = (item[def.key] as string[] | undefined) ?? [];
+                const arr: string[] = Array.isArray(item[def.key]) ? (item[def.key] as string[]) : [];
                 return (
-                  <Input
-                    key={def.key}
-                    placeholder={def.placeholder}
-                    value={Array.isArray(arr) ? arr.join(", ") : ""}
-                    onChange={(e) =>
-                      updateItem(
-                        i,
-                        def.key,
-                        e.target.value
-                          .split(",")
-                          .map((s) => s.trim())
-                          .filter(Boolean),
-                      )
-                    }
-                  />
+                  <div key={def.key} className="space-y-1.5">
+                    {arr.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {arr.map((url, urlIdx) => (
+                          <div key={urlIdx} className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-(--konnit-pink-03)">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={url} alt="" className="h-full w-full object-cover" />
+                            <button
+                              type="button"
+                              onClick={() => updateItem(i, def.key, arr.filter((_, j) => j !== urlIdx))}
+                              className="absolute right-0.5 top-0.5 grid h-4 w-4 place-items-center rounded-full bg-black/60 text-white hover:bg-red-500"
+                            >
+                              <X className="size-2.5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <MediaPickerDialog
+                      onSelect={(url) => updateItem(i, def.key, [...arr, url])}
+                    />
+                  </div>
                 );
               }
               if (def.kind === "facts") {

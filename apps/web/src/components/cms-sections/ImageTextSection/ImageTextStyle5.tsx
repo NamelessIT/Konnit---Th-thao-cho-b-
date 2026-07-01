@@ -32,7 +32,7 @@ export function ImageTextStyle5({ contentJson, title, description }: SectionProp
           tint="pink"
           height={340}
           className="my-0"
-          items={photos.map((label) => ({ label }))}
+          items={photos.map((src) => ({ src }))}
         />
       </div>
     </section>
