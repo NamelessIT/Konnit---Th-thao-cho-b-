@@ -31,7 +31,10 @@ export async function getCategoryWithPages(req: Request, res: Response) {
     [category.id],
   );
 
-  res.json({ success: true, data: { ...category, pages } });
+  const locale = await resolveLocale(req.query.locale);
+  const translatedPages = await applyTranslations('cms_pages', locale, pages, ['title', 'description']);
+
+  res.json({ success: true, data: { ...category, pages: translatedPages } });
 }
 
 export async function getPageWithSections(req: Request, res: Response) {

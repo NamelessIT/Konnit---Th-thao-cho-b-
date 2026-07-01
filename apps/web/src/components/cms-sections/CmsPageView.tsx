@@ -20,13 +20,16 @@ interface SectionData {
 export async function CmsPageView({
   category,
   slug,
+  locale,
 }: {
   category: string;
   slug: string;
+  locale?: string;
 }) {
   let sections: SectionData[];
+  const qs = locale ? `?locale=${locale}` : "";
   try {
-    const res = await fetch(`${API}/api/public/cms/pages/${category}/${slug}`, {
+    const res = await fetch(`${API}/api/public/cms/pages/${category}/${slug}${qs}`, {
       next: { revalidate: 60 },
     });
 

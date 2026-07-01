@@ -9,11 +9,12 @@ interface Category {
   description?: string;
 }
 
-export default async function TinTucPage() {
+export default async function TinTucPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
   let categories: Category[] = [];
 
   try {
-    const res = await fetch(`${API}/api/public/cms/categories`, {
+    const res = await fetch(`${API}/api/public/cms/categories?locale=${lang}`, {
       next: { revalidate: 60 },
     });
     if (res.ok) {

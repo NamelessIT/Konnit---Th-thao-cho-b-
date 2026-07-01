@@ -5,6 +5,7 @@ export const metadata = {
   description: "Play-ready kits for safe little adventures — catalog preview.",
 };
 
-export default function StorePage() {
-  return <CmsPageView category="landing" slug="store" />;
+export default async function StorePage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return <CmsPageView category="landing" slug="store" locale={lang} />;
 }

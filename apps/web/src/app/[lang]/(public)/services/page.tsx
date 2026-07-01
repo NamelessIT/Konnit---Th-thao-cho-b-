@@ -5,6 +5,7 @@ export const metadata = {
   description: "Konnit learning services — movement, nature, and playful science.",
 };
 
-export default function ServicesPage() {
-  return <CmsPageView category="landing" slug="services" />;
+export default async function ServicesPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return <CmsPageView category="landing" slug="services" locale={lang} />;
 }

@@ -21,13 +21,13 @@ interface CategoryData {
 export default async function CategoryPage({
   params,
 }: {
-  params: Promise<{ categorySlug: string }>;
+  params: Promise<{ lang: string; categorySlug: string }>;
 }) {
-  const { categorySlug } = await params;
+  const { lang, categorySlug } = await params;
 
   let category: CategoryData | null = null;
   try {
-    const res = await fetch(`${API}/api/public/cms/categories/${categorySlug}`, {
+    const res = await fetch(`${API}/api/public/cms/categories/${categorySlug}?locale=${lang}`, {
       next: { revalidate: 60 },
     });
     if (res.ok) {
