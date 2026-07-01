@@ -35,7 +35,7 @@ function formatDate(iso: string): string {
   });
 }
 
-export function buildReceiptHtml(order: OrderForReceipt, receiptUrl: string): string {
+export function buildReceiptHtml(order: OrderForReceipt, receiptUrl: string, logoUrl?: string | null): string {
   const dateStr = formatDate(order.paid_at ?? order.created_at);
 
   const itemRows = order.items
@@ -109,7 +109,10 @@ export function buildReceiptHtml(order: OrderForReceipt, receiptUrl: string): st
   <tr>
     <td style="background:#c0392b;padding:36px 40px;text-align:center;">
       <p style="margin:0;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,0.7);text-transform:uppercase;">Thể thao cho bé</p>
-      <h1 style="margin:8px 0 0;font-size:32px;font-weight:900;color:#ffffff;letter-spacing:-1px;">KONNIT</h1>
+      ${logoUrl
+        ? `<img src="${logoUrl}" alt="Konnit" width="120" style="display:block;margin:8px auto 0;filter:brightness(0) invert(1);max-height:40px;object-fit:contain;"/>`
+        : `<h1 style="margin:8px 0 0;font-size:32px;font-weight:900;color:#ffffff;letter-spacing:-1px;">KONNIT</h1>`
+      }
     </td>
   </tr>
 

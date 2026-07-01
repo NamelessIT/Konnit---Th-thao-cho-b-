@@ -221,4 +221,13 @@ export const shopApi = {
     const live = await fetchPublicData<PaymentSettings>("/public/settings/payment");
     return live.data;
   },
+
+  async getLogo(): Promise<string | null> {
+    try {
+      const res = await fetchPublicData<{ url: string | null }>("/public/settings/logo");
+      return res.data?.url ?? null;
+    } catch {
+      return null;
+    }
+  },
 };

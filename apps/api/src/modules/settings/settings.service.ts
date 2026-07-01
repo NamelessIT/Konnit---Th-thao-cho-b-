@@ -91,3 +91,22 @@ export async function updateSmtp(input: Partial<SmtpSettings>, adminId: number):
   const row = await repo.upsert<SmtpSettings>(SMTP_KEY, next, adminId);
   return normalizeSmtp(row.value);
 }
+
+// ─── Logo ─────────────────────────────────────────────────────────────────────
+
+const LOGO_KEY = 'logo';
+
+export interface LogoSettings {
+  url: string | null;
+}
+
+export async function getLogo(): Promise<LogoSettings> {
+  const row = await repo.get<{ url?: string | null }>(LOGO_KEY);
+  return { url: row?.value?.url ?? null };
+}
+
+export async function updateLogo(input: Partial<LogoSettings>, adminId: number): Promise<LogoSettings> {
+  const next: LogoSettings = { url: input.url ?? null };
+  const row = await repo.upsert<LogoSettings>(LOGO_KEY, next, adminId);
+  return { url: (row.value as LogoSettings).url ?? null };
+}

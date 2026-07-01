@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useFetch } from "@/hooks/useCmsData";
 import { api, ApiError } from "@/lib/api-client";
-import type { PaymentSettings, SmtpSettings } from "@/lib/shop/types";
+import type { PaymentSettings, SmtpSettings, LogoSettings } from "@/lib/shop/types";
 
 const BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000").replace(/\/$/, "");
 const MAX_SIZE = 5 * 1024 * 1024;
@@ -144,6 +144,89 @@ function BankSection() {
   );
 }
 
+// ─── Logo Section ─────────────────────────────────────────────────────────────
+
+function LogoSection() {
+  const { data, loading } = useFetch<LogoSettings>("/admin/settings/logo");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (data) setLogoUrl(data.url ?? null);
+  }, [data]);
+
+  async function handleUpload(file: File | undefined) {
+    if (!file) return;
+    if (file.size > MAX_SIZE) { toast.error("Ảnh vượt quá 5MB"); return; }
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch(`${BASE_URL}/api/admin/uploads`, {
+        method: "POST", body: fd, credentials: "include",
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json?.error?.message ?? "Tải ảnh thất bại");
+      const url = json.data.url as string;
+      setLogoUrl(url);
+      await api.put("/admin/settings/logo", { url });
+      toast.success("Đã cập nhật logo");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Tải ảnh thất bại");
+    } finally {
+      setUploading(false);
+      if (inputRef.current) inputRef.current.value = "";
+    }
+  }
+
+  async function handleRemove() {
+    setSaving(true);
+    try {
+      await api.put("/admin/settings/logo", { url: null });
+      setLogoUrl(null);
+      toast.success("Đã xoá logo");
+    } catch {
+      toast.error("Xoá thất bại");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (loading) return <p className="text-muted-foreground">Đang tải…</p>;
+
+  return (
+    <div className="flex max-w-sm flex-col gap-4">
+      <div className="grid h-32 w-full place-items-center overflow-hidden rounded-xl border border-dashed border-slate-300 bg-slate-50">
+        {logoUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={mediaUrl(logoUrl)} alt="Logo" className="h-full w-auto max-w-full object-contain p-4" />
+        ) : (
+          <span className="text-xs text-muted-foreground">Chưa có logo</span>
+        )}
+      </div>
+      <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml"
+        className="hidden" onChange={(e) => handleUpload(e.target.files?.[0])} />
+      <div className="flex gap-2">
+        <Button type="button" variant="outline" size="sm" disabled={uploading}
+          onClick={() => inputRef.current?.click()}>
+          {uploading ? <Loader2 className="mr-2 size-4 animate-spin" /> : <UploadCloud className="mr-2 size-4" />}
+          {logoUrl ? "Thay logo" : "Tải logo lên"}
+        </Button>
+        {logoUrl && (
+          <Button type="button" variant="ghost" size="sm" disabled={saving} onClick={handleRemove}>
+            <Trash2 className="mr-1 size-4" />Xoá
+          </Button>
+        )}
+      </div>
+      <p className="text-xs text-muted-foreground">
+        PNG/JPG/SVG, tối đa 5MB. Logo dùng ở header, footer, QR card và email biên nhận.
+      </p>
+    </div>
+  );
+}
+
 // ─── SMTP Section ─────────────────────────────────────────────────────────────
 
 const EMPTY_SMTP: SmtpSettings = {
@@ -271,6 +354,14 @@ function SmtpSection() {
 export default function PaymentSettingsPage() {
   return (
     <div className="space-y-12">
+      <div>
+        <PageHeader
+          title="Logo thương hiệu"
+          description="Logo hiển thị ở header, footer, QR card và email biên nhận"
+        />
+        <LogoSection />
+      </div>
+
       <div>
         <PageHeader
           title="Cấu hình thanh toán"

@@ -10,3 +10,5 @@ settingsRoutes.get('/payment', requirePermission('settings.read'), asyncHandler(
 settingsRoutes.put('/payment', requirePermission('settings.write'), asyncHandler(ctrl.updatePayment));
 settingsRoutes.get('/smtp', requirePermission('settings.read'), asyncHandler(ctrl.getSmtpSettings));
 settingsRoutes.put('/smtp', requirePermission('settings.write'), asyncHandler(ctrl.updateSmtpSettings));
+settingsRoutes.get('/logo', requirePermission('settings.read'), asyncHandler(ctrl.getLogoSettings));
+settingsRoutes.put('/logo', requirePermission('settings.write'), asyncHandler(ctrl.updateLogoSettings));

@@ -17,16 +17,36 @@ const geistMono = Geist_Mono({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000").replace(/\/$/, "");
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "Konnit — Thể thao cho bé",
-    template: "%s | Konnit",
-  },
-  description:
-    "Konnit — Nền tảng thể thao và hoạt động dành cho trẻ em Việt Nam",
-};
+async function fetchLogoUrl(): Promise<string | null> {
+  try {
+    const res = await fetch(`${API_URL}/api/public/settings/logo`, { next: { revalidate: 3600 } });
+    if (!res.ok) return null;
+    const json = await res.json();
+    const url: string | null = json?.data?.url ?? null;
+    if (!url) return null;
+    return url.startsWith("http") ? url : `${API_URL}${url}`;
+  } catch {
+    return null;
+  }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const logoUrl = await fetchLogoUrl();
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: "Konnit — Thể thao cho bé",
+      template: "%s | Konnit",
+    },
+    description: "Konnit — Nền tảng thể thao và hoạt động dành cho trẻ em Việt Nam",
+    ...(logoUrl && {
+      openGraph: { images: [{ url: logoUrl }] },
+      icons: { icon: logoUrl },
+    }),
+  };
+}
 
 export default function RootLayout({
   children,

@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import QRCode from 'qrcode';
 import { env } from '../config/env';
-import { getSmtp } from '../modules/settings/settings.service';
+import { getSmtp, getLogo } from '../modules/settings/settings.service';
 import { buildReceiptHtml, type OrderForReceipt } from './receipt.template';
 
 async function createTransporter(): Promise<{ transporter: nodemailer.Transporter; from: string }> {
@@ -59,7 +59,8 @@ export async function sendReceiptEmail(order: OrderForReceipt): Promise<void> {
   );
 
   const receiptUrl = `${env.PUBLIC_WEB_URL}/don-hang/${order.order_code}/bien-nhan`;
-  const html = buildReceiptHtml({ ...order, items: itemsWithQr }, receiptUrl);
+  const logoUrl = await getLogo().then((s) => s.url).catch(() => null);
+  const html = buildReceiptHtml({ ...order, items: itemsWithQr }, receiptUrl, logoUrl);
   await sendMail({
     to: order.contact_email,
     subject: `Biên nhận & Vé check-in đơn ${order.order_code} — Konnit`,

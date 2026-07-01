@@ -1,6 +1,7 @@
 "use client";
-//chưa có logo /qr-logo.png
+
 import { useEffect, useRef } from "react";
+import { useSiteLogo } from "@/hooks/useSiteLogo";
 
 interface Props {
   token: string | null;
@@ -23,15 +24,17 @@ function probeImage(src: string): Promise<string | null> {
 
 export function QrTicketCard({ token, attendeeName, ticketName, eventName, isUsed, checkedInAt }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const siteLogoUrl = useSiteLogo();
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       if (!token || !ref.current) return;
 
+      // DB logo → fallback về /qr-logo.png
       const [{ default: QRCodeStyling }, logo] = await Promise.all([
         import("qr-code-styling"),
-        probeImage("/qr-logo.png"),
+        siteLogoUrl ? Promise.resolve(siteLogoUrl) : probeImage("/qr-logo.png"),
       ]);
       if (cancelled || !ref.current) return;
 
@@ -64,7 +67,7 @@ export function QrTicketCard({ token, attendeeName, ticketName, eventName, isUse
     return () => {
       cancelled = true;
     };
-  }, [token]);
+  }, [token, siteLogoUrl]);
 
   return (
     <div

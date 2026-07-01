@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Printer, Loader2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QrTicketCard } from "@/components/account/QrTicketCard";
+import { useSiteLogo } from "@/hooks/useSiteLogo";
 import { shopApi } from "@/lib/shop/api";
 import { formatVND } from "@/lib/shop/format";
 import type { Order } from "@/lib/shop/types";
@@ -31,6 +32,7 @@ function Row({ label, value, bold, red }: { label: string; value: string; bold?:
 export default function BienNhanPage() {
   const params = useParams<{ code: string }>();
   const code = params.code;
+  const logoUrl = useSiteLogo();
 
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
@@ -83,9 +85,13 @@ export default function BienNhanPage() {
       {/* receipt card */}
       <div className="rounded-2xl border border-slate-100 bg-white shadow-sm print:border-0 print:shadow-none">
         {/* header */}
-        <div className="rounded-t-2xl bg-[var(--konnit-berry)] px-8 py-8 text-center text-white">
+        <div className="rounded-t-2xl bg-(--konnit-berry) px-8 py-8 text-center text-white">
           <p className="mb-1 text-xs uppercase tracking-[3px] text-white/70">Thể thao cho bé</p>
-          <h1 className="text-3xl font-black tracking-tight">KONNIT</h1>
+          {logoUrl ? (
+            <img src={logoUrl} alt="Konnit" className="mx-auto h-10 w-auto rounded-full object-contain brightness-0 invert" />
+          ) : (
+            <h1 className="text-3xl font-black tracking-tight">KONNIT</h1>
+          )}
         </div>
 
         {/* order id + date */}

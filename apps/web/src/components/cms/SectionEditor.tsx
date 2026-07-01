@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDebounce } from "@/hooks/useDebounce";
+import { MediaPickerDialog } from "@/components/cms/MediaPickerDialog";
 import { useFetch } from "@/hooks/useCmsData";
 import { formatVND } from "@/lib/shop/format";
 import { api } from "@/lib/api-client";
@@ -142,11 +143,14 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
               />
             ) : field === "image" || field === "qrImage" ? (
               <div className="space-y-2">
-                <Input
-                  placeholder="Dán URL ảnh (Sao chép từ Media)"
-                  value={(contentJson[field] as string) ?? ""}
-                  onChange={(e) => updateField(field, e.target.value)}
-                />
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Dán URL ảnh hoặc chọn từ Media"
+                    value={(contentJson[field] as string) ?? ""}
+                    onChange={(e) => updateField(field, e.target.value)}
+                  />
+                  <MediaPickerDialog onSelect={(url) => updateField(field, url)} />
+                </div>
                 {(contentJson[field] as string) ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -154,11 +158,7 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
                     alt="preview"
                     className="h-28 w-full rounded-lg border border-[var(--konnit-pink-03)] object-cover"
                   />
-                ) : (
-                  <p className="text-xs text-muted-foreground">
-                    Mẹo: vào mục Media → Sao chép URL → dán vào đây.
-                  </p>
-                )}
+                ) : null}
               </div>
             ) : field === "logos" ? (
               <LogosEditor

@@ -22,4 +22,5 @@ publicShopRoutes.post('/orders', asyncHandler(ordersCtrl.createPublic));
 publicShopRoutes.get('/orders/:code', asyncHandler(ordersCtrl.getPublic));
 publicShopRoutes.post('/orders/:code/pay', asyncHandler(ordersCtrl.payPublic));
 publicShopRoutes.get('/settings/payment', asyncHandler(settingsCtrl.getPublicPayment));
+publicShopRoutes.get('/settings/logo', asyncHandler(settingsCtrl.getLogoSettings));
 publicShopRoutes.get('/tickets/qr/:token', asyncHandler(ticketsCtrl.getQrImage));

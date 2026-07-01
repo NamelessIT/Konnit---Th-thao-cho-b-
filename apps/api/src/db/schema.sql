@@ -416,6 +416,9 @@ ON CONFLICT (key) DO NOTHING;
 INSERT INTO app_settings (key, value)
 VALUES ('smtp', '{"enabled":false,"host":"","port":587,"secure":false,"user":"","pass":"","fromName":"Konnit","fromEmail":""}')
 ON CONFLICT (key) DO NOTHING;
+INSERT INTO app_settings (key, value)
+VALUES ('logo', '{"url":null}')
+ON CONFLICT (key) DO NOTHING;
 
 -- ===== Phase 2 Indexes =====
 CREATE INDEX IF NOT EXISTS idx_ticket_types_event ON ticket_types(event_id) WHERE is_deleted = false;

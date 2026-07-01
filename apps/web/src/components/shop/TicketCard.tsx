@@ -51,8 +51,8 @@ export function TicketCard({ ticket }: { ticket: TicketType }) {
       className="scroll-mt-28 flex flex-col overflow-hidden shadow-sm transition hover:shadow-md"
     >
       {/* Thân card click → chi tiết */}
-      <a href={`/cua-hang/${ticket.id}`} className="flex-1">
-        <CardHeader className="bg-[var(--konnit-pink-02)] pb-3 pt-5">
+      <a href={`/cua-hang/${ticket.id}`} className="flex-1 px-4">
+        <CardHeader className="bg-[var(--konnit-pink-02)] pb-3 pt-5 rounded-lg">
           {ticket.is_early_bird && (
             <Badge className="mb-2 w-fit bg-orange-500 text-white">Early Bird</Badge>
           )}

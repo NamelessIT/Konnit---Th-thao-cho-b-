@@ -30,6 +30,7 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import { useAuth } from "@/hooks/useAuth";
+import { useSiteLogo } from "@/hooks/useSiteLogo";
 
 const CMS_MENU = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -60,6 +61,8 @@ export function AdminSidebar() {
     ...(canCheckin ? [{ href: "/admin/check-in", label: "Check-in", icon: QrCode }] : []),
   ];
 
+  const logoUrl = useSiteLogo();
+
   const initials = (user?.fullName || user?.email || "?")
     .split(" ")
     .map((w) => w[0])
@@ -71,12 +74,16 @@ export function AdminSidebar() {
     <Sidebar className="border-[var(--konnit-pink-03)]">
       <SidebarHeader className="border-b border-[var(--konnit-pink-03)] px-4 py-4">
         <Link href="/admin" className="group flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-[var(--konnit-berry)] font-bold text-white shadow-sm transition-transform duration-500 group-hover:rotate-12">
-            K
-          </span>
+          {logoUrl ? (
+            <img src={logoUrl} alt="Konnit" className="h-9 w-auto rounded-full object-contain" />
+          ) : (
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-(--konnit-berry) font-bold text-white shadow-sm transition-transform duration-500 group-hover:rotate-12">
+              K
+            </span>
+          )}
           <span className="flex flex-col leading-tight">
-            <span className="font-bold text-[var(--konnit-berry)]">Konnit</span>
-            <span className="text-xs text-[var(--konnit-muted)]">Admin CMS</span>
+            <span className="font-bold text-(--konnit-berry)">Konnit</span>
+            <span className="text-xs text-(--konnit-muted)">Admin CMS</span>
           </span>
         </Link>
       </SidebarHeader>

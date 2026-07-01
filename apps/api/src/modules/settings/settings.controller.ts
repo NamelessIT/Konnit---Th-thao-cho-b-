@@ -47,3 +47,15 @@ export async function updateSmtpSettings(req: Request, res: Response) {
   const data = await service.updateSmtp(body, adminId);
   res.json({ success: true, data: { ...data, pass: data.pass ? '••••••' : '' } });
 }
+
+// ─── Logo ─────────────────────────────────────────────────────────────────────
+
+export async function getLogoSettings(_req: Request, res: Response) {
+  res.json({ success: true, data: await service.getLogo() });
+}
+
+export async function updateLogoSettings(req: Request, res: Response) {
+  const adminId = req.session.user!.id;
+  const data = await service.updateLogo(req.body ?? {}, adminId);
+  res.json({ success: true, data });
+}

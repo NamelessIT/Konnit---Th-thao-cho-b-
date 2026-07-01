@@ -95,6 +95,10 @@ export interface PaymentSettings {
   note: string;
 }
 
+export interface LogoSettings {
+  url: string | null;
+}
+
 // Cấu hình SMTP (admin, có mask password)
 export interface SmtpSettings {
   enabled: boolean;

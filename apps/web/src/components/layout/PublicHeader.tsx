@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CartNavButton } from "@/components/shop/CartNavButton";
 import { UserMenu } from "@/components/auth/UserMenu";
+import { useSiteLogo } from "@/hooks/useSiteLogo";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home" },
@@ -17,6 +18,7 @@ const NAV_ITEMS = [
 
 export function PublicHeader() {
   const pathname = usePathname();
+  const logoUrl = useSiteLogo();
 
   const isCmsActive =
     pathname === "/tin-tuc" ||
@@ -36,10 +38,16 @@ export function PublicHeader() {
           href="/"
           className="inline-flex min-w-max items-center gap-2.5 text-[22px] font-black tracking-normal text-[var(--konnit-ink)]"
         >
-          <span className="inline-grid h-[34px] w-[34px] place-items-center rounded-full bg-[var(--konnit-berry)] text-[22px] leading-none text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.08)]">
-            k
-          </span>
-          konnit
+          {logoUrl ? (
+            <img src={logoUrl} alt="Konnit" className="h-8.5 rounded-full w-auto object-contain" />
+          ) : (
+            <>
+              <span className="inline-grid h-8.5 w-8.5 place-items-center rounded-full bg-(--konnit-berry) text-[22px] leading-none text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.08)]">
+                k
+              </span>
+              konnit
+            </>
+          )}
         </Link>
 
         {/* Nav links */}
