@@ -56,7 +56,7 @@ export function PaymentPanel({ code }: { code: string }) {
     return () => {
       alive = false;
     };
-  }, [code, router]);
+  }, [code, localize, router]);
 
   async function handlePay() {
     if (!order || isPaying) return;
@@ -213,41 +213,41 @@ function BankTransferBlock({
     settings && (settings.qrImagePath || settings.accountNumber || settings.accountName);
 
   return (
-    <div className=”mt-6 rounded-xl bg-slate-50 p-5”>
+    <div className="mt-6 rounded-xl bg-slate-50 p-5">
       {!hasConfig ? (
-        <p className=”text-center text-sm text-[var(--konnit-muted)]”>
-          {t(“payment.noConfig”)}
+        <p className="text-center text-sm text-[var(--konnit-muted)]">
+          {t("payment.noConfig")}
         </p>
       ) : (
-        <div className=”flex flex-col items-center gap-4 sm:flex-row sm:items-start”>
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
           {settings?.qrImagePath && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={mediaUrl(settings.qrImagePath)}
-              alt=”Mã QR chuyển khoản”
-              className=”h-44 w-44 shrink-0 rounded-xl border border-slate-200 bg-white object-contain p-2”
+              alt="Mã QR chuyển khoản"
+              className="h-44 w-44 shrink-0 rounded-xl border border-slate-200 bg-white object-contain p-2"
             />
           )}
-          <div className=”w-full space-y-2 text-sm”>
+          <div className="w-full space-y-2 text-sm">
             {settings?.bankName && (
-              <Row label={t(“payment.bankName”)} value={settings.bankName} />
+              <Row label={t("payment.bankName")} value={settings.bankName} />
             )}
             {settings?.accountName && (
-              <Row label={t(“payment.accountHolder”)} value={settings.accountName} />
+              <Row label={t("payment.accountHolder")} value={settings.accountName} />
             )}
             {settings?.accountNumber && (
-              <Row label={t(“payment.accountNumber”)} value={settings.accountNumber} mono />
+              <Row label={t("payment.accountNumber")} value={settings.accountNumber} mono />
             )}
-            <Row label={t(“payment.transferContent”)} value={code} mono highlight />
-            <Row label={t(“payment.amount”)} value={formatVND(amount)} highlight />
+            <Row label={t("payment.transferContent")} value={code} mono highlight />
+            <Row label={t("payment.amount")} value={formatVND(amount)} highlight />
             {settings?.note && (
-              <p className=”pt-1 text-xs text-[var(--konnit-muted)]”>{settings.note}</p>
+              <p className="pt-1 text-xs text-[var(--konnit-muted)]">{settings.note}</p>
             )}
           </div>
         </div>
       )}
-      <p className=”mt-4 text-center text-xs text-[var(--konnit-muted)]”>
-        {t(“payment.transferNote”)}
+      <p className="mt-4 text-center text-xs text-[var(--konnit-muted)]">
+        {t("payment.transferNote")}
       </p>
     </div>
   );

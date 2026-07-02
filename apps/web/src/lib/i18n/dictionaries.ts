@@ -30,9 +30,10 @@ export function tFrom(dict: Dictionary): (key: string) => string {
  * Load UI strings từ API (base là VI defaults + overlay DB translations).
  * Nếu API không truy cập được (build time) → trả object rỗng, useT() fallback về key.
  */
-export async function getDictionary(locale: string): Promise<Dictionary> {
+export async function getDictionary(locale?: string): Promise<Dictionary> {
   try {
-    const res = await fetch(`${API}/api/public/ui-strings?locale=${locale}`, {
+    const qs = locale ? `?locale=${encodeURIComponent(locale)}` : "";
+    const res = await fetch(`${API}/api/public/ui-strings${qs}`, {
       next: { revalidate: 300 },
     });
     if (res.ok) {

@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDebounce } from "@/hooks/useDebounce";
-import { X } from "lucide-react";
+import { ArrowDown, ArrowUp, Trash2, X } from "lucide-react";
 import { MediaPickerDialog } from "@/components/cms/MediaPickerDialog";
 import { useFetch } from "@/hooks/useCmsData";
 import { formatVND } from "@/lib/shop/format";
@@ -51,12 +51,6 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
     section.content_json ?? {},
   );
   const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    setTitle(section.title ?? "");
-    setDescription(section.description ?? "");
-    setContentJson(section.content_json ?? {});
-  }, [section.id]);
 
   const liveTitle = useDebounce(title, 300);
   const liveDescription = useDebounce(description, 300);
@@ -161,6 +155,11 @@ export function SectionEditor({ section, onUpdated, onLiveChange }: SectionEdito
                   />
                 ) : null}
               </div>
+            ) : field === "photos" ? (
+              <PhotosEditor
+                photos={normalizePhotoUrls(contentJson.photos)}
+                onChange={(photos) => updateField("photos", photos)}
+              />
             ) : field === "logos" ? (
               <LogosEditor
                 logos={(contentJson.logos as Record<string, unknown>[] | undefined) ?? []}
@@ -203,6 +202,95 @@ type TicketTypeLite = {
 
 const selectCls =
   "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus:border-[var(--konnit-berry)] focus:ring-2 focus:ring-[var(--konnit-berry)]/20";
+
+function normalizePhotoUrls(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return [...new Set(value.filter((item): item is string => typeof item === "string" && item.trim() !== ""))].slice(0, 3);
+}
+
+function isCmsImageUrl(value: string): boolean {
+  return /^(https?:\/\/|\/|data:)/.test(value);
+}
+
+function PhotosEditor({
+  photos,
+  onChange,
+}: {
+  photos: string[];
+  onChange: (photos: string[]) => void;
+}) {
+  function move(index: number, direction: -1 | 1) {
+    const target = index + direction;
+    if (target < 0 || target >= photos.length) return;
+    const next = [...photos];
+    [next[index], next[target]] = [next[target], next[index]];
+    onChange(next);
+  }
+
+  return (
+    <div className="flex flex-col gap-3">
+      {photos.length > 0 && (
+        <div className="grid grid-cols-3 gap-2">
+          {photos.map((url, index) => (
+            <div key={url} className="overflow-hidden rounded-lg border bg-muted">
+              {isCmsImageUrl(url) ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={url} alt={`Ảnh ${index + 1}`} className="aspect-square w-full object-cover" />
+              ) : (
+                <div className="grid aspect-square place-items-center p-2 text-center text-xs text-muted-foreground">
+                  {url}
+                </div>
+              )}
+              <div className="flex items-center justify-center gap-1 p-1">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-xs"
+                  disabled={index === 0}
+                  aria-label="Đưa ảnh lên trước"
+                  title="Đưa ảnh lên trước"
+                  onClick={() => move(index, -1)}
+                >
+                  <ArrowUp />
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-xs"
+                  disabled={index === photos.length - 1}
+                  aria-label="Đưa ảnh ra sau"
+                  title="Đưa ảnh ra sau"
+                  onClick={() => move(index, 1)}
+                >
+                  <ArrowDown />
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-xs"
+                  aria-label="Xóa ảnh"
+                  title="Xóa ảnh"
+                  onClick={() => onChange(photos.filter((_, itemIndex) => itemIndex !== index))}
+                >
+                  <Trash2 />
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="flex items-center justify-between gap-2">
+        <MediaPickerDialog
+          multiple
+          selectedUrls={photos.filter(isCmsImageUrl)}
+          maxSelections={3}
+          onSelectMultiple={(urls) => onChange(normalizePhotoUrls(urls))}
+        />
+        <span className="text-xs text-muted-foreground">{photos.length}/3 ảnh</span>
+      </div>
+    </div>
+  );
+}
 
 function ItemsEditor({
   componentType,
@@ -330,7 +418,10 @@ function ItemsEditor({
                       </div>
                     )}
                     <MediaPickerDialog
-                      onSelect={(url) => updateItem(i, def.key, [...arr, url])}
+                      multiple
+                      selectedUrls={normalizePhotoUrls(arr).filter(isCmsImageUrl)}
+                      maxSelections={3}
+                      onSelectMultiple={(urls) => updateItem(i, def.key, normalizePhotoUrls(urls))}
                     />
                   </div>
                 );

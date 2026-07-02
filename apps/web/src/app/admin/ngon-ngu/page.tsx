@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { Plus, Star, Trash2, Upload, Download, Check, X, Save, Search, ChevronLeft, ChevronRight, Wand2 } from "lucide-react";
 import { api } from "@/lib/api-client";
@@ -11,6 +11,113 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+
+// ── Auto-translate (MyMemory) — xử lý text dài bằng chia khối + dịch JSON theo giá trị lá ──
+const MYMEMORY_URL = "https://api.mymemory.translated.net/get";
+const MM_CHUNK = 450; // < giới hạn 500 ký tự/lần của MyMemory
+
+/** Các key trong content_json là mã/URL/màu — KHÔNG dịch. */
+const CMS_SKIP_KEYS = new Set([
+  "tint", "icon", "url", "anchorId", "ticketTypeId", "eventSlug",
+  "step", "newTab", "src", "image", "qrImage", "qrData",
+]);
+
+/** Giá trị không nên dịch: URL/media/anchor hoặc không chứa chữ cái (mã, số, icon). */
+function isNonTranslatable(v: string): boolean {
+  const s = v.trim();
+  if (!s) return true;
+  if (/^(https?:\/\/|\/uploads\/|mailto:|tel:|#)/i.test(s)) return true;
+  if (!/[A-Za-zÀ-ỹ]/.test(s)) return true;
+  return false;
+}
+
+async function mmTranslate(text: string, langPair: string): Promise<string> {
+  const res = await fetch(
+    `${MYMEMORY_URL}?q=${encodeURIComponent(text)}&langpair=${langPair}`,
+    { credentials: "omit" },
+  );
+  const data = await res.json();
+  const out = data?.responseData?.translatedText;
+  if (data?.responseStatus !== 200 || typeof out !== "string") {
+    throw new Error(data?.responseDetails || "Dịch thất bại");
+  }
+  if (/MYMEMORY WARNING|QUERY LENGTH LIMIT|USED ALL/i.test(out)) {
+    throw new Error("Hết lượt dịch miễn phí của MyMemory hôm nay");
+  }
+  return out;
+}
+
+/** Chia text thành các khối ≤ MM_CHUNK theo ranh giới câu/xuống dòng. */
+function splitIntoChunks(text: string): string[] {
+  if (text.length <= MM_CHUNK) return [text];
+  const chunks: string[] = [];
+  let buf = "";
+  for (const sentence of text.split(/(?<=[.!?…\n])\s+/)) {
+    if (`${buf} ${sentence}`.trim().length <= MM_CHUNK) {
+      buf = buf ? `${buf} ${sentence}` : sentence;
+    } else {
+      if (buf) chunks.push(buf);
+      if (sentence.length <= MM_CHUNK) {
+        buf = sentence;
+      } else {
+        for (let i = 0; i < sentence.length; i += MM_CHUNK) {
+          chunks.push(sentence.slice(i, i + MM_CHUNK));
+        }
+        buf = "";
+      }
+    }
+  }
+  if (buf) chunks.push(buf);
+  return chunks;
+}
+
+/** Dịch chuỗi văn bản thường (chia khối nếu dài). */
+async function translatePlainText(text: string, langPair: string): Promise<string> {
+  const chunks = splitIntoChunks(text);
+  const parts: string[] = [];
+  for (const c of chunks) {
+    parts.push(await mmTranslate(c, langPair));
+    if (chunks.length > 1) await new Promise((r) => setTimeout(r, 120));
+  }
+  return parts.join(" ");
+}
+
+/** Dịch đệ quy các giá trị text lá trong content_json, giữ nguyên URL/màu/mã. */
+async function translateJsonValue(
+  node: unknown,
+  langPair: string,
+  key?: string,
+): Promise<unknown> {
+  if (typeof node === "string") {
+    if ((key && CMS_SKIP_KEYS.has(key)) || isNonTranslatable(node)) return node;
+    return translatePlainText(node, langPair);
+  }
+  if (Array.isArray(node)) {
+    const out: unknown[] = [];
+    for (const item of node) out.push(await translateJsonValue(item, langPair, key));
+    return out;
+  }
+  if (node && typeof node === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(node)) out[k] = await translateJsonValue(v, langPair, k);
+    return out;
+  }
+  return node;
+}
+
+/** Dịch một field bất kỳ; content_json xử lý theo JSON, còn lại theo text thường. */
+async function translateField(
+  field: string,
+  sourceValue: string,
+  langPair: string,
+): Promise<string> {
+  if (field === "content_json") {
+    const parsed = JSON.parse(sourceValue);
+    const translated = await translateJsonValue(parsed, langPair);
+    return JSON.stringify(translated);
+  }
+  return translatePlainText(sourceValue, langPair);
+}
 
 interface Language {
   id: number;
@@ -42,6 +149,46 @@ interface ExportRow {
   locale: string;
   source_value: string;
   value: string;
+}
+
+const VIETNAMESE_MARKS = /[ăâđêôơưĂÂĐÊÔƠƯàáạảãằắặẳẵầấậẩẫèéẹẻẽềếệểễìíịỉĩòóọỏõồốộổỗờớợởỡùúụủũừứựửữỳýỵỷỹ]/;
+
+function jsonNeedsTranslation(source: unknown, translated: unknown, key?: string): boolean {
+  if (typeof source === "string") {
+    if ((key && CMS_SKIP_KEYS.has(key)) || isNonTranslatable(source)) return false;
+    return (
+      typeof translated !== "string" ||
+      translated.trim() === "" ||
+      (translated.trim() === source.trim() && VIETNAMESE_MARKS.test(source))
+    );
+  }
+  if (Array.isArray(source)) {
+    if (!Array.isArray(translated) || translated.length < source.length) return true;
+    return source.some((item, index) => jsonNeedsTranslation(item, translated[index], key));
+  }
+  if (source && typeof source === "object") {
+    if (!translated || typeof translated !== "object" || Array.isArray(translated)) return true;
+    return Object.entries(source).some(([childKey, child]) =>
+      jsonNeedsTranslation(
+        child,
+        (translated as Record<string, unknown>)[childKey],
+        childKey,
+      ),
+    );
+  }
+  return false;
+}
+
+function needsTranslation(row: ExportRow, currentValue = row.value): boolean {
+  if (!currentValue || currentValue.trim() === "") return true;
+  if (row.field !== "content_json") {
+    return currentValue.trim() === row.source_value.trim() && VIETNAMESE_MARKS.test(row.source_value);
+  }
+  try {
+    return jsonNeedsTranslation(JSON.parse(row.source_value), JSON.parse(currentValue));
+  } catch {
+    return true;
+  }
 }
 
 const EMPTY_FORM: LangForm = { code: "", name: "", nativeName: "", sortOrder: 0 };
@@ -391,6 +538,7 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
 
   function handleModuleChange(v: string) {
     setSelectedModule(v);
+    setCurrentPage(1);
     setEdits({});
     setRows([]);
     if (v && selectedLocale) loadTranslations(v, selectedLocale);
@@ -398,6 +546,7 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
 
   function handleLocaleChange(v: string) {
     setSelectedLocale(v);
+    setCurrentPage(1);
     setEdits({});
     setRows([]);
     if (selectedModule && v) loadTranslations(selectedModule, v);
@@ -418,87 +567,54 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
 
   async function autoTranslate(row: ExportRow) {
     if (!row.source_value || !selectedLocale) return;
-    
-    const editKey = `${row.entity_id}:${row.field}`;
-    
-    // MyMemory API has a 500 character limit
-    if (row.source_value.length > 500) {
-      toast.error(`Nội dung quá dài (${row.source_value.length} ký tự). Max: 500`);
-      return;
-    }
-    
-    setTranslating(editKey);
-    
+    const key = `${row.entity_id}:${row.field}`;
+    setTranslating(key);
     try {
-      // MyMemory API: langpair format is "source|target" (vi|en, vi|ja, etc)
-      const langPair = `vi|${selectedLocale}`;
-      const res = await fetch(
-        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(row.source_value)}&langpair=${langPair}`,
-        { credentials: "omit" }
+      const translated = await translateField(
+        row.field,
+        row.source_value,
+        `vi|${selectedLocale}`,
       );
-      const data = await res.json();
-      
-      if (data?.responseStatus === 200 && data?.responseData?.translatedText) {
-        const translated = data.responseData.translatedText;
-        setEdit(row, translated);
-        toast.success("Dịch tự động thành công");
-      } else {
-        const details = data?.responseDetails || "Lỗi không xác định";
-        console.error("Translation API error:", data);
-        toast.error(`Dịch thất bại: ${details}`);
-      }
+      setEdit(row, translated);
+      toast.success("Dịch tự động thành công");
     } catch (e) {
-      toast.error("Lỗi kết nối API dịch");
-      console.error(e);
+      console.error("Translation error:", e);
+      toast.error(`Dịch thất bại: ${e instanceof Error ? e.message : "lỗi không xác định"}`);
     } finally {
       setTranslating(null);
     }
   }
 
   async function autoTranslateAll() {
-    if (emptyCount === 0) return;
-    
+    if (missingCount === 0) return;
+
     setIsTranslatingAll(true);
-    const emptyRows = filtered.filter((r) => !r.value || r.value.trim() === "");
+    const missingRows = filtered
+      .filter((row) => needsTranslation(row, getCurrent(row)))
+      .sort((a, b) => Number(b.field === "content_json") - Number(a.field === "content_json"));
+    const langPair = `vi|${selectedLocale}`;
     let successCount = 0;
-    let skippedCount = 0;
-    
+    let failCount = 0;
+
     try {
-      for (const row of emptyRows) {
+      for (const row of missingRows) {
         if (!row.source_value || !selectedLocale) continue;
-        
-        // MyMemory API has a 500 character limit
-        if (row.source_value.length > 500) {
-          skippedCount++;
-          continue;
-        }
-        
         try {
-          const langPair = `vi|${selectedLocale}`;
-          const res = await fetch(
-            `https://api.mymemory.translated.net/get?q=${encodeURIComponent(row.source_value)}&langpair=${langPair}`,
-            { credentials: "omit" }
-          );
-          const data = await res.json();
-          
-          if (data?.responseStatus === 200 && data?.responseData?.translatedText) {
-            const translated = data.responseData.translatedText;
-            setEdit(row, translated);
-            successCount++;
-          }
+          const translated = await translateField(row.field, row.source_value, langPair);
+          setEdit(row, translated);
+          successCount++;
         } catch (e) {
-          console.error("Error translating row:", e);
+          failCount++;
+          console.error(`Dịch lỗi (#${row.entity_id} ${row.field}):`, e);
         }
-        
-        // Add small delay to avoid rate limiting
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        // giãn nhịp tránh rate limit
+        await new Promise((resolve) => setTimeout(resolve, 120));
       }
-      
-      let msg = `Đã dịch ${successCount}/${emptyCount} nội dung`;
-      if (skippedCount > 0) {
-        msg += ` (bỏ qua ${skippedCount} nội dung quá dài)`;
-      }
-      toast.success(msg);
+
+      let msg = `Đã dịch ${successCount}/${missingRows.length} nội dung`;
+      if (failCount > 0) msg += ` (lỗi ${failCount} — có thể do hết lượt, chạy lại sau)`;
+      if (failCount > 0) toast.warning(msg);
+      else toast.success(msg);
     } catch (e) {
       toast.error("Lỗi khi dịch tất cả");
       console.error(e);
@@ -555,8 +671,8 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
     Array.from(grouped.entries()).map(([entityId, rows]) => [
       entityId,
       [...rows].sort((a, b) => {
-        const aEmpty = !a.value || a.value.trim() === "";
-        const bEmpty = !b.value || b.value.trim() === "";
+        const aEmpty = needsTranslation(a, getCurrent(a));
+        const bEmpty = needsTranslation(b, getCurrent(b));
         if (aEmpty === bEmpty) return 0;
         return aEmpty ? -1 : 1; // empty first
       }),
@@ -573,13 +689,9 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
   const start = (currentPage - 1) * pageSize;
   const paginatedDisplay = allDisplayRows.slice(start, start + pageSize);
 
-  // Count empty translations
-  const emptyCount = filtered.filter((r) => !r.value || r.value.trim() === "").length;
+  // Count missing or partially untranslated values, including nested CMS JSON.
+  const missingCount = filtered.filter((row) => needsTranslation(row, getCurrent(row))).length;
   const totalCount = filtered.length;
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedModule, selectedLocale, search]);
 
   function entityLabel(entityRows: ExportRow[]): string {
     const primary = entityRows.find((r) => r.field === "name" || r.field === "title");
@@ -630,7 +742,10 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
               className="rounded-lg border py-1.5 pl-8 pr-3 text-sm"
               placeholder="Tìm kiếm..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setCurrentPage(1);
+              }}
             />
           </div>
         )}
@@ -650,14 +765,14 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
           </div>
         )}
 
-        {emptyCount > 0 && !pendingCount && (
+        {missingCount > 0 && !pendingCount && (
           <Button 
             onClick={autoTranslateAll} 
             disabled={isTranslatingAll}
             className="ml-auto"
           >
             <Wand2 className="mr-1 size-4" />
-            {isTranslatingAll ? `Đang dịch ${emptyCount}...` : `Dịch tất cả (${emptyCount})`}
+            {isTranslatingAll ? `Đang dịch ${missingCount}...` : `Dịch tất cả (${missingCount})`}
           </Button>
         )}
       </div>
@@ -693,7 +808,7 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {paginatedDisplay.map((item, idx) =>
+                {paginatedDisplay.map((item) =>
                   item.type === "group" ? (
                     <tr key={`g-${item.entityId}`} className="bg-slate-50/80">
                       <td
@@ -785,7 +900,7 @@ function TranslationEditorSection({ languages }: { languages: Language[] }) {
           </ScrollArea>
 
           <div className="border-t px-5 py-3 text-xs text-slate-500">
-            Chưa dịch: <span className="font-bold text-red-600">{emptyCount}</span> / Tổng: <span className="font-bold">{totalCount}</span>
+            Chưa dịch: <span className="font-bold text-red-600">{missingCount}</span> / Tổng: <span className="font-bold">{totalCount}</span>
           </div>
 
           {totalPages > 1 && (

@@ -64,6 +64,86 @@ interface ExportRow {
   value: string;
 }
 
+function normaliseComparableSource(value: unknown): string {
+  if (value == null) return '';
+  let parsed = value;
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) return trimmed;
+    try {
+      parsed = JSON.parse(trimmed);
+    } catch {
+      return trimmed;
+    }
+  }
+  if (Array.isArray(parsed)) {
+    return `[${parsed.map(normaliseComparableSource).join(',')}]`;
+  }
+  if (typeof parsed === 'object') {
+    return `{${Object.entries(parsed as Record<string, unknown>)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, child]) => `${JSON.stringify(key)}:${normaliseComparableSource(child)}`)
+      .join(',')}}`;
+  }
+  return JSON.stringify(parsed);
+}
+
+export async function resolveImportEntityIds(
+  raw: Record<string, unknown>[],
+): Promise<Map<string, number | null>> {
+  const resolved = new Map<string, number | null>();
+  const modules = [
+    ...new Set(
+      raw
+        .map((row) => String(row.module ?? '').trim())
+        .filter((module) => module !== 'ui' && isValidModule(module)),
+    ),
+  ];
+
+  for (const module of modules) {
+    const sourceRows = await repo.fetchSourceRows(module);
+    const groups = new Map<number, Record<string, unknown>[]>();
+    for (const row of raw) {
+      if (String(row.module ?? '').trim() !== module) continue;
+      const sourceEntityId = Number(row.entity_id);
+      if (!Number.isInteger(sourceEntityId) || sourceEntityId <= 0) continue;
+      const group = groups.get(sourceEntityId) ?? [];
+      group.push(row);
+      groups.set(sourceEntityId, group);
+    }
+
+    for (const [sourceEntityId, group] of groups) {
+      const comparable = group.filter((row) => {
+        const field = String(row.field ?? '').trim();
+        return isValidField(module, field) && String(row.source_value ?? '').trim() !== '';
+      });
+      if (comparable.length === 0) continue;
+
+      const ranked = sourceRows
+        .map((candidate) => ({
+          id: Number(candidate.id),
+          score: comparable.filter((row) => {
+            const field = String(row.field ?? '').trim();
+            return (
+              normaliseComparableSource(candidate[field]) ===
+              normaliseComparableSource(row.source_value)
+            );
+          }).length,
+        }))
+        .filter((candidate) => candidate.score > 0)
+        .sort((a, b) => b.score - a.score);
+
+      const best = ranked[0];
+      resolved.set(
+        `${module}:${sourceEntityId}`,
+        best && (!ranked[1] || ranked[1].score < best.score) ? best.id : null,
+      );
+    }
+  }
+
+  return resolved;
+}
+
 async function buildExportRows(module: string, locale: string): Promise<ExportRow[]> {
   const meta = TRANSLATABLE_MODULES[module];
   const sources = await repo.fetchSourceRows(module);
@@ -185,6 +265,7 @@ async function parseXlsxBuffer(buf: Buffer): Promise<Record<string, unknown>[]> 
 export async function importFile(file: Express.Multer.File, adminId: number): Promise<ImportResult> {
   const isJson = file.mimetype.includes('json') || file.originalname.toLowerCase().endsWith('.json');
   const raw = isJson ? parseJsonBuffer(file.buffer) : await parseXlsxBuffer(file.buffer);
+  const resolvedEntityIds = await resolveImportEntityIds(raw);
 
   const errors: ImportResult['errors'] = [];
   const valid: repo.TranslationInput[] = [];
@@ -194,7 +275,7 @@ export async function importFile(file: Express.Multer.File, adminId: number): Pr
     const module = String(r.module ?? '').trim();
     const field = String(r.field ?? '').trim();
     const locale = String(r.locale ?? '').trim().toLowerCase();
-    const entityId = Number(r.entity_id);
+    let entityId = Number(r.entity_id);
     // ExcelJS có thể trả cell.value là object với .text/.result — chuẩn hoá.
     let value = r.value;
     if (value && typeof value === 'object' && 'text' in (value as object)) {
@@ -217,6 +298,17 @@ export async function importFile(file: Express.Multer.File, adminId: number): Pr
     if (!isValidField(module, field)) {
       errors.push({ row: rowNum, message: `Field "${field}" không dịch được ở "${module}"` });
       return;
+    }
+    if (module !== 'ui' && String(r.source_value ?? '').trim() !== '') {
+      const match = resolvedEntityIds.get(`${module}:${entityId}`);
+      if (match == null) {
+        errors.push({
+          row: rowNum,
+          message: `Không tìm thấy entity hiện tại khớp source_value (${module} #${entityId})`,
+        });
+        return;
+      }
+      entityId = match;
     }
     if (valueStr === '') return; // ô trống → bỏ qua, không ghi đè
 

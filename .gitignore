@@ -11,6 +11,8 @@ dist/
 .next/
 .turbo/
 out/
+.pnpm-store/**/index.db-shm
+.pnpm-store/**/index.db-wal
 
 # Uploads (user content)
 uploads/*
@@ -47,8 +49,6 @@ CLAUDE.md
 packages/types/tsconfig.tsbuildinfo
 
 # User guide screenshot tooling — contains live session cookies, never commit
-docs/user-guide/.auth/
-docs/user-guide/playwright-report/
-docs/user-guide/.test-results/
 /docs/user-guide
 /apps/web/e2e
+/apps/api/uploads

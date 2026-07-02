@@ -19,17 +19,55 @@ async function upsertPageSections(
   );
   const pageId = pageRes.rows[0].id;
 
-  // Page seed-managed → xoá & dựng lại sections (không đụng page do user tạo).
-  await client.query(`DELETE FROM cms_sections WHERE page_id = $1`, [pageId]);
+  const existingResult = await client.query<{ id: number }>(
+    `SELECT id FROM cms_sections WHERE page_id = $1 ORDER BY sort_order, id`,
+    [pageId],
+  );
+  const existingSections = existingResult.rows;
+
   for (let i = 0; i < page.sections.length; i++) {
     const s = page.sections[i];
-    await client.query(
-      `INSERT INTO cms_sections
-         (page_id, component_type, style_variant, title, description, content_json, sort_order, status, created_by, updated_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,'published',$8,$8)`,
-      [pageId, s.component_type, s.style_variant, s.title, s.description ?? null,
-       JSON.stringify(s.content_json), i + 1, adminId],
-    );
+    const existing = existingSections[i];
+    if (existing) {
+      await client.query(
+        `UPDATE cms_sections
+         SET component_type = $2, style_variant = $3, title = $4, description = $5,
+             content_json = $6, sort_order = $7, status = 'published',
+             updated_by = $8, updated_at = now()
+         WHERE id = $1`,
+        [
+          existing.id,
+          s.component_type,
+          s.style_variant,
+          s.title,
+          s.description ?? null,
+          JSON.stringify(s.content_json),
+          i + 1,
+          adminId,
+        ],
+      );
+    } else {
+      await client.query(
+        `INSERT INTO cms_sections
+           (page_id, component_type, style_variant, title, description, content_json, sort_order, status, created_by, updated_by)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,'published',$8,$8)`,
+        [
+          pageId,
+          s.component_type,
+          s.style_variant,
+          s.title,
+          s.description ?? null,
+          JSON.stringify(s.content_json),
+          i + 1,
+          adminId,
+        ],
+      );
+    }
+  }
+
+  const obsoleteIds = existingSections.slice(page.sections.length).map((section) => section.id);
+  if (obsoleteIds.length > 0) {
+    await client.query(`DELETE FROM cms_sections WHERE id = ANY($1::int[])`, [obsoleteIds]);
   }
 }
 

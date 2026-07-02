@@ -28,7 +28,6 @@ const NAV_ITEMS = [
   { href: "/community", labelKey: "nav.community" },
   { href: "/store", labelKey: "nav.store" },
   { href: "/tin-tuc", labelKey: "nav.news" },
-  { href: "/cua-hang", labelKey: "nav.tickets" },
 ];
 
 export function PublicHeader() {
@@ -102,7 +101,7 @@ export function PublicHeader() {
 
           {/* Primary CTA */}
           <LocaleLink
-            href="/services"
+            href="/cua-hang"
             className="btn-shine inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-2xl bg-[var(--konnit-berry)] px-3 text-sm font-black text-white lg:px-4"
           >
             {t("nav.join")}
@@ -157,7 +156,7 @@ export function PublicHeader() {
               <div className="mt-auto border-t border-[var(--konnit-pink-02)] p-4">
                 <Button
                   render={
-                    <LocaleLink href="/services" onClick={() => setMobileMenuOpen(false)} />
+                    <LocaleLink href="/cua-hang" onClick={() => setMobileMenuOpen(false)} />
                   }
                   className="h-11 w-full bg-[var(--konnit-berry)] font-black hover:bg-[var(--konnit-berry)]/90"
                 >

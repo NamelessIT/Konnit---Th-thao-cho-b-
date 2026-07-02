@@ -9,7 +9,11 @@ export function ImageTextStyle5({ contentJson, title, description }: SectionProp
   const c = contentJson;
   const heading = (c.title as string) || title;
   const lead = (c.description as string) || description;
-  const photos = (c.photos as string[]) ?? [];
+  const photos = Array.isArray(c.photos)
+    ? c.photos.filter((photo): photo is string => typeof photo === "string" && photo.trim() !== "")
+    : typeof c.image === "string" && c.image.trim()
+      ? [c.image]
+      : [];
 
   return (
     <section className="px-4 pt-[86px]">
@@ -32,7 +36,7 @@ export function ImageTextStyle5({ contentJson, title, description }: SectionProp
           tint="pink"
           height={340}
           className="my-0"
-          items={photos.map((src) => ({ src }))}
+          items={photos.slice(0, 3).map((src) => ({ src }))}
         />
       </div>
     </section>

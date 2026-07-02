@@ -90,6 +90,16 @@ export const CMS_STYLE_CTA_FIELDS: Record<string, readonly string[]> = {
 
 const CMS_CTA_FIELD_KEYS = new Set(['primaryCta', 'secondaryCta', 'buttonLabel', 'buttonUrl']);
 
+export const CMS_STYLE_FIELD_OVERRIDES: Record<
+  string,
+  { omit?: readonly string[]; append?: readonly string[] }
+> = {
+  'image_text:style_5': {
+    omit: ['image', 'imagePosition'],
+    append: ['photos'],
+  },
+};
+
 /** Bỏ các field nút mà style hiện tại KHÔNG render. */
 export function cmsFieldsForStyle(
   componentType: string,
@@ -97,10 +107,18 @@ export function cmsFieldsForStyle(
   fields: readonly string[],
 ): string[] {
   const supported = CMS_STYLE_CTA_FIELDS[`${componentType}:${styleVariant}`] ?? [];
-  return fields.filter((f) => !CMS_CTA_FIELD_KEYS.has(f) || supported.includes(f));
+  const override = CMS_STYLE_FIELD_OVERRIDES[`${componentType}:${styleVariant}`];
+  const omitted = new Set(override?.omit ?? []);
+  const filtered = fields.filter(
+    (field) =>
+      !omitted.has(field) &&
+      (!CMS_CTA_FIELD_KEYS.has(field) || supported.includes(field)),
+  );
+  return [...new Set([...filtered, ...(override?.append ?? [])])];
 }
 
 export const CMS_EDITOR_FIELD_LABELS: Record<string, string> = {
+  photos: 'Bộ ảnh',
   anchorId: 'Mã neo liên kết',
   eyebrow: 'Nhãn nhỏ phía trên',
   subtitle: 'Phụ đề',
